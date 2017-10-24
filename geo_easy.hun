@@ -1,0 +1,911 @@
+#-------------------------------------------------------------------------------
+#
+#	-- GeoEasy üzenet fájl
+#
+#-------------------------------------------------------------------------------
+global fileTypes saveTypes projTypes trTypes tr1Types tr2Types \
+	tinTypes polyTypes \
+	vrmlTypes kmlTypes xmlTypes grdTypes txpTypes
+global geoCodes
+global geoEasyMsg
+
+# regression types
+global reglist
+set reglist {"Egyenes x változik" "Egyenes y változik" \
+	"Egyenes y és x változik" "Kör" "Sík z változik" \
+	"Sík y,x és z változik" "Vízszintes sík" "Függõleges sík" \
+	"Gömb" "3D egyenes"} ;# "Függõleges paraboloid"
+
+set fileTypes {
+	{"GeoEasy formátum" {.geo .GEO}}
+	{"Geodimeter formátum" {.job .are .JOB .ARE}}
+	{"Sokkia set 4 formátum" {.set .scr .SET .SCR}}
+	{"Sokkia sdr formátum" {.sdr .crd .SDR .CRD}}
+	{"Leica GSI formátum" {.wld .gre .gsi .WLD .GRE .GSI}}
+	{"Leica IDEX formátum" {.idx .IDX}}
+	{"TopCon GTS-700 formátum" {.700 .yxz .gts7 .YXZ .GTS7}}
+	{"TopCon GTS-210 formátum" {.210}}
+	{"Trimble M5 formátum" {.m5 .M5}}
+	{"SurvCE RAW formátum" {.rw5 .RW5}}
+	{"n4ce szöveg formátum" {.n4c .N4C}}
+	{"Nikon DTM-300 formátum" {.nik .NIK}}
+	{"Geodat 124 formátum" {.gdt .GDT}}
+	{"GeoProfi formátum" {.mjk .MJK}}
+	{"GeoProfi koordináták" {.eov .szt .her .hkr .hdr .EOV .SZT. .HER .HKR .HDR}}
+	{"GeoCalc3 formátum" {.gmj .GMJ}}
+	{"GeoZseni formátum" {.gjk .GJK}}
+	{"Koordinátajegyzék" {.txt .csv .dat .pnt .TXT .CSV .DAT .PNT}}
+	{"Mérési jegyzõkönyv" {.dmp .DMP}}
+	{"DTM GRID fájl" {.asc .arx .ASC .ARX}}
+	{"AutoCAD DXF fájl" {.dxf .DXF}}
+	{"Minden fájl" {.*}}
+}
+
+set saveTypes {
+	{"GeoEasy formátum" {.geo}}
+	{"Geodimeter koordináták" {.are}}
+	{"Geodimeter mérések és koordináták" {.job}}
+	{"Sokkia set 4 koordináták" {.scr}}
+	{"Sokkia sdr33 koordináták" {.sdr}}
+	{"Leica koordináták 8 byte" {.wld}}
+	{"Leica koordináták 16 byte" {.gsi}}
+	{"Nikon DTM-300 koordináták" {.nik}}
+	{"Mérési jegyzõkönyv" {.dmp}}
+	{"Koordinátajegyzék" {.csv}}
+	{"ITR 2.x koordinátajegyzék" {.itr}}
+	{"GPS Trackmaker" {.txt}}
+	{"GPS XML" {.gpx}}
+}
+
+set xmlTypes {
+	{"GNU GaMa xml 2D kiegyenlítéshez" {.g2d}}
+	{"GNU GaMa xml 1D kiegyenlítéshez" {.g1d}}
+	{"GNU GaMa xml 3D kiegyenlítéshez" {.g3d}}
+}
+
+set projTypes {{"GeoEasy projekt" {.gpr}}
+}
+
+set trTypes {{"ITR Helmert/affin transzformáció" {.prm}}
+}
+
+set tr2Types {{"TRAFO transzformáció" {.all}}
+}
+
+set tr1Types {{"ITR Helmert/affin transzformáció" {.prm}}
+	{"TRAFO transzformáció" {.all}}
+}
+
+set tinTypes {{"GeoEasy dtm" {.dtm}}
+}
+
+set polyTypes {{"GeoEasy dtm forrás fájl" {.poly}}
+}
+
+set vrmlTypes {{"Virtuális valóság fájl" {.wrl}}
+}
+
+set kmlTypes {{"Keyhole Markup Language fájl" {.kml}}
+}
+
+set grdTypes {{"ESRI ASCII GRID" {.asc}}
+	{"GRASS ASCII GRID" {.arx}}
+}
+
+set txpTypes {{"Txt/csv fájl definíció .txp" {.txp}}
+}
+
+#
+#	a geo állományban használt kódok
+#
+set geoCodes(-1)	"Kihagy"
+set geoCodes(0)		"Megjegyzés"
+set geoCodes(1)		"Data used in  INFO/DATA combination"
+set geoCodes(2)		"Álláspont száma"
+set geoCodes(3)		"Mûszer magasság"
+set geoCodes(4)		"Pont kód"
+set geoCodes(5)		"Pontszám"
+set geoCodes(6)		"Jelmagasság"
+set geoCodes(7)		"Irányérték"
+set geoCodes(8)		"Zenit szög"
+set geoCodes(9)		"Ferde távolság"
+set geoCodes(10)	"Mag. kül. trigmag" ;#"Függõleges távolság"
+set geoCodes(120)	"Mag. kül. szintezés"
+set geoCodes(11)	"Vízszintes távolság"
+set geoCodes(12)	"Felszín"
+set geoCodes(13)	"Térfogat"
+set geoCodes(14)	"Emelkedõ %"
+set geoCodes(15)	"Area file"
+set geoCodes(16)	"C1-C2"
+set geoCodes(17)	"Irányérték II"
+set geoCodes(18)	"Zenitszög II"
+set geoCodes(19)	"dV"
+set geoCodes(20)	"Prizma állandó"
+set geoCodes(21)	"Tájékozó irány"
+set geoCodes(22)	"Kompenzátor"
+set geoCodes(23)	"Egységek"
+set geoCodes(24)	"Irányérték I"
+set geoCodes(25)	"Zenitszög I"
+set geoCodes(26)	"SVA"
+set geoCodes(27)	"SHA"
+set geoCodes(28)	"SHD"
+set geoCodes(29)	"SHT"
+set geoCodes(30)	"Atmoszferikus korrekció PPM"
+set geoCodes(37)	"X"
+set geoCodes(38)	"Y"
+set geoCodes(39)	"Z"
+set geoCodes(40)	"dX"
+set geoCodes(41)	"dY"
+set geoCodes(42)	"dZ"
+set geoCodes(43)	"UTMSC"
+set geoCodes(44)	"Slope inclination"
+set geoCodes(45)	"dHA"
+set geoCodes(46)	"Szórás"
+set geoCodes(47)	"Rel. north coord."
+set geoCodes(48)	"Rel. east coord."
+set geoCodes(49)	"Függõleges távolság"
+set geoCodes(50)	"Munka szám"
+set geoCodes(51)	"Dátum"
+set geoCodes(52)	"Idõ"
+set geoCodes(53)	"Észlelõ"
+set geoCodes(54)	"Projekt id"
+set geoCodes(55)	"Mûszer"
+set geoCodes(56)	"Hõmérséklet"
+set geoCodes(57)	"Blank line"
+set geoCodes(58)	"Föld sugár"
+set geoCodes(59)	"Refrakció"
+set geoCodes(60)	"Shot identity"
+set geoCodes(61)	"Activity code"
+set geoCodes(62)	"Tájékozó pont"
+set geoCodes(63)	"Átmérõ"
+set geoCodes(64)	"Sugár"
+set geoCodes(65)	"Geometry"
+set geoCodes(66)	"Figure"
+set geoCodes(67)	"SON"
+set geoCodes(68)	"SOE"
+set geoCodes(69)	"SHT"
+set geoCodes(72)	"Radoffs"
+set geoCodes(73)	"Rt.offs"
+set geoCodes(74)	"Légnyomás"
+set geoCodes(75)	"dHT"
+set geoCodes(76)	"dHD"
+set geoCodes(77)	"dHA"
+set geoCodes(78)	"com"
+set geoCodes(79)	"END"
+set geoCodes(80)	"Section"
+set geoCodes(81)	"A-parameter"
+set geoCodes(82)	"Section interval"
+set geoCodes(83)	"Cl.ofs"
+set geoCodes(100)	"Tájékozási szög"
+set geoCodes(101)	"Középtájékozási szög"
+set geoCodes(102)	"Elõzetes táj. szög"
+set geoCodes(103)	"Elõzetes közép táj szög"
+set geoCodes(110)	"Észlelõ"
+set geoCodes(111)	"Rendûség"
+set geoCodes(112)	"Ismétlés"
+set geoCodes(114)	"Irány/zenit középhiba \[\"\]"
+set geoCodes(115)	"Táv középhiba összeadó \[mm\]"
+set geoCodes(116)	"Táv középhiba szorzó \[mm/km\]"
+set geoCodes(117)	"Végméret"
+set geoCodes(118)	"Szintezés középhiba \[mm/km\]"
+set geoCodes(137)	"Elõzetes X"
+set geoCodes(138)	"Elõzetes Y"
+set geoCodes(139)	"Elõzetes Z"
+#
+#	általános üzenetek és nyomógomb nevek
+#
+set geoEasyMsg(warning)		"figyelmeztetés"
+set geoEasyMsg(ready)		"Kész"
+set geoEasyMsg(error)		"Hiba"
+set geoEasyMsg(info)		"info"
+set geoEasyMsg(ok)			"OK"
+set geoEasyMsg(yes)			"Igen"
+set geoEasyMsg(no)			"Nem"
+set geoEasyMsg(cancel)		"Mégsem"
+set geoEasyMsg(loadbut)		"Betölt"
+set geoEasyMsg(savebut)		"Ment"
+set geoEasyMsg(all)			"Mind"
+set geoEasyMsg(ende)		"Vége"
+set geoEasyMsg(ignore)		"Ne üzenj"
+set geoEasyMsg(exit)		"Kilép"
+set geoEasyMsg(wait)		"Várjon"
+set geoEasyMsg(cont)		"Folytatás"
+set geoEasyMsg(help)		"Súgó"
+set geoEasyMsg(find)		"Keres"
+set geoEasyMsg(findNext)	"Következõ"
+set geoEasyMsg(delete)		"Töröl"
+set geoEasyMsg(add)			"Hozzáad"
+set geoEasyMsg(newObs)		"Új mérés"
+set geoEasyMsg(newSt)		"Új álláspont"
+set geoEasyMsg(insSt)		"Álláspont rekord beszúrás"
+set geoEasyMsg(delSt)		"Álláspont rekord törlés"
+set geoEasyMsg(newCoo)		"Új pont"
+set geoEasyMsg(finalCoo)	"Elõzetes koordináták véglegesítése"
+set geoEasyMsg(newRec)		"Új rekord"
+set geoEasyMsg(lastPoint)	"Végpont"
+set geoEasyMsg(browse)		"Tallóz ..."
+set geoEasyMsg(up)			"Fel"
+set geoEasyMsg(down)		"Le"
+set geoEasyMsg(opensource)	"Szabad szoftver GPL 2"
+#
+#	labels
+#
+set geoEasyMsg(pattern)		"Minta:"
+#
+#	menu and title texts
+#
+set geoEasyMsg(maskTitle)		"Válassz maszkot"
+set geoEasyMsg(graphTitle)		"Grafikus ablak"
+set geoEasyMsg(helpTitle)		"GeoEasy súgó" 
+set geoEasyMsg(lbTitle)			"Válassz %d elemet"
+set geoEasyMsg(lbTitle1)		"Válassz legalább %d elemet"
+set geoEasyMsg(lbTitle2)		"Válassz ismeretleneket"
+set geoEasyMsg(lbTitle3)		"Válassz %d pontraállást"
+set geoEasyMsg(lbTitle4)		"Válassz koordinátát "
+set geoEasyMsg(lbReg)			"Regresszió típus"
+set geoEasyMsg(fontTitle)		"Válassz fontot "
+set geoEasyMsg(refTitle)		"Referencia irány"
+set geoEasyMsg(soTitle)			"Kitûzendõ pontok"
+set geoEasyMsg(l1Title)			"Elsõ egyenes"
+set geoEasyMsg(l2Title)			"Második egyenes"
+set geoEasyMsg(p1Title)			"Elsõ pont"
+set geoEasyMsg(p2Title)			"Második pont"
+set geoEasyMsg(menuFile)		"Fájl"
+set geoEasyMsg(menuFileNew)		"Új ..."
+set geoEasyMsg(menuFileLoad)	"Betölt ..."
+set geoEasyMsg(menuFileLogLoad)	"Eredmény fájl beolvasása"
+set geoEasyMsg(menuFileLogClear)	"Eredmény fájl tartalmának törlése"
+set geoEasyMsg(menuFileUnload)	"Lezár"
+set geoEasyMsg(menuFileSave)	"Ment"
+set geoEasyMsg(menuFileSaveAll)	"Mindent ment"
+set geoEasyMsg(menuFileSaveAs)	"Ment másként ..."
+set geoEasyMsg(menuFileJoin)	"Egyesít ..."
+set geoEasyMsg(menuFileExport)	"GNU Gama export ..."
+set geoEasyMsg(menuProjLoad)	"Projektet betölt ..."
+set geoEasyMsg(menuProjSave)	"Projektet ment ..."
+set geoEasyMsg(menuProjClose)	"Projektet lezár"
+set geoEasyMsg(menuComEasy)	"ComEasy ..."
+set geoEasyMsg(menuFileStat)	"Statisztika ..."
+set geoEasyMsg(menuFileCParam)	"Számítási paraméterek ..."
+set geoEasyMsg(menuFileGamaParam)	"Kiegyenlítési paraméterek ..."
+set geoEasyMsg(menuFileColor)	"Színek ..."
+set geoEasyMsg(menuFileOParam)	"Egyéb paraméterek ..."
+set geoEasyMsg(menuFileSaveP)	"Paraméterek mentése"
+#set geoEasyMsg(menuFileExpLic)	"Licenc átvitel ..."
+set geoEasyMsg(menuFileSaveSelection)	"Szelekciót ment ..."
+set geoEasyMsg(menuFilePrint)	"Nyomtat ..."
+set geoEasyMsg(menuFilePrintSelection)	"Szelekciót nyomtat ..."
+set geoEasyMsg(menuFilePageSetup)	"Oldal beállítás ..."
+set geoEasyMsg(menuFileFontSetup)	"Font beállítás ..."
+set geoEasyMsg(menuFileFind)	"Keres"
+set geoEasyMsg(menuFileClear)	"Tartalom törlése"
+set geoEasyMsg(menuFileExit)	"Vége"
+set geoEasyMsg(menuEdit)		"Módosít"
+set geoEasyMsg(menuEditGeo)		"Mérések"
+set geoEasyMsg(menuEditCoo)		"Koordináták"
+set geoEasyMsg(menuEditPar)		"Észlelési adatok"
+set geoEasyMsg(menuEditMask)	"Maszk definíciók betöltése ..."
+set geoEasyMsg(menuHelpAbout)	"Névjegy ..."
+set geoEasyMsg(menuPopupBD)		"Irányszög/Távolság"
+set geoEasyMsg(menuPopupAngle)	"Kitûzés"
+set geoEasyMsg(menuPopupOri)	"Tájékozás"
+set geoEasyMsg(menuPopupAppOri)	"Elõzetes tájékozás"
+set geoEasyMsg(menuPopupPol)	"Poláris pont"
+set geoEasyMsg(menuPopupSec)	"Elõmetszés"
+set geoEasyMsg(menuPopupRes)	"Hátrametszés"
+set geoEasyMsg(menuPopupArc)	"Ívmetszés"
+set geoEasyMsg(menuPopupTra)	"Sokszögelés"
+set geoEasyMsg(menuPopupAdj)	"Kiegyenlítés"
+set geoEasyMsg(menuPopupEle)	"Magasság"
+set geoEasyMsg(menuPopupDetail)	"Részletpontok"
+set geoEasyMsg(menuPopupInf)	"Info"
+set geoEasyMsg(menuPopupAdj3D)	"3D-s kiegyenlítés"
+set geoEasyMsg(menuPopupAdj2D)	"Vízszintes kiegyenlítés"
+set geoEasyMsg(menuPopupAdj1D)	"Magassági kiegyenlítés"
+set geoEasyMsg(menuGraph)		"Ablakok"
+set geoEasyMsg(menuGraNew)		"Új grafikus ablak"
+set geoEasyMsg(menuLogNew)		"Eredmény ablak"
+set geoEasyMsg(menuWin)			"Nyitott ablakok"
+set geoEasyMsg(menuRefreshAll)	"Minden ablak frissítése"
+set geoEasyMsg(menuResize)		"Sorok száma ..."
+set geoEasyMsg(menuMask)		"Maszk ..."
+set geoEasyMsg(menuGraCom)		"Parancsok"
+set geoEasyMsg(menuGraRefresh)	"Frissít"
+set geoEasyMsg(menuGraFind)		"Pontszámra keres ..."
+set geoEasyMsg(menuGraPn)		"Pontszámok"
+set geoEasyMsg(menuGraObs)		"Mérések"
+set geoEasyMsg(menuGraDet)		"Részletpontok"
+set geoEasyMsg(menuGraUsed)		"Csak a mért pontok"
+set geoEasyMsg(menuGraLines)	"Vonalak"
+set geoEasyMsg(menuGraZoomAll)	"Mindent megmutat"
+set geoEasyMsg(menuGraDXF)		"DXF output ..."
+set geoEasyMsg(menuGraClose)	"Lezár"
+set geoEasyMsg(menuGraCal)		"Számítások"
+set geoEasyMsg(menuCalTra)		"Sokszögelés"
+set geoEasyMsg(menuCalTraNode)	"Sokszögelési csomópont"
+set geoEasyMsg(menuCalTrig)		"Magassági vonal"
+set geoEasyMsg(menuCalTrigNode)	"Magassági csomópont"
+set geoEasyMsg(menuCalPre)		"Elõzetes koordináták"
+set geoEasyMsg(menuRecalcPre)	"Elõzetes koordináták újraszámítása"
+set geoEasyMsg(menuCalDet)		"Új részletpontok"
+set geoEasyMsg(menuCalDetAll)	"Minden részletpont"
+set geoEasyMsg(menuCalOri)		"Tájékozások"
+set geoEasyMsg(menuCalAppOri)	"Elõzetes tájékozások"
+set geoEasyMsg(menuCalDelOri)		"Tájékozások törlése ..."
+set geoEasyMsg(menuCalAdj)		"Hálózat kiegyenlítés"
+set geoEasyMsg(menuCalAdj3D)	"3D-s hálózat kiegyenlítés"
+set geoEasyMsg(menuCalAdj2D)	"Vízszintes hálózat kiegyenlítés"
+set geoEasyMsg(menuCalAdj1D)	"Magassági hálózat kiegyenlítés"
+set geoEasyMsg(menuCalMEle)		"Magasságok"
+set geoEasyMsg(menuCalMAdj)		"Egypontos kiegyenlítések"
+set geoEasyMsg(menuCalTran)		"Koordináta transzformáció"
+set geoEasyMsg(menuCalLine)		"Két egyenes metszése"
+set geoEasyMsg(menuCalPntLine)	"Vonalpont"
+set geoEasyMsg(menuCalArea)		"Terület"
+set geoEasyMsg(menuCalLength)	"Hossz"
+set geoEasyMsg(menuCalArc)		"Ív kitûzés"
+set geoEasyMsg(menuCalFront)	"Homlokzatmérés"
+set geoEasyMsg(menuPopupRef)	"Hivatkozások"
+set geoEasyMsg(menuCoord)		"Koordinátajegyzék"
+set geoEasyMsg(menuObs)			"Mérési jegyzõkönyv"
+set geoEasyMsg(menuCheckObs)	"Mérési jegyzõkönyv ellenõrzés"
+set geoEasyMsg(menuCheckCoord)	"Koordinátajegyzék ellenõrzés"
+set geoEasyMsg(menuSaveCsv)	"Mentés CSV formátumba"
+set geoEasyMsg(menuSaveHtml)	"Mentés HTML formátumba"
+set geoEasyMsg(menuSaveRtf)		"Mentés RTF formátumba"
+set geoEasyMsg(menuCooTr)		"Transzformálás ..."
+set geoEasyMsg(menuCooTrFile)	"Transzformálás, paraméterek fájlból"
+set geoEasyMsg(menuCooDif)		"Koordináta változások"
+set geoEasyMsg(menuCooDelAppr)	"Elõzetes koordináták törlése"
+set geoEasyMsg(menuCooDel)		"Minden koordináta törlése"
+set geoEasyMsg(menuCooDelDetail)	"Minden részletpont koordináta törlése"
+set geoEasyMsg(menuPntDel)		"Minden pont törlése"
+# regression
+set geoEasyMsg(menuReg)			"Regresszió számítás"
+set geoEasyMsg(menuRegLDist)		"Távolság az egyenestõl"
+set geoEasyMsg(menuRegPDist)		"Távolság a síktól"
+# dtm/tin
+set geoEasyMsg(menuDtm)			"DTM"
+set geoEasyMsg(menuDtmCreate)		"Létrehoz ..."
+set geoEasyMsg(menuDtmLoad)		"Betölt ..."
+set geoEasyMsg(menuDtmAdd)		"Hozzáad ..."
+set geoEasyMsg(menuDtmUnload)		"Lezár"
+set geoEasyMsg(menuDtmSave)		"Ment"
+set geoEasyMsg(menuDtmInterp)		"Metszet ..."
+set geoEasyMsg(menuDtmContour)		"Szintvonal ..."
+set geoEasyMsg(menuDtmVolume)		"Térfogat ..."
+set geoEasyMsg(menuDtmVolumeDif)	"Térfogat különbség ..."
+set geoEasyMsg(menuDtmVrml)		"VRML export ..."
+set geoEasyMsg(menuDtmKml)		"KML export ..."
+set geoEasyMsg(menuDtmGrid)		"ASCII grid export ..."
+set geoEasyMsg(menuLandXML)		"LandXML export ..."
+#
+#	Errors and warnings
+#
+set geoEasyMsg(-1)	"Adat fájl nyitási hiba"
+set geoEasyMsg(-2)	"Geo adatbázis már betöltve"
+set geoEasyMsg(-3)	"Hiba a geo állomány létrehozásában"
+set geoEasyMsg(-4)	"Hiba a koordináta állomány létrehozásában"
+set geoEasyMsg(-5)	"Hiba az adat fájlban, sor:"
+set geoEasyMsg(-6)	"Hiba a geo állomány megnyitásában"
+set geoEasyMsg(-7)	"Hiba a koordináta állomány megnyitásában"
+set geoEasyMsg(-8)	"Nincs betöltött geo állomány"
+set geoEasyMsg(-9)	"Hiba az koordináta állományban, sor:"
+set geoEasyMsg(-10) "Hiba a projekt fájlban sor:"
+set geoEasyMsg(-11)	"Hiba a par állomány létrehozásában"
+set geoEasyMsg(1)	"Nincs mérés a betöltött állományban"
+set geoEasyMsg(2)	"Nincs koordináta a betöltött állományban"
+set geoEasyMsg(skipped)	"Ismeretlen rekord, átugrottam sor/elem: "
+set geoEasyMsg(overw) "Ilyen nevu fájl már létezik, felulirhatom?"
+set geoEasyMsg(loaded) "A már betöltött koordináta állománnyal dolgozom."
+
+set geoEasyMsg(gizidll)	"Telepítési hiba, kód=1"
+set geoEasyMsg(regdll)	"Telepítési hiba, kód=3"
+set geoEasyMsg(lock)	"A hardverkulcsot nem találom,\n tegye be a hardverkulcsot és nyomja meg a folytatás gombot."
+set geoEasyMsg(lockversion)	"A hardverkulcs a GeoEasy egy korábbi verziójához tartozik, DEMO mód indításához távolítsa el a hardverkulcsot."
+set geoEasyMsg(internal)	"Belsõ hiba"
+set geoEasyMsg(helpfile)	"A súgó fájlt nem találom"
+set geoEasyMsg(browser)		"A súgót megjelenítõ programot nem sikerült elindítani.\nEllenõrizze a html fájlok megjelenítésére regisztrált programot"
+set geoEasyMsg(rtfview)		"A megjelenítõ programot nem sikerült elindítani."
+set geoEasyMsg(filetype)	"Ismeretlen fájl vagy fájl típus"
+set geoEasyMsg(saveext)		"Adja meg a megfelelõ kiterjesztést a fájlnév után"
+set geoEasyMsg(noGeo)		"Nincs betöltött geo állomány"
+set geoEasyMsg(noStation)	"Nincs álláspont rekord a mérés fájl elején" 
+set geoEasyMsg(saveit)		"Kimentsem az állományt?"
+set geoEasyMsg(image)		"Nem találom a képet: "
+set geoEasyMsg(geocode)		"Ismeretlen kód a maszk definícióban: %s"
+set geoEasyMsg(nomask)		"Nincs betöltött maszk"
+set geoEasyMsg(wrongmask)	"Hiba a maszk definícióban: %s"
+set geoEasyMsg(openit)		"Megnyissam az eredmény fájlt?"
+set geoEasyMsg(wrongval)	"Hibás érték"
+set geoEasyMsg(mustfill)	"Kötelezõen kitöltendõ érték, ha törölni akarja a sort, használja a törlés funkciót"
+set geoEasyMsg(stndel)		"Biztos, hogy töröli a teljes álláspontot?"
+set geoEasyMsg(recdel)		"Biztos, hogy töröli a sort?"
+set geoEasyMsg(cantfill)	"Ebben a sorban nem adhat meg ilyen típusú értéket!"
+set geoEasyMsg(noOri)		"Nincs tájékozó irány vagy koordináta a pontra"
+set geoEasyMsg(noOri1)		"Nincs tájékozás a pontra"
+set geoEasyMsg(noOri2)		"Nem számítható a tájékozás a ponton"
+set geoEasyMsg(cantOri)		"Nem lehet tájékozni egy ponton sem"
+set geoEasyMsg(readyOri)	"Minden ponton van már tájékozás, újra számítsam a tájékozásokat?"
+set geoEasyMsg(samePnt)		"Az álláspont és az irányzott pont koordinátája megegyezik!"
+set geoEasyMsg(noStn)		"Ez nem álláspont"
+set geoEasyMsg(noSec)		"Nincs elég külsõ irány az elõmetszéshez vagy a tájékozás hiányzik"
+set geoEasyMsg(noRes)		"Nincs elég belsõ irány a hátrametszéshez"
+set geoEasyMsg(noArc)		"Nincs elég távolság az ívmetszéshez"
+set geoEasyMsg(noPol)		"Nincs elég mérés a poláris ponthoz"
+set geoEasyMsg(noAdj)		"Nincs elõzetes koordináta vagy elég mérés a kiegyenlítéshez vagy nincs tájékozás a ponton"
+set geoEasyMsg(pure)		"Túl nagy tisztatag %s-%s %s %s\n iterációra lehet szükség"
+set geoEasyMsg(noCoo)		"Nem tudok koordinátát számítani"
+set geoEasyMsg(noAppCoo)	"Nincs koordináta a pont(ok)ra"
+set geoEasyMsg(noConvert)	"Nem EOV koordináta"
+set geoEasyMsg(missCoo)		"Nincs elõzetes koordináta a pontra: "
+set geoEasyMsg(noAppZ)		"Nincs magasság a pontokra"
+set geoEasyMsg(cantSave)	"Nem sikerült a fájl mentése"
+set geoEasyMsg(fewCoord)	"Nincs elég koordinátás pont a számításhoz"
+set geoEasyMsg(pointsDropped)	"Nincs koordináta a pontokhoz: "
+set geoEasyMsg(delappr)		"Elõzetes koordináták törlése?"
+set geoEasyMsg(delcoo)		"Minden koordináta törlése?"
+set geoEasyMsg(delpnt)		"Minden pont törlése?"
+set geoEasyMsg(deldetailpnt)		"Minden részletpont koordináta törlése?"
+set geoEasyMsg(delori)		"Minden tájékozás törlése?"
+set geoEasyMsg(nodetail)	"Nincs számítandó részletpont"
+
+set geoEasyMsg(usedPn)		"Már használt pontszám"
+set geoEasyMsg(noEle)		"Nincs elég adat a magasság számításhoz"
+set geoEasyMsg(wrongsel)	"Nem megengedett kiválasztás"
+set geoEasyMsg(wrongsel1)	"Pontosan %d elemet kell kiválasztani"
+set geoEasyMsg(wrongsel2)	"Legalább %d elemet kell kiválasztani"
+set geoEasyMsg(nst)			"Pontraállások száma:"
+set geoEasyMsg(ndist)		"Távmérések száma:"
+set geoEasyMsg(next)		"Külsõ irányok száma:"
+#set geoEasyMsg(double)		"A betöltött állományokban már használt pontszám"
+set geoEasyMsg(double)		"Dupla koordináta"
+set geoEasyMsg(dblPn)		"Duplán szereplõ pontszám/koordináta"
+set geoEasyMsg(nonNumPn)	"Kihagyott, nem numerikus pontszámok:"
+set geoEasyMsg(units)		"Csak méter és DMS mértékegységek használhatók"
+set geoEasyMsg(nomore)		"Nincs több találat"
+set geoEasyMsg(tajErr)		"Hibahatárt meghaladó irányeltérés, "
+set geoEasyMsg(printing)	"Nyomtatás nem lehetséges"
+set geoEasyMsg(finalize)	"Elõzetes koordináták véglegesítése?"
+set geoEasyMsg(logDelete)	"Törli az eredmény fájl tartalmát?"
+set geoEasyMsg(cancelled)	"A mûveletet megszakították."
+set geoEasyMsg(dist)		"Távolság számítás"
+set geoEasyMsg(area)		"Terület számítás"
+set geoEasyMsg(sum)			"Szumma"
+set geoEasyMsg(sum1)		"Terület"
+set geoEasyMsg(endp)		"Végpont?"
+set geoEasyMsg(maxGr)		"Csak 10 grafikus ablak lehet nyitva!"
+set geoEasyMsg(orist)		"Nincs elég ismert (y, x, z), tájékozott álláspont"
+
+set geoEasyMsg(linreg)		"Nem számítható a pontokra kiegyenlítõ egyenes"
+set geoEasyMsg(planreg)		"Nem számítható a pontokra kiegyenlítõ sík"
+
+set geoEasyMsg(check)		"Jegyzõkönyv ellenõrzés"
+set geoEasyMsg(missing)		"Hiányzó kötelezõ érték %s a(z) %s sorában"
+set geoEasyMsg(together)	"Hiányzó érték %s a(z) %s sorban"
+set geoEasyMsg(notTogether)	"Egymást kizáró értékek %s a(z) %s sorában"
+set geoEasyMsg(stationpn)	"Álláspont és irányzott pont egyezik %s a(z) %s sorában"
+set geoEasyMsg(missingstation)	"Álláspont hiányzik a(z) %s sor elõtt"
+set geoEasyMsg(doublepn)	"Ismétlõdõ pontszám az állásponton belül %s a(z) %s sorában"
+set geoEasyMsg(numError)	"%d hiba"
+set geoEasyMsg(csvwarning)  "Már programokba betöltendõ koordinátákhoz használja inkább a 'Mentés másként'-t a fõ ablakból Akarja folytatni?"
+
+set geoEasyMsg(tinfailed)	"A DTM létrehozása nem sikerült"
+set geoEasyMsg(tinload)		"A DTM betoltese nem sikerült"
+set geoEasyMsg(fewmassp)	"Kevés pont a DTM létrehozásához"
+set geoEasyMsg(delbreakline) "Törésvonal törlés?"
+set geoEasyMsg(delhole)		"Marker törlés?"
+set geoEasyMsg(deldtmpnt)	"DTM pont törlés?"
+set geoEasyMsg(deldtmtri)	"DTM háromszög törlés?"
+set geoEasyMsg(errsavedtm)	"Hiba a DTM mentése közben"
+
+set geoEasyMsg(stat)		"Statisztika a betöltött %d állományról\nPontok száma: %d\nAlappontok száma: %d\nRészletpontok száma: %d\nÁlláspontok száma: %d\nMeghatározott álláspontok száma: %d\nPontraállások száma: %d\nTájékozott pontraállások száma: %d\n"
+# gama
+set geoEasyMsg(gamapar)		"Kiegyenlítés paraméterei"
+set geoEasyMsg(gamaconf)	"Konfidencia szint (0-1)"
+set geoEasyMsg(gamaangles)	"Szögegység"
+set geoEasyMsg(gamatol)		"Tolerancia \[mm\]"
+set geoEasyMsg(gamadirlimit)	"Távolság limit \[m\]"
+set geoEasyMsg(gamashortout)	"Rövid eredmény lista"
+set geoEasyMsg(gamasvgout)	"SVG hiba ellipszisek"
+set geoEasyMsg(gamanull)	"Nincs szöveges eredmény fájl"
+set geoEasyMsg(gamanull1)	"Nincs xml eredmény fájl"
+set geoEasyMsg(gamaori)		"Probléma a tájékozási szög tárolásánál"
+set geoEasyMsg(gamastdhead0)	"Súlyegység középhiba"
+set geoEasyMsg(gamastdhead1)	"  m0  apriori    :"
+set geoEasyMsg(gamastdhead2)	"  m0' aposteriori:"
+set geoEasyMsg(gamastdhead3)	"% intervallum"
+set geoEasyMsg(gamastdhead4)	"tartalmazza az m0'/m0 értéket"
+set geoEasyMsg(gamastdhead5)	"nem tartalmazza az m0'/m0 értéket"
+set geoEasyMsg(gamacoohead0)	"Koordináták"
+set geoEasyMsg(gamacoohead1)	"Pontszám       Y        X       Z"
+set geoEasyMsg(gamaobshead0)	"Mérések"
+set geoEasyMsg(gamaobshead1)	"Álláspont  Irányzott    Kiegy. m  Javítás   Szórás"
+#
+#	tooltip uzenetek
+#
+set geoEasyMsg(toolZoomin)	"Nagyítás ablakkal vagy ponttal"
+set geoEasyMsg(toolZoomout)	"Kicsinyítés ponttal"
+set geoEasyMsg(toolPan)		"Eltolás"
+set geoEasyMsg(toolRuler)	"Hosszmérés a pontok között"
+set geoEasyMsg(toolArea)	"Területmérés a pontok között"
+set geoEasyMsg(toolSp)		"Sokszögvonal pontok megadása"
+set geoEasyMsg(toolReg)		"Pontok megadása regresszió számításhoz"
+set geoEasyMsg(toolZdtm)	"Magasság interpoláció"
+set geoEasyMsg(toolBreak)	"Törésvonal/idomvonal bevitele"
+set geoEasyMsg(toolHole)	"Zárt idom kihagyása a modellbõl"
+set geoEasyMsg(toolXchgtri)	"Háromszögek cseréje"
+#
+# dxf output/input
+#
+set geoEasyMsg(dxfpar)		"DXF export paraméterek"
+set geoEasyMsg(dxfinpar)	"DXF import paraméterek"
+set geoEasyMsg(layer1)		"Pont réteg neve"
+set geoEasyMsg(block)		"Blokkokból"
+set geoEasyMsg(layerb)		"Pont blokk neve"
+set geoEasyMsg(attrib)		"Pontszám attribútum"
+set geoEasyMsg(attrcode)	"Pontkód attribútum"
+set geoEasyMsg(attrelev)	"Magasság attribútum"
+set geoEasyMsg(pcode)		"Pontkód rétegnévbe"
+set geoEasyMsg(xzplane)		"yz síkban"
+set geoEasyMsg(useblock)	"Blokkokkal"
+set geoEasyMsg(pcode1)		"Pontkód a rétegnévbõl"
+set geoEasyMsg(dxfpnt)		"Pont elemekbõl"
+set geoEasyMsg(3d)			"3D"
+set geoEasyMsg(addlines)	"Vonalak"
+set geoEasyMsg(pd)		"Csak a részletpontok"
+set geoEasyMsg(ptext)		"Pontszám feliratokból"
+set geoEasyMsg(layer2)		"Réteg neve"
+set geoEasyMsg(layer3)		"Réteg neve"
+set geoEasyMsg(ssize)		"Szimbólum méret"
+set geoEasyMsg(pnon)		"Pontszám feliratok"
+set geoEasyMsg(dxpn)		"X eltolás"
+set geoEasyMsg(dypn)		"Y eltolás"
+set geoEasyMsg(pzon)		"Magasság feliratok"
+set geoEasyMsg(dxz)			"X eltolás"
+set geoEasyMsg(dyz)			"Y eltolás"
+set geoEasyMsg(zdec)		"Tizedesek"
+set geoEasyMsg(spn)			"Felirat méret"
+set geoEasyMsg(sz)			"Felirat méret"
+set geoEasyMsg(layerlist)	"Réteg lista ..."
+set geoEasyMsg(blocklist)	"Blokk lista ..."
+set geoEasyMsg(attrlist)	"Attr. lista ..."
+#
+#	txt oszlopok
+#
+set geoEasyMsg(txtcols)		"Oszlopok a fájlban"
+
+#
+#	paraméterek
+#
+set geoEasyMsg(parTitle)	"Számítási paraméterek"
+set geoEasyMsg(projred)		"Vetületi redukció \[mm/km\]:"
+set geoEasyMsg(avgh)		"Átlagos tengerszint feletti magasság \[m\]:"
+set geoEasyMsg(stdangle)	"Irány/zenit középhiba \[\"\]:"
+set geoEasyMsg(stddist1)	"Táv. középhiba \[mm\]:"
+set geoEasyMsg(stddist2)	"Táv. középhiba \[mm/km\]:"
+set geoEasyMsg(stdlevel)	"Szintezési középhiba \[mm/km\]:"
+set geoEasyMsg(refr)		"Refrakció és földgörbület figyelembevétele"
+set geoEasyMsg(dec)		"Tizedesek száma az eredményekben:"
+#
+# szinek dialog
+#
+set geoEasyMsg(colTitle)	"Szín beállítások"
+set geoEasyMsg(mask)		"Maszk ablak"
+set geoEasyMsg(mask1Color)	"1. szín a maszk ablakban:"
+set geoEasyMsg(mask2Color)	"2. szín a maszk ablakban:"
+set geoEasyMsg(mask3Color)	"3. szín a maszk ablakban:"
+set geoEasyMsg(mask4Color)	"4. szín a maszk ablakban:"
+set geoEasyMsg(mask5Color)	"5. szín a maszk ablakban:"
+set geoEasyMsg(obsColor)	"Mérés szín:"
+set geoEasyMsg(lineColor)	"Vonal szín:"
+set geoEasyMsg(finalColor)	"Végleges koordináta:"
+set geoEasyMsg(apprColor)	"Elõzetes koordináta:"
+set geoEasyMsg(nostationColor)	"Pont szín:"
+set geoEasyMsg(stationColor) "Álláspont szín:"
+set geoEasyMsg(orientColor)	"Tájékozott szín:"
+#
+#	egyéb paraméterek dialóg
+#
+set geoEasyMsg(oparTitle)	"Egyéb beállítások"
+set geoEasyMsg(lcoosep)		"Elválasztó az exportált kj. fájlban:"
+set geoEasyMsg(ltxtsep)		"Elválasztó az importált kj. fájlban:"
+set geoEasyMsg(lmultisep)	"Szomszédos elválasztók összevonása"
+set geoEasyMsg(lautor)		"Ablakok tartalmának automatikus frissítése"
+set geoEasyMsg(llang)		"Nyelv:"
+set geoEasyMsg(loldsel)		"2.04 elõtti szelektálási stílus"
+set geoEasyMsg(loridetail)	"Részletpontok a tájékozásba és kiegyenlítésbe"
+set geoEasyMsg(lbrowser)	"Böngészõ program:"
+set geoEasyMsg(lrtfview)	"Rtf megjelenítõ program:"
+set geoEasyMsg(defaultgeomask) "Alapértelmezett jegyzökönyv maszk:"
+set geoEasyMsg(defaultcoomask) "Alapértelmezett koordinátajegyzék maszk:"
+set geoEasyMsg(maskrows)	"Sorok száma a maszkokban:"
+set geoEasyMsg(langChange)	"Mentse el a paramétereket és indítsa újra a programot a nyelv megváltoztatásához"
+set geoEasyMsg(lheader)		"Fejléc sorok száma:"
+set geoEasyMsg(lfilter)		"Szûrõ feltétel (regexp):"
+#
+#	tin parameterek dialog
+#
+set geoEasyMsg(tinpar)		"DTM létrehozás"
+set geoEasyMsg(gepoints)	"Koordinátajegyzékek pontjaiból"
+set geoEasyMsg(dxffile)		"DXF fájlból"
+set geoEasyMsg(dxfpoint)	"Kótált pontok réteg:"
+set geoEasyMsg(dxfbreak)	"Törésvonalak réteg:"
+set geoEasyMsg(dxfhole)		"Maszkok réteg:"
+set geoEasyMsg(asciifile)	"ASCII fájlból"
+set geoEasyMsg(horiz)		"Vízszintes háromszögek elkerülése"
+set geoEasyMsg(convex)		"Konvex körvonal"
+#
+#	szintvonal parameterek
+#
+set geoEasyMsg(contourpar)	"Szintvonal generálás"
+set geoEasyMsg(contourTin)	"DTM:"
+set geoEasyMsg(contourInterval)	"Szintvonalköz:"
+set geoEasyMsg(contourDxf)	"DXF fájl készítés"
+set geoEasyMsg(contourLayer)	"Réteg nevek magasság alapján"
+set geoEasyMsg(contour3Dface)	"3D lapok a DXF-be"
+set geoEasyMsg(contourIntErr)	"Hibás szintvonalköz vagy DTM"
+#
+#	terfogat szamitas dialog
+#
+set geoEasyMsg(volumepar)	"Térfogatszámítás"
+set geoEasyMsg(volumeLevel)	"Alapszint:"
+set geoEasyMsg(volumeErr)	"Hibás alapszint vagy DTM"
+
+# Orthogonal transformation dialog
+set geoEasyMsg(trpar)		"Transzformációs paraméterek"
+set geoEasyMsg(trdy)		"Eltolás Y:"
+set geoEasyMsg(trdx)		"Eltolás X:"
+set geoEasyMsg(trrot)		"Forgatás (DMS):"
+set geoEasyMsg(trscale)		"Méretarány szorzó yx:"
+set geoEasyMsg(trdz)		"Eltolás Z:"
+set geoEasyMsg(trscalez)	"Méretarány szorzó z:"
+set geoEasyMsg(allparnum)	"A paraméterek száma a fájlban több mint 21"
+
+# point filter dialog
+set geoEasyMsg(filterpar)	"Pont szurés"
+set geoEasyMsg(allpoints)	"Minden pont"
+set geoEasyMsg(pointno)		"Pontszámra"
+set geoEasyMsg(pointrect)	"Téglalapra"
+set geoEasyMsg(pointcode)	"Pontkódra"
+
+# observation parameters
+set geoEasyMsg(parmask)		"paraméterek"
+
+set geoEasyMsg(horizDia)	"Új pontok, új tájékozások:"
+set geoEasyMsg(oriDia)		"Új tájékozások:"
+set geoEasyMsg(elevDia)		"Új pontok:"
+set geoEasyMsg(adjDia)		"Mérések, ismeretlen pontok: "
+set geoEasyMsg(adjModule)	"A hálózat kiegyenlítõ modulhoz a gama-local program szükséges, telepítse a használathoz!"
+set geoEasyMsg(dtmModule)	"A DTM modulhoz a triangle program szükséges, telepítse a használathoz!"
+
+set geoEasyMsg(travTitle)	"Sokszögelés"
+set geoEasyMsg(travLine)	"vonal"
+set geoEasyMsg(trigLineToo)	"Magassági vonal számítás is?"
+set geoEasyMsg(trigNodeToo)	"Magassági csomópont számítás is?"
+set geoEasyMsg(noTra)		"Kevés pont a sokszögeléshez"
+set geoEasyMsg(noTraCoo)	"Nincs koordináta a kezdõpontra"
+set geoEasyMsg(startTra)	"Elsõ pont"
+set geoEasyMsg(nextTra)		"Következõ pont"
+set geoEasyMsg(numTra)		"Csomópont pontszáma:"
+set geoEasyMsg(nodeTra)		"Csomópont"
+set geoEasyMsg(freeTra)		"Nincs koordináta a végpontra\nSzabad sokszögvonal"
+set geoEasyMsg(firstTra)	"Nincs tájékozás az elsõ ponton\nBeillesztett sokszögvonal"
+set geoEasyMsg(lastTra)     "Nincs tájékozás az utolsó ponton\nEgyszeresen tájékozott sokszögvonal"
+set geoEasyMsg(distTra)		"Nincs távolság a sokszögvonalban"
+set geoEasyMsg(angTra)		"Nincs szög a sokszögvonalban"
+set geoEasyMsg(limTra)		"Szögzáró vagy hossz-záró hiba túl nagy\n tároljam a koordinátákat?"
+set geoEasyMsg(error1Tra)	"Hibahatárok                       szögzáró \"   hossz-záró cm"
+set geoEasyMsg(error2Tra)	"Szabatos fõsokszögvonal        "
+set geoEasyMsg(error3Tra)	"Szabatos melléksokszögvonal    "
+set geoEasyMsg(error4Tra)	"Belterületi fõsokszögvonal     "
+set geoEasyMsg(error5Tra)	"Belterületi melléksokszögvonal "
+set geoEasyMsg(error6Tra)	"Külterületi fõsokszögvonal     "
+set geoEasyMsg(error7Tra)	"Külterületi melléksokszögvonal "
+set geoEasyMsg(travChk)		"Sokszögelés"
+set geoEasyMsg(trigChk)		"Magassági vonal"
+set geoEasyMsg(misTri)      "Hiányzó mérés a magassági vonalban"
+set geoEasyMsg(miszTri)     "Hiányzó magasság a kezdõpontban"
+set geoEasyMsg(freeTri)     "Szabad magassági vonal"
+set geoEasyMsg(dzTri)   	"Nem számítható  magasságkülönbség a magassági vonalban"
+set geoEasyMsg(errorTri)	"Hibahatár: "
+set geoEasyMsg(limTrig)		"Záróhiba túl nagy\n tároljam a magasságokat?"
+#
+# coordinate transformation
+#
+set geoEasyMsg(fromCS)		"Transzformálandó állomány"
+set geoEasyMsg(toCS)		"Cél állomány"
+set geoEasyMsg(fewPoints)	"Kevés pont a transzformáció levezetéséhez"
+set geoEasyMsg(pnttitle)	"Kapcsoló pontok"
+set geoEasyMsg(typetitle)	"Transzformáció típus"
+set geoEasyMsg(typeHelmert4) "Helmert 4 paraméteres transzformáció"
+set geoEasyMsg(typeHelmert3) "Helmert 3 paraméteres transzformáció"
+set geoEasyMsg(typeAffin) 	"Affin transzformáció"
+set geoEasyMsg(typePoly2) 	"2. fokú polinom transzformáció"
+set geoEasyMsg(typePoly3) 	"3. fokú polinom transzformáció"
+set geoEasyMsg(typePoly4) 	"4. fokú polinom transzformáció"
+set geoEasyMsg(typePoly5) 	"5. fokú polinom transzformáció"
+set geoEasyMsg(trSave)	 	"Transzformált koordináták mentése fájlba"
+set geoEasyMsg(parSave)	 	"Transzformáció paraméterek mentése fájlba"
+set geoEasyMsg(formulaH4y) 	"  Y = %s + y * %.9f - x * %.9f"
+set geoEasyMsg(formulaH4x) 	"  X = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaH3y) 	"  Y = %s + y * %.9f - x * %.9f"
+set geoEasyMsg(formulaH3x) 	"  X = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaAfy) 	"  Y = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaAfx) 	"  X = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaPrmy)	"  Y = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaPrmx)	"  X = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaP2) 	"  y' = y - %s    x' = x - %s"
+set geoEasyMsg(formulaP2y) 	"  Y = %s + y' * %.9e + y'^2 * %.9e + x' * %.9e + x'y' * %.9e + x'^2 * %.9e"
+set geoEasyMsg(formulaP2x) 	"  X = %s + y' * %.9e + y'^2 * %.9e + x' * %.9e + x'y' * %.9e + x'^2 * %.9e"
+set geoEasyMsg(formulaP3y) 	"  Y = %s + y' * %.9e + y'^2 * %.9e + y'^3 * %.9e + x' * %.9e + y'x' * %.9e + y'^2x' * %.9e + x'^2 * %.9e + y'x'^2 * %.9e + x'^3 * %.9e"
+set geoEasyMsg(formulaP3x) 	"  X = %s + y' * %.9e + y'^2 * %.9e + y'^3 * %.9e + x' * %.9e + y'x' * %.9e + y'^2x' * %.9e + x'^2 * %.9e + y'x'^2 * %.9e + x'^3 * %.9e"
+set geoEasyMsg(scaleRot) 	"  Méretarány = %.9f Elfordulás = %s"
+#
+# font dialog
+#
+set geoEasyMsg(font)		"Font:"
+set geoEasyMsg(fontSize)	"Méret:"
+#
+# find/replace dialog
+#
+set geoEasyMsg(findpar)		"Keresés" ;#/csere"
+set geoEasyMsg(findWhat)	"Keresett:"
+set geoEasyMsg(replaceWith)	"Cserél:"
+set geoEasyMsg(findMode)	"Szabályos kifejezés"
+#
+# about window messages
+#
+set y [clock format [clock seconds] -format %Y]
+set geoEasyMsg(digikom)		"Szponzor DigiKom Kft."
+set geoEasyMsg(about1)		"Geodéziai számítások"
+set geoEasyMsg(about2)		"Minden földmérõnek"
+set geoEasyMsg(modules)		"Modulok:"
+#
+# text window headers
+#
+set geoEasyMsg(logWin)      "Számítási eredmények"
+set geoEasyMsg(lstWin)      "lista"
+#
+#	headers for fixed forms (traversing, adjustment etc)
+#
+set geoEasyMsg(tra1)		"Beillesztett"
+set geoEasyMsg(tra2)		"Egyik végén tájékozott"
+set geoEasyMsg(tra3)		"Mindkét végén tájékozott"
+set geoEasyMsg(tra4)		"Szabad"
+#
+# text window headers
+#
+set geoEasyMsg(logWin)		"Számítási eredmények"
+set geoEasyMsg(lstWin)		"lista"
+#
+# resize mask
+#
+set geoEasyMsg(rowCount)	"Sorok száma:"
+set geoEasyMsg(resize)		"Ablak méret"
+#
+# log uzenetek
+#
+set geoEasyMsg(start)		"GeoEasy elindult"
+set geoEasyMsg(stop)		"GeoEasy leállt"
+set geoEasyMsg(load)		"adatok betöltve"
+set geoEasyMsg(save)		"adatok mentve"
+set geoEasyMsg(saveas)		"adatok mentése más néven:"
+set geoEasyMsg(unload)		"adatok lezárva"
+set geoEasyMsg(psave)		"projekt mentve"
+set geoEasyMsg(pload)		"projekt betöltve"
+#
+set geoEasyMsg(faces)		"Két távcsõállás "
+set geoEasyMsg(face2)		"Álláspont  Kollimáció     Index Távolság Jelmag."
+set geoEasyMsg(face3)		"Irányzott      hiba        hiba  eltérés eltérés"
+set geoEasyMsg(noface2)		"Duplán mért pont, vagy túl nagy eltérés a két távcsõállás között %s"
+set geoEasyMsg(msgsave)		"Paramétereket mentettem a geo_easy.msk fájlba\na korábbi paramétereket a geo_easy.msk.bak fájlba mentettem."
+#
+#	headers for fixed forms (traversing, adjustment etc)
+#
+set geoEasyMsg(tra1)		"Beillesztett"
+set geoEasyMsg(tra2)		"Egyik végén tájékozott"
+set geoEasyMsg(tra3)		"Mindkét végén tájékozott"
+set geoEasyMsg(head1Tra)	"           Irányszög   Táv.vissz"
+set geoEasyMsg(head2Tra)	"Pontszám   Törésszög   Távolság  (dY)     (dX)       dY         dX"
+set geoEasyMsg(head3Tra)	"           Javítás     Táv. oda   Javítások           Y          X"
+
+set geoEasyMsg(blunderAdj)	"Durva hiba "
+set geoEasyMsg(head1Adj)	"Álláspont  Pontszám     Mérés        Javítás  Kiegyenlített"
+set geoEasyMsg(m0Adj)		"Súlyegység középhiba: %8.4f    Fölös mérések száma: %d"
+set geoEasyMsg(head2Adj)	"Pontszám   Pontkód         Y      dY   szórás Y     X      dX   szórás X"
+
+set geoEasyMsg(head1Trig)	"                       Magasság különbségek"
+set geoEasyMsg(head2Trig)	"Pontszám   Távolság    Oda     Vissza    Átlag  Javítás Magasság"
+set geoEasyMsg(head1Sec)	"Pontszám   Pontkód             Y            X     Irányszög"
+set geoEasyMsg(head1Res)	"Pontszám   Pontkód             Y            X     Irányérték    Szög"
+set geoEasyMsg(head1Arc)	"Pontszám   Pontkód             Y            X      Távolság"
+set geoEasyMsg(head1Pol)	"Pontszám   Pontkód             Y            X    Távolság/M    Irányszög"
+set geoEasyMsg(head1Pnt)	"Pontszám   Pontkód             Y            X    Távolság      Teljes táv"
+set geoEasyMsg(head1Ele)	"Pontszám   Pontkód            Z        Távolság"
+set geoEasyMsg(head1Det)	"                                                                         Tájékozott Vízszintes"
+set geoEasyMsg(head2Det)	"Pontszám   Pontkód             Y            X            M   Álláspont   irányérték távolság"
+set geoEasyMsg(head1Ori)	"Pontszám   Pontkód     Irányérték   Irányszög    Táj.szög   Távolság   e\" e\"max   E(m)"
+set geoEasyMsg(head1Dis)	"Pontszám   Pontszám   Irányszög Távolság Ferde táv Zenit sz."
+set geoEasyMsg(head1Angle)	"Pontszám   Irányszög Távolság Törésszög 0-ra forg.     Absz.         Ord."
+# transformation
+set geoEasyMsg(head1Tran)	"Pontszám           y            x            Y            X           dY           dX         dt"
+set geoEasyMsg(head2Tran)	"Pontszám           y            x            Y            X            z            Z"
+set geoEasyMsg(headTraNode)	"Pontszám     Hossz          y            x"
+set geoEasyMsg(headTrigNode)	"Pontszám     Hossz          z"
+set geoEasyMsg(headDist)	"Pontszám           y            x         Hossz"
+# front measurement
+set geoEasyMsg(head1Front)	"Pontszám   Pontkód             Y            X            dy          dx           Z            dZ"
+#
+# regression
+#
+set geoEasyMsg(cantSolve)		"Nem tudom megoldani a feladatot"
+set geoEasyMsg(head0LinRegX)	"x = %+.8f * y %s"
+set geoEasyMsg(head0LinRegY)	"y = %+.8f * x %s"
+set geoEasyMsg(hAngleReg)		"y tengellyel bezárt szög:"
+set geoEasyMsg(vAngleReg)		"x tengellyel bezárt szög:"
+set geoEasyMsg(correlation)		"Korrelációs együttható:"
+set geoEasyMsg(head1LinRegX)	"Pontszám           y            x            dx"
+set geoEasyMsg(head1LinRegY)	"Pontszám           y            x            dy"
+set geoEasyMsg(head2LinReg)		"Pontszám           y            x            dy           dx           dt"
+set geoEasyMsg(head0PlaneReg)	"z = %s %+.8f * y %+.8f * x"
+set geoEasyMsg(head00PlaneReg)	"Lejtõ irány: %s  Lejtõ szög: %s"
+set geoEasyMsg(head1PlaneReg)	"Pontszám           y            x            z           dz"
+set geoEasyMsg(head0CircleReg)	"Y0 = %s X0 = %s R = %s"
+set geoEasyMsg(head1CircleReg)	"Pontszám           y            x            dy           dx           dr"
+set geoEasyMsg(head2CircleReg)  "%d iteráció után még %.4f m-nél nagyobb változások"
+set geoEasyMsg(head0HPlaneReg)	"z = %s"
+set geoEasyMsg(head0LDistReg)	"Távolságok a %s - %s egyenestõl"
+set geoEasyMsg(head1LDistReg)	"Pontszám           y            x        távolság         dy           dx"
+set geoEasyMsg(head0PDistReg)	"Távolságok a %s - %s - %s síktól"
+set geoEasyMsg(head1PDistReg)	"Pontszám           y            x            z        távolság         dy           dx            dz"
+set geoEasyMsg(head0SphereReg)	"Y0 = %s X0 = %s Z0 = %s R = %s"
+set geoEasyMsg(head1SphereReg)	"Pontszám           y            x            z            dy           dx           dz           dr"
+set geoEasyMsg(head0Line3DReg)	"Y = %s %+.8f * t\nX = %s %+.8f * t\nZ = %s %+.8f * t"
+set geoEasyMsg(head1Line3DReg)	"Pontszám           y            x            z            dy           dx           dz           dt"
+#
+# dtm
+#
+set geoEasyMsg(creaDtm)		"Nem sikerült a DTM-t létrehozni"
+set geoEasyMsg(loadDtm)		"Nem sikerült a DTM-t betölteni"
+set geoEasyMsg(regenDtm)	"A betöltött DTM újragenerálása? Ha új DTM-t akar létrehozni zárja le elõbb a betöltött DTM-t."
+set geoEasyMsg(closDtm)		"Elõzõ DTM-t lezárom"
+set geoEasyMsg(saveDtm)		"Elõzõ DTM-t kimentsem?"
+set geoEasyMsg(ZDtm)   		"Magasság: %.2f m"
+set geoEasyMsg(noZDtm)		"Nincs magasság a pontra"
+set geoEasyMsg(zfaclabel)	"Z torzítási tényezõ"
+set geoEasyMsg(headVolume)	"Alapszint    Térfogat      Felette       Alatta      Terület      Felszin"
+set geoEasyMsg(gridtitle)	"ASCII GRID"
+set geoEasyMsg(griddx)		"Rács lépésköz: "
+set geoEasyMsg(griddx1)		"Rács lépésköz: %.2f"
+set geoEasyMsg(llc)			"Bal  alsó  sarok: %.2f %.2f"
+set geoEasyMsg(urc)			"Jobb felsõ sarok: %.2f %.2f"
+set geoEasyMsg(gridvrml)	"VRML export"
+set geoEasyMsg(dtmStat)	"%s DTM\n%d pont\n%d háromszög\n%d toresvonal/határvonal\n%d lyuk\nY minimum: %.2f\nX minimum: %.2f\nZ minimum: %.2f\nY maximum: %.2f\nX maximum %.2f\nZ maximum: %.2f"
+set geoEasyMsg(voldif)	"Bevágás térfogat: %.1f m3 Terület: %.1f m2\nTöltés  térfogat: %.1f m3  Terület: %.1f m2\nAzonos: %.1f m2"
+set geoEasyMsg(interpolateTin) "Interpoláció:"
+set geoEasyMsg(interptitle)	"Metszet"
+set geoEasyMsg(lx) "Y: "
+set geoEasyMsg(ly) "X: "
+#set geoEasyMsg(lz) "Z: "
+set geoEasyMsg(lx1) "Y1: "
+set geoEasyMsg(ly1) "X1: "
+set geoEasyMsg(ldxf) "DXF fájl"
+set geoEasyMsg(lstep) "Lépésköz:"
+# arc setting out
+set geoEasyMsg(cornerTitle) "Ív sarokpont"
+set geoEasyMsg(spTitle) "Bejövõ egyenes"
+set geoEasyMsg(epTitle) "Kimenõ egyenes"
+set geoEasyMsg(arcPar) "Ív paraméterek"
+set geoEasyMsg(arcRadius) "Sugár"
+set geoEasyMsg(arcParam) "Átmeneti ív paraméter"
+set geoEasyMsg(arcStep) "Távolság a részletpontok között \[m\]"
+set geoEasyMsg(arcNum) "vagy a részletpontok száma"
+set geoEasyMsg(arcSave) "Koordinátak mentése"
+set geoEasyMsg(arcPrefix) "Pontszám elõtag"
+set geoEasyMsg(arcT) "Tangens hossz"
+set geoEasyMsg(arcP) "Átmeneti ív paraméter"
+set geoEasyMsg(arcAlpha) "Alfa"
+set geoEasyMsg(arcHeader) "  Pontszám          Y              X"
+#01234567890123456789012345678901234567890123456789012345678901234567890
+#          1         2         3         4         5         6         7

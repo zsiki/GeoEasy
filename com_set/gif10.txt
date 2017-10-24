@@ -1,0 +1,23 @@
+ComEasy - GIF10 kommunikacio beallitasai
+Operacios rendszer: XP, Linux
+GIF10 oldal
+COMM
+  BAUD 9600 4800 2400 1200 300
+  PARITY NONE
+  PROTOC NONE XON/XOFF
+  STOPBIT 1 2
+  ENDMARK CR/LF
+  CONNECTED AS DCE
+
+ComEasy oldal (gif10.com fajl betoltese)
+  Sebesseg 9600 4800 2400 1200 300
+  Paritas n
+  Adatbitek 8
+  Stop bitek 1 2
+  Fajlveg jel !
+  Blokkolas 0
+  Sorvegjelek auto, crlf
+  Puffereles line, none, full
+  Puffermeret 4096
+  Kodlap iso8859-1
+  Inicializalas (semmi)

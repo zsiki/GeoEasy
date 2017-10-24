@@ -1,0 +1,256 @@
+# GUI language
+global geoLang
+set geoLang {hun}
+# code page
+global geoCp
+# set geoCp {cp-1250}
+# automatic window refresh
+global autoRefresh
+set autoRefresh {1}
+# standard deviations, corrections
+global projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
+# projection reduction mm/km
+set projRed {0.0}
+# average elevation above mean see level
+set avgH {0.0}
+# standard deviation for directions
+set stdAngle {3.0}
+# standard deviation for distances stdDist1 + km * stdDist2
+set stdDist1 {3.0}
+# standard deviation for distances stdDist1 + km * stdDist2
+set stdDist2 {3.0}
+# standard deviation for levelling mm/km
+set stdLevel {}
+# refraction korrection 0/1 no/yes
+set refr {0}
+# limit for kollimation and index error
+global maxColl maxIndex
+set maxColl {360}
+set maxIndex {360}
+# separator for exported coordinate lists
+global cooSep
+set cooSep {;}
+# separators for imported coordinate files
+global txtSep multiSep txtFilter header
+# default text file separators
+set txtSep {	;}
+# merge delimiters 0/1 no/yes
+set multiSep {0}
+# regexp to filter input lines
+set txtFilter {}
+# header lines to skip
+set header {0}
+# number of decimals in results/field booksand coordinatelists
+global decimals
+set decimals {3}
+# OBSOLATE
+# selection style pre 2.04
+global oldSel
+set oldSel {0}
+# /OBSOLATE
+# detail points in orientation and adjustment 0/1 no/yes
+global oriDetail
+set oriDetail {0}
+# regexp for detail points
+global detailreg
+set detailreg {^[0-9]+([-/]?([a-zA-Z]|[0-9])+)?$}
+# default data directory
+global lastDir
+set lastDir {.}
+# regression parameters
+global maxIteration epsReg
+# max iteration count
+set maxIteration {5000}
+# tolerance to stop iteration
+set epsReg {0.00005}
+# gama-local parameters (network adjustment)
+global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
+set gamaProg {gama-local}
+# confidence level
+set gamaConf {0.95}
+# 360 - DMS , 400 GRAD
+set gamaAngles {360}
+set gamaTol {1000}
+# distance limit for direction weighting
+set dirLimit {200}
+# long/short result list 0/1
+set gamaShortOut {0}
+# svg error ellipses 0/1
+set gamaSvgOut {0}
+#
+# triangle parameters
+#
+global triangleProg
+set triangleProg {triangle}
+#
+# dxf output parameters
+#
+global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
+    pcodelayer bname battr block ptext xzplane
+set p3d {0}
+set pd {0}
+set pon {1}
+set zon {1}
+set slay {PT}
+set pnlay {PN}
+set zlay {ZN}
+set rp {1.0}
+set dxpn {0.8}
+set dypn {1.0}
+set dxz {0.8}
+set dyz {-1.0}
+set spn {1.8}
+set sz {1.5}
+set zdec {2}
+set pcodelayer {0}
+set xzplane {0}
+# html browser (UNIX)
+global browser
+set browser {}
+# rtf viewer (UNIX)
+global rtfview
+set rtfview {}
+# dxf viewer (UNIX)
+global dxfview
+set dxfview {}
+# kml fill color
+global polyStyle
+set polyStyle {}
+#	mask colors
+global geoMaskColors
+set geoMaskColors {black red blue green cyan}
+# colors in graphic window
+#
+#	geoLineColor - color for lines
+#	geoObsColor - color for observaton lines
+#	geoFinalColor - point id color for fix
+#	geoApprColor  - point id color for approximate
+#	geoStationColor - color for station symbol
+#	geOrientationColor - color for oriented station symbol
+#	geoNostationColor  - color for non station points
+global geoLineColor geoObsColor geoFinalColor geoApprColor geoStationColor geoOrientationColor geoNostationColor
+set geoLineColor {black}
+set geoObsColor {yellow}
+set geoFinalColor {black}
+set geoApprColor {red}
+set geoStationColor {red}
+set geoOrientationColor {green}
+set geoNostationColor {white}
+# default parameters for graphic windows
+#   defaultObservations   1/0 observation lines on/off
+#   defaultDetails        1/0 detail points on/off
+#   defaultPointNumbers   1/0 point id texts on/off
+#   defaultUsedPointsOnly 1/0 observed points only on/off
+#   defaultCodedLines     1/0 point connections from codes
+global defaultObservations defaultDetails defaultPointNumbers defaultUsedPointsOnly defaultCodedLines
+set defaultObservations {1}
+set defaultDetails {1}
+set defaultPointNumbers {1}
+set defaultUsedPointsOnly {0}
+set defaultCodedLines {0}
+# linework set regLineStart to empty string to use simple line mode
+global regLineStart regLineCont regLineEnd regLine
+set regLine {_l$}
+set regLineStart {_st$}
+set regLineCont {_co$}
+set regLineEnd {_en$}
+#
+#	masks for observation display
+#	=============================
+#	a mask consists of two parts geoMask(maskname) és geoMaskParams(maskname)
+#	both parts are obligatory
+#
+#	geoMask(masknev) is a list of:
+#		1st item: "table"
+#		2nd item: integer
+#			 number of rows in table
+#		3rd-nth item: integer code list
+#			between "{" "}" markers code list to be displayed,
+#			if more than one code given, thn the first found will be show
+#			with the corresponding color from geoMaskColors
+#			coordinate codes cannot be used (37 38 39 137 138 139)
+#
+#	geoMasParams(maskname) display parameters for value given in  geoMask
+#			beállítása a 3. - n. paraméterekre vonatkozik a geoMasks(masknev)-ben
+#		1st-nth format definition for the corresponding item from  geoMasks
+#			possible values like  "-", "DMS", "DEC n m" "format %.2f"
+#			"-" show previous value
+#				e.g. it is used for station number in field books
+#			"" string value
+#			"DMS" angle in DMS unit (DDD-MM-SS format)
+#			"DMS1" angle in DMS units (DDD-MM-SS.S format)
+#			"GON" angle in GRAD units (4 decimals)
+#			"DEG" angle in DEG (6 decimals)
+#			"FEET" length/cordinate in foots
+#			"OL" length in fathoms
+#			"FLOAT" real number, numner of decials from global parameter
+#			"INT" integer number
+#		DEC depricated!!!!!!
+#			"DEC n m" width "n", decimals "m"
+#				if m = 0 integer value
+#				if n = 0 width equal to the minimal neccessary value
+#		format depricated!!!!
+#			"format "%n.mt" C like format
+#				a C nyelvben megengedett formátum vezérlők használhatók
+#				e.g. %8.2f real value in 8 char wide field with 2 decimals
+#				    %10s text right aligned in 10 char wide field
+#				    %-10s text left aligned in 10 char wide field
+#
+global maskRows
+# default number of rows in masks
+set maskRows {20}
+global geoMasks geoMaskParams geoMaskDefault
+set geoMaskDefault {tahimeter}
+set geoMasks(tahimeter_kod) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
+set geoMaskParams(tahimeter_code) {"-" "" "" FLOAT DMS DMS FLOAT}
+set geoMasks(orientation) {table 20 2 {62 5} {7 21} {100 101}}
+set geoMaskParams(orientation) {"-" "" DMS1 DMS1}
+set geoMasks(horiz) {table 20 2 {5 62} {7 21} 8 {11 9}}
+set geoMaskParams(horiz) {"-" "" DMS DMS FLOAT}
+set geoMasks(tahimeter_gon) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
+set geoMaskParams(tahimeter_gon) {"-" "" FLOAT GON GON FLOAT}
+set geoMasks(tahimeter_deg) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
+set geoMaskParams(tahimeter_deg) {"-" "" FLOAT DEG DEG FLOAT}
+set geoMasks(tahimeter) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
+set geoMaskParams(tahimeter) {"-" "" FLOAT DMS DMS FLOAT}
+set geoMasks(tahimeter1) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
+set geoMaskParams(tahimeter1) {"-" "" FLOAT DMS1 DMS1 FLOAT}
+set geoMasks(tahimeter_dm) {table 20 2 {5 62} {6 3} {7 21} {10 120} {9 11}}
+set geoMaskParams(tahimeter_dm) {"-" "" FLOAT DMS FLOAT FLOAT}
+set geoMasks(tahimeter_feet) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
+set geoMaskParams(tahimeter_feet) {"-" "" "" FEET DMS DMS FEET}
+set geoMasks(levelling) {table 20 2 {5 62} {10 120} {9 11}}
+set geoMaskParams(levelling) {"-" "" FLOAT FLOAT}
+#
+#	masks for coordinate lists
+#	similiar to field book masks but only
+#	4,5,37,38,39,40,41,42,138,137,139,111 codes are considered
+#	codes:
+#		  5 - point id
+#		 38 - easting
+#		 37 - northing
+#		 39 - magasság
+#		 41 - change in easting (compering to othe coordinate list)
+#        40 - change in northing
+#		 42 - change in elevation
+#		138,
+#		137,
+#		139 - prelimenary coordinates
+#		111 - point order
+#		  4 - point code
+#
+global cooMasks cooMaskParams cooMaskDefault
+set cooMaskDefault {prelim_fix}
+set cooMasks(difference) {table 20 5 4 38 37 39 41 40 42}
+set cooMaskParams(difference) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
+set cooMasks(prelim_fix) {table 20 5 4 {38 138} {37 137} {39 139}}
+set cooMaskParams(prelim_fix) {"" "" FLOAT FLOAT FLOAT}
+set cooMasks(fix) {table 20 5 4 38 37 39}
+set cooMaskParams(fix) {"" "" FLOAT FLOAT FLOAT}
+#
+# mask parameters
+#
+global parMask
+set parMask {51 52 53 55 114 115 116 118 0}
+
+
