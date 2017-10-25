@@ -1,5 +1,5 @@
 # GeoEasy
-surveying calculation, digital terrain models, regression calculation
+surveying calculation, network adjustment, digital terrain models, regression calculation
 
 ## History
 
