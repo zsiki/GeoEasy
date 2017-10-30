@@ -45,13 +45,13 @@ or
 ### Binary release for Windows
 
 Download the installation package the Windows installer (Gizi3Setup.exe) from 
-http://digikom.hu/software/geo_easy.html or http://www.agt.bme.hu/siki/Gizi3Setup.exe, 
+http://digikom.hu/english/geo_easy_e.html or http://www.agt.bme.hu/siki/Gizi3Setup.exe, 
 and start it. It will install 32 and 64 bit versions, too.
 
 ### Binary release for Linux
 
 Download the binary, gzipped 64 bit version (Gizi3Linux.tgz) from 
-http://digikom.hu/software/geo_easy.html or http://www.agt.bme.hu/siki/Gizi3Linux.tgz. 
+http://digikom.hu/english/geo_easy_e.html or http://www.agt.bme.hu/siki/Gizi3Linux.tgz. 
 Use the following commands to install:
 
 ```bash
