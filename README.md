@@ -33,7 +33,7 @@ chmod +x geo_easy.tcl
 To start the program use the following command from the install directory:
 
 ```bash
-wish geoeasy.tcl
+wish geo_easy.tcl
 ```
 
 or
