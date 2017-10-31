@@ -1,6 +1,10 @@
 # GeoEasy
 surveying calculation, network adjustment, digital terrain models, regression calculation
 
+Volunteers are wellcome! Send us error reports, feature requests through the issue tracker. 
+Clone the repository, change the code and send us back a pull request to include your
+enchacement in the core system.
+
 ## History
 
 The beginning of GeoEasy goes back to the late nineties (1997). Before the 3.0 
