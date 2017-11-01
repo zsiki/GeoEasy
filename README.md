@@ -62,7 +62,7 @@ Use the following commands to install:
 mkdir GeoEasy
 cd GeoEasy
 tar xvzf ../Gizi3Linux.tgz
-./Geoeasy
+./GeoEasy
 ```
 
 ## Open source software/packages used
