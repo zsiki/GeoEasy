@@ -1084,7 +1084,7 @@ proc DEG {val {unit "rad"}} {
 	if {$unit == "sec"} {
 		set val [Sec2Rad $val]
 	}
-	return [format "%.6f" [expr {$val * 180.0 / $PI}]]
+	return [format "%.4f" [expr {$val * 180.0 / $PI}]]
 }
 
 #
