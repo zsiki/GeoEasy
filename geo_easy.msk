@@ -180,7 +180,7 @@ set regLineEnd {_en$}
 #			"DMS" angle in DMS unit (DDD-MM-SS format)
 #			"DMS1" angle in DMS units (DDD-MM-SS.S format)
 #			"GON" angle in GRAD units (4 decimals)
-#			"DEG" angle in DEG (6 decimals)
+#			"DEG" angle in DEG (4 decimals)
 #			"FEET" length/cordinate in foots
 #			"OL" length in fathoms
 #			"FLOAT" real number, numner of decials from global parameter
@@ -201,10 +201,10 @@ global maskRows
 set maskRows {20}
 global geoMasks geoMaskParams geoMaskDefault
 set geoMaskDefault {tahimeter}
-set geoMasks(tahimeter_kod) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
+set geoMasks(tahimeter_code) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_code) {"-" "" "" FLOAT DMS DMS FLOAT}
 set geoMasks(orientation) {table 20 2 {62 5} {7 21} {100 101}}
-set geoMaskParams(orientation) {"-" "" DMS1 DMS1}
+set geoMaskParams(orientation) {"-" "" DMS DMS}
 set geoMasks(horiz) {table 20 2 {5 62} {7 21} 8 {11 9}}
 set geoMaskParams(horiz) {"-" "" DMS DMS FLOAT}
 set geoMasks(tahimeter_gon) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
