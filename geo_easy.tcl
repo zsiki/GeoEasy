@@ -75,6 +75,7 @@ proc GeoEasy {top} {
 	set fn [.tmp cget -font]    ;# font for entries
 	destroy .tmp
 
+	# initialize globals
 	set tcl_precision 17		;# use maximal precision
 	set geoLoaded ""
 	set geoLoadedDir ""
@@ -145,7 +146,7 @@ proc GeoEasy {top} {
 			"040E" { set w "hu"}
 			"0409" { set w "en"}
 			"0407" { set w "de"}
-			default { set w "eng"}
+			default { set w "en"}
 		}
 	} else {
 		catch {set w [string tolower $env(LANG)]}
