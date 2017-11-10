@@ -180,7 +180,7 @@ set regLineEnd {_en$}
 #			"DMS" angle in DMS unit (DDD-MM-SS format)
 #			"DMS1" angle in DMS units (DDD-MM-SS.S format)
 #			"GON" angle in GRAD units (4 decimals)
-#			"DEG" angle in DEG (4 decimals)
+#			"DEG" angle in DEG units (4 decimals)
 #			"FEET" length/cordinate in foots
 #			"OL" length in fathoms
 #			"FLOAT" real number, numner of decials from global parameter
