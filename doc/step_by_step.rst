@@ -190,12 +190,13 @@ A weighted average will be calculated for the mean orientation angle, the weight
 are the distances. The calculation results are shown in the *Calculation results*
 window.
 
-.. code::
+```
 	2017.11.26 09:47 - Orientation - 12
 	Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
 	231                     232-53-54   291-04-11    58-10-17   2243.319    0   16    0.010
 	11                      334-20-10    32-30-25    58-10-15   1588.873   -1   19   -0.010
 	Average orientation angle                        58-10-16
+```
 
 The *e\"* column contains the difference from the mean, *e\"(max)* is the
 allowable difference fromthe Hungarian standard, *E(m)* is the linear 
