@@ -18,9 +18,9 @@ If the rotation stopped the software is busy
 .. figure:: images/main_window.png
 	:align: center
 
-	Main windows
+	Main window
 
-And another windows for the calculation results. It has dual function
+Another window is opened for the calculation results. It has dual function
 besides the results it has some logging role.
 
 .. figure:: images/results.png
@@ -68,7 +68,7 @@ The loaded coordinate lists can be opened in a mask window. Select
 **Edit/Coordinates** from the menu of the main window. In a cascading menu
 the name of the loaded datasets popup, in this case only *test1* is visible,
 select it. Coordinate data are displayed in the default mask type.
-Point are ordered in the table by point IDs.
+Points are ordered in the table by point IDs.
 
 .. figure:: images/coordinate.png
 	:align: center
@@ -81,7 +81,9 @@ The color of the values in the column can be different, eastings
 are black, prelimanary eastings are red. Colors can be customized in the 
 **File/Colors...** menu from the main window.
 
-Field values can be edited in the same way as fieldbooks.
+Field values can be edited in the same way as fieldbooks. The default mask for fieldbooks 
+and coordanate lists can be configured in the *geo_easy.msk* file (*geoMaskDefault*
+and *cooMaskDefault* variables)
 
 Graphic window
 --------------
@@ -97,7 +99,7 @@ window or press F11 key to open a new graphic window.
 
 Enlarge the size of the graphic window, drag the corner of the window by the
 mouse and press F3 to zoom to extent. Point symbols, IDs and observations are
-visible in the graphic window. Red circles are stations but not oriented yet.
+visible in the graphic window. Red filled circles are stations but not oriented yet.
 
 Preliminary coordinates
 -----------------------
@@ -112,7 +114,7 @@ Preliminary orientations and elevations are also calculated.
 
 Press F5 button to turn of detail points, having a less crouded view in the 
 graphic window (or **Commands/Detail points** from the menu of the graphic 
-windos).
+window).
 
 .. figure:: images/graphic1.png
 	:align: center
@@ -128,12 +130,12 @@ Calculations
 
 The calculation results are listed in the *Calculation results* window, if
 you closed it, open it **Window/Log window** from the menu of the main window.
-Calculation results are stored in a log file (geo_easy.log in the installation 
+Calculation results are stored in a log file (*geo_easy.log* in the installation 
 directory), so you can review them later.
-There are calculations for a single point and multiple points. Single points
+There are calculations for a single point and multiple points. Single point
 calculations are available from the popup menu, right click on the point in
 the graphic window or coordinate list window or fieldbook window.
-Multi point calculations are available from the *Calculation** of any 
+Multi point calculations are available from the *Calculation** menu of any 
 window.
 
 Whole circle bearing and distance
@@ -161,14 +163,15 @@ The slope distance and the zenith angle are calculated if the elevations of
 the points are known.
 
 ::
-	Note: You can user the right mouse button in the fieldbook or
-	coordinate list window, too. Right click on a row where the point 
-	ID is and select **Calculate** cascading menu. If you select the 
+	Note: You can use the right mouse button in the fieldbook or
+	coordinate list windows, too. Right click on the point 
+	ID and select **Calculate**, a cascading menu appear with the
+	possible calculations for the point. If you select the 
 	menu item with the point number an info box will be displayed about the
 	point.
 
-Orientation on a point
-~~~~~~~~~~~~~~~~~~~~~~
+Orientation on a station
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let's calculate orientation for a station *12*. Click on the point *12* with
 the right mouse button in the graphic window. Select **Orientation** from the
@@ -180,11 +183,11 @@ angle in the first column and point ID in the second.
 
 	Backsight selection
 
-Select both points (231, 11), use Shift and Ctrl keys to select more lines.
+Select both points (231, 11), use Shift or/and Ctrl keys to select more lines.
 If you would like to select all rows, click on the *All* button.
 
-A weighted average will be calculate for the mean orientation angle, the weight
-is the distance. The calculation results are shown in the *Calculation results*
+A weighted average will be calculated for the mean orientation angle, the weights
+are the distances. The calculation results are shown in the *Calculation results*
 window.
 
 ::
