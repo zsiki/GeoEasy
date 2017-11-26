@@ -1,8 +1,8 @@
 GeoEasy Step by Step
 ====================
 
-.. warning::
-	This training material does not extend to the use of the program in every 
+::
+	Warning: This training material does not extend to the use of the program in every 
 	detail, further information can be found in other documentation files.
 
 The installation kit contains a *demodata* directory. In this guide the data
