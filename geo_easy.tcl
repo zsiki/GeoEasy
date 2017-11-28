@@ -54,8 +54,8 @@ proc GeoEasy {top} {
 	global fn
 	global version
 
-	set version 300 ;# title string too !!!!
-	set geoEasyMsg(mainTitle) "GeoEasy 3.0.0" ;# version variable too !!!!
+	set version 301 ;# title string too !!!!
+	set geoEasyMsg(mainTitle) "GeoEasy 3.0.1" ;# version variable too !!!!
 	# check conditions for geo and coo data
 	# each record must have point number
 	set geoMustHave {2 5 62}
@@ -142,14 +142,14 @@ proc GeoEasy {top} {
 	if {$tcl_platform(platform) != "unix"} {
 		set ww ""
 		catch {set ww [registry get HKEY_LOCAL_MACHINE\\SYSTEM\\CONTROLSET001\\control\\nls\\language InstallLanguage]}
-		switch -exact $ww {
+		switch -exact [string toupper $ww] {
 			"040E" { set w "hu"}
 			"0409" { set w "en"}
 			"0407" { set w "de"}
 			default { set w "en"}
 		}
 	} else {
-		catch {set w [string tolower $env(LANG)]}
+		catch {set w [string range [string tolower $env(LANG)] 0 2]}
 	}
 	if {! [info exists geoLang] || \
 		[lsearch -exact {hun eng ger} $geoLang] == -1} {
