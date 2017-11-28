@@ -204,7 +204,7 @@ proc Sokia {fn} {
 				lappend ${fa}_par [list 51 [lindex $buflist 1]]
 			}
 			lappend obuf [list 2 $pn]					;# station name
-			GeoLog1 "$geoCodes(2): $st_pn"
+			GeoLog1 "$geoCodes(2): $pn"
 			lappend obuf [list 3 [lindex $buflist 4]]	;# instrument height
 			lappend obuf [list 56 [lindex $buflist 5]]	;# temperature
 			lappend obuf [list 74 [lindex $buflist 6]]	;# air pressure
@@ -316,8 +316,7 @@ proc Sokia {fn} {
 			AddCoo $fa $pn $x $y $z $pcode
 		}
 		if {[llength $obuf] > 1 || [GetVal 2 $obuf] != ""} {
-#puts $obuf
-			# check numerc values
+			# check numeric values
 			foreach l $obuf {
 				if {[lsearch -exact \
 						{3 6 7 8 9 10 11 21 24 25 26 27 28 29 37 38 39 49} \
@@ -329,7 +328,7 @@ proc Sokia {fn} {
 			set face2 0
 			set pnum [GetVal {5 62} $obuf]
 			if {$pnum == ""} {
-				GeoLog1 [format "%-10s" [string range [GetVal 2 $obuf] 0 9]]
+				#GeoLog1 [format "%-10s" [string range [GetVal 2 $obuf] 0 9]]
 			} else {
 				set li [expr {$lines - 1}]
 				# look for the same point number in this station
