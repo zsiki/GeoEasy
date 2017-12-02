@@ -12,6 +12,10 @@ version it was a propriarety software marketed in Hungary. After twenty
 year long development (with active and less active periods) in 2017 the license
 has been changed to open source.
 
+## Documentation
+
+See doc folder for various reStructuredText files. 
+
 ## Installation
 
 Users can select source or binary releases. Linux, Android and Windows operating
@@ -23,6 +27,7 @@ systems are supported.
 
 Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/).
 Install GNU Gama (https://www.gnu.org/software/gama/)
+Install Triangle (https://github.com/MrPhil/Triangle)
 
 Download the source files from GitHub (github.com/zsiki/GeoEasy) either
 the zip file or clone the repository.
@@ -48,20 +53,20 @@ or
 
 ### Binary release for Windows
 
-Download the installation package the Windows installer (Gizi3Setup.exe) from 
-http://digikom.hu/english/geo_easy_e.html or http://www.agt.bme.hu/siki/Gizi3Setup.exe, 
+Download the latest installation package for Windows from 
+http://digikom.hu/english/geo_easy_e.html
 and start it. It will install 32 and 64 bit versions, too.
 
 ### Binary release for Linux
 
-Download the binary, gzipped 64 bit version (Gizi3Linux.tgz) from 
-http://digikom.hu/english/geo_easy_e.html or http://www.agt.bme.hu/siki/Gizi3Linux.tgz. 
+Download the latest binary, gzipped 64 bit version from 
+http://digikom.hu/english/geo_easy_e.html. 
 Use the following commands to install:
 
 ```bash
 mkdir GeoEasy
 cd GeoEasy
-tar xvzf ../Gizi3Linux.tgz
+tar xvzf ../Gizi3<version>Linux.tgz
 ./GeoEasy
 ```
 
