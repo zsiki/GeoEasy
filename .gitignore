@@ -13,3 +13,4 @@ defaultmask.tcl
 *.svg
 *.exe
 *.g[123]d
+tcldoc
