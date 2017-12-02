@@ -1,11 +1,20 @@
-SOURCES = adjgeo.tcl animate.tcl calcgeo.tcl dxfgeo.tcl sdr.tcl \
-	geodimet.tcl graphgeo.tcl helpgeo.tcl lbgeo.tcl leica.tcl \
-	loadgeo.tcl maskgeo.tcl profigeo.tcl sokkia.tcl travgeo.tcl \
-	transgeo.tcl topcon.tcl nikon.tcl \
-	reggeo.tcl com_easy.tcl dtmgeo.tcl idex.tcl trackmaker.tcl trimble.tcl \
-	survce.tcl xmlgeo.tcl gamaxml.tcl grid.tcl gc3.tcl zsenigeo.tcl wgseov.tcl \
-	arcgeo.tcl
-GE_SOURCES = geo_easy.tcl
+GE_SOURCES = geo_easy.tcl \
+	adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
+	dtmgeo.tcl dxfgeo.tcl gamaxml.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
+	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
+	maskgeo.tcl nikon.tcl profigeo.tcl reggeo.tcl sdr.tcl sokkia.tcl \
+	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
+	xmlgeo.tcl wgseov.tcl zsenigeo.tcl
+CE_SOURCES = com_easy.tcl helpgeo.tcl maincom_easy.tcl
+#
+# tcldoc cannot process gamaxml.tcl, it is removedfrom doc sources :(
+DOC_SOURCES = geo_easy.tcl \
+	adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
+	dtmgeo.tcl dxfgeo.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
+	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
+	maskgeo.tcl nikon.tcl profigeo.tcl reggeo.tcl sdr.tcl sokkia.tcl \
+	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
+	xmlgeo.tcl wgseov.tcl zsenigeo.tcl
 #
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux
 
@@ -21,10 +30,10 @@ GeoEasy64.exe: GeoEasy.tcl
 
 GeoEasy.tcl: source
 	rm -f GeoEasy.tcl
-	tcl_cruncher build_date.tcl ${SOURCES} ${GE_SOURCES} defaultmask.tcl > GeoEasy.tcl
+	tcl_cruncher build_date.tcl ${GE_SOURCES} defaultmask.tcl > GeoEasy.tcl
 	chmod +x GeoEasy.tcl
 
-source: ${GE_SOURCES} ${SOURCES} index.tcl
+source: ${GE_SOURCES} index.tcl
 	rm -f tclIndex
 	echo "#-----------------------------------------------------" > defaultmask.tcl
 	echo "#	-- SetDefaultMsk" >> defaultmask.tcl
@@ -35,7 +44,7 @@ source: ${GE_SOURCES} ${SOURCES} index.tcl
 	echo "}" >> defaultmask.tcl
 	echo global build_date > build_date.tcl
 	echo set build_date `date +%Y.%m.%d.` >> build_date.tcl
-	./index.tcl ${SOURCES} ${GE_SOURCES}
+	./index.tcl ${GE_SOURCES}
 #
 #	serial communication
 #
@@ -46,8 +55,8 @@ ComEasy.exe: ComEasy.tcl
 	../freewrap/linux64/freewrap ComEasy.tcl -w ../freewrap/win32/freewrap.exe -i gizi.ico -forcewrap -o ComEasy.exe
 ComEasy64.exe: ComEasy.tcl
 	../freewrap/linux64/freewrap ComEasy.tcl -w ../freewrap/win64/freewrap.exe -i gizi.ico -forcewrap -o ComEasy64.exe
-ComEasy.tcl: com_easy.tcl helpgeo.tcl maincom_easy.tcl
-	tcl_cruncher com_easy.tcl maincom_easy.tcl helpgeo.tcl > ComEasy.tcl
+ComEasy.tcl: ${CE_SOURCES}
+	tcl_cruncher ${CE_SOURCES} > ComEasy.tcl
 	chmod +x ComEasy.tcl
 
 linux: GeoEasy geo_easy.hun geo_easy.eng geo_easy.msk
@@ -55,18 +64,12 @@ linux: GeoEasy geo_easy.hun geo_easy.eng geo_easy.msk
 	tar cvzf Gizi3Linux.tgz GeoEasy geo_easy.msk geo_easy.eng geo_easy.hun \
 		default.msk bitmaps demodata com_easy.eng com_easy.hun com_set \
 		*.txp gama-local triangle
-doc: ${GE_SOURCES} ${SOURCES}
-	# remove first 3 lines from geo_easy.tcl
-	mv geo_easy.tcl geo_easy.tcl.tmp
-	tail -n +4 geo_easy.tcl.tmp > geo_easy.tcl
+doc: ${DOC_SOURCES}
 	# generate doc
 	/home/siki/tcldoc-0.87/tcldoc.tcl --overview overview.html --force tcldoc \
-		${GE_SOURCES} ${SOURCES}
-	# reset geo_easy.tcl
-	mv geo_easy.tcl.tmp geo_easy.tcl
+		${DOC_SOURCES}
 
 clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
 		ComEasy.tcl ComEasy ComEasy.exe ComEasy64.exe \
 		build_date.tcl defaultmask.tcl
-
