@@ -27,7 +27,6 @@ regsub {^.*<gama-local-adjustment } $xml "<gama-local-adjustment " xml
 
      regsub -all {>\s*<} [string trim $xml " \n\t<>"] "\} \{" xml
      set xml [string map {> "\} \{#text \{" < "\}\} \{"}  $xml]
-#puts $xml
      set res ""   ;# string to collect the result
      set stack {} ;# track open tags
      set rest {}
@@ -58,14 +57,14 @@ regsub {^.*<gama-local-adjustment } $xml "<gama-local-adjustment " xml
      }
      if {[llength $stack]} {error "unresolved: $stack"}
      string map {"\} \}" "\}\}"} [lindex $res 0]
- }
+}
 
 # Now that this went so well, I'll throw in the converse:
 
 #
 #	Convert list to XML
 #	@param list
- proc list2xml list {
+proc list2xml {list} {
     switch -- [llength $list] {
         2 {lindex $list 1}
         3 {
@@ -84,9 +83,4 @@ regsub {^.*<gama-local-adjustment } $xml "<gama-local-adjustment " xml
         }
         default {error "could not parse $list"}
     }
- }
-# now testing:
-#set f [open "../gama-1.8.01/examples/out.xml" r]
-#set test [read $f]
-#puts $test
-#puts [set res [xml2list $test]]
+}
