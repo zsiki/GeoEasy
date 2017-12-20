@@ -1,20 +1,25 @@
-GE_SOURCES = geo_easy.tcl \
-	adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
+# add path to tcl_cruncher if istalled
+TCL_CRUNCHER = tcl_cruncher
+# uncomment next line if no tcl_cruncher installed
+#TCL_CRUNCHER = cat
+#-----------------------------------------------------------------------
+GE_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gamaxml.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
 	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
 	maskgeo.tcl nikon.tcl profigeo.tcl reggeo.tcl sdr.tcl sokkia.tcl \
 	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
-	xmlgeo.tcl wgseov.tcl zsenigeo.tcl
+	xmlgeo.tcl wgseov.tcl zsenigeo.tcl \
+	geo_easy.tcl
 CE_SOURCES = com_easy.tcl helpgeo.tcl maincom_easy.tcl
 #
 # tcldoc cannot process gamaxml.tcl, it is removedfrom doc sources :(
-DOC_SOURCES = geo_easy.tcl \
-	adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
+DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
 	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
 	maskgeo.tcl nikon.tcl profigeo.tcl reggeo.tcl sdr.tcl sokkia.tcl \
 	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
-	xmlgeo.tcl wgseov.tcl zsenigeo.tcl
+	xmlgeo.tcl wgseov.tcl zsenigeo.tcl \
+	geo_easy.tcl
 #
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux
 
@@ -30,7 +35,7 @@ GeoEasy64.exe: GeoEasy.tcl
 
 GeoEasy.tcl: source
 	rm -f GeoEasy.tcl
-	tcl_cruncher build_date.tcl ${GE_SOURCES} defaultmask.tcl > GeoEasy.tcl
+	$(TCL_CRUNCHER) build_date.tcl defaultmask.tcl ${GE_SOURCES} > GeoEasy.tcl
 	chmod +x GeoEasy.tcl
 
 source: ${GE_SOURCES} index.tcl
@@ -72,4 +77,5 @@ doc: ${DOC_SOURCES}
 clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
 		ComEasy.tcl ComEasy ComEasy.exe ComEasy64.exe \
-		build_date.tcl defaultmask.tcl
+		build_date.tcl defaultmask.tcl \
+		eng_[a-z][a-z][a-z].txt ceng_[a-z][a-z][a-z].txt
