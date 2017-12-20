@@ -1,5 +1,5 @@
 tclIndex
-Gizi3Linux.tgz
+Gizi3*Linux.tgz
 gama-local
 triangle
 triangle1.3
@@ -13,4 +13,7 @@ defaultmask.tcl
 *.svg
 *.exe
 *.g[123]d
+*.txp
 tcldoc
+eng_[a-z][a-z][a-z].txt
+ceng_[a-z][a-z][a-z].txt
