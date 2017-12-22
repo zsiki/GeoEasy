@@ -189,6 +189,7 @@ set geoCodes(118)	"Levelling stddev \[mm/km\]"
 set geoCodes(137)	"Northing prelim."
 set geoCodes(138)	"Easting prelim."
 set geoCodes(139)	"Height prelim."
+set geoCodes(140)	"EPSG code"
 #
 #	general messages button names
 #
@@ -892,3 +893,4 @@ set geoEasyMsg(arcT) "Tangent length"
 set geoEasyMsg(arcP) "Transitive arc parameter"
 set geoEasyMsg(arcAlpha) "Alpha"
 set geoEasyMsg(arcHeader) "  Point id          E              N"
+set geoEasyMsg(fromEpsg) "Source projection"

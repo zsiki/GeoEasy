@@ -1570,7 +1570,7 @@ proc CreateKml { } {
 	global tinLoaded
 	global kmlTypes polyStyle
 	global lastDir
-	global geoEasyMsg
+	global geoEasyMsg geoCodes
 	global tcl_platform
 	global reg
 
@@ -1578,7 +1578,11 @@ proc CreateKml { } {
 		# select tin to export
 		set tin $tinLoaded
 		global ${tin}_ele ${tin}_node
-		set zfac [GeoEntry $geoEasyMsg(zfaclabel) $geoEasyMsg(menuDtmVrml) "1"]
+		set from_epsg [GeoEntry $geoCodes(140) $geoEasyMsg(fromEpsg)]
+		if {$from_epsg == ""} {
+			return
+		}
+		set zfac [GeoEntry $geoEasyMsg(zfaclabel) $geoEasyMsg(menuDtmKml) "1"]
 		if {$zfac == ""} {
 			return
 		}
@@ -1600,8 +1604,17 @@ proc CreateKml { } {
 		puts $f "<LineStyle><width>1</width></LineStyle>"
 		puts $f "<PolyStyle><color>$polyStyle</color></PolyStyle>"
 		puts $f "</Style>"
-#		set np [array size ${tin}_node]
-#		set nt [array size ${tin}_ele]
+		# transform nodes to wgs84
+		set coords ""
+		foreach i [array names ${tin}_node] {
+			set node [set ${tin}_node($i)]
+			lappend coords [linsert $node 0 $i $i]
+		}
+		set tr_coords [cs2cs $from_epsg 4326 $coords]
+		foreach tr_coord $tr_coords {
+			set tr_node([lindex $tr_coord 0]) [lrange $tr_coord 2 end]
+		}
+		# create kml file
 		foreach i [array names ${tin}_ele] {
 			puts $f "<Placemark>"
 			puts $f "<name>$i</name>"
@@ -1613,19 +1626,13 @@ proc CreateKml { } {
 			puts $f "<LinearRing>"
 			puts $f "<coordinates>"
 			set triang [set ${tin}_ele($i)]
-			set p1 [set ${tin}_node([lindex $triang 0])]
-			set fi1 [wgsfi [lindex $p1 0] [lindex $p1 1]]
-			set lambda1 [wgslambda [lindex $p1 0] [lindex $p1 1]]
-			puts $f "$lambda1,$fi1,[lindex $p1 2]"
-			set p2 [set ${tin}_node([lindex $triang 1])]
-			set fi2 [wgsfi [lindex $p2 0] [lindex $p2 1]]
-			set lambda2 [wgslambda [lindex $p2 0] [lindex $p2 1]]
-			puts $f "$lambda2,$fi2,[lindex $p2 2]"
-			set p3 [set ${tin}_node([lindex $triang 2])]
-			set fi3 [wgsfi [lindex $p3 0] [lindex $p3 1]]
-			set lambda3 [wgslambda [lindex $p3 0] [lindex $p3 1]]
-			puts $f "$lambda3,$fi3,[lindex $p3 2]"
-			puts $f "$lambda1,$fi1,[lindex $p1 2]"
+			set p1 $tr_node([lindex $triang 0])
+			puts $f [join $p1 ","]
+			set p2 $tr_node([lindex $triang 1])
+			puts $f [join $p2 ","]
+			set p3 $tr_node([lindex $triang 2])
+			puts $f [join $p3 ","]
+			puts $f [join $p1 ","]
 			puts $f "</coordinates>"
 			puts $f "</LinearRing>"
 			puts $f "</outerBoundaryIs>"
