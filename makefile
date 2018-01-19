@@ -12,13 +12,13 @@ GE_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	geo_easy.tcl
 CE_SOURCES = com_easy.tcl helpgeo.tcl maincom_easy.tcl
 #
-# tcldoc cannot process gamaxml.tcl, it is removedfrom doc sources :(
+# tcldoc cannot process gamaxml.tcl, it is removed from doc sources :(
 DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
 	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
 	maskgeo.tcl nikon.tcl profigeo.tcl reggeo.tcl sdr.tcl sokkia.tcl \
 	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
-	xmlgeo.tcl wgseov.tcl zsenigeo.tcl \
+	xmlgeo.tcl zsenigeo.tcl \
 	geo_easy.tcl
 #
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux
