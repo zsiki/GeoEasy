@@ -99,7 +99,7 @@ proc CreateTinDia {win} {
 		-command "sellayer {$geoEasyMsg(layerlist)} dtm_holelayer"
 	radiobutton $this.asciifile -text $geoEasyMsg(asciifile) \
 		-variable dtmsource -value asciifile
-	checkbutton $this.horiz -text $geoEasyMsg(horiz) -variable dtmhoriz
+	#checkbutton $this.horiz -text $geoEasyMsg(horiz) -variable dtmhoriz
 	checkbutton $this.convex -text $geoEasyMsg(convex) -variable dtmconvex
 	button $this.exit -text $geoEasyMsg(ok) \
 		-command "destroy $this; set buttonid 0"
@@ -119,7 +119,7 @@ proc CreateTinDia {win} {
 	grid $this.hlay -row 5 -column 2 -sticky w
 	grid $this.holelayerlist -row 5 -column 3 -sticky w
 #	grid $this.asciifile -row 6 -column 0 -columnspan 3 -sticky w
-	grid $this.horiz -row 7 -column 0 -columnspan 3 -sticky w
+#	grid $this.horiz -row 7 -column 0 -columnspan 3 -sticky w
 	grid $this.convex -row 8 -column 0 -columnspan 3 -sticky w
 	grid $this.exit -row 9 -column 0
 	grid $this.cancel -row 9 -column 1
