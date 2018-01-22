@@ -200,6 +200,7 @@ proc GeoProfiCoo {fn {fmjk ""}} {
 #	Load coordinates from ascii text file
 #	Text file can be separated by characters given in txtSep (geo_easy.msk)
 #	Order of values can be set
+#	If no point number given in input an ordinal number will be generated
 #	@param fn name of txt file
 #	@param ff format file optional
 #	@return 0 on success
@@ -226,11 +227,7 @@ proc TxtCoo {fn {ff ""}} {
 	set tab [format %c 9]	;# TAB char
 	if {$i >= 0} { set txtSep [string replace $txtSep $i [expr {$i + 1}] $tab] }
 
-	set npn [lsearch -exact $codes 5]
-	if {$npn < 0} {
-		# generate point numbers
-#		return -1
-	}
+	set npn [lsearch -exact $codes 5]	;# is point id in input?
 	set src 0				;# input line number
 	set points 0			;# number of points in coord list
 	set nheader $header
@@ -258,7 +255,8 @@ proc TxtCoo {fn {ff ""}} {
 		if {$npn >= 0} {
 			set pn [lindex $buflist $npn]
 		} else {
-			set pn $src
+			set pn [expr $src - $header]
+			lappend obuf [list 5 $pn]	;# add row number as point id
 		}
 		if {[string length $pn] > 0} {
 			# point number given
