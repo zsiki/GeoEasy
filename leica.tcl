@@ -109,7 +109,7 @@ proc Leica {fn {fo ""}} {
 			# check numeric values
 			if {[lsearch -exact {21 22 31 32 33 43 81 82 83 84 85 86 87 88} \
 					$code] != -1 && [regexp $reg(2) $val] == 0} {
-				# patch for smart station conversiona! skip coords with ----
+				# patch for smart station conversion! skip coords with ----
 				if {[lsearch -exact {81 82 83} $code] != -1 && \
 					[regexp -- "\-$" $val]} { continue }
 				close $f1
