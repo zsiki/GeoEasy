@@ -191,6 +191,8 @@ proc GeoMask {maskn fn {type "_geo"}} {
 	}
     $mnu.calculate add command -label $geoEasyMsg(menuCalTran) \
         -command "GeoTran $fn"
+    $mnu.calculate add command -label $geoEasyMsg(menuCalHTran) \
+        -command "GeoHTran $fn"
     $mnu.calculate add separator
     $mnu.calculate add command -label $geoEasyMsg(menuCalDet) \
         -command "GeoDetail 0"

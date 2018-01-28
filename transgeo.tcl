@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#	Calculate transformation coefficient between two coordinate systems.
+#	Calculate transformation coefficient between two horizontal coordinate systems.
 #	One of the loaded data set is he source for the transformation,
 #	The target coordinate system is loaded for the transformation.
 #	@param sourc name of geo data set to transform (optional)
@@ -33,7 +33,7 @@ proc GeoTran {{sourc ""}} {
 		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
 		return
 	}
-	# select sourc geo data set (co-ordinate system) if no parameter
+	# select source geo data set (co-ordinate system) if no parameter
 	if {$sourc == ""} {
 		if {[llength $geoLoaded] == 1} {
 			set sourc [lindex $geoLoaded 0]
@@ -693,4 +693,204 @@ proc Polytrans {sourc destination plist {degree 3}} {
 	}
 	lappend res $avgx $avgy $avgX $avgY
 	return $res
+}
+
+#
+#
+#	Select transformation params
+#	@return -1/0 Cancel/Ok
+proc TranHParam {} {
+	global geoEasyMsg
+	global tranType tranSave parSave
+
+	set w [focus]
+	if {$w == ""} { set w "." }
+	set this .tranhdia
+	if {[winfo exists $this] == 1} {
+		raise $this
+		Beep
+		return
+	}
+
+	if {! [info exists tranType] || $tranType == -1} {set tranType 0}
+	toplevel $this -class Dialog
+	wm title $this $geoEasyMsg(typetitle)
+	wm protocol $this WM_DELETE_WINDOW {global tranType; set tranType -1; destroy $this}
+	wm protocol $this WM_SAVE_YOURSELF {global tranType; set tranType -1; destroy $this}
+	wm transient $this $w
+	catch {wm attribute $this -topmost}
+
+	checkbutton $this.save -text $geoEasyMsg(trSave) \
+		-variable tranSave
+	checkbutton $this.savepar -text $geoEasyMsg(parSave) \
+		-variable parSave
+	button $this.exit -text $geoEasyMsg(ok) -command "destroy $this"
+	button $this.cancel -text $geoEasyMsg(cancel) -command {set tranType -1; destroy $this}
+
+	pack $this.save $this.savepar -side top -anchor w
+	pack $this.exit $this.cancel -side right
+	tkwait visibility $this
+	CenterWnd $this
+	grab set $this
+	tkwait window $this
+	return $tranType
+}
+
+#
+#
+#	Calculate transformation coefficient between two vertical systems.
+#	One of the loaded data set is he source for the transformation,
+#	The target coordinate system is loaded for the transformation.
+#	@param sourc name of geo data set to transform (optional)
+proc GeoHTran {{sourc ""}} {
+	global geoLoaded
+	global geoEasyMsg
+	global fileTypes
+	global lastDir
+	global tranType trHTypes tranSave parSave
+	global decimals
+	
+	if {! [info exists tranSave]} { set tranSave 0 }
+	if {! [info exists parSave]} { set parSave 0 }
+	if {([info exists geoLoaded] == 0) || ([llength $geoLoaded] == 0)} {
+		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
+		return
+	}
+	# select source geo data set (co-ordinate system) if no parameter
+	if {$sourc == ""} {
+		if {[llength $geoLoaded] == 1} {
+			set sourc [lindex $geoLoaded 0]
+		} else { 
+			set sourc [GeoListbox $geoLoaded 0 $geoEasyMsg(fromCS) 1]
+			if {[llength $sourc] != 1} { return }
+		}
+	}
+	# select target geo data set (co-ordinate system)
+	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
+	set targetFile [string trim \
+		[tk_getOpenFile -filetypes $typ -title $geoEasyMsg(toCS) \
+			-initialdir $lastDir]]
+	if {[string length $targetFile] == 0} { return }
+	set lastDir [file dirname $targetFile]
+	set target [GeoSetName $targetFile]
+	if {[lsearch -exact $geoLoaded $target] != -1} {
+		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) warning 0 OK
+		return
+	}
+	# load target geo data set
+	set res [LoadGeo $targetFile]
+	if {$res != 0} {	;# error loading
+		UnloadGeo $target
+		if {$res < 0} {
+			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
+		} else {
+			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
+				warning 0 OK
+		}
+		return
+	}
+	upvar #0 ${sourc}_coo sourceCoo 
+	upvar #0 ${target}_coo targetCoo 
+	# collect common points from the two geo data sets
+	# select common points having elevations
+	set commonPn ""
+	foreach pn [lsort -dictionary [array names sourceCoo]] {
+		if {[info exists targetCoo($pn)] == 1 && \
+			[GetVal {39} $sourceCoo($pn)] != "" && \
+			[GetVal {39} $targetCoo($pn)] != ""} {
+			lappend commonPn $pn
+		}
+	}
+	if {[llength $commonPn] < 1} {
+		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(fewPoints) $res" \
+			warning 0 OK
+	} else {
+		# open dialog to select control points for transformation &
+		# type of transformation
+		set plist [GeoListbox $commonPn 0 $geoEasyMsg(pnttitle) -1]
+		if {[llength $plist] > 0} {
+			set type [TranHParam]
+			if {$type == -1} { return }
+			# calculate corrections & write to log window
+			set sum_src 0		;# sum elevations
+			set sum_dst 0
+			foreach p $plist {
+				set fp $sourceCoo($p)
+				set tp $targetCoo($p)
+				set z [GetVal {39} $fp]
+				set Z [GetVal {39} $tp]
+				set sum_src [expr {$sum_src + $z}]
+				set sum_dst [expr {$sum_dst + $Z}]
+			}
+			GeoLog "$geoEasyMsg(menuCalHTran) $sourc -> $target"
+			GeoLog1
+			GeoLog1 $geoEasyMsg(head1HTran)
+			set agv_src [expr {$sum_src / [llength $plist]}]
+			set agv_dst [expr {$sum_dst / [llength $plist]}]
+			set dz [expr {$agv_dst - $agv_src}]
+			set sl2 0
+			foreach p $plist {
+				set fp $sourceCoo($p)
+				set tp $targetCoo($p)
+				set z [GetVal {39} $fp]
+				set Z [GetVal {39} $tp]
+				set d [expr {$z + $dz - $Z}]
+				GeoLog1 [format "%-10s   %10.${decimals}f   %10.${decimals}f   %10.${decimals}f" [GetVal {5} $fp] $z $Z $d]
+				set sl2 [expr {$sl2 + pow($d, 2)}]
+			}
+			set RMS [expr {sqrt($sl2 / [llength $plist])}]
+			GeoLog1 "RMS= [format %.3f $RMS]"
+
+			# transform other points from source to target
+			GeoLog1
+			GeoLog1 $geoEasyMsg(head2HTran)
+			foreach p [lsort -dictionary [array names sourceCoo]] {
+				if {[lsearch -exact $plist $p] == -1 && \
+					[GetVal {39} $sourceCoo($p)] != "" } {
+					;# not used in transf & has coordinates
+					set fp $sourceCoo($p)
+					set x [GetVal {38} $fp]
+					set y [GetVal {37} $fp]
+					# copy source source north, east if target not set
+					set X ""
+					set Y ""
+					catch {set X [GetVal {38} $targetCoo($pn)]}
+					catch {set Y [GetVal {37} $targetCoo($pn)]}
+					if {$Y == "" && $X == ""} {
+						catch {set X [GetVal {38} $fp]}
+						catch {set Y [GetVal {37} $fp]}
+					}
+					set z [GetVal {39} $fp]
+					set Z [expr {$z + $dz}]
+					GeoLog1 [format "%-10s   %10.${decimals}f   %10.${decimals}f" [GetVal {5} $fp] $z $Z]
+					# save point if not present in target data set
+					if {$tranSave && [lsearch -exact $plist $p] == -1} {
+						AddCoo $target $p $X $Y $Z [GetPCode $p]
+					}
+				}
+			}
+			if {$tranSave} {
+				set res [SaveGeo $target [file rootname $targetFile]]
+				if {$res != 0} {
+					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg($res) \
+						error 0 OK
+				}
+			}
+			if {$parSave} {
+				set fn [tk_getSaveFile -initialdir $lastDir \
+					-filetypes $trHTypes \
+					-title $geoEasyMsg(parSave) \
+					-defaultextension ".vsh"]
+				set f [open $fn "w"]
+				puts $f $dz
+				close $f
+			}
+		}
+	}
+	# unload target geo data set
+	global ${target}_geo ${target}_ref ${target}_coo ${target}_par
+	#remove memory structures
+	foreach a "${target}_geo ${target}_ref ${target}_coo ${target}_par" {
+		catch "unset $a"
+	}
 }
