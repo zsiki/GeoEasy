@@ -193,6 +193,8 @@ proc GeoNewWindow {{win_name ""}} {
 	}
 	$this.menu.calculate add command -label $geoEasyMsg(menuCalTran) \
 		-command "GeoTran"
+	$this.menu.calculate add command -label $geoEasyMsg(menuCalHTran) \
+		-command "GeoHTran"
 	$this.menu.calculate add separator
 	$this.menu.calculate add command -label $geoEasyMsg(menuCalDet) \
 		-command "GeoDetail 0"

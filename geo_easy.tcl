@@ -404,6 +404,8 @@ proc GeoEasy {top} {
 	}
     $topw.menu.calculate add command -label $geoEasyMsg(menuCalTran) \
         -command "GeoTran"
+    $topw.menu.calculate add command -label $geoEasyMsg(menuCalHTran) \
+        -command "GeoHTran"
     $topw.menu.calculate add separator
     $topw.menu.calculate add command -label $geoEasyMsg(menuCalDet) \
         -command "GeoDetail 0"

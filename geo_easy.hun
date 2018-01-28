@@ -3,7 +3,7 @@
 #	-- GeoEasy üzenet fájl
 #
 #-------------------------------------------------------------------------------
-global fileTypes saveTypes projTypes trTypes tr1Types tr2Types \
+global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes \
 	vrmlTypes kmlTypes xmlTypes grdTypes txpTypes
 global geoCodes
@@ -69,11 +69,14 @@ set projTypes {{"GeoEasy projekt" {.gpr}}
 set trTypes {{"ITR Helmert/affin transzformáció" {.prm}}
 }
 
-set tr2Types {{"TRAFO transzformáció" {.all}}
+set trHTypes {{"Magassgieltolás" {.vsh}}
 }
 
 set tr1Types {{"ITR Helmert/affin transzformáció" {.prm}}
 	{"TRAFO transzformáció" {.all}}
+}
+
+set tr2Types {{"TRAFO transzformáció" {.all}}
 }
 
 set tinTypes {{"GeoEasy dtm" {.dtm}}
@@ -332,7 +335,7 @@ set geoEasyMsg(menuCalDet)		"Új részletpontok"
 set geoEasyMsg(menuCalDetAll)	"Minden részletpont"
 set geoEasyMsg(menuCalOri)		"Tájékozások"
 set geoEasyMsg(menuCalAppOri)	"Elõzetes tájékozások"
-set geoEasyMsg(menuCalDelOri)		"Tájékozások törlése ..."
+set geoEasyMsg(menuCalDelOri)	"Tájékozások törlése ..."
 set geoEasyMsg(menuCalAdj)		"Hálózat kiegyenlítés"
 set geoEasyMsg(menuCalAdj3D)	"3D-s hálózat kiegyenlítés"
 set geoEasyMsg(menuCalAdj2D)	"Vízszintes hálózat kiegyenlítés"
@@ -340,6 +343,7 @@ set geoEasyMsg(menuCalAdj1D)	"Magassági hálózat kiegyenlítés"
 set geoEasyMsg(menuCalMEle)		"Magasságok"
 set geoEasyMsg(menuCalMAdj)		"Egypontos kiegyenlítések"
 set geoEasyMsg(menuCalTran)		"Koordináta transzformáció"
+set geoEasyMsg(menuCalHTran)	"Magasság transzformáció"
 set geoEasyMsg(menuCalLine)		"Két egyenes metszése"
 set geoEasyMsg(menuCalPntLine)	"Vonalpont"
 set geoEasyMsg(menuCalArea)		"Terület"
@@ -830,6 +834,8 @@ set geoEasyMsg(head1Angle)	"Pontszám   Irányszög Távolság Törésszög 0-ra forg.  
 # transformation
 set geoEasyMsg(head1Tran)	"Pontszám           y            x            Y            X           dY           dX         dt"
 set geoEasyMsg(head2Tran)	"Pontszám           y            x            Y            X            z            Z"
+set geoEasyMsg(head1HTran)  "Pontszám           z            Z           dZ"
+set geoEasyMsg(head2HTran)  "Pontzám            z            Z"
 set geoEasyMsg(headTraNode)	"Pontszám     Hossz          y            x"
 set geoEasyMsg(headTrigNode)	"Pontszám     Hossz          z"
 set geoEasyMsg(headDist)	"Pontszám           y            x         Hossz"
