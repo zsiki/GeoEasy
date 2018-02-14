@@ -29,14 +29,14 @@ besides the results it has some logging role.
 Loading sample data set
 -----------------------
 
-In the main window select **File/Load...** from the menu. Navigate to the 
-*demodata* folder and select *test1.geo*. A log message appears in the 
+In the main window select **File/Load...** from the menu. Navigate to the
+*demodata* folder and select *test1.geo*. A log message appears in the
 *Calculation results* window, that data have been loaded.
 
 View and edit fieldbooks
 ------------------------
 
-The loaded fieldbooks can be opened in a window. Select 
+The loaded fieldbooks can be opened in a window. Select
 **Edit/Observation** from the menu of the main window. In a cascading menu
 the name of the loaded datasets popup, in this case only *test1* is visible,
 select it. Fieldbook data are displayed in the default mask type.
@@ -47,23 +47,23 @@ select it. Fieldbook data are displayed in the default mask type.
 	Fieldbook data
 
 Data are arranged in a table, a row contains station or observed point data.
-Column header can contain more labels (e.g. Signal height and Instrument 
+Column header can contain more labels (e.g. Signal height and Instrument
 height). The color of the values in the cells can be different, if more
 header lines are present, for example signal heights
-are black, instrument heights are red. Colors can be customized in the 
+are black, instrument heights are red. Colors can be customized in the
 **File/Colors...** menu from the main window.
 
 You can move in the table using the right side scroll bar, up and down arrow
 keys, mouse wheel (Windows only), TAB/PgUp/PgDn/Ctrl-PgUp/Ctrl-PgDn keys.
-You can edit the content of the active field, inside the field 
+You can edit the content of the active field, inside the field
 Home/End/Backspace/Delete/Insert keys can be used. If the edited value is not
-valid (e.g. non-numeric value in the distance field) an error message 
+valid (e.g. non-numeric value in the distance field) an error message
 appear and you can not leave the field until the field value is invalid.
 
 View and edit coordinate lists
 ------------------------------
 
-The loaded coordinate lists can also be opened in a window. Select 
+The loaded coordinate lists can also be opened in a window. Select
 **Edit/Coordinates** from the menu of the main window. In a cascading menu
 the name of the loaded datasets popup, in this case only *test1* is visible,
 select it. Coordinate data are displayed in the default mask type.
@@ -75,20 +75,20 @@ Points are ordered in the table by point IDs.
 	Coordinate data
 
 Data are arranged in a table, a row contains coordinates of a point.
-Column header can contain more labels (e.g. Easting and Easting prelim.) 
+Column header can contain more labels (e.g. Easting and Easting prelim.)
 The color of the values in the cells can be different, eastings
-are black, prelimanary eastings are red. Colors can be customized in the 
+are black, prelimanary eastings are red. Colors can be customized in the
 **File/Colors...** menu from the main window.
 
-Field values can be edited in the same way asi in fieldbooks. 
-The default mask for fieldbooks and coordanate lists can be configured in the 
+Field values can be edited in the same way asi in fieldbooks.
+The default mask for fieldbooks and coordanate lists can be configured in the
 *geo_easy.msk* file (*geoMaskDefault* and *cooMaskDefault* variables)
 
 Graphic window
 --------------
 
 Points having horizontal coordinates from all loaded data sets are displayed in
-graphic window. Select **Window/New graphic window** from the menu of the main 
+graphic window. Select **Window/New graphic window** from the menu of the main
 window or press F11 key to open a new graphic window.
 
 .. figure:: images/graphic.png
@@ -111,8 +111,8 @@ Several points will be added to the graphic window and the
 coordinate list. They have red point IDs to mark  preliminary coordinates.
 Preliminary orientations and elevations are also calculated.
 
-Press F5 button to turn off detail points, having a less crouded view in the 
-graphic window (or **Commands/Detail points** from the menu of the graphic 
+Press F5 button to turn off detail points, having a less crouded view in the
+graphic window (or **Commands/Detail points** from the menu of the graphic
 window).
 
 .. figure:: images/graphic1.png
@@ -126,14 +126,14 @@ Calculations
 ------------
 
 The calculation results are listed in the *Calculation results* window, if
-you have closed it, open it **Window/Log window** from the menu of the main 
-window.  Calculation results are stored in a log file (*geo_easy.log* in the 
+you have closed it, open it **Window/Log window** from the menu of the main
+window.  Calculation results are stored in a log file (*geo_easy.log* in the
 installation directory), so you can review them later.
 There are calculations for a single point and multiple points. Single point
 calculations are available from the popup menu, right click on the point in
-the graphic window or in the row of the point int the coordinate list window 
+the graphic window or in the row of the point int the coordinate list window
 or in the fieldbook window.
-Multi point calculations are available from the *Calculation** menu of any 
+Multi point calculations are available from the *Calculation** menu of any
 window.
 
 Whole circle bearing and distance
@@ -161,12 +161,12 @@ the graphic window.
 The slope distance and the zenith angle are calculated only if the elevations of
 the points are known.
 
-.. note:: 
+.. note::
 
 	You can use the right mouse button in the fieldbook or
-	coordinate list windows, too. Right click on the point 
+	coordinate list windows, too. Right click on the point
 	ID and select **Calculate**, a cascading menu appear with the
-	possible calculations for the point. If you select the 
+	possible calculations for the point. If you select the
 	menu item with the point number an info box will be displayed about the
 	point.
 
@@ -199,20 +199,20 @@ window.
 	Average orientation angle                        58-10-16
 
 The *e\"* column contains the difference from the mean, *e\"(max)* is the
-allowable maximal difference (depending on distance), *E(m)* is the linear 
+allowable maximal difference (depending on distance), *E(m)* is the linear
 difference at the backsight point.
 
 Note that the fill color of the point marker of point *12* became green,
-oriented station. The orientation angles and the mean are stored in the 
+oriented station. The orientation angles and the mean are stored in the
 fieldbook, too. Select the orientation mask from the **Commands/Mask...**
 in the fieldbook window to see them.
 
 Orientation for all points
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can calculate orientations for all station in a single step, select 
-**Calculat/Orientations** from the menu of any window. Results are written to 
-the *Calculation results* window. If the difference from the mean is too large 
+You can calculate orientations for all station in a single step, select
+**Calculat/Orientations** from the menu of any window. Results are written to
+the *Calculation results* window. If the difference from the mean is too large
 a warning is displayed. Three other stations are also oriented.
 
 ::
@@ -248,11 +248,11 @@ a warning is displayed. Three other stations are also oriented.
 Intersection
 ~~~~~~~~~~~~
 
-Let's calculate the coordinates of point *5004* using intersection. Four 
+Let's calculate the coordinates of point *5004* using intersection. Four
 directions were measured from point *11, 12, 231* and *16* to *5004*.
-Stations have to be oriented to be used in intersection. 
+Stations have to be oriented to be used in intersection.
 Right mouse button click on point *5004* in the graphic window and select
-**Intersection** from the popup menu. A list of possible intersection 
+**Intersection** from the popup menu. A list of possible intersection
 directions are displayed in the selection window. The fieldbook name and the
 point numbers are shown in the list (if more fieldbooks are loaded, stations
 from any fieldbook can be used).
@@ -263,7 +263,7 @@ Select two directions *11* and *12* (best intersection angle).
 
 	Intersection point selection
 
-There are two columns in the list window. The first column refers to the 
+There are two columns in the list window. The first column refers to the
 dataset name, the secont column contains point numbers.
 
 .. note::
@@ -279,12 +279,12 @@ dataset name, the secont column contains point numbers.
 	12                       90661.580     1475.280   330-00-58
 	5004                     90246.207     2195.193
 
-Note the color of point number is changed in the graphic window from red to 
+Note the color of point number is changed in the graphic window from red to
 black after calculation done.
 
-.. note:: 
+.. note::
 
-	You can repeat the intersection calculation selecting different 
+	You can repeat the intersection calculation selecting different
 	direction. The last calculated coordinates are stored only
 	in the coordinate list. Previous coordinates will be overwritten.
 
@@ -292,10 +292,10 @@ Resection
 ~~~~~~~~~
 
 Let's calculate the coordinates of point *5003* in demo data set using resection.
-There are six possible directions for resection. Let's find the best 
+There are six possible directions for resection. Let's find the best
 geometry, 120 degree between directions at 5003, in the graphic window.
 Right mouse button click on point *5003* in the graphic window and select
-**Resection** from the popup menu. A list of possible resection 
+**Resection** from the popup menu. A list of possible resection
 directions are displayed in the selection window. The fieldbook name and the
 point numbers are shown in the list.
 
@@ -320,9 +320,9 @@ Point 12, 13 and 14 look optimal.
 	13                       84862.540     3865.360    335-34-21
 	5003                     89398.550     2775.210
 
-.. note:: 
+.. note::
 
-	You can repeat the resection calculation selecting different 
+	You can repeat the resection calculation selecting different
 	direction. The last calculated coordinates are stored only
 	in the coordinate list. Previous coordinates will be overwritten.
 
@@ -332,7 +332,7 @@ Arcsection
 Let's calculate the coordinates of point *5002* using arcsection.
 There are three measured distances from *5002* to *11*, *12* and *16*.
 Right mouse button click on point *5003* in the graphic window and select
-**Arcsection** from the popup menu. A list of possible arcsection 
+**Arcsection** from the popup menu. A list of possible arcsection
 directions are displayed in the selection window. The fieldbook name and the
 point numbers are shown in the list.
 
@@ -363,9 +363,9 @@ Let's use the distance from point 11 and 12.
 	GeoEasy can choose the right solution as this case a third distance.
 	Otherwise theuser have to select from the two possible solutions.
 
-.. note:: 
+.. note::
 
-	You can repeat the arcsection calculation selecting different 
+	You can repeat the arcsection calculation selecting different
 	distances. The last calculated coordinates are stored only
 	in the coordinate list. Previous coordinates will be overwritten.
 
@@ -374,8 +374,8 @@ Elevation calculation
 
 Let's calculate the elvation of point 5003.
 Right mouse button click on point *5003* in the graphic window and select
-**Elevation** from the popup menu. A list of possible elevation 
-calculations are displayed in the selection window. The point name, the 
+**Elevation** from the popup menu. A list of possible elevation
+calculations are displayed in the selection window. The point name, the
 elevation and the distance are shown in the list.
 
 .. figure:: images/elevation.png
@@ -383,7 +383,7 @@ elevation and the distance are shown in the list.
 
 	Elevation point selection
 
-Let's select both rows. The elevation will be calculated as a weighted 
+Let's select both rows. The elevation will be calculated as a weighted
 average. The weight is inverse propotional of the distance square.
 
 ::
@@ -395,16 +395,16 @@ average. The weight is inverse propotional of the distance square.
 
 	5003                      118.425
 
-.. note:: 
+.. note::
 
-	You can repeat the elevation calculation selecting different 
+	You can repeat the elevation calculation selecting different
 	points. The last calculated elevation is stored only
 	in the coordinate list. Previous elevation will be overwritten.
 
 Travese and trigonometric line
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There is a traversing line with three internal points (1_sp, 2_sp, 3_sp) 
+There is a traversing line with three internal points (1_sp, 2_sp, 3_sp)
 between point *5001* and *5002*. Let's use the 6th toolbar icon to specify
 the traversing line. Click on the first point (*5001*) and the three
 internal points using the traversing tool and double click on the last point
@@ -477,7 +477,7 @@ to calculate elevations.
 
 .. note::
 
-	Orientations on all stations were calculated previously. 
+	Orientations on all stations were calculated previously.
 	Orientation have to be calculated before traversing calculation.
 
 	You can start traversing calculation from the **Calculation/Traversing**
@@ -485,6 +485,33 @@ to calculate elevations.
 
 Detail points
 ~~~~~~~~~~~~~
+
+Some polar detail points were measured from the traversing points. Let's
+calculate the coordinates for those points. The fastest way to get the
+coordinates of detail points is to select **Calculation/New detail points** from the menu.
+It will calculate orientation angle automatically if neccessary.
+
+::
+
+	2018.01.28 13:30 - New detail points
+																			 Oriented   Horizontal
+	Point num  Code              E            N              H   Station     direction  distance
+	101                      89817.597     3124.363      125.301 1_sp        221-46-38  168.468
+	102                      89888.171     3112.673      126.819 1_sp        196-52-41  143.505
+	103                      90043.330     3181.366      126.988 1_sp        121-09-42  132.631
+	201                      90257.647     3134.405      124.353 2_sp        181-00-54  133.142
+	202                      90112.941     3206.373      120.740 2_sp        247-25-17  159.272
+	301                      90543.529     2842.469      139.235 3_sp        206-38-02  103.440
+	302                      90467.005     2904.622      137.424 3_sp        256-08-41  126.578
+	303                      90443.170     2958.505      139.836 3_sp        279-07-35  148.611
+
+
+.. note::
+	You can recalculate all detail points after editing the observation data using
+	**Calculate/All detailpoints**, you may need to recalculate orientation, too.
+	You can recalculate station by station, right click in the graphic window on a
+	station and select **Detail points** from the popup menu.
+
 
 Coordinate transformation
 -------------------------
