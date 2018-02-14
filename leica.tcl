@@ -311,7 +311,7 @@ proc Leica {fn {fo ""}} {
 			# remove observations and point number
 			set obuf [DelVal {5 6 7 8 9 10 11} $obuf]
 			lappend obuf [list 2 $st_pn]
-			GeoLog1 "$geoCodes(2): $stpn"
+			GeoLog1 "$geoCodes(2): $st_pn"
 		} elseif {$codeblock == 1 && [string length [GetVal 5 $obuf]] != 0 && \
 				[string length [GetVal 3 $obuf]] != 0} {
 			# remove station heigth if code block present
