@@ -1833,6 +1833,7 @@ proc CalcArea {points} {
 		set points [lrange $points 0 [expr {$n_1 - 1}]]
 	}
 	set n 0
+	set sumd 0
 	GeoLog1
 	GeoLog $geoEasyMsg(area)
 	GeoLog1 $geoEasyMsg(headDist)
@@ -1846,6 +1847,7 @@ proc CalcArea {points} {
 		set y [GetVal {37 137} $xy]
 		if {$n > 0} {
 			set d [Distance $prevx $prevy $x $y]
+			set sumd [expr {$sumd + $d}]
 			GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f" $pn $x $y $d]
 		} else {
 			set x1 $x	;# store first point
@@ -1860,6 +1862,7 @@ proc CalcArea {points} {
 	}
 	# add first point to the end of output list
 	set d [Distance $prevx $prevy $x1 $y1]
+	set sumd [expr {$sumd + $d}]
 	GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f" $pn1 $x1 $y1 $d]
 	
 	set n_1 [expr {$n - 1}]
@@ -1879,7 +1882,8 @@ proc CalcArea {points} {
 	}
 	set area [format "%.5f" [expr {abs($sum / 2.0)}]]
 	GeoLog1
-	GeoLog1 [format "%-10s  %17.5f" $geoEasyMsg(sum1) $area]
+	GeoLog1 [format "%-10s                        %17.5f" $geoEasyMsg(sum1) $area]
+	GeoLog1 [format "%-10s                      %17.${decimals}f" $geoEasyMsg(sum2) $sumd]
 	return $area
 }
 
