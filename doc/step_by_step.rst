@@ -193,9 +193,9 @@ window.
 ::
 
 	2017.11.26 09:47 - Orientation - 12
-	Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	231                     232-53-54   291-04-11    58-10-17   2243.319    0   16    0.010
-	11                      334-20-10    32-30-25    58-10-15   1588.873   -1   19   -0.010
+	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+	231             232-53-54   291-04-11    58-10-17   2243.319    0   16    0.010
+	11              334-20-10    32-30-25    58-10-15   1588.873   -1   19   -0.010
 	Average orientation angle                        58-10-16
 
 The *e\"* column contains the difference from the mean, *e\"(max)* is the
@@ -218,25 +218,25 @@ a warning is displayed. Three other stations are also oriented.
 ::
 
 	2017.11.26 10:05 - Orientation - 11
-	Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	12                      295-54-35   212-30-25   276-35-50   1588.873    1   19    0.010
-	14                       71-01-11   347-36-58   276-35-47   1637.971   -1   18   -0.010
+	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+	12              295-54-35   212-30-25   276-35-50   1588.873    1   19    0.010
+	14               71-01-11   347-36-58   276-35-47   1637.971   -1   18   -0.010
 	Average orientation angle                       276-35-48
 
 ::
 
 	2017.11.26 10:05 - Orientation - 231
-	Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	15                      341-58-03   222-18-10   240-20-07   2615.063   -1   14   -0.023
-	13                       52-48-11   293-08-21   240-20-10   4029.889    1   11    0.023
+	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+	15              341-58-03   222-18-10   240-20-07   2615.063   -1   14   -0.023
+	13               52-48-11   293-08-21   240-20-10   4029.889    1   11    0.023
 	Average orientation angle                       240-20-08
 
 ::
 
 	2017.11.26 10:05 - Orientation - 16
-	Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	14                      290-57-39    51-22-38   120-24-59   1425.779   -2   20   -0.016
-	11                      355-25-59   115-51-02   120-25-03   1628.118    2   18    0.016
+	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+	14              290-57-39    51-22-38   120-24-59   1425.779   -2   20   -0.016
+	11              355-25-59   115-51-02   120-25-03   1628.118    2   18    0.016
 	Average orientation angle                       120-25-01
 
 .. note::
@@ -446,9 +446,9 @@ to calculate elevations.
 			   1080-00-27 1642.820 1025.056 -997.550
 				720-00-00
 			   -  0-00-27             0.060    0.116
-										  0.130
+										 0.130
 
-	Error limits                 Angle (sec)        Distance (cm)
+	Error limits                 Angle (sec)   Distance (cm)
 	Main, precise traversing         50        30
 	Precise traversing               65        38
 	Main traversing                  67        51
@@ -494,16 +494,16 @@ It will calculate orientation angle automatically if neccessary.
 ::
 
 	2018.01.28 13:30 - New detail points
-																			 Oriented   Horizontal
-	Point num  Code              E            N              H   Station     direction  distance
-	101                      89817.597     3124.363      125.301 1_sp        221-46-38  168.468
-	102                      89888.171     3112.673      126.819 1_sp        196-52-41  143.505
-	103                      90043.330     3181.366      126.988 1_sp        121-09-42  132.631
-	201                      90257.647     3134.405      124.353 2_sp        181-00-54  133.142
-	202                      90112.941     3206.373      120.740 2_sp        247-25-17  159.272
-	301                      90543.529     2842.469      139.235 3_sp        206-38-02  103.440
-	302                      90467.005     2904.622      137.424 3_sp        256-08-41  126.578
-	303                      90443.170     2958.505      139.836 3_sp        279-07-35  148.611
+														    Oriented   Horizontal
+	Point num  Code      E         N           H   Station  direction  distance
+	101              89817.597  3124.363   125.301 1_sp     221-46-38  168.468
+	102              89888.171  3112.673   126.819 1_sp     196-52-41  143.505
+	103              90043.330  3181.366   126.988 1_sp     121-09-42  132.631
+	201              90257.647  3134.405   124.353 2_sp     181-00-54  133.142
+	202              90112.941  3206.373   120.740 2_sp     247-25-17  159.272
+	301              90543.529  2842.469   139.235 3_sp     206-38-02  103.440
+	302              90467.005  2904.622   137.424 3_sp     256-08-41  126.578
+	303              90443.170  2958.505   139.836 3_sp     279-07-35  148.611
 
 
 .. note::
@@ -513,11 +513,137 @@ It will calculate orientation angle automatically if neccessary.
 	station and select **Detail points** from the popup menu.
 
 
+Calculation distances and areas
+-------------------------------
+
+The sum of the horizontal distances between points having coordinates can be
+calculated in the graphic window using the rules tool from the toolbar (4th
+icon). Click on the point marker of the first point and the further point.
+Finally double click on the last point. A report is sent to *Calculation
+results* window.
+
+::
+
+	2018.02.24 09:11 - Distance calculation
+	Point num          E            N         Length
+	5001          89562.447     3587.503
+	1_sp          89929.837     3249.997      498.885
+	2_sp          90260.005     3267.527      330.633
+	3_sp          90589.899     2934.934      468.453
+	5002          90587.624     2590.112      344.830
+
+	Sum                                      1642.801
+
+The sum of the distances is shown in the status line of the graphic window, too.
+
+.. figure:: images/dist.png
+	:align: center
+
+	Distance calculation
+
+The next icon, right to the distance calculation is the area calculation.
+It works similar to the distance calculation. Click on the points of the 
+polygon and double click on the last point (you needn't to click on the
+first point finally). The calculation result are reported in the 
+*Calculation result* window.
+
+::
+
+	2018.02.24 09:18 - Area calculation
+	Point num          E            N         Length
+	5003          89398.545     2775.181
+	5001          89562.447     3587.503      828.693
+	1_sp          89929.837     3249.997      498.885
+	2_sp          90260.005     3267.527      330.633
+	3_sp          90589.899     2934.934      468.453
+	5002          90587.624     2590.112      344.830
+	5003          89398.545     2775.181     1203.396
+
+	Area                                   680295.78817
+	Kerület                                  3674.889
+
+.. note::
+
+	The distance and area calculation is available from the **Calculation** menu.
+	That case the points are selected from lists.
+
 Coordinate transformation
 -------------------------
 
+During a GeoEasy session all points have to be in the same coordinate
+reference system (CRS). Coordinates can be converted between two CRSs if
+there are common points in the two system. Two GeoEasy data sets have to be 
+used. The source dataset is opened and select **Calculation/Coordinate 
+transformation** from the menu. The target dataset have to be selected next.
+Select *test1_trafo.geo* from the *demodata* folder.
+
+.. figure:: images/coo_tr.png
+	:align: center
+
+	Common points for transformation
+
+Select all point and press OK button. In the next dialog box the transformation
+type is selected.
+
+.. figure:: images/coo_tr2.png
+	:align: center
+
+	Transfomation options
+
+Pressing the OK button the transformation parameters are calculated using the
+least squares method. In the *Calculation results* window three blocks of
+information is displayed.
+
+::
+
+	2018.02.24 12:09 - 4 parameters orthogonal transformation test1 -> test_trafo
+	E = 561684.477 + e * 0.999997669 - n * -0.000003434
+	N = 246411.178 + e * -0.000003434 + n * 0.999997669
+
+	  Scale = 0.99999767 Rotation = -  0-00-01
+
+	  Point num     e          n            E            N        dE      dN      dist
+	  11       91515.440   2815.220   653199.720   249226.070   -0.007   0.007   0.010
+	  12       90661.580   1475.280   652345.850   247886.150    0.001  -0.007   0.007
+	  13       84862.540   3865.360   646546.830   250276.240    0.002  -0.003   0.004
+	  14       91164.160   4415.080   652848.440   250825.940   -0.001  -0.006   0.006
+	  15       86808.180    347.660   648492.460   246758.540   -0.004  -0.001   0.005
+	  16       90050.240   3525.120   651734.510   249935.970    0.009   0.010   0.014
+
+	  RMS= 0.008
+
+	  Point num     e            n            E            N
+	  231      88568.240   2281.760   650252.518   248692.628
+	  232      88619.860   3159.880   650304.141   249570.746
+
+In the first block the formula of the transformation is given. The second blok contains 
+the common points coordinates and the errors. In the third block the transformated
+coordinates are given, those points can be found here which have coodinates in
+thesource dataset but not in the taget dataset.
+
+.. note::
+
+	If the transformation parameters are known use the **Commands/Transformation** 
+	or **Commands/Transformation, parameters from file** from the menu of
+	the coordinate list window.
+
+
 Save to DXF file
 ----------------
+
+The points with horizontal coordinates from all loaded datasets can be
+exported into a DXF file. Select **Commands/DXF output** from the
+menu of the graphic window. In the displayed dialog box several
+options can be set for the DXF file.
+
+.. figure::images/dxf.png
+	:align: center
+
+	DXF options
+
+The point symbol (AutoCAD point entities), the point ID and the elevation 
+can be exported to the output. The last block is available if a DTM is
+loaded.
 
 Digital terrain model
 ---------------------
