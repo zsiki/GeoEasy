@@ -14,6 +14,7 @@ defaultmask.tcl
 *.exe
 *.g[123]d
 *.txp
+*.pdf
 tcldoc
 eng_[a-z][a-z][a-z].txt
 ceng_[a-z][a-z][a-z].txt
