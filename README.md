@@ -14,61 +14,12 @@ has been changed to open source.
 
 ## Documentation
 
-See doc folder for various reStructuredText files and the a paper in [Geinformatics FCE CTU](https://ojs.cvut.cz/ojs/index.php/gi/article/view/gi.17.2.1.).
+See [doc](./doc) folder for various reStructuredText files and the a paper in [Geinformatics FCE CTU](https://ojs.cvut.cz/ojs/index.php/gi/article/view/gi.17.2.1.).
 
 ## Installation
 
-Users can select source or binary releases. Linux, Android and Windows operating
-systems are supported.
-
-### Source release (Linux)
-
-#### Prerequvisites
-
-Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/).
-Install GNU Gama (https://www.gnu.org/software/gama/)
-Install Triangle (https://github.com/MrPhil/Triangle)
-
-Download the source files from GitHub (github.com/zsiki/GeoEasy) either
-the zip file or clone the repository.
-
-Run the following commands from the command line, to prepare it.
-
-```bash
-make source
-chmod +x geo_easy.tcl
-```
-
-To start the program use the following command from the install directory:
-
-```bash
-wish geo_easy.tcl
-```
-
-or
-
-```bash
-./geo_easy.tcl
-```
-
-### Binary release for Windows
-
-Download the latest installation package for Windows from 
-http://digikom.hu/english/geo_easy_e.html
-and start it. It will install 32 and 64 bit versions, too.
-
-### Binary release for Linux
-
-Download the latest binary, gzipped 64 bit version from 
-http://digikom.hu/english/geo_easy_e.html. 
-Use the following commands to install:
-
-```bash
-mkdir GeoEasy
-cd GeoEasy
-tar xvzf ../Gizi3<version>Linux.tgz
-./GeoEasy
-```
+Users can select source or binary releases. Linux and Windows operating
+systems are supported. See the [installation guide](doc/install.rst).
 
 ## Open source software/packages used
 

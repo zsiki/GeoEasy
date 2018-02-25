@@ -91,7 +91,34 @@ You can create a shell script file to start GeoEasy from any directory.
 
 Copy this file into a directory on the PATH.
 
-Install source release
-----------------------
+Install source release (Linux)
+------------------------------
 
-TODO
+Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/).
+Install GNU Gama (https://www.gnu.org/software/gama/)
+Install Triangle (https://github.com/MrPhil/Triangle)
+
+Download the source files from GitHub (github.com/zsiki/GeoEasy) either
+the zip file or clone the repository.
+
+Change directory to GeoEasy and
+run the following commands from the command line, to prepare it.
+
+.. code:: bash
+
+	bash
+	make source
+	chmod +x geo_easy.tcl
+
+To start the program use the following command from the install directory:
+
+.. code:: bask
+
+	wish geo_easy.tcl
+
+or
+
+.. code:: bash
+
+	./geo_easy.tcl
+
