@@ -37,9 +37,16 @@ proc GeoNet3D {{pns ""}} {
 	catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	set gp [file join $home $gamaProg]
-	if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${tmpname}.svg\" \"$tmpname\""]} msg]} {
-		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
-		return
+	if {$gamaSvgOut} {
+		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${tmpname}.svg\" \"$tmpname\""]} msg]} {
+			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			return
+		}
+	} else {
+		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
+			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			return
+		}
 	}
 	if {! $gamaShortOut} {
 		if {[file exists "${tmpname}.txt"]} {
