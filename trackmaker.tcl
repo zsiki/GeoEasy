@@ -107,8 +107,8 @@ proc TrackmakerOut {fn rn} {
 		incr line
 		set pn [lindex $tr_coord 0]
 		set pc [lindex $tr_coord 1]
-		set fi [lindex $tr_coord 2]
-		set lambda [lindex $tr_coord 3]
+		set lambda [lindex $tr_coord 2]
+		set fi [lindex $tr_coord 3]
 		set z [lindex $tr_coord 4]
 		puts $f "w,d,$pn,$fi,$lambda,$pc,$d,$t,$z,0,0"
 	}
@@ -173,8 +173,8 @@ proc GpxOut {fn rn} {
 		set pn [lindex $tr_coord 0]
 		set pc [lindex $tr_coord 1]
 		if {[string length $pc] == 0} { set pc $pn }
-		set fi [lindex $tr_coord 2]
-		set lambda [lindex $tr_coord 3]
+		set lambda [lindex $tr_coord 2]
+		set fi [lindex $tr_coord 3]
 		set z [lindex $tr_coord 4]
 		if {[string length $z] == 0} { set z 0 }
 		if {$fi < $minlat} { set minlat $fi }
