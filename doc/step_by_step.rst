@@ -1,10 +1,13 @@
-GeoEasy Step by Step
-====================
+GeoEasy
+=======
+Step by Step
+============
+Tutorial
 
 .. note:: This training material does not extend to the use of the program in every detail, further information can be found in other documentation files.
 
 The installation kit contains a *demodata* directory. In this guide the data
-files from *demodata* directory will be used.
+files from the *demodata* directory will be used.
 
 Images in this tutorial are generated on an Ubuntu box. Window layouts on
 different operating systems may look different.
@@ -636,7 +639,7 @@ exported into a DXF file. Select **Commands/DXF output** from the
 menu of the graphic window. In the displayed dialog box several
 options can be set for the DXF file.
 
-.. figure::images/dxf.png
+.. figure:: images/dxf.png
 	:align: center
 
 	DXF options
@@ -647,6 +650,86 @@ loaded.
 
 Digital terrain model
 ---------------------
+
+GeoEasy is capable to create TIN based Digital Terrain Models from the point
+in the loaded datasets or from a DXF file. There is a small electric field
+book in the demo data set called *terrain.scr*. Load the *scr* file using
+the **File/Load...** menu of the main window.
+
+.. figure:: images/terrain_load.png
+	:align: center
+
+	Loading field book
+
+There are 77 points in the coordinate list, let's open a graphic window to see
+the points and turn off the the yellow observation lines and point name
+labels using the **Commands/Observations F4** and **Commands/Point names**
+from the menu of the graphic window.
+
+.. note::
+
+	In the calculation results window you can see a table with collimation
+	and index errors. If the observations were made in two faces, 
+	the average of face left and face right will be stored in the
+	field-book.
+
+.. note::
+
+	The colors used in the graphics window can be changed using
+	**File/Colors...** from the menu of the main window.
+
+Let's start to creat a TIN, select **DTM/Create...** from the menu of the 
+graphic window and press OK button in the *Create DTM* dialog and select
+directory and name for the DTM in the *Save as* dialog.
+
+.. figure:: images/create_dtm.png
+	:align: center
+
+	DTM creation
+
+.. figure:: images/dtm.png
+	:align: center
+
+	TIN in the graphic window
+
+The convex hole of the points is filled by triangles which have  minimal
+sum of perimeters. At the side of the model there are narrow triangles.
+These can be avoided by defining a non-convex boundary for the modell.
+Unload the TIN by **DTM/Close** from the menu of graphic window. Using the
+Break line tool from the toolbar draw the boundary of the model.
+
+.. figure:: images/non_convex.png
+	:align: center
+
+	Non-convex boundary for TIN
+
+Select again the **DTM/Create...** from the menu and unselect convex
+boundary checkbox. Triangles are created inside the closed polyline.
+
+.. figure:: images/tin.png
+	:align: center
+
+	Non-convex boundary for TIN
+
+.. note::
+
+	Break lines can be added, those can be open polylines. If convex
+	boundary is unchecked at least one closed polyline must be added
+	to the model.
+
+Let's add contours to our model, **DTM/Contours** from the menu. Input 1 (meter)
+for contour interval. Finally export contours to an AutoCAD DXF file using
+**Commands/DXF output**.
+
+.. figure:: images/contour_dxf.png
+	:align: center
+
+	Contours in LibreCAD
+
+.. note::
+
+	TINs are stored in three ASCII files (.pnt for points, .dtm for triangles
+	and .pol for break lines).
 
 Regression calculation
 ----------------------
