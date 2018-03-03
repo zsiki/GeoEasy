@@ -211,7 +211,6 @@ set geoEasyMsg(exit)		"Kilép"
 set geoEasyMsg(wait)		"Várjon"
 set geoEasyMsg(cont)		"Folytatás"
 set geoEasyMsg(help)		"Súgó"
-set geoEasyMsg(license)		"Licenc szám ..."
 set geoEasyMsg(find)		"Keres"
 set geoEasyMsg(findNext)	"Következõ"
 set geoEasyMsg(delete)		"Töröl"
@@ -227,8 +226,7 @@ set geoEasyMsg(lastPoint)	"Végpont"
 set geoEasyMsg(browse)		"Tallóz ..."
 set geoEasyMsg(up)			"Fel"
 set geoEasyMsg(down)		"Le"
-set geoEasyMsg(demo)		"DEMO"
-set geoEasyMsg(license)		"Licenc"
+set geoEasyMsg(opensource)  "Open source GPL 2"
 #
 #	labels
 #
@@ -236,14 +234,6 @@ set geoEasyMsg(pattern)		"Minta:"
 #
 #	menu and title texts
 #
-set geoEasyMsg(licTitle)		"GeoEasy licenc"
-set geoEasyMsg(demomsg)			"Demó üzemmód vagy licencezés?"
-set geoEasyMsg(demo1msg)		"Demó üzemmód?"
-set geoEasyMsg(demoover)		"Demó idõtartam lejárt"
-set geoEasyMsg(demorest)		"Demó hátralévõ napok száma:"
-set geoEasyMsg(democount)		"Demó üzemmód nem minden adatot töltöttem be"
-set geoEasyMsg(demosave)		"Demó üzemmód nem minden adatot mentettem"
-set geoEasyMsg(demoopen)		"Demó üzemmód csak két állomány lehet megnyitva egyszerre"
 set geoEasyMsg(maskTitle)		"Válassz maszkot"
 set geoEasyMsg(graphTitle)		"Grafikus ablak"
 set geoEasyMsg(helpTitle)		"GeoEasy súgó" 
@@ -348,6 +338,7 @@ set geoEasyMsg(menuCalAdj1D)	"Magassági hálózat kiegyenlítés"
 set geoEasyMsg(menuCalMEle)		"Magasságok"
 set geoEasyMsg(menuCalMAdj)		"Egypontos kiegyenlítések"
 set geoEasyMsg(menuCalTran)		"Koordináta transzformáció"
+set geoEasyMsg(menuCalHTran)    "Magassági transzformáció"
 set geoEasyMsg(menuCalLine)		"Két egyenes metszése"
 set geoEasyMsg(menuCalPntLine)	"Vonalpont"
 set geoEasyMsg(menuCalArea)		"Terület"
@@ -410,8 +401,6 @@ set geoEasyMsg(loaded) "A már betöltött koordináta állománnyal dolgozom."
 
 set geoEasyMsg(gizidll)	"Telepítési hiba, kód=1"
 set geoEasyMsg(regdll)	"Telepítési hiba, kód=3"
-set geoEasyMsg(lock)	"A hardverkulcsot nem találom,\n tegye be a hardverkulcsot és nyomja meg a folytatás gombot."
-set geoEasyMsg(lockversion)	"A hardverkulcs a GeoEasy egy korábbi verziójához tartozik, DEMO mód indításához távolítsa el a hardverkulcsot."
 set geoEasyMsg(internal)	"Belsõ hiba"
 set geoEasyMsg(helpfile)	"A súgó fájlt nem találom"
 set geoEasyMsg(browser)		"A súgót megjelenítõ programot nem sikerült elindítani.\nEllenõrizze a html fájlok megjelenítésére regisztrált programot"
@@ -482,6 +471,7 @@ set geoEasyMsg(dist)		"Távolság számítás"
 set geoEasyMsg(area)		"Terület számítás"
 set geoEasyMsg(sum)			"Szumma"
 set geoEasyMsg(sum1)		"Terület"
+set geoEasyMsg(sum2)        "Kerület"
 set geoEasyMsg(endp)		"Végpont?"
 set geoEasyMsg(maxGr)		"Csak 10 grafikus ablak lehet nyitva!"
 set geoEasyMsg(orist)		"Nincs elég ismert (y, x, z), tájékozott álláspont"
@@ -545,17 +535,6 @@ set geoEasyMsg(toolZdtm)	"Magasság interpoláció"
 set geoEasyMsg(toolBreak)	"Törésvonal/idomvonal bevitele"
 set geoEasyMsg(toolHole)	"Zárt idom kihagyása a modellbõl"
 set geoEasyMsg(toolXchgtri)	"Háromszögek cseréje"
-
-#
-# licence messages
-#
-#set geoEasyMsg(licDemo)	"DEMO licenc %s-ig"
-#set geoEasyMsg(licOver)	"DEMO licenc lejárt"
-set geoEasyMsg(licError)	"Hibás vagy érvénytelen licenc"
-set geoEasyMsg(licCode)		"Licenc kód:"
-set geoEasyMsg(licKey)		"Licenc kulcs:"
-#set geoEasyMsg(licMoveErr)	"Hiba a licenc átvitel során"
-
 #
 # dxf output/input
 #
@@ -852,6 +831,8 @@ set geoEasyMsg(head1Angle)	"Pontszám   Irányszög Távolság Törésszög 0-ra forg.  
 # transformation
 set geoEasyMsg(head1Tran)	"Pontszám           y            x            Y            X           dY           dX         dt"
 set geoEasyMsg(head2Tran)	"Pontszám           y            x            Y            X            z            Z"
+set geoEasyMsg(head1HTran)  "Pontszám           z            Z           dZ"
+set geoEasyMsg(head2HTran)  "Pontszám           z            Z"
 set geoEasyMsg(headTraNode)	"Pontszám     Hossz          y            x"
 set geoEasyMsg(headTrigNode)	"Pontszám     Hossz          z"
 set geoEasyMsg(headDist)	"Pontszám           y            x         Hossz"
@@ -928,5 +909,6 @@ set geoEasyMsg(arcT) "Tangens hossz"
 set geoEasyMsg(arcP) "Átmeneti ív paraméter"
 set geoEasyMsg(arcAlpha) "Alfa"
 set geoEasyMsg(arcHeader) "  Pontszám          Y              X"
+set geoEasyMsg(fromEpsg) "Forrás vetület"
 #01234567890123456789012345678901234567890123456789012345678901234567890
 #          1         2         3         4         5         6         7
