@@ -38,7 +38,12 @@ proc GeoNet3D {{pns ""}} {
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	set gp [file join $home $gamaProg]
 	if {$gamaSvgOut} {
-		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${tmpname}.svg\" \"$tmpname\""]} msg]} {
+		# save svg out 
+		set filen [tk_getSaveFile -filetypes \
+			{{"Scalable Vector Graphics SVG" {.svg}}} \
+			-defaultextension ".svg" -initialdir $lastDir]
+		if {$filen == ""} { return }
+		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
@@ -60,15 +65,6 @@ proc GeoNet3D {{pns ""}} {
 			catch {file delete "${tmpname}.txt"}
 		} else {
 			GeoLog1 $geoEasyMsg(gamanull)
-		}
-	}
-	if {$gamaSvgOut} {
-		# save svg out 
-		set filen [tk_getSaveFile -filetypes \
-			{{"Scalable Vector Graphics SVG" {.svg}}} \
-			-defaultextension ".svg" -initialdir $lastDir]
-		if {$filen != ""} {
-			file rename "${tmpname}.svg" $filen
 		}
 	}
 	# read back coordinates and orientations from tmp.g3d.xml
@@ -103,9 +99,21 @@ proc GeoNet2D {{pns ""}} {
 	catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	set gp [file join $home $gamaProg]
-	if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${tmpname}.svg\" \"$tmpname\""]} msg]} {
-		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
-		return
+	if {$gamaSvgOut} {
+		# save svg out 
+		set filen [tk_getSaveFile -filetypes \
+			{{"Scalable Vector Graphics SVG" {.svg}}} \
+			-defaultextension ".svg" -initialdir $lastDir]
+		if {$filen == ""} { return }
+		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
+			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			return
+		}
+	} else {
+		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
+			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			return
+		}
 	}
 	if {! $gamaShortOut} {
 		if {[file exists "${tmpname}.txt"]} {
@@ -119,15 +127,6 @@ proc GeoNet2D {{pns ""}} {
 			catch {file delete "${tmpname}.txt"}
 		} else {
 			GeoLog1 $geoEasyMsg(gamanull)
-		}
-	}
-	if {$gamaSvgOut} {
-		# save svg out 
-		set filen [tk_getSaveFile -filetypes \
-			{{"Scalable Vector Graphics SVG" {.svg}}} \
-			-defaultextension ".svg" -initialdir $lastDir]
-		if {$filen != ""} {
-			file rename "${tmpname}.svg" $filen
 		}
 	}
 	# read back coordinates and orientations from tmp.g2d.xml
@@ -158,7 +157,7 @@ proc GeoNet1D {{pns ""}} {
 		set tmpname "."
 	}
 	set tmpname [file join  $tmpname tmp.g1d]
-	catch {file delete [glob "${tmpname}*"]}
+		catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	set gp [file join $home $gamaProg]
 	if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
@@ -168,18 +167,18 @@ proc GeoNet1D {{pns ""}} {
 	if {! $gamaShortOut} {
 		if {[file exists "${tmpname}.txt"]} {
 			set fn "${tmpname}.txt"
-			# add result to log
-			set f [open $fn "r"]
-			while { ! [eof $f]} {
-				GeoLog1 [gets $f]
-			}
+# add result to log
+				set f [open $fn "r"]
+				while { ! [eof $f]} {
+					GeoLog1 [gets $f]
+				}
 			close $f
-			catch {file delete "${tmpname}.txt"}
+				catch {file delete "${tmpname}.txt"}
 		} else {
 			GeoLog1 $geoEasyMsg(gamanull)
 		}
 	}
-	# read back coordinates and orientations from tmp.g1d.xml
+# read back coordinates and orientations from tmp.g1d.xml
 	if {[file exists "${tmpname}.xml"]} {
 		ProcessXml "${tmpname}.xml"
 	} else {
