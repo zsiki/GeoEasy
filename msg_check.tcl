@@ -6,12 +6,21 @@ set base eng				;# language to compare others to
 set langs [list $base hun]	;# add here more languages after transation
 foreach lang $langs {
 	source geo_easy.$lang
+	# GeoEasy messages
 	set f [open ${lang}.txt w]
 	foreach i [lsort [array names geoEasyMsg]] { puts $f $i }
 	close $f
 	unset geoEasyMsg
 	if {$base != $lang} {
 		catch "exec diff ${base}.txt ${lang}.txt > ${base}_${lang}.txt"
+	}
+	# GeoEasy codes
+	set f [open ${lang}_code.txt w]
+	foreach i [lsort [array names geoCodes]] { puts $f $i }
+	close $f
+	unset geoCodes
+	if {$base != $lang} {
+		catch "exec diff ${base}_code.txt ${lang}_code.txt > ${base}_${lang}_code.txt"
 	}
 }
 foreach lang $langs {
@@ -26,4 +35,5 @@ foreach lang $langs {
 }
 foreach lang $langs {
 	file delete ${lang}.txt
+	file delete ${lang}_code.txt
 }
