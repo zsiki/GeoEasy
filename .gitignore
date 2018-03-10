@@ -17,4 +17,5 @@ defaultmask.tcl
 *.pdf
 tcldoc
 eng_[a-z][a-z][a-z].txt
+eng_[a-z][a-z][a-z]_code.txt
 ceng_[a-z][a-z][a-z].txt
