@@ -123,25 +123,33 @@ proc Leica {fn {fo ""}} {
 			# check units only for these if no decimal point is in the value
 			if {[lsearch -exact {21 22 31 32 33 43 44 81 82 83 84 85 86 87 88} \
 					$code] != -1 && [string first "." $val] == -1} {
-				switch -exact -- $unit {
-					. -
-					0 { set val [expr {$val / 1000.0}] }
-					1 { set val [expr {$val / 1000.0 *  $FOOT2M}] }
-					2 { set val [Gon2Rad [expr {$val / 100000.0}]] }
-					3 { set val [expr {$val / 10000.0 / 180.0 * $PI}] }
-					4 { set m [string length $v]
-						set angle "[string range $v 0 [expr {$m - 6}]].[string range $v [expr {$m - 5}] end]"
-						set val [Deg2Rad $angle]
+				if {[regexp -- "^\[1-9\]\[0-9\]*$|^0$" $val] != 0} {
+					switch -exact -- $unit {
+						. -
+						0 { set val [expr {$val / 1000.0}] }
+						1 { set val [expr {$val / 1000.0 *  $FOOT2M}] }
+						2 { set val [Gon2Rad [expr {$val / 100000.0}]] }
+						3 { set val [expr {$val / 10000.0 / 180.0 * $PI}] }
+						4 { set m [string length $v]
+							set angle "[string range $v 0 [expr {$m - 6}]].[string range $v [expr {$m - 5}] end]"
+							set val [Deg2Rad $angle]
+							}
+						5 { set val [expr {$val / 6400.0 * $PI2}] }
+						6 { set val [expr {$val / 10000.0}] }
+						7 { set val [expr {$val / 10000.0 *  $FOOT2M}] }
+						8 { set val [expr {$val / 100000.0}] }
+						default { tk_dialog .msg $geoEasyMsg(error) \
+								$geoEasyMsg(units) error 0 OK
+								close $f1
+								return $lineno
 						}
-					5 { set val [expr {$val / 6400.0 * $PI2}] }
-					6 { set val [expr {$val / 10000.0}] }
-					7 { set val [expr {$val / 10000.0 *  $FOOT2M}] }
-					8 { set val [expr {$val / 100000.0}] }
-					default { tk_dialog .msg $geoEasyMsg(error) \
-							$geoEasyMsg(units) error 0 OK
-							close $f1
-							return $lineno
 					}
+				} else {
+					set val 0
+					tk_dialog .msg $geoEasyMsg(error) \
+							$geoEasyMsg(wrongval) error 0 OK
+					close $f1
+					return $lineno
 				}
 			}
 			switch -glob $code {
