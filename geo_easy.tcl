@@ -153,7 +153,7 @@ proc GeoEasy {top} {
 		catch {set w [string range [string tolower $env(LANG)] 0 2]}
 	}
 	if {! [info exists geoLang] || \
-		[lsearch -exact {hun eng ger} $geoLang] == -1} {
+		[lsearch -exact {hun eng ger hu en ge} $geoLang] == -1} {
 		switch -exact -- [string range $w 0 1] {
 			"hu" { set geoLang hun }
 			"en" { set geoLang eng }
@@ -185,8 +185,12 @@ proc GeoEasy {top} {
 	if {[llength $argv] > 0} {
 		foreach arg $argv {
 			switch -exact -- [string tolower $arg] {
+				"-hu" -
 				"-hun" { set geoLang hun }
+				"-en" -
 				"-eng" { set geoLang eng }
+				"-ge" -
+				"-de" -
 				"-ger" { set geoLang ger }
 			}
 		}
@@ -485,8 +489,12 @@ proc GeoEasy {top} {
 			if {[string length $name]} {
 				# skip language params
 				if {[string tolower $name] == "-hun" ||
+					[string tolower $name] == "-hu" ||
 					[string tolower $name] == "-eng" ||
-					[string tolower $name] == "-ger" } { continue }
+					[string tolower $name] == "-en" ||
+					[string tolower $name] == "-ger" ||
+					[string tolower $name] == "-de" ||
+					[string tolower $name] == "-ge" } { continue }
 				regsub -all {\\} $name "/" name
 				regsub "^{" $name "" name
 				regsub "}$" $name "" name
