@@ -190,3 +190,80 @@ proc GpxOut {fn rn} {
 	close $f
 	return 0
 }
+
+#
+#	Save coordinates to KML format, convert to WGS84
+#	@param fn geo data set name
+#	@param rn file name
+#	@return 0 on success
+proc KmlOut {fn rn} {
+	global geoEasyMsg geoCodes
+	global geoLoaded
+	global ${fn}_coo
+	global tcl_platform
+	global env
+
+	if {[info exists geoLoaded]} {
+		set pos [lsearch -exact $geoLoaded $fn]
+		if {$pos == -1} {
+			return -8           ;# geo data set not loaded
+		}
+	} else {
+		return 0
+	}
+	# get source epsg code
+	set from_epsg [GeoEntry $geoCodes(140) $geoEasyMsg(fromEpsg)]
+	if {$from_epsg == ""} { return }
+
+	set coords ""
+	# go through coordinates
+	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
+		set pn [GetVal {5} [set ${fn}_coo($pn)]]
+		set pc [GetVal {4} [set ${fn}_coo($pn)]]
+		if {[string length $pc] == 0} { set pc $pn }
+		set x [GetVal {38} [set ${fn}_coo($pn)]]
+		set y [GetVal {37} [set ${fn}_coo($pn)]]
+		set z [GetVal {39} [set ${fn}_coo($pn)]]
+		if {[string length $z] == 0} { set z 0 }
+		if {[string length $x] && [string length $y]} {
+			lappend coords [list $pn $pc $x $y $z]
+		}
+	}
+	set tr_coords [cs2cs $from_epsg 4326 $coords]
+	set t [clock seconds]
+	set d [clock format $t -format "%Y-%m-%d"]T[clock format $t -format "%H:%M:%S"]Z
+	set f [open $rn w]
+	puts $f "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
+	puts $f "<kml xmlns=\"http://www.opengis.net/kml/2.2\">"
+	puts $f "<Document id=\"root_doc\">"
+	set name [file tail [file rootname $rn]]
+	puts $f "<Schema name=\"$name\" id=\"$name\">"
+	puts $f "  <SimpleField name=\"time\" type=\"string\"></SimpleField>"
+	puts $f "  <SimpleField name=\"cmt\" type=\"string\"></SimpleField>"
+	puts $f "  <SimpleField name=\"sym\" type=\"string\"></SimpleField>"
+	puts $f "</Schema>"
+	puts $f "<Folder><name>$name</name>"
+	set line 0
+	# go through coordinates
+	foreach tr_coord $tr_coords {
+		incr line
+		set pn [lindex $tr_coord 0]
+		set pc [lindex $tr_coord 1]
+		if {[string length $pc] == 0} { set pc $pn }
+		set lambda [lindex $tr_coord 2]
+		set fi [lindex $tr_coord 3]
+		puts $f "<Placemark>"
+		puts $f "  <name>$pn</name>"
+		puts $f "  <ExtendedData><SchemaData schemaUrl=\"#$name\">"
+		puts $f "    <SimpleData name=\"time\">$d</SimpleData>"
+		puts $f "    <SimpleData name=\"cmt\">$pc</SimpleData>"
+		puts $f "    <SimpleData name=\"sym\">Waypoint</SimpleData>"
+		puts $f "  </SchemaData></ExtendedData>"
+		puts $f "  <Point><coordinates>$lambda,$fi</coordinates></Point>"
+		puts $f "</Placemark>"
+	}
+	puts $f "</Folder>"
+	puts $f "</Document></kml>"
+	close $f
+	return 0
+}

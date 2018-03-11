@@ -1041,7 +1041,7 @@ proc MenuSaveAs {fn} {
 			*.txt { set res [TrackmakerOut $fn $nn]}
 			*.gpx { set res [GpxOut $fn $nn]}
 			*.dmp { set res [TxtOut $fn $nn]}
-			*.tca { set res [TcaOut $fn $nn]}
+			*.kml { set res [KmlOut $fn $nn]}
 			default {
 				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(saveext) \
 					warning 0 OK
