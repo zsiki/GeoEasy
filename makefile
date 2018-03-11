@@ -78,4 +78,5 @@ clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
 		ComEasy.tcl ComEasy ComEasy.exe ComEasy64.exe \
 		build_date.tcl defaultmask.tcl \
-		eng_[a-z][a-z][a-z].txt ceng_[a-z][a-z][a-z].txt
+		eng_[a-z][a-z][a-z].txt ceng_[a-z][a-z][a-z].txt \
+		eng.txt eng_code.txt
