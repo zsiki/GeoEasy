@@ -55,6 +55,7 @@ set saveTypes {
 	{"ITR 2.x Coordinate list" {.itr}}
 	{"GPS Trackmaker" {.txt}}
 	{"GPS XML" {.gpx}}
+	{"Keyhole Markup Language file" {.kml}}
 }
 
 set xmlTypes {
@@ -87,7 +88,7 @@ set polyTypes {{"GeoEasy dtm source file" {.poly}}
 set vrmlTypes {{"Virtual reality file" {.wrl}}
 }
 
-set kmlTypes {{"Keyhole Markup Language fájl" {.kml}}
+set kmlTypes {{"Keyhole Markup Language file" {.kml}}
 }
 
 set grdTypes {{"ESRI ASCII GRID" {.asc}}
