@@ -425,8 +425,12 @@ proc GeoEasy {top} {
 
         menu $topw.menu.regression -tearoff 0
         set i 0
+		set menuBreak {3 4 8}
         foreach r $reglist {
             $topw.menu.regression add command -label $r -command "GeoReg $i"
+			if {[lsearch $menuBreak $i] >= 0} {
+				$topw.menu.regression add separator
+			}
             incr i
         }
         $topw.menu.regression add separator
