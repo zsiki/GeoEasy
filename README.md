@@ -16,6 +16,8 @@ has been changed to open source.
 
 See [doc](./doc) folder for various reStructuredText files and the a paper in [Geinformatics FCE CTU](https://ojs.cvut.cz/ojs/index.php/gi/article/view/gi.17.2.1/4642).
 
+[Developer documentation](http://digikom.hu/tcldoc/)
+
 ## Installation
 
 Users can select source or binary releases. Linux and Windows operating
