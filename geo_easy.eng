@@ -12,9 +12,9 @@ global geoEasyMsg
 # regression types
 global reglist
 set reglist {"Line x varies" "Line y varies" \
-	"Line y and x varie" "Circle" "Plane z varies"
+	"Line y and x varie" "Parallel lines" "Circle" "Plane z varies" \
 	"Plane y,x and z varie" "Horizontal plane" "Vertical plane" \
-	"Sphere" "3D line" "Vertical paraboloid"}
+	"Sphere" "3D line"} ;# "Vertical paraboloid" 
 
 set fileTypes {
 	{"GeoEasy format" {.geo .GEO}}
