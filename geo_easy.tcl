@@ -1005,6 +1005,11 @@ proc MenuSaveAs {fn} {
 			set nn [tk_getSaveFile -filetypes $saveTypes -initialdir $lastDir \
 				-initialfile [file rootname [file tail $nn]] \
 				-typevariable saveType]
+			set nn [string trim $nn]
+			# string match is used to avoid silly Windows 10 bug
+			if {[string length $nn] == 0 || [string match "after#*" $nn]} {
+				return
+			}
 			set ext [file extension $nn]
 			# find saveType in saveTypes
 			set selExt ""
@@ -1025,9 +1030,9 @@ proc MenuSaveAs {fn} {
 		} else {
 			set nn [tk_getSaveFile -filetypes $saveTypes -initialdir $lastDir \
 				-initialfile [file rootname [file tail $nn]]]
+			set nn [string trim $nn]
+			if {[string length $nn] == 0} {return}
 		}
-		set nn [string trim $nn]
-		if {[string length $nn] == 0} {return}
 		set lastDir [file dirname $nn]
 		set rn [file rootname $nn]
 		switch -glob $nn {
