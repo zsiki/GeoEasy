@@ -690,7 +690,7 @@ proc MenuNew {w} {
 proc MenuLoad {w {def ""}} {
 	global fileTypes
 	global geoEasyMsg
-	global tcl_platform tcl_version
+	global tcl_platform
 	global geoLoaded geoLoadedDir geoChanged
 	global lastDir
 	global gpCoo
@@ -703,13 +703,8 @@ proc MenuLoad {w {def ""}} {
 	if {[string length $def]} {
 		set fns $def
 	} else {
-		if {$tcl_version >= 8.5} {
-			set fns [string trim \
-				[tk_getOpenFile -filetypes $fileTypes -initialdir $lastDir -multiple 1]]
-		} else {
-			set fns [string trim \
-				[tk_getOpenFile -filetypes $fileTypes -initialdir $lastDir]]
-		}
+		set fns [string trim \
+			[tk_getOpenFile -filetypes $fileTypes -initialdir $lastDir -multiple 1]]
 	}
 	foreach fn $fns {
 		if {[string length $fn] > 0} {
@@ -991,7 +986,6 @@ proc MenuSaveAs {fn} {
 	global geoEasyMsg
 	global saveTypes
 	global lastDir
-	global tcl_version
 	global saveType
 
 	set saved 0
@@ -1001,37 +995,30 @@ proc MenuSaveAs {fn} {
 	while {! $saved} {
 		set saved 1
 		set saveType ""
-		if {$tcl_version >= 8.5} {
-			set nn [tk_getSaveFile -filetypes $saveTypes -initialdir $lastDir \
-				-initialfile [file rootname [file tail $nn]] \
-				-typevariable saveType]
-			set nn [string trim $nn]
-			# string match is used to avoid silly Windows 10 bug
-			if {[string length $nn] == 0 || [string match "after#*" $nn]} {
-				return
+		set nn [tk_getSaveFile -filetypes $saveTypes -initialdir $lastDir \
+			-initialfile [file rootname [file tail $nn]] \
+			-typevariable saveType]
+		set nn [string trim $nn]
+		# string match is used to avoid silly Windows 10 bug
+		if {[string length $nn] == 0 || [string match "after#*" $nn]} {
+			return
+		}
+		set ext [file extension $nn]
+		# find saveType in saveTypes
+		set selExt ""
+		foreach type $saveTypes {
+			if {[string match "[lindex $type 0]*" $saveType]} {
+				set selExt [lindex $type 1]
+				break
 			}
-			set ext [file extension $nn]
-			# find saveType in saveTypes
-			set selExt ""
-			foreach type $saveTypes {
-				if {[string match "[lindex $type 0]*" $saveType]} {
-					set selExt [lindex $type 1]
-					break
-				}
-			}
-			if {$ext == ""} {
-				# add extension
-				set nn "$nn$selExt"
-			} elseif {$selExt != $ext} {
-				# replace extension
-				set nn "[file rootname $nn]$selExt"
-				# TBD owerwrite existing file?
-			}
-		} else {
-			set nn [tk_getSaveFile -filetypes $saveTypes -initialdir $lastDir \
-				-initialfile [file rootname [file tail $nn]]]
-			set nn [string trim $nn]
-			if {[string length $nn] == 0} {return}
+		}
+		if {$ext == ""} {
+			# add extension
+			set nn "$nn$selExt"
+		} elseif {$selExt != $ext} {
+			# replace extension
+			set nn "[file rootname $nn]$selExt"
+			# TBD owerwrite existing file?
 		}
 		set lastDir [file dirname $nn]
 		set rn [file rootname $nn]
