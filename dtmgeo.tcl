@@ -505,9 +505,8 @@ proc CreateTin {polyFile targetFile} {
 	set flags "-Q"
 	if {$dtmhoriz} {append flags " -H"}
 	if {$dtmconvex} {append flags " -c"}
-	set tp [file join $home $triangleProg]
 	if {$tcl_platform(platform) != "unix"} {
-		if {[catch {eval exec "${tp}.exe" $flags $polyFile} msg]} {
+		if {[catch {eval exec "${triangleProg}.exe" $flags $polyFile} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(creaDtm): $msg" \
 				error 0 OK
 			return
@@ -515,7 +514,7 @@ proc CreateTin {polyFile targetFile} {
 	} else {
 		regsub -all " " $polyFile "\\ " polyFile
 		regsub -all " " $targetFile "\\ " targetFile
-		if {[catch {eval exec $tp $flags "$polyFile"} msg]} {
+		if {[catch {eval exec $triangleProg $flags "$polyFile"} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(creaDtm): $msg" \
 				error 0 OK
 			return

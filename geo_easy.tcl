@@ -525,6 +525,7 @@ proc GeoModules {moduleinfo} {
 	global tcl_platform
 	global gamaProg
 	global triangleProg
+	global cs2csProg
 #
 #	module info bits
 #	1 com ComEasy
@@ -534,10 +535,13 @@ proc GeoModules {moduleinfo} {
 	set modules ""
 	if {[expr {$moduleinfo & 1}]} { lappend modules com}
 	if {[expr {$moduleinfo & 2}]} { lappend modules reg}
-	set tp [file join $home $triangleProg]
+	if {[file pathtype $triangleProg] == "relative"} {
+		# change relative path to absolute
+		set triangleProg [file join $home $triangleProg]
+	}
 	if {[expr {$moduleinfo & 4}]} {
 		if {$tcl_platform(platform) == "unix"} {
-			if {[info exists triangleProg] && [file exists $tp]} {
+			if {[info exists triangleProg] && [file exists $triangleProg]} {
 				lappend modules dtm
 			} else {
 				tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(dtmModule) \
@@ -545,11 +549,11 @@ proc GeoModules {moduleinfo} {
 			}
 		} else {
 			if {[info exists triangleProg] && \
-				([file exists "${tp}.exe"] || [file exists "${tp}64.exe"])} {
+				([file exists "${triangleProg}.exe"] || [file exists "${triangleProg}64.exe"])} {
 				lappend modules dtm
 				if {$tcl_platform(pointerSize) == 8 && \
-					[file exists "${tp}64.exe"]} {
-					set triangleProg "${tp}64"
+					[file exists "${triangleProg}64.exe"]} {
+					set triangleProg "${triangleProg}64"
 				}
 			} else {
 				tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(dtmModule) \
@@ -559,9 +563,12 @@ proc GeoModules {moduleinfo} {
 	}
 	if {[expr {$moduleinfo & 8}]} {
 		# minimal gama-local version 1.12!!!
-		set gp [file join $home $gamaProg]
+		if {[file pathtype $gamaProg] == "relative"} {
+			# change relative path to absolute
+			set gamaProg [file join $home $gamaProg]
+		}
 		if {$tcl_platform(platform) == "unix"} {
-			if {[info exists gamaProg] && [file exists $gp]} {
+			if {[info exists gamaProg] && [file exists $gamaProg]} {
 				lappend modules adj
 			} else {
 				tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(adjModule) \
@@ -569,16 +576,40 @@ proc GeoModules {moduleinfo} {
 			}
 		} else {
 			if {[info exists gamaProg] && \
-				([file exists "${gp}.exe"] || [file exists "${gp}64.exe"])} {
+				([file exists "${gamaProg}.exe"] || [file exists "${gamaProg}64.exe"])} {
 				lappend modules adj
 				if {$tcl_platform(pointerSize) == 8 && \
-					[file exists "${gp}64.exe"]} {
+					[file exists "${gamaProg}64.exe"]} {
 					set gamaProg "${gamaProg}64"
 				}
 			} else {
 				tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(adjModule) \
 					error 0 OK
 			}
+		}
+	}
+	# reprojection available?
+	if {[file pathtype $cs2csProg] == "relative"} {
+			set cs2csProg [file join $home $cs2csProg]
+	}
+	if {$tcl_platform(platform) == "unix"} {
+		if {[info exists cs2csProg] && [file exists $cs2csProg]} {
+			lappend modules crs
+		} else {
+			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(crsModule) \
+				error 0 OK
+		}
+	} else {
+		if {[info exists cs2csProg] && \
+			([file exists "${cs2csProg}.exe"] || [file exists "${cs2csProg}64.exe"])} {
+			lappend modules crs
+			if {$tcl_platform(pointerSize) == 8 && \
+				[file exists "${cs2csProg}64.exe"]} {
+				set cs2csProg "${cs2csProg}64"
+			}
+		} else {
+			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(crsModule) \
+				error 0 OK
 		}
 	}
 	return $modules

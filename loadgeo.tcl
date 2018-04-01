@@ -1789,8 +1789,6 @@ proc GeoSaveParams {} {
 	global oriDetail
 	global lastDir
 	global maxIteration epsReg
-	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
-	global triangleProg
 	global browser
 	global rtfview
 	global dxfview

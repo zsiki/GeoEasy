@@ -65,6 +65,7 @@ set maxIteration {5000}
 set epsReg {0.00005}
 # gama-local parameters (network adjustment)
 global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
+# relative path to executable from GeoEasy home directory
 set gamaProg {gama-local}
 # confidence level
 set gamaConf {0.95}
@@ -81,7 +82,14 @@ set gamaSvgOut {0}
 # triangle parameters
 #
 global triangleProg
+# relative path to executable from GeoEasy home directory
 set triangleProg {triangle}
+#
+# cs2cs (projection transformation) parameters
+#
+global cs2csProg
+# relative path to executable from GeoEasy home directory
+set cs2csProg {cs2cs}
 #
 # dxf output parameters
 #
