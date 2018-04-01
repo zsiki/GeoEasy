@@ -23,6 +23,7 @@
 proc cs2cs {from_epsg to_epsg coords} {
 	global geoEasyMsg
 	global env
+	global cs2csProg
 
 	set res ""
     if {[info exists env(TMP)]} {
@@ -40,7 +41,7 @@ proc cs2cs {from_epsg to_epsg coords} {
 		puts $fp [lrange $coord 2 end]
 	}
 	close $fp
-	if {[catch {eval [concat exec "cs2cs -f \"%.7f\" +init=epsg:$from_epsg +to +init=epsg:$to_epsg < $tmpname > $tmp1name"]} msg]} {
+	if {[catch {eval [concat exec "$cs2csProg -f \"%.7f\" +init=epsg:$from_epsg +to +init=epsg:$to_epsg < $tmpname > $tmp1name"]} msg]} {
 		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 		return
 	}

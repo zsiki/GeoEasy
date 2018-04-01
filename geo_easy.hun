@@ -680,7 +680,7 @@ set geoEasyMsg(elevDia)		"Új pontok:"
 set geoEasyMsg(adjDia)		"Mérések, ismeretlen pontok: "
 set geoEasyMsg(adjModule)	"A hálózat kiegyenlítõ modulhoz a gama-local program szükséges, telepítse a használathoz!"
 set geoEasyMsg(dtmModule)	"A DTM modulhoz a triangle program szükséges, telepítse a használathoz!"
-
+set geoEasyMsg(crsModule)   "A vetületi átszámításokhoz a cs2cs program szükséges, telepítse a használathoz"
 set geoEasyMsg(travTitle)	"Sokszögelés"
 set geoEasyMsg(travLine)	"vonal"
 set geoEasyMsg(trigLineToo)	"Magassági vonal számítás is?"

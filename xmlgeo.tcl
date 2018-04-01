@@ -36,19 +36,18 @@ proc GeoNet3D {{pns ""}} {
 	set tmpname [file join  $tmpname tmp.g3d]
 	catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
-	set gp [file join $home $gamaProg]
 	if {$gamaSvgOut} {
 		# save svg out 
 		set filen [tk_getSaveFile -filetypes \
 			{{"Scalable Vector Graphics SVG" {.svg}}} \
 			-defaultextension ".svg" -initialdir $lastDir]
 		if {$filen == ""} { return }
-		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
+		if {[catch {eval [concat exec "$gamaProg --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	} else {
-		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
+		if {[catch {eval [concat exec "$gamaProg --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
@@ -98,19 +97,18 @@ proc GeoNet2D {{pns ""}} {
 	set tmpname [file join  $tmpname tmp.g2d]
 	catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
-	set gp [file join $home $gamaProg]
 	if {$gamaSvgOut} {
 		# save svg out 
 		set filen [tk_getSaveFile -filetypes \
 			{{"Scalable Vector Graphics SVG" {.svg}}} \
 			-defaultextension ".svg" -initialdir $lastDir]
 		if {$filen == ""} { return }
-		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
+		if {[catch {eval [concat exec "$gamaProg --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	} else {
-		if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
+		if {[catch {eval [concat exec "$gamaProg --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
@@ -159,8 +157,7 @@ proc GeoNet1D {{pns ""}} {
 	set tmpname [file join  $tmpname tmp.g1d]
 		catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
-	set gp [file join $home $gamaProg]
-	if {[catch {eval [concat exec "$gp --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
+	if {[catch {eval [concat exec "$gamaProg --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
 		tk_dialog .msg  $geoEasyMsg(error) $msg error 0 OK
 		return
 	}
