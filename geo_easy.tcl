@@ -54,8 +54,8 @@ proc GeoEasy {top} {
 	global fn
 	global version
 
-	set version 302 ;# updatefor new release!
-	set version_str [join [split $version {}] .]
+	set version 303 ;# updatefor new release!
+	set version_str "[join [split $version {}] .] dev"
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
