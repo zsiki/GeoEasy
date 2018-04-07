@@ -92,9 +92,9 @@ global lastDir
 	}
 	if {$arcSave} {
 		set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
-		set fn [tk_getSaveFile -filetypes $typ -defaultextension ".geo" -initialdir $lastDir]
-		set fn [string trim $fn]
-		if {[string length $fn] == 0} {return}
+		set fn [string trim [tk_getSaveFile -filetypes $typ \
+			-defaultextension ".geo" -initialdir $lastDir]]
+		if {[string length $fn] == 0 || [string match "after#*" $fn]} {return}
 		set lastDir [file dirname $fn]
 		set fn "[file rootname $fn].geo"
 		# create empty geo

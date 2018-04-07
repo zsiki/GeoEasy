@@ -501,9 +501,9 @@ proc TxtCols {codes fn {ff ""}} {
 		global locTxtSep locMultiSep header
 		global codelist txpTypes
 		global geoCodes
-		set fn [tk_getOpenFile -defaultextension txp \
-			-filetypes $txpTypes]
-		if {$fn != ""} {
+		set fn [string trim [tk_getOpenFile -defaultextension txp \
+			-filetypes $txpTypes]]
+		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		 	source $fn
 			.txtcols.1.1.l delete 0 end
 			foreach c $codelist {
@@ -515,9 +515,9 @@ proc TxtCols {codes fn {ff ""}} {
 		global locTxtSep locMultiSep header
 		global codelist txpTypes
 		global geoCodes
-		set fn [tk_getSaveFile -defaultextension ".txp" \
-			-filetypes $txpTypes]
-		if {$fn != ""} {
+		set fn [string trim [tk_getSaveFile -defaultextension ".txp" \
+			-filetypes $txpTypes]]
+		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 			set fp [open $fn w]
 			puts $fp "set locTxtSep \"$locTxtSep\""
 			puts $fp "set locMultiSep \"$locMultiSep\""

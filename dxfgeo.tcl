@@ -26,10 +26,11 @@ proc GeoDXF {} {
 	global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
 		pcodelayer xzplane useblock
 	global contourInterval contourDxf contourLayer contour3Dface
+	global cadTypes
 
-	set filen [tk_getSaveFile -filetypes {{"AutoCAD DXF" {.dxf}}} \
-		-defaultextension ".dxf" -initialdir $lastDir]
-	if {$filen != ""} {
+	set filen [string trim [tk_getSaveFile -filetypes $cadTypes \
+		-defaultextension ".dxf" -initialdir $lastDir]]
+	if {[string length $filen] && [string match "after#*" $filen] == 0} {
 		set lastDir [file dirname $filen]
 		DXFparams
 		tkwait window .dxfparams

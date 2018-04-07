@@ -53,6 +53,7 @@ proc CreateTinDia {win} {
 	global newtin_poly newtin_hole
 	global tmp
 	global tinLoaded tinPath tinChanged
+	global cadTypes
 
 	set tmp ""
 	set w [focus]
@@ -129,10 +130,11 @@ proc CreateTinDia {win} {
 
 	tkwait window .tindia
 	if {$buttonid == 0} {
-		set target [tk_getSaveFile -defaultextension ".dtm" \
-			-filetypes $tinTypes \
-			-initialdir $lastDir]
-		if {[string length $target] == 0} { return }
+		set target [string trim [tk_getSaveFile -defaultextension ".dtm" \
+			-filetypes $tinTypes -initialdir $lastDir]]
+		if {[string length $target] == 0 || [string match "after#*" $target]} {
+			return
+		}
 		set lastDir [file dirname $target]
 		
 		switch -exact -- $dtmsource {
@@ -218,13 +220,14 @@ proc CreateTinDia {win} {
 			dxffile {
 				# select source file
 				if {[info exists tmp] == 0 || $tmp == ""} {
-					set dxfFile [tk_getOpenFile -defaultextension ".dxf" \
-						-filetypes {{"AutoCAD DXF" {.dxf}}} \
-						-initialdir $lastDir]
+					set dxfFile [string trim [tk_getOpenFile \
+						-defaultextension ".dxf" \
+						-filetypes $cadTypes -initialdir $lastDir]]
 				} else {
 					set dxfFile $tmp
 				}
-				if {[string length $dxfFile] == 0} { return }
+				if {[string length $dxfFile] == 0 || \
+					[string match "after#*" $dxfFile]} { return }
 				# get point, breaklines, hole markers from dxf
 				if {[catch {set f [open $dxfFile r]}]} {
 					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) \
@@ -469,15 +472,17 @@ proc CreateTinDia {win} {
 			}
 			asciifile {
 				# select source file
-				set poly [tk_getOpenFile -defaultextension ".poly" \
-					-filetypes $polyTypes \
-					-initialdir $lastDir]
-				if {[string length $poly] == 0} { return }
+				set poly [string trim [tk_getOpenFile \
+					-defaultextension ".poly" \
+					-filetypes $polyTypes -initialdir $lastDir]]
+				if {[string length $poly] == 0 || [string match "after#*"} {
+					return
+				}
 				set lastDir [file dirname $poly]
 			}
 		}
 		if {[catch {CreateTin $poly $target} msg] == 1} {
-			tk_dialog .msg "Hiba" "Hiba a DTM letrehozasa kozben $msg" error 0 OK
+			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(tinfailed) $msg" error 0 OK
 			return
 		} else {
 			LoadTin [file rootname $target]
@@ -544,7 +549,11 @@ proc LoadTinDia {this {add 0}} {
 	global tinTypes
 	global tinLoaded tinPath tinChanged
 
-	set tPath [tk_getOpenFile -filetypes $tinTypes -initialdir $lastDir]
+	set tPath [string trim [tk_getOpenFile -filetypes $tinTypes \
+		-initialdir $lastDir]]
+	if {[string length $tPath] == 0 || [string match "after#*" $tPath]} {
+		return
+	}
 	set lastDir [file dirname $tPath]
 	if {[string length $tPath]} {
 		if {$add} {
@@ -1490,10 +1499,11 @@ proc CreateVrml { } {
 			return
 		}
 		# get output name
-		set target [tk_getSaveFile -defaultextension ".wrl" \
-			-filetypes $vrmlTypes \
-			-initialdir $lastDir]
-		if {[string length $target] == 0} { return }
+		set target [string trim [tk_getSaveFile -defaultextension ".wrl" \
+			-filetypes $vrmlTypes -initialdir $lastDir]]
+		if {[string length $target] == 0 || [string match "after#*" $target]} {
+			return
+		}
 		set lastDir [file dirname $target]
 		set f [open $target w]
 		puts $f "\#VRML V2.0 utf8"
@@ -1590,10 +1600,11 @@ proc CreateKml { } {
 			return
 		}
 		# get output name
-		set target [tk_getSaveFile -defaultextension ".kml" \
-			-filetypes $kmlTypes \
-			-initialdir $lastDir]
-		if {[string length $target] == 0} { return }
+		set target [string trim [tk_getSaveFile -defaultextension ".kml" \
+			-filetypes $kmlTypes -initialdir $lastDir]]
+		if {[string length $target] == 0 || [string match "after#*" $target]} {
+			return
+		}
 		set lastDir [file dirname $target]
 		set f [open $target w]
 		puts $f "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -1610,6 +1621,10 @@ proc CreateKml { } {
 			lappend coords [linsert $node 0 $i $i]
 		}
 		set tr_coords [cs2cs $from_epsg 4326 $coords]
+		if {[llength $tr_coords] == 0} {
+			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cs2cs) error 0 OK
+			return
+		}
 		foreach tr_coord $tr_coords {
 			set tr_node([lindex $tr_coord 0]) [lrange $tr_coord 2 end]
 		}
@@ -1897,8 +1912,9 @@ proc GeoVolumeDif {} {
 	set oldTinLoaded $tinLoaded
 	set oldTinPath $tinPath
 	# load second TIN
-	set tp [tk_getOpenFile -filetypes $tinTypes -initialdir $lastDir]
-	if {[string length $tp]} {
+	set tp [string trim [tk_getOpenFile -filetypes $tinTypes \
+		-initialdir $lastDir]]
+	if {[string length $tp] && [string match "after#*" $tp] == 0} {
 		UnloadTin	;# unload first TIN
 		set tp [file rootname $tp]
 		LoadTin $tp	;# load second TIN
@@ -2243,14 +2259,15 @@ proc DeleteTri {id} {
 #	@param var   - name of variable to set
 proc sellayer {title var} {
 	global tmp pnlay lastDir
+	global cadTypes
 
 	upvar $var v
 	if {[info exists tmp] == 0} { set tmp ""}
 	if {$tmp == "" || [file exists $tmp] == 0} {
-		set tmp [tk_getOpenFile -defaultextension ".dxf" \
-			-filetypes {{"AutoCAD DXF" {.dxf}}} -initialdir $lastDir]
+		set tmp [string trim [tk_getOpenFile -defaultextension ".dxf" \
+			-filetypes $cadTypes -initialdir $lastDir]]
 	}
-	if {$tmp == ""} { return }
+	if {[string length $tmp] == 0 || [string match "after#*" $tmp]} { return }
 	set lastDir [file dirname $tmp]
 	set xxx $pnlay
 	dxflayers $title -1
@@ -2487,9 +2504,9 @@ proc CreateGrid {} {
 	global buttonid
 	global grdTypes
 
-	set filen [tk_getSaveFile -filetypes $grdTypes \
-		-defaultextension ".asc" -initialdir $lastDir]
-	if {$filen != ""} {
+	set filen [string trim [tk_getSaveFile -filetypes $grdTypes \
+		-defaultextension ".asc" -initialdir $lastDir]]
+	if {[string length $filen] && [string match "after#*" $filen] == 0} {
 		set lastDir [file dirname $filen]
 		GridParams
 		tkwait window .gridparams
@@ -2609,6 +2626,7 @@ proc DtmProfile {this} {
 	global decimals
 	global reg
 	global xInterp yInterp x1Interp y1Interp stepInterp dxfProfile
+	global cadTypes
 
 	set can $this.map.c
 	if {[regexp $reg(2) $xInterp] == 0 || [regexp $reg(2) $yInterp] == 0} {
@@ -2635,9 +2653,11 @@ proc DtmProfile {this} {
 	GeoLog $geoEasyMsg(menuDtmInterp)
 	GeoLog1 [format "%.${decimals}f, %.${decimals}f - %.${decimals}f, %.${decimals}f %s %.${decimals}f" $xInterp $yInterp $x1Interp $y1Interp $geoEasyMsg(lstep) $stepInterp]
 	if {$dxfProfile} {
-		set filen [tk_getSaveFile -filetypes {{"AutoCAD DXF" {.dxf}}} \
-			-defaultextension ".dxf" -initialdir $lastDir]
-		if {$filen == ""} { return }
+		set filen [string trim [tk_getSaveFile -filetypes $cadTypes \
+			-defaultextension ".dxf" -initialdir $lastDir]]
+		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
+			return
+		}
         set lastDir [file dirname $filen]
 		if {[catch {set fd [open $filen w]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
@@ -2697,9 +2717,9 @@ proc LandXMLOut {} {
 	global lastDir
 	global decimals
 
-	set fn [tk_getSaveFile -defaultextension ".xml" \
-		-filetypes {{"LandXML" {.xml}}} -initialdir $lastDir]
-	if {[string length $fn] == 0} { return }
+	set fn [string trim [tk_getSaveFile -defaultextension ".xml" \
+		-filetypes {{"LandXML" {.xml}}} -initialdir $lastDir]]
+	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
 	set lastDir [file dirname $fn]
 	if {[catch {set f [open $fn "w"]} msg] == 1} {
 		tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(cantSave)\n$msg" error 0 OK
