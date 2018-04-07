@@ -577,23 +577,6 @@ proc ComDownload {} {
 	# string match is used to avoid silly Windows 10 bug
 	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		set lastDir [file dirname $fn]
-		set ext [file extension $fn]
-        # find saveType in saveTypes
-        set selExt ""
-        foreach type $comTypes {
-            if {[string match "[lindex $type 0]*" $saveType]} {
-                set selExt [lindex $type 1]
-                break
-            }
-        }
-        if {$ext == ""} {
-            # add extension
-            set fn "$fn$selExt"
-        } elseif {$selExt != "" && $selExt != $ext} {
-            # replace extension
-            set fn "[file rootname $fn]$selExt"
-            # TBD owerwrite existing file?
-        }
 		set savename $fn
 		if {[OpenCom] == 0} {
 			ComMenu 1	;# disable menus
