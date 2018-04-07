@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes tr1Types tr2Types \
-	tinTypes polyTypes \
-	vrmlTypes kmlTypes xmlTypes grdTypes txpTypes
+	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
+	cadTypes mskTypes lstTypes docTypes csvTypes
 global geoCodes
 global geoEasyMsg
 
@@ -94,6 +94,24 @@ set grdTypes {{"ESRI ASCII GRID" {.asc}}
 }
 
 set txpTypes {{"Txt/csv fájl definíció .txp" {.txp}}
+}
+
+set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set mskTypes {{"GeoEasy maszk" {.dxf}}
+}
+
+set lstTypes {{"Szöveges lista" {.lst}}
+}
+
+set webTypes {{"Honlap" {.html}}
+}
+
+set docTypes {{"Rich Text Format" {.rtf}}
+}
+
+set csvTypes {{"Vesszõvel elválasztott értékek" {.csv}}
 }
 
 #
@@ -885,6 +903,7 @@ set geoEasyMsg(griddx1)		"Rács lépésköz: %.2f"
 set geoEasyMsg(llc)			"Bal  alsó  sarok: %.2f %.2f"
 set geoEasyMsg(urc)			"Jobb felsõ sarok: %.2f %.2f"
 set geoEasyMsg(gridvrml)	"VRML export"
+set geoEasyMsg(cs2cs)       "Sikertelen vetületi átszámítás"
 set geoEasyMsg(dtmStat)	"%s DTM\n%d pont\n%d háromszög\n%d toresvonal/határvonal\n%d lyuk\nY minimum: %.2f\nX minimum: %.2f\nZ minimum: %.2f\nY maximum: %.2f\nX maximum %.2f\nZ maximum: %.2f"
 set geoEasyMsg(voldif)	"Bevágás térfogat: %.1f m3 Terület: %.1f m2\nTöltés  térfogat: %.1f m3  Terület: %.1f m2\nAzonos: %.1f m2"
 set geoEasyMsg(interpolateTin) "Interpoláció:"

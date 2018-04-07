@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
-	tinTypes polyTypes \
-	vrmlTypes kmlTypes xmlTypes grdTypes txpTypes
+	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
+	cadTypes mskTypes lstTypes docTypes csvTypes
 global geoCodes
 global geoEasyMsg
 
@@ -97,6 +97,25 @@ set grdTypes {{"ESRI ASCII GRID" {.asc}}
 
 set txpTypes {{"Txt/csv file definition .txp" {.txp}}
 }
+
+set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set mskTypes {{"GeoEasy mask" {.dxf}}
+}
+
+set lstTypes {{"Text list" {.lst}}
+}
+
+set webTypes {{"Home page" {.html}}
+}
+
+set docTypes {{"Rich Text Format" {.rtf}}
+}
+
+set csvTypes {{"Comma Separated Values" {.csv}}
+}
+
 #
 #	codes used in geo data set
 #
@@ -872,6 +891,7 @@ set geoEasyMsg(griddx1)  	"Grid step: %.2f"
 set geoEasyMsg(llc)  		"Lower left  corner: %.2f %.2f"
 set geoEasyMsg(urc)  		"Upper right corner: %.2f %.2f"
 set geoEasyMsg(gridvrml)  	"VRML export"
+set geoEasyMsg(cs2cs)		"Reprojection failed"
 set geoEasyMsg(headVolume)	"Base height  Volume        Above        Below       Area     Surface area"
 set geoEasyMsg(dtmStat)		"%s DTM\n%d points\n%d triangles\n%d break lines/border lines\n%d holes\nE min: %.2f\nN min: %.2f\nH min: %.2f\nE max: %.2f\nN max: %.2f\nH max: %.2f"
 set geoEasyMsg(voldif)  "Cut  Volume: %.1f m3 Area: %.1f m2\nFill Volume: %.1f m3  Area: %.1f m2\nSame: %.1f m2"
