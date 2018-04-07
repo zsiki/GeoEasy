@@ -38,10 +38,12 @@ proc GeoNet3D {{pns ""}} {
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	if {$gamaSvgOut} {
 		# save svg out 
-		set filen [tk_getSaveFile -filetypes \
+		set filen [string trim [tk_getSaveFile -filetypes \
 			{{"Scalable Vector Graphics SVG" {.svg}}} \
-			-defaultextension ".svg" -initialdir $lastDir]
-		if {$filen == ""} { return }
+			-defaultextension ".svg" -initialdir $lastDir]]
+		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
+			return
+		}
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
@@ -99,10 +101,12 @@ proc GeoNet2D {{pns ""}} {
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	if {$gamaSvgOut} {
 		# save svg out 
-		set filen [tk_getSaveFile -filetypes \
+		set filen [strin trim [tk_getSaveFile -filetypes \
 			{{"Scalable Vector Graphics SVG" {.svg}}} \
-			-defaultextension ".svg" -initialdir $lastDir]
-		if {$filen == ""} { return }
+			-defaultextension ".svg" -initialdir $lastDir]]
+		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
+			return
+		}
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
@@ -198,8 +202,9 @@ global oriDetail
 
 	GeoLog1
 	if {[string length $fn] == 0} {
-		set fn [tk_getSaveFile -filetypes $xmlTypes -initialdir $lastDir \
-			-defaultextension ".g2d"]
+		set fn [string trim [tk_getSaveFile -filetypes $xmlTypes \
+			-initialdir $lastDir -defaultextension ".g2d"]]
+		if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
 		GeoLog "$geoEasyMsg(menuFileExport) $fn"
 	} else {
 		switch -exact [file extension $fn] {

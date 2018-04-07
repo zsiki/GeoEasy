@@ -44,10 +44,10 @@ proc GeoTran {{sourc ""}} {
 	}
 	# select target geo data set (co-ordinate system)
 	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
-	set targetFile [string trim \
-		[tk_getOpenFile -filetypes $typ -title $geoEasyMsg(toCS) \
-			-initialdir $lastDir]]
-	if {[string length $targetFile] == 0} { return }
+	set targetFile [string trim [tk_getOpenFile -filetypes $typ \
+		-title $geoEasyMsg(toCS) -initialdir $lastDir]]
+	if {[string length $targetFile] == 0 || \
+		[string match "after#*" $targetFile]} { return }
 	set lastDir [file dirname $targetFile]
 	set target [GeoSetName $targetFile]
 	if {[lsearch -exact $geoLoaded $target] != -1} {
@@ -281,15 +281,15 @@ proc GeoTran {{sourc ""}} {
 				}
 				if {$parSave} {
 					if {$type == 3 || $type == 4} {
-						set fn [tk_getSaveFile -initialdir $lastDir \
-							-filetypes $tr2Types \
+						set fn [string trim [tk_getSaveFile \
+							-initialdir $lastDir -filetypes $tr2Types \
 							-title $geoEasyMsg(parSave) \
-							-defaultextension ".all"]
+							-defaultextension ".all"]]
 					} else {
-						set fn [tk_getSaveFile -initialdir $lastDir \
-							-filetypes $trTypes \
+						set fn [string trim [tk_getSaveFile \
+							-initialdir $lastDir -filetypes $trTypes \
 							-title $geoEasyMsg(parSave) \
-							-defaultextension ".prm"]
+							-defaultextension ".prm"]]
 					}
 					if {[catch {set f [open $fn "w"]}] == 0} {
 						switch -exact $type {
@@ -770,7 +770,8 @@ proc GeoHTran {{sourc ""}} {
 	set targetFile [string trim \
 		[tk_getOpenFile -filetypes $typ -title $geoEasyMsg(toCS) \
 			-initialdir $lastDir]]
-	if {[string length $targetFile] == 0} { return }
+	if {[string length $targetFile] == 0 || \
+		[string match "after#*" $targetFile]} { return }
 	set lastDir [file dirname $targetFile]
 	set target [GeoSetName $targetFile]
 	if {[lsearch -exact $geoLoaded $target] != -1} {
@@ -877,10 +878,9 @@ proc GeoHTran {{sourc ""}} {
 				}
 			}
 			if {$parSave} {
-				set fn [tk_getSaveFile -initialdir $lastDir \
-					-filetypes $trHTypes \
-					-title $geoEasyMsg(parSave) \
-					-defaultextension ".vsh"]
+				set fn [string trim [tk_getSaveFile -initialdir $lastDir \
+					-filetypes $trHTypes -title $geoEasyMsg(parSave) \
+					-defaultextension ".vsh"]]
 				set f [open $fn "w"]
 				puts $f $dz
 				close $f

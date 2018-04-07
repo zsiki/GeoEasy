@@ -868,9 +868,10 @@ proc LoadMask {} {
 	global geoMasks geoMaskParams cooMasks cooMaskParams
 	global geoForms geoFormParams geoFormPat
 	global cooForms cooFormParams cooFormPat
+	global mskTypes
 
-	set fn [tk_getOpenFile -filetypes {{"Geo-Easy mask" {.msk}}}]
-	if {[string length [string trim $fn]] > 0} {
+	set fn [string trim [tk_getOpenFile -filetypes $mskTypes]]
+	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		if {[catch {source $fn} msg] != 0} {
 			tk_dialog .msg $geoEasyMsg(warning) \
 				[format $geoEasyMsg(wrongmask) $msg] \
@@ -977,6 +978,7 @@ proc GeoLoadLog {w} {
 #	@param w text window
 proc GeoClearLog {w} {
 	global logName geoEasyMsg
+	global lstTypes
 	catch {
 		if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(logDelete) \
 				warning 0 $geoEasyMsg(ok) $geoEasyMsg(cancel)] == 0} {
@@ -1003,9 +1005,9 @@ global lastDir
 		Beep
 		return
 	}
-	set fn [tk_getSaveFile -filetypes {{"list" {.lst}}} \
-		-defaultextension ".lst" -initialdir $lastDir]
-	if {$fn != ""} {
+	set fn [string trim [tk_getSaveFile -filetypes $lstTypes \
+		-defaultextension ".lst" -initialdir $lastDir]]
+	if {[string length $fn] && [string match "after#*" $nn] == 0} {
 		set lastDir [file dirname $fn]
 		if {[catch {set fd [open $fn w]
 			puts $fd $t
@@ -2030,6 +2032,7 @@ proc GeoMaskHtml {maskn fn type} {
 	global geoMaskColors
 	global browser
 	global tcl_platform
+	global webTypes
 
 	if {$type == "_geo"} {
 		upvar #0 geoMasks($maskn) mask
@@ -2038,9 +2041,9 @@ proc GeoMaskHtml {maskn fn type} {
 		upvar #0 cooMasks($maskn) mask
 		upvar #0 cooMaskParams($maskn) params
 	}
-	set on [tk_getSaveFile -defaultextension ".html" -initialdir $lastDir \
-		-filetypes {{"Weblap" {.html}}} -initialfile "${fn}${type}"]
-	if {$on == ""} { return }
+	set on [string trim [tk_getSaveFile -defaultextension ".html" \
+		-initialdir $lastDir -filetypes $webTypes -initialfile "${fn}${type}"]]
+	if {[string length $on] == 0 || [string match "after#*" $on]} { return }
 	set lastDir [file dirname $on]
 	set fd [open $on w]				;# output file
 	fconfigure $fd -encoding cp1250
@@ -2246,6 +2249,7 @@ proc GeoMaskRtf {maskn fn type} {
 	global geoMaskColors
 	global rtfview
 	global tcl_platform
+	global docTypes
 
 	if {$type == "_geo"} {
 		upvar #0 geoMasks($maskn) mask
@@ -2254,9 +2258,9 @@ proc GeoMaskRtf {maskn fn type} {
 		upvar #0 cooMasks($maskn) mask
 		upvar #0 cooMaskParams($maskn) params
 	}
-	set on [tk_getSaveFile -defaultextension ".rtf" -initialdir $lastDir \
-		-filetypes {{"Rich Text formatum" {.rtf}}} -initialfile "${fn}${type}"]
-	if {$on == ""} { return }
+	set on [string trim [tk_getSaveFile -defaultextension ".rtf" \
+		-initialdir $lastDir -filetypes $docTypes -initialfile "${fn}${type}"]]
+	if {[string length $on] == 0 || [string match "after#*" $on]} { return }
 	set lastDir [file dirname $on]
 	set fd [open $on w]				;# output file
 	fconfigure $fd -encoding cp1250
@@ -2465,6 +2469,7 @@ proc GeoMaskCsv {maskn fn type} {
 	global geoMaskColors
 #	global browser TBD
 	global tcl_platform
+	global csvTypes
 
 	if {$type == "_geo"} {
 		upvar #0 geoMasks($maskn) mask
@@ -2473,9 +2478,9 @@ proc GeoMaskCsv {maskn fn type} {
 		upvar #0 cooMasks($maskn) mask
 		upvar #0 cooMaskParams($maskn) params
 	}
-	set on [tk_getSaveFile -defaultextension ".csv" -initialdir $lastDir \
-		-filetypes {{"CSV" {.csv}}} -initialfile "${fn}${type}"]
-	if {$on == ""} { return }
+	set on [string trim [tk_getSaveFile -defaultextension ".csv" \
+		-initialdir $lastDir -filetypes $csvTypes -initialfile "${fn}${type}"]]
+	if {[string length $on] == 0 || [string match "after#*" $on]} { return }
 	set lastDir [file dirname $on]
 	set fd [open $on w]				;# output file
 	fconfigure $fd -encoding cp1250
@@ -2903,7 +2908,7 @@ proc CooTrFile {c} {
 
 	set fn [string trim \
 		[tk_getOpenFile -filetypes $tr1Types -initialdir $lastDir]]
-	if {[string length $fn] > 0} {
+	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		set lastDir [file dirname $fn]
 		switch -glob [string tolower $fn] {
 			*.prm {
@@ -3245,10 +3250,10 @@ proc CooDif {{source ""}} {
     }
     # select target geo data set (co-ordinate system)
     set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
-    set targetFile [string trim \
-        [tk_getOpenFile -filetypes $typ -title $geoEasyMsg(toCS) \
-            -initialdir $lastDir]]
-    if {[string length $targetFile] == 0} { return }
+    set targetFile [string trim [tk_getOpenFile -filetypes $typ \
+		-title $geoEasyMsg(toCS) -initialdir $lastDir]]
+    if {[string length $targetFile] == 0 || \
+		[string match "after#*" $targetFile]} { return }
     set lastDir [file dirname $targetFile]
     set target [GeoSetName $targetFile]
 	set unload 0

@@ -53,6 +53,7 @@ proc GeoEasy {top} {
 	global cooMustHave cooTogether cooNotTogether
 	global fn
 	global version
+	global saveType comSaveType
 
 	set version 303 ;# updatefor new release!
 	set version_str "[join [split $version {}] .] dev"
@@ -102,6 +103,8 @@ proc GeoEasy {top} {
 	set SEC2CC [expr {400.0 / 360.0 * 10000.0 / 3600.0}] ;# sec to cc multiplier
 	set E [expr {exp(1.0)}]		;# e
 	set geoPrinterFont "\"Courier New\" 10"
+	set saveType ""
+	set comSaveType ""
 	# set myName [file tail [file normalize [info nameofexecutable]]]
 	# get home dir from registry/environment
 	if {[catch {set home [registry get HKEY_LOCAL_MACHINE\\SOFTWARE\\GeoEasy home]}]} {
@@ -679,9 +682,8 @@ proc MenuNew {w} {
 
 	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
 	set fn ""
-	set fn [tk_getSaveFile -filetypes $typ -initialdir $lastDir]
-	set fn [string trim $fn]
-	if {[string length $fn] == 0} {return}
+	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir]]
+	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
 	set lastDir [file dirname $fn]
 	set fn "[file rootname $fn].geo"
 	if {$tcl_platform(platform) != "unix" && \
@@ -734,11 +736,11 @@ proc MenuLoad {w {def ""}} {
 	if {[string length $def]} {
 		set fns $def
 	} else {
-		set fns [string trim \
-			[tk_getOpenFile -filetypes $fileTypes -initialdir $lastDir -multiple 1]]
+		set fns [string trim [tk_getOpenFile -filetypes $fileTypes \
+			-initialdir $lastDir -multiple 1]]
 	}
 	foreach fn $fns {
-		if {[string length $fn] > 0} {
+		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 			set lastDir [file dirname $fn]
 			set f [GeoSetName $fn]
 			if {[info exists geoLoaded]} {
@@ -797,9 +799,10 @@ proc MenuLoad {w {def ""}} {
 					if {$res == 0} {
 						set typ [list [lindex $fileTypes \
 							[lsearch -glob $fileTypes "*.eov*"]]]
-						set fnCoo [tk_getOpenFile -filetypes $typ \
-							-initialdir $lastDir -initialfile $gpCoo]
-						if {[string length $fnCoo]} {
+						set fnCoo [string trim [tk_getOpenFile -filetypes $typ \
+							-initialdir $lastDir -initialfile $gpCoo]]
+						if {[string length $fnCoo] && \
+							[string match "after#*" $fncoo] == 0} {
 							set lastDir [file dirname $fnCoo]
 							set res [GeoProfiCoo $fnCoo $fn]
 						}
@@ -1025,31 +1028,12 @@ proc MenuSaveAs {fn} {
 #	GeoSaveFilter TBD
 	while {! $saved} {
 		set saved 1
-		set saveType ""
-		set nn [tk_getSaveFile -filetypes $saveTypes -initialdir $lastDir \
-			-initialfile [file rootname [file tail $nn]] \
-			-typevariable saveType]
-		set nn [string trim $nn]
+		set nn [string trim [tk_getSaveFile -filetypes $saveTypes \
+			-initialdir $lastDir -initialfile [file rootname [file tail $nn]] \
+			-typevariable saveType]]
 		# string match is used to avoid silly Windows 10 bug
 		if {[string length $nn] == 0 || [string match "after#*" $nn]} {
 			return
-		}
-		set ext [file extension $nn]
-		# find saveType in saveTypes
-		set selExt ""
-		foreach type $saveTypes {
-			if {[string match "[lindex $type 0]*" $saveType]} {
-				set selExt [lindex $type 1]
-				break
-			}
-		}
-		if {$ext == ""} {
-			# add extension
-			set nn "$nn$selExt"
-		} elseif {$selExt != $ext} {
-			# replace extension
-			set nn "[file rootname $nn]$selExt"
-			# TBD owerwrite existing file?
 		}
 		set lastDir [file dirname $nn]
 		set rn [file rootname $nn]
@@ -1098,10 +1082,9 @@ proc GeoProjLoad {top {pn ""}} {
 	global observations details pointNumbers usedPointsOnly codedLines
 
 	if {$pn == ""} {
-		set pn [tk_getOpenFile -filetypes $projTypes -initialdir $lastDir \
-			-defaultextension ".gpr"]
-		set pn [string trim $pn]
-		if {[string length $pn] == 0} {return}
+		set pn [string trim [tk_getOpenFile -filetypes $projTypes \
+			-initialdir $lastDir -defaultextension ".gpr"]]
+		if {[string length $pn] == 0 || [string match "after#*" $pn]} { return }
 		set lastDir [file dirname $pn]
 	}
 	# close/save loaded data sets
@@ -1196,10 +1179,9 @@ proc GeoProjSave {} {
 	global geoWindowScale
 	global tinLoaded tinPath
 
-	set pn [tk_getSaveFile -filetypes $projTypes -initialdir $lastDir \
-		-defaultextension ".gpr"]
-	set pn [string trim $pn]
-	if {[string length $pn] == 0} {return}
+	set pn [string trim [tk_getSaveFile -filetypes $projTypes \
+		-initialdir $lastDir -defaultextension ".gpr"]]
+	if {[string length $pn] == 0 || [string match "after#*" $pn]} { return }
 	set lastDir [file dirname $pn]
 	if {[catch {set f [open $pn "w"]}] != 0} {
 		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) error 0 OK

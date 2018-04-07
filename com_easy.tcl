@@ -528,8 +528,9 @@ proc ComParsDlg {} {
 		ShowPars
 	}
 	if {$buttonid == 0} {	;# save settings
-		set fn [tk_getSaveFile -filetypes $comSetTypes -defaultextension ".com" -initialdir com_set]
-		if {[string length $fn]} {
+		set fn [string trim [tk_getSaveFile -filetypes $comSetTypes \
+			-defaultextension ".com" -initialdir com_set]]
+		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 			if {[catch {set of [open $fn "w"]} msg]} {
 				tk_dialog .msg $comEasyMsg(error) \
 					"$comEasyMsg(cantSave)\n$msg" warning 0 OK
@@ -543,8 +544,9 @@ proc ComParsDlg {} {
 	}
 	if {$buttonid == 1} {
 		# load setting from file
-		set fn [tk_getOpenFile -filetypes $comSetTypes -defaultextension ".com" -initialdir com_set]
-		if {[string length $fn]} {
+		set fn [string trim [tk_getOpenFile -filetypes $comSetTypes \
+			-defaultextension ".com" -initialdir com_set]]
+		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 			if {[catch {source $fn} msg]} {
 				tk_dialog .msg $comEasyMsg(error) \
 					"$comEasyMsg(cantSource)\n$msg" warning 0 OK
@@ -566,12 +568,32 @@ proc ComDownload {} {
 	global savename
 	global com
 	global lastDir
+	global comSaveType
 
 	if {[winfo exists .compars]} { return }
 	set savename ""
-	set fn [tk_getSaveFile -filetypes $comTypes -initialdir $lastDir]
-	if {[string length $fn]} {
+	set fn [string trim [tk_getSaveFile -filetypes $comTypes \
+		-initialdir $lastDir -typevariable comSaveType]]
+	# string match is used to avoid silly Windows 10 bug
+	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		set lastDir [file dirname $fn]
+		set ext [file extension $fn]
+        # find saveType in saveTypes
+        set selExt ""
+        foreach type $comTypes {
+            if {[string match "[lindex $type 0]*" $saveType]} {
+                set selExt [lindex $type 1]
+                break
+            }
+        }
+        if {$ext == ""} {
+            # add extension
+            set fn "$fn$selExt"
+        } elseif {$selExt != "" && $selExt != $ext} {
+            # replace extension
+            set fn "[file rootname $fn]$selExt"
+            # TBD owerwrite existing file?
+        }
 		set savename $fn
 		if {[OpenCom] == 0} {
 			ComMenu 1	;# disable menus
@@ -604,8 +626,8 @@ proc ComUpload {} {
 	global actPars
 
 	if {[winfo exists .compars]} { return }
-	set fn [tk_getOpenFile -filetypes $comTypes -defaultextension ".xxx"]
-	if {[string length $fn]} {
+	set fn [string trim [tk_getOpenFile -filetypes $comTypes]]
+	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		if {[catch {set f [open $fn r]} msg] == 1} {
 			tk_dialog .msg $comEasyMsg(error) \
 				"$comEasyMsg(cantOpen)\n$msg" warning 0 OK
