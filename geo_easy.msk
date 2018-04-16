@@ -207,28 +207,38 @@ set regLineEnd {_en$}
 global maskRows
 # default number of rows in masks
 set maskRows {20}
-global geoMasks geoMaskParams geoMaskDefault
+global geoMasks geoMaskParams geoMaskWidths geoMaskDefault
 set geoMaskDefault {tahimeter}
 set geoMasks(tahimeter_code) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_code) {"-" "" "" FLOAT DMS DMS FLOAT}
+set geoMaskWidths(tahimeter_code) {10 10 10 10 10 10 10}
 set geoMasks(orientation) {table 20 2 {62 5} {7 21} {100 101}}
 set geoMaskParams(orientation) {"-" "" DMS DMS}
+set geoMaskWidths(orientation) {10 10 10 10}
 set geoMasks(horiz) {table 20 2 {5 62} {7 21} 8 {11 9}}
 set geoMaskParams(horiz) {"-" "" DMS DMS FLOAT}
+set geoMaskWidths(horiz) {10 10 10 10 10}
 set geoMasks(tahimeter_gon) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_gon) {"-" "" FLOAT GON GON FLOAT}
+set geoMaskWidths(tahimeter_gon) {10 10 10 10 10 10}
 set geoMasks(tahimeter_deg) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_deg) {"-" "" FLOAT DEG DEG FLOAT}
+set geoMaskWidths(tahimeter_deg) {10 10 10 10 10 10}
 set geoMasks(tahimeter) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter) {"-" "" FLOAT DMS DMS FLOAT}
+set geoMaskWidths(tahimeter) {10 10 10 10 10 10}
 set geoMasks(tahimeter1) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter1) {"-" "" FLOAT DMS1 DMS1 FLOAT}
+set geoMaskWidths(tahimeter1) {10 10 10 10 10 10}
 set geoMasks(tahimeter_dm) {table 20 2 {5 62} {6 3} {7 21} {10 120} {9 11}}
 set geoMaskParams(tahimeter_dm) {"-" "" FLOAT DMS FLOAT FLOAT}
+set geoMaskWidths(tahimeter_dm) {10 10 10 10 10 10}
 set geoMasks(tahimeter_feet) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_feet) {"-" "" "" FEET DMS DMS FEET}
+set geoMaskWidths(tahimeter_feet) {10 10 10 10 10 10 10}
 set geoMasks(levelling) {table 20 2 {5 62} {10 120} {9 11}}
 set geoMaskParams(levelling) {"-" "" FLOAT FLOAT}
+set geoMaskWidths(levelling) {10 10 10 10}
 #
 #	masks for coordinate lists
 #	similiar to field book masks but only
@@ -247,18 +257,19 @@ set geoMaskParams(levelling) {"-" "" FLOAT FLOAT}
 #		111 - point order
 #		  4 - point code
 #
-global cooMasks cooMaskParams cooMaskDefault
+global cooMasks cooMaskParams cooMaskWidths cooMaskDefault
 set cooMaskDefault {prelim_fix}
 set cooMasks(difference) {table 20 5 4 38 37 39 41 40 42}
 set cooMaskParams(difference) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
+set cooMaskWidths(difference) {10 10 10 10 10 10 10 10}
 set cooMasks(prelim_fix) {table 20 5 4 {38 138} {37 137} {39 139}}
 set cooMaskParams(prelim_fix) {"" "" FLOAT FLOAT FLOAT}
+set cooMaskWidths(prelim_fix) {10 10 10 10 10}
 set cooMasks(fix) {table 20 5 4 38 37 39}
 set cooMaskParams(fix) {"" "" FLOAT FLOAT FLOAT}
+set cooMaskWidths(fix) {10 10 10 10 10}
 #
 # mask parameters
 #
 global parMask
 set parMask {51 52 53 55 114 115 116 118 0}
-
-
