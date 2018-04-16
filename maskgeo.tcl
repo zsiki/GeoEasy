@@ -33,7 +33,8 @@
 proc GeoMask {maskn fn {type "_geo"}} {
 	global geoEasyMsg
 	global geoCodes
-	global geoMasks geoMaskParams cooMasks cooMaskParams
+	global geoMasks geoMaskParams geoMaskWidths
+	global cooMasks cooMaskParams CooMaskWidths
 	global maskPos maskName
 	global geoRes geoNum
 	global geoMustHave geoTogether geoNotTogether
@@ -53,9 +54,11 @@ proc GeoMask {maskn fn {type "_geo"}} {
 	if {$type == "_geo"} {
 		upvar #0 geoMasks($maskn) mask
 		upvar #0 geoMaskParams($maskn) params
+		upvar #0 geoMaskWidths($maskn) widths
 	} else {
 		upvar #0 cooMasks($maskn) mask
 		upvar #0 cooMaskParams($maskn) params
+		upvar #0 cooMaskWidths($maskn) widths
 	}
 	set geoRes($w) ""
 	toplevel $w
@@ -254,7 +257,7 @@ proc GeoMask {maskn fn {type "_geo"}} {
 		for {set i 1} {$i <= $rows} {incr i} {
 			for {set j 0} {$j < [llength $def]} {incr j} {
 				set ent ${grd}.e${i}-${j}
-				entry $ent -width 10
+				entry $ent -width [lindex $widths $j]
 				bind $ent <FocusOut> "GeoValid %W"
 				bind $ent <FocusIn> "LastVal %W"
 				bind $ent <3> "GeoMaskPopup [list $oarr($j)] %W %X %Y"
