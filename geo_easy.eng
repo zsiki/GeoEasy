@@ -762,6 +762,7 @@ set geoEasyMsg(formulaP2y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y
 set geoEasyMsg(formulaP2x)	"  X = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y' * %.8e + x'^2 * %.8e"
 set geoEasyMsg(formulaP3y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
 set geoEasyMsg(formulaP3x)	"  X = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
+set geoEasyMsg(formula1D)	"  Z = z + %s"
 set geoEasyMsg(scaleRot)	"  Scale = %.8f Rotation = %s"
 #
 # font dialog

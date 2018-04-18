@@ -760,6 +760,7 @@ set geoEasyMsg(formulaP2y) 	"  Y = %s + y' * %.9e + y'^2 * %.9e + x' * %.9e + x'
 set geoEasyMsg(formulaP2x) 	"  X = %s + y' * %.9e + y'^2 * %.9e + x' * %.9e + x'y' * %.9e + x'^2 * %.9e"
 set geoEasyMsg(formulaP3y) 	"  Y = %s + y' * %.9e + y'^2 * %.9e + y'^3 * %.9e + x' * %.9e + y'x' * %.9e + y'^2x' * %.9e + x'^2 * %.9e + y'x'^2 * %.9e + x'^3 * %.9e"
 set geoEasyMsg(formulaP3x) 	"  X = %s + y' * %.9e + y'^2 * %.9e + y'^3 * %.9e + x' * %.9e + y'x' * %.9e + y'^2x' * %.9e + x'^2 * %.9e + y'x'^2 * %.9e + x'^3 * %.9e"
+set geoEasyMsg(formula1D)   "  Z = z + %s"
 set geoEasyMsg(scaleRot) 	"  Méretarány = %.9f Elfordulás = %s"
 #
 # font dialog

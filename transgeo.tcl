@@ -830,6 +830,8 @@ proc GeoHTran {{sourc ""}} {
 			set agv_dst [expr {$sum_dst / [llength $plist]}]
 			set dz [expr {$agv_dst - $agv_src}]
 			set sl2 0
+			GeoLog1 [format $geoEasyMsg(formula1D) \
+				[format "%.${decimals}f" $dz]]
 			foreach p $plist {
 				set fp $sourceCoo($p)
 				set tp $targetCoo($p)
