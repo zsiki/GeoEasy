@@ -25,9 +25,9 @@ systems are supported. See the [installation guide](doc/install.rst).
 
 ## Open source software/packages used
 
-* Tcl/Tk (https://www.tcl.tk/)
+* Tcl/Tk (https://www.tcl.tk/) the programming language for the project
 * GNU Gama (https://www.gnu.org/software/gama/) for network adjustment
 * Triangle (https://github.com/MrPhil/Triangle) for DTM
 * Proj.4 cs2cs (http://proj4.org/) for KML and GPX export
-* Nullsoft Scriptable Install System (http://nsis.sourceforge.net/Main_Page)
-* Freewrap (http://freewrap.sourceforge.net/)
+* Nullsoft Scriptable Install System (http://nsis.sourceforge.net/Main_Page) to create the Windows installer
+* Freewrap (http://freewrap.sourceforge.net/) to convert Tcl/Tk scripts to Linux/Windows executables
