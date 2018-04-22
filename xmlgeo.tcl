@@ -101,7 +101,7 @@ proc GeoNet2D {{pns ""}} {
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	if {$gamaSvgOut} {
 		# save svg out 
-		set filen [strin trim [tk_getSaveFile -filetypes \
+		set filen [string trim [tk_getSaveFile -filetypes \
 			{{"Scalable Vector Graphics SVG" {.svg}}} \
 			-defaultextension ".svg" -initialdir $lastDir]]
 		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
