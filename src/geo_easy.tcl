@@ -253,7 +253,11 @@ proc GeoEasy {top} {
 		image create bitmap xchgtri -file [file join $home bitmaps xchgtri.bmp]
 	}
 
-	set logName [file join $home geo_easy.log]
+	if {[info exist env(HOME)]} {
+		set logName [file join $env(HOME) geo_easy.log]
+	} else {
+		set logName [file join $home geo_easy.log]
+	}
 	GeoLog $geoEasyMsg(start)
 #
 #	start the application

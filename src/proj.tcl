@@ -26,16 +26,16 @@ proc cs2cs {from_epsg to_epsg coords} {
 	global cs2csProg
 
 	set res ""
-    if {[info exists env(TMP)]} {
-        set tmpdir $env(TMP)
-    } elseif {[info exists env(TEMP)]} {
-        set tmpdir $env(TEMP)
-    } else {
-        set tmpdir "."
-    }
-    set tmpname [file join  $tmpdir tmp.txt]
-    set tmp1name [file join  $tmpdir tmp1.txt]
-    catch {file delete $tmpname $tmp1name]}
+	if {[info exists env(TMP)]} {
+		set tmpdir $env(TMP)
+	} elseif {[info exists env(TEMP)]} {
+		set tmpdir $env(TEMP)
+	} else {
+		set tmpdir "."
+	}
+	set tmpname [file join  $tmpdir tmp.txt]
+	set tmp1name [file join  $tmpdir tmp1.txt]
+	catch {file delete $tmpname $tmp1name]}
 	set fp [open $tmpname w]
 	foreach coord $coords {
 		puts $fp [lrange $coord 2 end]
@@ -53,6 +53,6 @@ proc cs2cs {from_epsg to_epsg coords} {
 			lappend res [concat [lrange $coord 0 1] $tr]	
 		}
 	}
-    catch {file delete $tmpname $tmp1name]}
+	catch {file delete $tmpname $tmp1name]}
 	return $res
 }
