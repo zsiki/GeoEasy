@@ -1,5 +1,7 @@
-# add path to tcl_cruncher if istalled
+# add path to tcl_cruncher if installed
 TCL_CRUNCHER = tcl_cruncher
+FREE_WRAP = ../../freewrap
+TCL_DOC = ../../tcldoc-0.87/tcldoc.tcl
 # uncomment next line if no tcl_cruncher installed
 #TCL_CRUNCHER = cat
 #-----------------------------------------------------------------------
@@ -27,11 +29,11 @@ GeoEasy: GeoEasy.tcl
 # check message files
 	./msg_check.sh
 # new freewrap package
-	../freewrap/linux64/freewrap GeoEasy.tcl -forcewrap -o GeoEasy
+	$(FREE_WRAP)/linux64/freewrap GeoEasy.tcl -forcewrap -o GeoEasy
 GeoEasy.exe: GeoEasy.tcl
-	../freewrap/linux64/freewrap GeoEasy.tcl -w ../freewrap/win32/freewrap.exe -i gizi.ico -forcewrap -o GeoEasy.exe
+	$(FREE_WRAP)/linux64/freewrap GeoEasy.tcl -w $(FREE_WRAP)/win32/freewrap.exe -i gizi.ico -forcewrap -o GeoEasy.exe
 GeoEasy64.exe: GeoEasy.tcl
-	../freewrap/linux64/freewrap GeoEasy.tcl -w ../freewrap/win64/freewrap.exe -i gizi.ico -forcewrap -o GeoEasy64.exe
+	$(FREE_WRAP)/linux64/freewrap GeoEasy.tcl -w $(FREE_WRAP)/win64/freewrap.exe -i gizi.ico -forcewrap -o GeoEasy64.exe
 
 GeoEasy.tcl: source
 	rm -f GeoEasy.tcl
@@ -54,12 +56,12 @@ source: ${GE_SOURCES} index.tcl
 #	serial communication
 #
 ComEasy: ComEasy.tcl
-	../freewrap/linux64/freewrap ComEasy.tcl -forcewrap -o ComEasy
+	$(FREE_WRAP)/linux64/freewrap ComEasy.tcl -forcewrap -o ComEasy
 
 ComEasy.exe: ComEasy.tcl
-	../freewrap/linux64/freewrap ComEasy.tcl -w ../freewrap/win32/freewrap.exe -i gizi.ico -forcewrap -o ComEasy.exe
+	$(FREE_WRAP)/linux64/freewrap ComEasy.tcl -w $(FREE_WRAP)/win32/freewrap.exe -i gizi.ico -forcewrap -o ComEasy.exe
 ComEasy64.exe: ComEasy.tcl
-	../freewrap/linux64/freewrap ComEasy.tcl -w ../freewrap/win64/freewrap.exe -i gizi.ico -forcewrap -o ComEasy64.exe
+	$(FREE_WRAP)/linux64/freewrap ComEasy.tcl -w $(FREE_WRAP)/win64/freewrap.exe -i gizi.ico -forcewrap -o ComEasy64.exe
 ComEasy.tcl: ${CE_SOURCES}
 	tcl_cruncher ${CE_SOURCES} > ComEasy.tcl
 	chmod +x ComEasy.tcl
@@ -68,10 +70,10 @@ linux: GeoEasy geo_easy.hun geo_easy.eng geo_easy.msk
 	rm -f Gizi3Linux.tgz
 	tar cvzf Gizi3Linux.tgz GeoEasy geo_easy.msk geo_easy.eng geo_easy.hun \
 		default.msk bitmaps demodata com_easy.eng com_easy.hun com_set \
-		*.txp gama-local triangle
+		*.txp
 doc: ${DOC_SOURCES}
 	# generate doc
-	/home/siki/tcldoc-0.87/tcldoc.tcl --overview overview.html --force tcldoc \
+	$(TCL_DOC) --overview overview.html --force ../tcldoc \
 		${DOC_SOURCES}
 
 clean:
