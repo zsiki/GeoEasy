@@ -23,7 +23,7 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	xmlgeo.tcl zsenigeo.tcl \
 	geo_easy.tcl
 #
-all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux
+all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux deb
 
 GeoEasy: GeoEasy.tcl
 # check message files
@@ -75,6 +75,31 @@ doc: ${DOC_SOURCES}
 	# generate doc
 	$(TCL_DOC) --overview overview.html --force ../tcldoc \
 		${DOC_SOURCES}
+deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
+	rm -f tclIndex
+	echo "#-----------------------------------------------------" > defaultmask.tcl
+	echo "#	-- SetDefaultMsk" >> defaultmask.tcl
+	echo "#	Set defaults for .msk file if it is missing, destroyd" >> defaultmask.tcl
+	echo "#-----------------------------------------------------" >> defaultmask.tcl
+	echo "proc SetDefaultMsk {} {" >> defaultmask.tcl
+	cat geo_easy.msk >> defaultmask.tcl
+	echo "}" >> defaultmask.tcl
+	echo global build_date > build_date.tcl
+	echo set build_date `date +%Y.%m.%d.` >> build_date.tcl
+	./index.tcl ${GE_SOURCES}
+	cp -frv * ../deb/data/usr/share/geoeasy
+	ln -svf /usr/bin/cs2cs ../deb/data/usr/share/geoeasy/cs2cs
+	ln -svf /usr/bin/gama-local ../deb/data/usr/share/geoeasy/gama-local
+	ln -svf /usr/bin/triangle ../deb/data/usr/share/geoeasy/triangle
+	mkdir -pv ../deb/data/usr/share/doc/geoeasy
+	cp -frv ../README.md ../doc ../deb/data/usr/share/doc/geoeasy
+	@head -n 8 ../LICENSE > ../deb/data/usr/share/doc/geoeasy/LICENSE
+	@echo "Read /usr/share/doc/license/gpl/gpl-2.0.txt.gz" >> ../deb/data/usr/share/doc/geoeasy/LICENSE
+	@ln -svf /usr/share/doc/license/gpl/gpl-2.0.txt.gz ../deb/data/usr/share/doc/geoeasy/gpl-2.0.txt.gz
+	@echo "-----------------------------------------------------"
+	@echo "cd ../deb"
+	@echo "Read README.md"
+	@echo "-----------------------------------------------------"
 
 clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
