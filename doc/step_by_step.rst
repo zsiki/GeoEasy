@@ -736,8 +736,13 @@ for contour interval. Finally export contours to an AutoCAD DXF file using
 Regression calculation
 ----------------------
 
+Regression calculation can be used to find best fitting geometrical shape to the 
+calculated coordinates. A least square adjustment is used to find the parameters 
+of the best fitting geometry.
+
 Regression line
 ~~~~~~~~~~~~~~~
+
 
 Regression plane
 ~~~~~~~~~~~~~~~~
