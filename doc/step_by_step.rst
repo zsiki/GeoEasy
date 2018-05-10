@@ -44,6 +44,9 @@ The loaded fieldbooks can be opened in a window. Select
 the name of the loaded datasets popup, in this case only *test1* is visible,
 select it. Fieldbook data are displayed in the default mask type.
 
+.. note:: The mask name is used for dialog boxes containg tabular data. 
+This comes from the display masks which were used on old Leica instruments.
+
 .. figure:: images/fieldbook.png
 	:align: center
 
