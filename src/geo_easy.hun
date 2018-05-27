@@ -11,9 +11,8 @@ global geoEasyMsg
 
 # regression types
 global reglist
-set reglist {"Egyenes x változik" "Egyenes y változik" \
-	"Egyenes y és x változik" "Párhuzamos egyenesek" "Kör" "Sík z változik" \
-	"Sík y,x és z változik" "Vízszintes sík" "Függõleges sík" \
+set reglist {"2D egyenes" "Párhuzamos egyenesek" "Kör" \
+	"Sík" "Vízszintes sík" "Függõleges sík" \
 	"Gömb" "3D egyenes"} ;# "Függõleges paraboloid"
 
 set fileTypes {
