@@ -210,7 +210,7 @@ proc GeoMask {maskn fn {type "_geo"}} {
 	
 		menu $mnu.regression -tearoff 0
 		set i 0
-		set menuBreak {3 4 8}
+		set menuBreak {2}
 		foreach r $reglist {
 			$mnu.regression add command -label $r -command "GeoReg $i"
 			if {[lsearch $menuBreak $i] >= 0} {

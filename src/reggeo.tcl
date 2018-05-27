@@ -22,22 +22,18 @@ proc GeoReg {regindex} {
 	global geoEasyMsg
 
 #	select points for regression
-	if {$regindex >= 0 && $regindex <= 2} {
+	if {$regindex == 0} {
 		# linear regression
 		set plist [lsort -dictionary [GetGiven {37 38}]]
 		if {[llength $plist] >= 2} {
 			set rplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -2]
 			if {[llength $rplist] >= 2} {
-				switch -exact $regindex {
-					0 { LinRegX $rplist }
-					1 { LinRegY $rplist }
-					2 { LinRegXY $rplist [lindex $reglist 2]}
-				}
+				LinRegXY $rplist [lindex $reglist 0]
 			}
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
-	} elseif {$regindex == 3} {
+	} elseif {$regindex == 1} {
 		# parallel lines
 		set plist [lsort -dictionary [GetGiven {37 38}]]
 		if {[llength $plist] >= 4} {
@@ -51,7 +47,7 @@ proc GeoReg {regindex} {
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
-	} elseif {$regindex == 4} {
+	} elseif {$regindex == 2} {
 		# circle
 		set plist [lsort -dictionary [GetGiven {37 38}]]
 		if {[llength $plist] > 2} {
@@ -63,20 +59,19 @@ proc GeoReg {regindex} {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 
-	} elseif {$regindex >= 5 && $regindex <= 11} {
+	} elseif {$regindex >= 3 && $regindex <= 8} {
 		# regression plane
 		set plist [lsort -dictionary [GetGiven {37 38 39}]]
 		if {[llength $plist] >= 3} {
 			set rplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
 			if {[llength $rplist] >= 3} {
 				switch -exact -- $regindex {
-					5 { PlaneReg $rplist }
-					6 { PlaneRegYXZ $rplist }
-					7 { PlaneHReg $rplist }
-					8 { LinRegXY $rplist [lindex $reglist 8]}
-					9 { SphereReg $rplist }
-					10 { Line3DReg $rplist }
-					11 { ParabReg $rplist }
+					3 { PlaneRegYXZ $rplist }
+					4 { PlaneHReg $rplist }
+					5 { LinRegXY $rplist [lindex $reglist 5]}
+					6 { SphereReg $rplist }
+					7 { Line3DReg $rplist }
+					8 { ParabReg $rplist }
 				}
 			}
 		} else {
@@ -98,7 +93,7 @@ proc GeoReg1 {plist} {
 #	check points for regression
 	set rplist ""
 	set nop ""
-	if {$regindex >= 0 && $regindex < 3} {
+	if {$regindex >= 0 && $regindex <= 2} {
 		# 2D regression
 		foreach pn $plist {
 			if {[llength [GetCoord $pn {37 38}]] > 0} {
@@ -111,36 +106,16 @@ proc GeoReg1 {plist} {
 			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
 				warning 0 OK
 		}
-		if {[llength $rplist] >= 2} {
-			switch -exact $regindex {
-				0 { LinRegX $rplist }
-				1 { LinRegY $rplist }
-				2 { LinRegXY $rplist [lindex $reglist 2]}
-			}
-		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
-		}
-	} elseif {$regindex == 3} {
-		# TODO
-	} elseif {$regindex == 4} {
-		# circle regression
-		foreach pn $plist {
-			if {[llength [GetCoord $pn {37 38}]] > 0} {
-				lappend rplist $pn
-			} else {
-				set nop "$nop $pn"	;# drop point
-			}
-		}
-		if {[string length $nop] > 0} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
-				warning 0 OK
-		}
-		if {[llength $rplist] > 2} {
+		if {[llength $rplist] >= 2 && $regindex == 0} {
+			LinRegXY $rplist [lindex $reglist 2]	;# 2D line
+		} elseif {$regindex == 1} {
+			# nop for paralel lines TODO
+		} elseif {[llength $rplist] > 2 && $regindex == 2} {
 			CircleReg $rplist
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
-	} elseif {$regindex >= 5 && $regindex <= 10} {
+	} elseif {$regindex >= 3 && $regindex <= 7} {
 		# 3D regression
 		foreach pn $plist {
 			if {[llength [GetCoord $pn {37 38 39}]] > 0} {
@@ -153,16 +128,18 @@ proc GeoReg1 {plist} {
 			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
 				warning 0 OK
 		}
-		if {[llength $rplist] >= 5} {
-			switch -exact -- $regindex {
-				5 { PlaneReg $rplist }
-				6 { PlaneRegYXZ $rplist }
-				7 { PlaneHReg $rplist }
-				8 { LinRegXY $rplist [lindex $reglist 8]}
-				9 { SphereReg $rplist }
-				10 { Line3DReg $rplist }
-				11 { ParabReg $rplist }
-			}
+		if {[llength $rplist] >= 3 && $regindex == 3} {
+			PlaneRegYXZ $rplist		;# general plane
+		} elseif {[llength $rplist] >= 1 && $regindex == 4} {
+			PlaneHReg $rplist		;# horizontal plane
+		} elseif {[llength $rplist] >= 2 && $regindex == 5} {
+			LinRegXY $rplist [lindex $reglist 5]	;# vertical plane
+		} elseif {[llength $rplist] >= 4 && $regindex == 6} {
+			SphereReg $rplist		;# sphere
+		} elseif {[llength $rplist] >= 4 && $regindex == 7} {
+			Line3DReg $rplist		;# 3D line
+		} elseif {[llength $rplist] >= 5 && $regindex == 8} {
+			ParabReg $rplist		;# TODO not tested, not enabled
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
@@ -172,6 +149,7 @@ proc GeoReg1 {plist} {
 #		
 #	Calculate linear regression, first coordinates are not changed
 #	output result to result window
+#	OBSOLATE not called
 #	@param plist list of point numbers to use
 proc LinRegX {plist} {
 	global decimals
@@ -239,6 +217,7 @@ proc LinRegX {plist} {
 #
 #	Calculate linear regression, second coordinates are not changed
 #	output result to result window
+#	OBSOLATE not called
 #	@param plist list of point numbers to use
 proc LinRegY {plist} {
 	global decimals
@@ -304,6 +283,7 @@ proc LinRegY {plist} {
 #
 #	Calculate regression plane only z coords are changed
 #	output result to result window
+#	OBSOLATE not called
 #	@param plist list of point numbers to use
 proc PlaneReg {plist} {
 	global decimals
@@ -386,6 +366,7 @@ proc PlaneReg {plist} {
 #	output result to result window
 #	It is used to calculate vertical plane too
 #	@param plist list of point numbers to use
+#	@param title title for log (2D line/Vertical plane)
 proc LinRegXY {plist title} {
 	global decimals
 	global geoEasyMsg
@@ -521,7 +502,7 @@ proc CircleReg {plist} {
 #puts "y0e=$y0e x0e=$x0e r=$re"
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 4]
+	GeoLog [lindex $reglist 2]
 	GeoLog1 [format $geoEasyMsg(head0CircleReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $re]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -650,7 +631,7 @@ proc SphereReg {plist} {
 	set z0e [expr {$z0e + $b(2)}]
 	set re [expr {$re + $b(3)}]
 	GeoLog1
-	GeoLog [lindex $reglist 9]
+	GeoLog [lindex $reglist 6]
 	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $z0e] [format %.${decimals}f $re]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -750,7 +731,7 @@ proc Line3DReg {plist} {
 		set ce $c
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 10]
+	GeoLog [lindex $reglist 7]
 	GeoLog1 [format $geoEasyMsg(head0Line3DReg) [format %.${decimals}f $y0] $a [format %.${decimals}f $x0] $b [format %.${decimals}f $z0] $c]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -774,6 +755,7 @@ proc Line3DReg {plist} {
 
 #
 #	3D regression line, iteration
+#	OBSOLATE
 #	@param plist list of point numbers to use
 proc Line3DRegOld {plist} {
 	global geoEasyMsg
@@ -1003,9 +985,6 @@ proc PlaneRegYXZ { plist } {
 	set a $VV(0,$index)
 	set b $VV(1,$index)
 	set c $VV(2,$index)
-#	set b $VV($index,0)
-#	set a $VV($index,1)
-#	set c $VV($index,2)
 	# move back from weight point
 	set d [expr {-($a * $ys + $b * $xs + $c * $zs)}]
 	if {[catch {
@@ -1016,7 +995,7 @@ proc PlaneRegYXZ { plist } {
 		exit
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 6]
+	GeoLog [lindex $reglist 3]
 	GeoLog1 [format $geoEasyMsg(head0PlaneReg) [format "%+.${decimals}f" $a0] $a1 $a2]
 #	slope angle and direction
 	set dir [Bearing $a1 $a2 0 0]
@@ -1063,7 +1042,7 @@ proc PlaneHReg {plist} {
 	}
 	set zs [expr {$zs / $n}]
 	GeoLog1
-	GeoLog [lindex $reglist 7]
+	GeoLog [lindex $reglist 4]
 	GeoLog1 [format $geoEasyMsg(head0HPlaneReg) [format %+.${decimals}f $zs]]
 	GeoLog1
 	GeoLog1 $geoEasyMsg(head1PlaneReg)
@@ -1080,7 +1059,7 @@ proc PlaneHReg {plist} {
 }
 
 #
-#	Line through two given point a*y+b*x+c=0
+#	Line through two given points a*y+b*x+c=0
 #	@param pn1 first point
 #	@param pn2 second point
 #	@return list of parameters of line
@@ -1439,7 +1418,7 @@ proc ParabReg {plist} {
 	set z0e [expr {$z0e + $b(2)}]
 	set re [expr {$re + $b(3)}]
 	GeoLog1
-	GeoLog [lindex $reglist 11]
+	GeoLog [lindex $reglist 8]
 	GeoLog1 [format $geoEasyMsg(head0ParabReg) [format %.${decimals}f $y0e] [format %.${decimals} $x0e] [format %.${decimals}f $z0e] [format %.${decimals} $ae]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -1521,7 +1500,7 @@ proc ParLin {alist blist} {
 	set b1 [expr {$xs1 - $m * $ys1}]
 	#puts "$m $b $b1"
 	GeoLog1
-	GeoLog [lindex $reglist 3]
+	GeoLog [lindex $reglist 1]
 	GeoLog1 [format $geoEasyMsg(head0LinRegX) $m [format %+.${decimals}f $b]]
 	GeoLog1 [format $geoEasyMsg(head0LinRegX) $m [format %+.${decimals}f $b1]]
 	GeoLog1 "$geoEasyMsg(hAngleReg) [DMS $fi]"

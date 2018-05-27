@@ -209,7 +209,7 @@ proc GeoNewWindow {{win_name ""}} {
 	
 		menu $this.menu.regression -tearoff 0
 		set i 0
-		set menuBreak {3 4 8}
+		set menuBreak {2}
 		foreach r $reglist {
 			$this.menu.regression add command -label $r -command "GeoReg $i"
 			if {[lsearch $menuBreak $i] >= 0} {
