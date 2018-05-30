@@ -425,6 +425,7 @@ proc Txt2Coo {str {d 1}} {
 proc TopCon210 {fn} {
 	global reg
 	global geoEasyMsg
+	global geoCodes
 
 	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
