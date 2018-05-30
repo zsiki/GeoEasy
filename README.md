@@ -20,7 +20,7 @@ See [doc](./doc) folder for various reStructuredText files and the a paper in [G
 
 ## Installation
 
-Users can select source or binary releases. Linux and Windows operating
+Users can select source or [binary releases](http://digikom.hu/english/geo_easy_e.html). Linux and Windows operating
 systems are supported. See the [installation guide](doc/install.rst).
 
 ## Open source software/packages used
