@@ -37,7 +37,7 @@
 #	114-117 Unit block5
 #	119     Blank field in case of error
 #
-#	Angle units: gon, DEG, DMS, mil, grad
+#	Angle units: gon, deg, DMS, mil, grad
 #	Distance, coordinate units: m, ft
 #	Pressure units: Torr, hPa, inHg
 #	Temperature units: C, F
@@ -140,8 +140,8 @@ proc TrimbleM5 {fn} {
 			set type [string trim [string range $buf $pos [expr {$pos + 1}]]]
 			set value [string trim [ \
 				string range $buf [expr {$pos + 3}] [expr {$pos + 16}]]]
-			set unit [string trim [ \
-				string range $buf [expr {$pos + 18}] [expr {$pos + 21}]]]
+			set unit [string tolower [string trim [ \
+				string range $buf [expr {$pos + 18}] [expr {$pos + 21}]]]]
 			switch -exact $type {
 				"01" {
 					set instr $value
@@ -212,13 +212,13 @@ proc TrimbleM5 {fn} {
 				}
 				Hz {
 					switch -exact $unit {
-						DMS {
+						dms {
 							set value [Deg2Rad $value]
 						}
 						gon {
 							set value [Gon2Rad $value]
 						}
-						DEG {
+						deg {
 							set value [expr {$value / 180.0 * $PI}]
 						}
 						default {
@@ -231,13 +231,13 @@ proc TrimbleM5 {fn} {
 				}
 				V1 {
 					switch -exact $unit {
-						DMS {
+						dms {
 							set value [Deg2Rad $value]
 						}
 						gon {
 							set value [Gon2Rad $value]
 						}
-						DEG {
+						deg {
 							set value [expr {$value / 180.0 * $PI}]
 						}
 						default {
@@ -250,13 +250,13 @@ proc TrimbleM5 {fn} {
 				}
 				V3 {
 					switch -exact $unit {
-						DMS {
+						dms {
 							set value [Deg2Rad $value]
 						}
 						gon {
 							set value [Gon2Rad $value]
 						}
-						DEG {
+						deg {
 							set value [expr {$value / 180.0 * $PI}]
 						}
 						default {
