@@ -20,7 +20,7 @@ set stdDist1 {3.0}
 # standard deviation for distances stdDist1 + km * stdDist2
 set stdDist2 {3.0}
 # standard deviation for levelling mm/km
-set stdLevel {}
+set stdLevel {0.3}
 # refraction korrection 0/1 no/yes
 set refr {0}
 # limit for kollimation and index error
