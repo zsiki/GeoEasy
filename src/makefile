@@ -23,7 +23,7 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	xmlgeo.tcl zsenigeo.tcl \
 	geo_easy.tcl
 #
-all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux deb
+all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
 
 GeoEasy: GeoEasy.tcl
 # check message files
