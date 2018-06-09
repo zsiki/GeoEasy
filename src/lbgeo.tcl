@@ -64,16 +64,16 @@ proc GeoListbox {li poses title mode {trav 0}} {
 	button $this.2.exit -text $geoEasyMsg(ok) \
 		-command "lbExit $this $mode $pmode 1"
 	pack $this.2.exit -side left -expand yes
+	if {$mode <= 0} {	;# all button id no upper limit for selection
+		button $this.2.all -text $geoEasyMsg(all) \
+			-command {.geolb.1.l selection set 0 end}
+		pack $this.2.all -side left -expand yes
+	}
 	if {$mode != 0} {
 		if {$trav > 0} {
 			button $this.2.lastp -text $geoEasyMsg(lastPoint) \
 				-command "lbExit $this $mode $pmode 2"
 			pack $this.2.lastp -side left -expand yes
-		}
-		if {$mode != 1} {	;# all button id not a single selection
-			button $this.2.all -text $geoEasyMsg(all) \
-				-command {.geolb.1.l selection set 0 end}
-			pack $this.2.all -side left -expand yes
 		}
 		button $this.2.cancel -text $geoEasyMsg(cancel) \
 			-command "lbExit $this $mode $pmode 0"

@@ -193,12 +193,13 @@ proc GeoNet1D {{pns ""}} {
 #	all loaded data sets are considered
 #	@param fn output file name, extension defines the type of network
 #			 .g1d elevation network, .g2d horizontal network
-#			 .g3d 3d network
-#	@param pns list of unknown points optional
-proc GamaExport {{fn ""} {pns ""}} {
-global xmlTypes lastDir
-global geoEasyMsg
-global oriDetail
+#			 .g3d 3d network optional (default selected byuser)
+#	@param pns list of unknown points optional (default selected by user)
+#	@param fixed list of fixed points optional (default selected by user, "all" can be used)
+proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
+	global xmlTypes lastDir
+	global geoEasyMsg
+	global oriDetail
 
 	GeoLog1
 	if {[string length $fn] == 0} {
@@ -227,7 +228,7 @@ global oriDetail
 	set used [UsedPointsOnly $used]	;# get point numbers of observed points
 	switch -exact [file extension $fn] {
 		".g2d" {
-			set used [KnownPointsOnly $used];# at least appr. coordinates
+			set used [KnownPointsOnly $used];# at least appr. e and n coordinates
 			if {[llength $used] > 0} {		;# there are observed points
 				set used [lsort -dictionary $used]
 				if {[llength $pns]} {
@@ -236,7 +237,16 @@ global oriDetail
 					set unknowns [GeoListbox $used 0 $geoEasyMsg(lbTitle2) -1]
 				}
 				if {[llength $unknowns] > 0} {
-					Gama2dXmlOut $fn $unknowns
+					if {[llength $fixed]} {
+						if {[string compare $fixed "all"] == 0} {
+							set fixed [lsort -dictionary [ldiff [GetGiven {37 38} $used] $unknowns]]
+						}
+					} else {
+						set fixed [lsort -dictionary [ldiff [GetGiven {37 38} $used] $unknowns]]
+						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+					}
+puts $fixed
+					Gama2dXmlOut $fn $unknowns $fixed
 					return 1
 				}
 			}
@@ -251,7 +261,16 @@ global oriDetail
 					set unknowns [GeoListbox $used 0 $geoEasyMsg(lbTitle2) -1]
 				}
 				if {[llength $unknowns] > 0} {
-					Gama1dXmlOut $fn $unknowns
+					if {[llength $fixed]} {
+						if {[string compare $fixed "all"] == 0} {
+							set fixed [lsort -dictionary [ldiff [GetGiven {39} $used] $unknowns]]
+						}
+					} else {
+						set fixed [lsort -dictionary [ldiff [GetGiven {39} $used] $unknowns]]
+						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+					}
+puts $fixed
+					Gama1dXmlOut $fn $unknowns $fixed
 					return 1
 				}
 			}
@@ -266,7 +285,17 @@ global oriDetail
 					set unknowns [GeoListbox $used 0 $geoEasyMsg(lbTitle2) -1]
 				}
 				if {[llength $unknowns] > 0} {
-					Gama3dXmlOut $fn $unknowns
+					if {[llength $fixed]} {
+						if {[string compare $fixed "all"] == 0} {
+							set fixed [lsort -dictionary [ldiff [GetGiven {37 38 39} $used] $unknowns]]
+						}
+					} else {
+						set fixed [lsort -dictionary [ldiff [GetGiven {37 38 39} $used] $unknowns]]
+						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+					}
+puts "unknowns: $unknowns"
+puts "fixed: $fixed"
+					Gama3dXmlOut $fn $unknowns $fixed
 					return 1
 				}
 			}
@@ -331,7 +360,9 @@ proc GetHdW {st st_buf tg tg_buf w1} {
 #	all loaded data sets are considered
 #	@param fn output file name
 #	@param pns list of unknown points (names)
-proc Gama1dXmlOut {fn pns {flag 0}} {
+#	@param fixed list of known points (names)
+#	@flag do not show messages if 1 
+proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	global geoLoaded
 	global geoEasyMsg
 	global decimals
@@ -346,13 +377,18 @@ proc Gama1dXmlOut {fn pns {flag 0}} {
 	set n [llength $pns]
 	GeoDia .dia $geoEasyMsg(adjDia) nmeasure n	;# display dialog panel
 	update
-	set free_network 1
+	set free_network [expr {([llength $fixed] == 0) ? 1 : 0}]
 	set stpn ""
 	#	get all observations from all loaded geo data sets
 	foreach geo $geoLoaded {
 		global ${geo}_geo ${geo}_par
 		if {! [info exists ${geo}_par]} {
 			set ${geo}_par ""	;# to avoid undefined variable
+		}
+		# standard deviations
+		set stdL [GetVal 118 $par]
+		if {$stdL == ""} {
+			set stdL $stdLevel
 		}
 		foreach i [lsort -integer [array names ${geo}_geo]] {
 			upvar #0 ${geo}_geo($i) pbuf
@@ -361,15 +397,17 @@ proc Gama1dXmlOut {fn pns {flag 0}} {
 				# station record
 				upvar #0 ${geo}_geo($i) stbuf
 				set stpn [GetVal 2 $stbuf]
-				if {[lsearch -exact $pns $stpn] == -1} {
-					set newst 0			;# station is known point
-				} else {
+				set stcoo ""
+				if {[lsearch -exact $pns $stpn] >= 0} {
 					set newst 1			;# station is unknown point
-				}
-				set stcoo [GetCoord $stpn 39 $geo]
-				if {$stcoo == "" && $newst} {
-					# use approximate coords
-					set stcoo [GetCoord $stpn 139 $geo]
+					set stcoo [GetCoord $stpn 39 $geo]
+					if {$stcoo == ""} {
+						# use approximate coords
+						set stcoo [GetCoord $stpn 139 $geo]
+					}
+				} elseif {[lsearch -exact $fixed $stpn] >= 0} {
+					set newst 0			;# station is known point
+					set stcoo [GetCoord $stpn 39 $geo]
 				}
 				if {$stcoo == ""} {
 					set stpn ""	;# clear station number!
@@ -379,22 +417,24 @@ proc Gama1dXmlOut {fn pns {flag 0}} {
 			} elseif {[string length $stpn]} {
 				# observation record
 				set p [GetVal {5 62} $pbuf]	;# point number of other end
-				if {[lsearch -exact $pns $p] == -1} {
-					set newp 0			;# p is known point
-				} else {
+				set pcoo ""
+				if {[lsearch -exact $pns $p] >= 0} {
 					set newp 1			;# p is unknown point
+					set pcoo [GetCoord $p 39 $geo]
+					if {$pcoo == ""} {
+						set pcoo [GetCoord $p 139 $geo]
+					}
+				} elseif {[lsearch -exact $fixed $p] >= 0} {
+					set newp 0			;# p is known point
+					set pcoo [GetCoord $p 39 $geo]
 				}
-				set pcoo [GetCoord $p 39 $geo]
-				if {$pcoo == "" && $newp} {
-					set pcoo [GetCoord $p 139 $geo]
-				}
-				set pz [GetVal {39 139} $pcoo]
 				if {$pcoo == ""} {
 					continue	;# no coordinate skip it
 				}
+				set pz [GetVal {39 139} $pcoo]
 				if {$newst == 1 || $newp == 1} {
 					# one end is unknown
-					set ll [GetHdW $stpn $stbuf $p $pbuf [GetVal 118 [set ${geo}_par]]]
+					set ll [GetHdW $stpn $stbuf $p $pbuf $stdL]
 					if {[llength $ll] == 0} {
 						continue
 					}
@@ -506,12 +546,14 @@ proc Gama1dXmlOut {fn pns {flag 0}} {
 #	all loaded data sets are considered
 #	@param fn output file name
 #	@param pns list of unknown points (names)
-proc Gama2dXmlOut {fn pns {flag 0}} {
+#	@param fixed list of fixed points (names)
+#	@flag do not show messages if 1 
+proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	global projRed avgH refr
 	global geoLoaded
 	global geoEasyMsg
 	global PI PI2
-	global stdAngle stdDist1 stdDist2
+	global stdAngle stdDist1 stdDist2 stdLevel
 	global dirLimit
 	global decimals
 	global autoRefresh
@@ -531,18 +573,19 @@ proc Gama2dXmlOut {fn pns {flag 0}} {
 	set zks ""								;# orientation ids for reoccupied stations
 	set zkind ""							;# station recs for orientations
 	# check for approximate coordinates for unknowns
-	foreach pn $pns {
-		if {[GetCoord $pn {38 37}] == "" && \
-				[GetCoord $pn {138 137}] == ""} {
-			GeoDiaEnd .dia
-			if {$flag == 0} {
-				tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(missCoo) $pn" \
-					error 0 OK
-			}
-			return 0
-		}
-	}
-	set free_network 1
+# not neccesary points are selected
+#	foreach pn $pns {
+#		if {[GetCoord $pn {38 37}] == "" && \
+#				[GetCoord $pn {138 137}] == ""} {
+#			GeoDiaEnd .dia
+#			if {$flag == 0} {
+#				tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(missCoo) $pn" \
+#					error 0 OK
+#			}
+#			return 0
+#		}
+#	}
+	set free_network [expr {([llength $fixed] == 0) ? 1 : 0}]
 	set msg_flag 0	;# display warning on too large pure value
 	foreach pn $pns {
 	#	get all references from all loaded geo data sets
@@ -585,16 +628,17 @@ proc Gama2dXmlOut {fn pns {flag 0}} {
 						continue
 					}
 					lappend stations [list $geo $stref]	;# store processed stations
-					if {[lsearch -exact $pns $stpn] == -1} {
-						set newst 0			;# station is known point
-					} else {
+					set stcoo ""
+					if {[lsearch -exact $pns $stpn] >= 0} {
 						set newst 1			;# station is unknown point
-					}
-					set stcoo [GetCoord $stpn {38 37} $geo]
-					if {$stcoo == "" && \
-							($flag || $newst)} {
-						# use approximate coords
-						set stcoo [GetCoord $stpn {138 137} $geo]
+						set stcoo [GetCoord $stpn {38 37} $geo]
+						if {$stcoo == ""} {
+							# use approximate coords
+							set stcoo [GetCoord $stpn {138 137} $geo]
+						}
+					} elseif {[lsearch -exact $fixed $stpn] >= 0} {
+						set newst 0			;# station is known point
+						set stcoo [GetCoord $stpn {38 37} $geo]
 					}
 					if {$stcoo == ""} {
 						continue	;# no coordinate for station skip it
@@ -620,23 +664,28 @@ proc Gama2dXmlOut {fn pns {flag 0}} {
 						}
 						set p [GetVal {5 62} $pbuf]	;# point number of other end
 #puts $dbg "iranyzott pont $p"
-						if {[lsearch -exact $pns $p] == -1} {
-							set newp 0			;# p is known point
-						} else {
+						set pcoo ""
+						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
-						}
-						
-						set pcoo [GetCoord $p {38 37} $geo]
-						if {$pcoo == "" && \
-								($flag || [lsearch -exact $pns $p] != -1)} {
-							# use approximate coords
-							set pcoo [GetCoord $p {138 137} $geo]
+							set pcoo [GetCoord $p {38 37} $geo]
+							if {$pcoo == ""} {
+								# use approximate coords
+								set pcoo [GetCoord $p {138 137} $geo]
+							}
+						} elseif {[lsearch -exact $fixed $p] >= 0} {
+							set newp 0			;# p is known point
+							set pcoo [GetCoord $p {38 37} $geo]
 						}
 						if {$pcoo == ""} {
 							incr lineno
 							continue	;# no coordinate skip it
 						}
-						if {$newst == 1 || $newp == 1} {
+						if {($newst == 1 || $newp == 1) && \
+							([lsearch -exact $fixed $stpn] > -1 || \
+							 [lsearch -exact $pns $stpn] > -1) && \
+							([lsearch -exact $fixed $p] > -1 || \
+							 [lsearch -exact $pns $p] > -1)} {
+puts "st: $stpn p: $p newst: $newst newp: $newp"
 							# one end is unknown
 							set d [GetVal 11 $pbuf]	;# horizontal distance
 							set v ""	;# no reduction to horizont
@@ -713,13 +762,13 @@ proc Gama2dXmlOut {fn pns {flag 0}} {
 								incr nmeasure
 								update
 							}
-						}
-						if {[GetVal {21 7} $pbuf] != ""} {
-						# horizontal angle & coords are available
-							if {$newst || $newp} {
-								incr othdir
-							} else {
-								incr refdir
+							if {[GetVal {21 7} $pbuf] != ""} {
+							# horizontal angle & coords are available
+								if {$newst || $newp} {
+									incr othdir
+								} else {
+									incr refdir
+								}
 							}
 						}
 						incr lineno
@@ -766,29 +815,22 @@ proc Gama2dXmlOut {fn pns {flag 0}} {
 							break		;# next station reached
 						}
 						set p [GetVal {5 62} $pbuf]	;# point number of other end
-						if {[lsearch -exact $pns $p] == -1} {
-							set newp 0			;# p is known point
-						} else {
+						set pcoo ""
+						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
+							set pcoo [GetCoord $p {38 37} $geo]
+							if {$pcoo == ""} {
+								# use approximate coords
+								set pcoo [GetCoord $p {138 137} $geo]
+							}
+						} elseif {[lsearch -exact $fixed $p] >= 0} {
+							set newp 0			;# p is known point
+							set pcoo [GetCoord $p {38 37} $geo]
 						}
 						
-						set pcoo [GetCoord $p {38 37} $geo]
-						if {$pcoo == "" && \
-								($flag || [lsearch -exact $pns $p] != -1)} {
-							# use approximate coords
-							set pcoo [GetCoord $p {138 137} $geo]
-							if {$pcoo == ""} {
-								if {$flag == 0} {
-									tk_dialog .msg $geoEasyMsg(warning) \
-										"$geoEasyMsg(noCoo) $p" warning 0 OK
-								}
-								incr lineno
-								continue	;# no coordinate skip it
-							}
-						}
 						if {$pcoo == ""} {
 							incr lineno
-							continue
+							continue	;# no coordinate skip it
 						}
 						set h [GetVal {21 7} $pbuf]		;# horizontal angle 
 						if {$h != ""} {
@@ -953,12 +995,14 @@ proc Gama2dXmlOut {fn pns {flag 0}} {
 #	all loaded data sets are considered
 #	@param fn output file name
 #	@param pns list of unknown points (names)
-proc Gama3dXmlOut {fn pns {flag 0}} {
+#	@param fixed list of fixed points (names)
+#	@param flag do not display messages if 1
+proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	global projRed avgH refr
 	global geoLoaded
 	global geoEasyMsg
 	global PI PI2
-	global stdAngle stdDist1 stdDist2
+	global stdAngle stdDist1 stdDist2 stdLevel
 	global dirLimit
 	global decimals
 	global autoRefresh
@@ -977,19 +1021,20 @@ proc Gama3dXmlOut {fn pns {flag 0}} {
 	set zks ""								;# orientation ids for reoccupied stations
 	set zkind ""							;# station recs for orientations
 	# check for approximate coordinates for unknowns
-	foreach pn $pns {
-		if {[GetCoord $pn {38 37}] == "" && [GetCoord $pn {138 137}] == "" || \
-			[GetCoord $pn 39] == "" && [GetCoord $pn 139] == ""} {
-			GeoDiaEnd .dia
-			if {$flag == 0} {
-				tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(missCoo) $pn" \
-					error 0 OK
-			}
-			return 0
-		}
-	}
+# TODO not neccesary coords are checked selecting points
+#	foreach pn $pns {
+#		if {[GetCoord $pn {38 37}] == "" && [GetCoord $pn {138 137}] == "" || \
+#			[GetCoord $pn 39] == "" && [GetCoord $pn 139] == ""} {
+#			GeoDiaEnd .dia
+#			if {$flag == 0} {
+#				tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(missCoo) $pn" \
+#					error 0 OK
+#			}
+#			return 0
+#		}
+#	}
 	set msg_flag 0	;# display warning on too large pure value
-	set free_network 1
+	set free_network [expr {([llength $fixed] == 0) ? 1 : 0}]
 	foreach pn $pns {
 	#	get all references from all loaded geo data sets
 		foreach geo $geoLoaded {
@@ -1033,31 +1078,23 @@ proc Gama3dXmlOut {fn pns {flag 0}} {
 						continue
 					}
 					lappend stations [list $geo $stref]	;# store processed stations
-					if {[lsearch -exact $pns $stpn] == -1} {
-						set newst 0			;# station is known point
-					} else {
+					set stcoo ""
+					if {[lsearch -exact $pns $stpn] >= 0} {
 						set newst 1			;# station is unknown point
-					}
-					set stcoo [GetCoord $stpn {38 37} $geo]
-					if {$stcoo == "" && \
-							($flag || $newst)} {
-						# use approximate coords
-						set stcoo [GetCoord $stpn {138 137} $geo]
+						set stcoo [GetCoord $stpn {38 37 39} $geo]
+						if {$stcoo == ""} {
+							# use approximate coords
+							set stcoo [GetCoord $stpn {138 137 139} $geo]
+						}
+					} elseif {[lsearch -exact $fixed $stpn] >= 0} {
+						set newst 0			;# station is known point
+						set stcoo [GetCoord $stpn {38 37} $geo]
 					}
 					if {$stcoo == ""} {
 						continue	;# no coordinate for station skip it
 					}
 					set stx [GetVal {38 138} $stcoo]
 					set sty [GetVal {37 137} $stcoo]
-					set stcoo [GetCoord $stpn 39 $geo]
-					if {$stcoo == "" && \
-							($flag || $newst)} {
-						# use approximate coords
-						set stcoo [GetCoord $stpn 139 $geo]
-					}
-					if {$stcoo == ""} {
-						continue	;# no coordinate for station skip it
-					}
 					set stz [GetVal {39 139} $stcoo]
 #
 # go through the observations from this station and
@@ -1080,16 +1117,17 @@ proc Gama3dXmlOut {fn pns {flag 0}} {
 						set th [GetVal 6 $pbuf]		;# target height
 						if {$th == ""} { set th 0}
 #puts $dbg "iranyzott pont $p"
-						if {[lsearch -exact $pns $p] == -1} {
-							set newp 0			;# p is known point
-						} else {
+						set pcoo ""
+						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
-						}
-						set pcoo [GetCoord $p {38 37} $geo]
-						if {$pcoo == "" && \
-								($flag || $newp)} {
-							# use approximate coords
-							set pcoo [GetCoord $p {138 137} $geo]
+							set pcoo [GetCoord $p {38 37 39} $geo]
+							if {$pcoo == ""} {
+								# use approximate coords
+								set pcoo [GetCoord $p {138 137 139} $geo]
+							}
+						} elseif {[lsearch -exact $fixed $p] >= 0} {
+							set newp 0			;# p is known point
+							set pcoo [GetCoord $p {38 37 39} $geo]
 						}
 						if {$pcoo == ""} {
 							incr lineno
@@ -1097,18 +1135,13 @@ proc Gama3dXmlOut {fn pns {flag 0}} {
 						}
 						set px [GetVal {38 138} $pcoo]
 						set py [GetVal {37 137} $pcoo]
-						set pcoo [GetCoord $p 39 $geo]
-						if {$pcoo == "" && \
-								($flag || $newp)} {
-							# use approximate coords
-							set pcoo [GetCoord $p 139 $geo]
-						}
-						if {$pcoo == ""} {
-							incr lineno
-							continue	;# no coordinate skip it
-						}
 						set pz [GetVal {39 139} $pcoo]
-						if {$newst == 1 || $newp == 1} {
+						if {($newst == 1 || $newp == 1) && \
+							([lsearch -exact $fixed $stpn] > -1 || \
+							 [lsearch -exact $pns $stpn] > -1) && \
+							([lsearch -exact $fixed $p] > -1 || \
+							 [lsearch -exact $pns $p] > -1)} {
+puts "st: $stpn dir: $pn"
 							# one end is unknown
 							set d [GetVal 11 $pbuf]	;# horizontal distance
 							set hz 1	;# no reduction to horizont
@@ -1223,26 +1256,19 @@ proc Gama3dXmlOut {fn pns {flag 0}} {
 							break		;# next station reached
 						}
 						set p [GetVal {5 62} $pbuf]	;# point number of other end
-						if {[lsearch -exact $pns $p] == -1} {
-							set newp 0			;# p is known point
-						} else {
+						set pcoo ""
+						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
+							set pcoo [GetCoord $p {38 37 39} $geo]
+							if {$pcoo == ""} {
+								# use approximate coords
+								set pcoo [GetCoord $p {138 137 139} $geo]
+							}
+						} elseif {[lsearch -exact $fixed $p] >= 0} {
+							set newp 0			;# p is known point
+							set pcoo [GetCoord $p {38 37 39} $geo]
 						}
 						
-						set pcoo [GetCoord $p {38 37} $geo]
-						if {$pcoo == "" && \
-								($flag || [lsearch -exact $pns $p] != -1)} {
-							# use approximate coords
-							set pcoo [GetCoord $p {138 137} $geo]
-							if {$pcoo == ""} {
-								if {$flag == 0} {
-									tk_dialog .msg $geoEasyMsg(warning) \
-										"$geoEasyMsg(noCoo) $p" warning 0 OK
-								}
-								incr lineno
-								continue	;# no coordinate skip it
-							}
-						}
 						if {$pcoo == ""} {
 							incr lineno
 							continue
@@ -1327,18 +1353,19 @@ proc Gama3dXmlOut {fn pns {flag 0}} {
 						set th [GetVal 6 $pbuf]		;# target height
 						if {$th == ""} { set th 0}
 #puts $dbg "iranyzott pont $p"
-						if {[lsearch -exact $pns $p] == -1} {
-							set newp 0			;# p is known point
-						} else {
+						set pcoo ""
+						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
+							set pcoo [GetCoord $p {38 37 39} $geo]
+							if {$pcoo == ""} {
+								# use approximate coords
+								set pcoo [GetCoord $p {138 137 139} $geo]
+							}
+						} elseif {[lsearch -exact $fixed $p] >= 0} {
+							set newp 0			;# p is known point
+							set pcoo [GetCoord $p {38 37 39} $geo]
 						}
-						
-						set pcoo [GetCoord $p {38 37} $geo]
-						if {$pcoo == "" && \
-								($flag || [lsearch -exact $pns $p] != -1)} {
-							# use approximate coords
-							set pcoo [GetCoord $p {138 137} $geo]
-						}
+
 						if {$pcoo == ""} {
 							incr lineno
 							continue	;# no coordinate skip it

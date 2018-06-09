@@ -14,6 +14,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#   Returns the difference of two lists, elements whics are only in the first
+#	list
+#
+#	@param l1 first list
+#	@param l2 send list
+#	@return difference list
+proc ldiff {l1 l2} {
+	set res ""
+	foreach i $l1 {
+		if {[lsearch -exact $l2 $i] == -1} {
+			lappend res $i
+		}
+	}
+	return $res
+}
+
 #	Returns geo data set name, replaces invalid chars with "_"
 #
 #	@param fn file name of geo-easy data set
@@ -835,11 +851,16 @@ proc GetOrientedBaseStations {{codes {37 38}}} {
 #
 #	Create the list of point names having coordinates
 #	@param codes list of codes to be found in coordinate list default x & y
+#	@param pnts list of point ids optional (default empty = use all)
 #	@return the list of point names having coordinates
-proc GetGiven {{codes {37 38}}} {
+proc GetGiven {{codes {37 38}} {pnts ""}} {
 
 	set ret ""
-	set all [GetAll]					;# get all point numbers
+	if {[llength $pnts] == 0} {
+		set all [GetAll]				;# get all point numbers
+	} else {
+		set all $pnts					;# use only points in parameter
+	}
 	foreach pn $all {
 		if {[llength [GetCoord $pn $codes]] > 0} {
 			lappend ret $pn				;# points with coordinates
