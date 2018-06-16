@@ -2301,6 +2301,7 @@ proc Area {x0 y0 z0 x1 y1 z1 x2 y2 z2} {
 #	@param dx resolution of grid
 #	@param x0,y0 lower left corner of grid (optional)
 #	@param x1,y1 upper right corner of grid (optional)
+#	@param vrml generate vrml output
 #	@return 0 OK
 #			-1 grid too dense
 #			-2 no tin loaded
@@ -2345,15 +2346,14 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 	set y1 [expr {(int($yma / $dy)) * $dy}]
 	set n [expr {int(($y1 - $y0) / $dy) + 1}]
 	set m [expr {int(($x1 - $x0) / $dx) + 1}]
-	# init grid NODATA
+	# init grid with NODATA
 	for {set i 0} {$i < $n} {incr i} {
 		for {set j 0} {$j < $m} {incr j} {
 			set grd($i,$j) -9999
 		}
 	}
 	# calculate grid values
-	set nt [array size ${tin}_ele]
-	for {set i 0} {$i < $nt} {incr i} {
+	foreach i [array names ${tin}_ele] {
 		set triang [set ${tin}_ele($i)]
 		set p1 [set ${tin}_node([lindex $triang 0])]
 		set p2 [set ${tin}_node([lindex $triang 1])]
@@ -2378,7 +2378,7 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 		set ymingrid [expr {(int($ymin / $dy)) * $dy}]
 		for {set xgrid $xmingrid} {$xgrid < $xmax} {set xgrid [expr {$xgrid + $dx}]} {
 			for {set ygrid $ymingrid} {$ygrid < $ymax} {set ygrid [expr {$ygrid + $dy}]} {
-				# xgrid, ygrid in the triangle
+				# xgrid, ygrid in the triangle ?
 				set area1 [Area $x1 $y1 0 $x2 $y2 0 $xgrid $ygrid 0]
 				set area2 [Area $x1 $y1 0 $x3 $y3 0 $xgrid $ygrid 0]
 				set area3 [Area $x3 $y3 0 $x2 $y2 0 $xgrid $ygrid 0]
