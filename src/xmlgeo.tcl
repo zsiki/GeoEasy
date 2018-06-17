@@ -245,7 +245,6 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 						set fixed [lsort -dictionary [ldiff [GetGiven {37 38} $used] $unknowns]]
 						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
 					}
-puts $fixed
 					Gama2dXmlOut $fn $unknowns $fixed
 					return 1
 				}
@@ -269,7 +268,6 @@ puts $fixed
 						set fixed [lsort -dictionary [ldiff [GetGiven {39} $used] $unknowns]]
 						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
 					}
-puts $fixed
 					Gama1dXmlOut $fn $unknowns $fixed
 					return 1
 				}
@@ -293,8 +291,6 @@ puts $fixed
 						set fixed [lsort -dictionary [ldiff [GetGiven {37 38 39} $used] $unknowns]]
 						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
 					}
-puts "unknowns: $unknowns"
-puts "fixed: $fixed"
 					Gama3dXmlOut $fn $unknowns $fixed
 					return 1
 				}
@@ -573,18 +569,6 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	set zks ""								;# orientation ids for reoccupied stations
 	set zkind ""							;# station recs for orientations
 	# check for approximate coordinates for unknowns
-# not neccesary points are selected
-#	foreach pn $pns {
-#		if {[GetCoord $pn {38 37}] == "" && \
-#				[GetCoord $pn {138 137}] == ""} {
-#			GeoDiaEnd .dia
-#			if {$flag == 0} {
-#				tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(missCoo) $pn" \
-#					error 0 OK
-#			}
-#			return 0
-#		}
-#	}
 	set free_network [expr {([llength $fixed] == 0) ? 1 : 0}]
 	set msg_flag 0	;# display warning on too large pure value
 	foreach pn $pns {
@@ -685,7 +669,6 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 							 [lsearch -exact $pns $stpn] > -1) && \
 							([lsearch -exact $fixed $p] > -1 || \
 							 [lsearch -exact $pns $p] > -1)} {
-puts "st: $stpn p: $p newst: $newst newp: $newp"
 							# one end is unknown
 							set d [GetVal 11 $pbuf]	;# horizontal distance
 							set v ""	;# no reduction to horizont
@@ -1021,18 +1004,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	set zks ""								;# orientation ids for reoccupied stations
 	set zkind ""							;# station recs for orientations
 	# check for approximate coordinates for unknowns
-# TODO not neccesary coords are checked selecting points
-#	foreach pn $pns {
-#		if {[GetCoord $pn {38 37}] == "" && [GetCoord $pn {138 137}] == "" || \
-#			[GetCoord $pn 39] == "" && [GetCoord $pn 139] == ""} {
-#			GeoDiaEnd .dia
-#			if {$flag == 0} {
-#				tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(missCoo) $pn" \
-#					error 0 OK
-#			}
-#			return 0
-#		}
-#	}
 	set msg_flag 0	;# display warning on too large pure value
 	set free_network [expr {([llength $fixed] == 0) ? 1 : 0}]
 	foreach pn $pns {
@@ -1141,7 +1112,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 							 [lsearch -exact $pns $stpn] > -1) && \
 							([lsearch -exact $fixed $p] > -1 || \
 							 [lsearch -exact $pns $p] > -1)} {
-puts "st: $stpn dir: $pn"
 							# one end is unknown
 							set d [GetVal 11 $pbuf]	;# horizontal distance
 							set hz 1	;# no reduction to horizont

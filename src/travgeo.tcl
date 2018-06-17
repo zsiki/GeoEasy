@@ -681,11 +681,6 @@ proc CalcTraverse {stlist {forceFree 0}} {
 	}
 	# check error limits 2 * (10 + 10 * length[km]) & 2 * (28" + n * 2)"
 	set store 0
-#	if {[expr {abs ($dbeta)}] > [expr {2.0 * (28.0 + $n * 2.0)}] ||
-#		$ddist > [expr {2 * (0.1 + $sumt / 1000.0 * 0.1)}]} {
-#		set store [tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(limTra) \
-#			warning 1 OK $geoEasyMsg(cancel)]
-#	}
 	# store coordinates
 	if {$store == 0} {
 		set last [expr {$n - 1}]
@@ -821,11 +816,6 @@ proc CalcTrigLine {stlist} {
 			}
 			incr ref
 		}
-#		if {($prev == 0 && $i > 0) || ($next == 0 && $i > $n_1)} {
-#				tk_dialog .msg $geoEasyMsg(warning) \
-#					"$geoEasyMsg(misTri) $pn" warning 0 OK
-#				return
-#		}
 	}
 	if {[info exists z(0)] == 0 || $z(0) == ""} {
 		GeoLog1 $geoEasyMsg(miszTri)
