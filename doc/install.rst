@@ -105,7 +105,6 @@ run the following commands from the command line, to prepare it.
 
 .. code:: bash
 
-	bash
 	make source
 	chmod +x geo_easy.tcl
 
