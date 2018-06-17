@@ -1809,8 +1809,6 @@ proc VolumeDia {} {
 		set volumeLevel 0
 	}
 
-#	label $this.ltin -text $geoEasyMsg(contourTin)
-#	tk_optionMenu $this.tin volumeTin $tinLoaded
 	label $this.lvolumelevel -text $geoEasyMsg(volumeLevel)
 	entry $this.levelentry -textvariable volumeLevel -width 10
 	button $this.exit -text $geoEasyMsg(ok) \
@@ -1818,8 +1816,6 @@ proc VolumeDia {} {
 	button $this.cancel -text $geoEasyMsg(cancel) \
 		-command "destroy $this; set buttonid 1"
 
-#	grid $this.ltin -row 0 -column 0 -sticky w
-#	grid $this.tin -row 0 -column 1 -sticky w
 	grid $this.lvolumelevel -row 1 -column 0 -sticky w
 	grid $this.levelentry -row 1 -column 1 -sticky w
 	grid $this.exit -row 2 -column 0
