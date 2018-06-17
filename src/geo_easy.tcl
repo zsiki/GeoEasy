@@ -498,14 +498,8 @@ proc GeoEasy {top} {
 		foreach arg $argv {
 			set name [string trim $arg]
 			if {[string length $name]} {
-				# skip language params
-				if {[string tolower $name] == "-hun" ||
-					[string tolower $name] == "-hu" ||
-					[string tolower $name] == "-eng" ||
-					[string tolower $name] == "-en" ||
-					[string tolower $name] == "-ger" ||
-					[string tolower $name] == "-de" ||
-					[string tolower $name] == "-ge" } { continue }
+				# skip switches
+				if {[string match "-*" $name]} { continue }
 				regsub -all {\\} $name "/" name
 				regsub "^{" $name "" name
 				regsub "}$" $name "" name
@@ -1378,4 +1372,4 @@ proc CenterWnd {this} {
 #
 #	start application
 #
-GeoEasy "."
+GeoEasy .
