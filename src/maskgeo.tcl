@@ -997,6 +997,7 @@ proc GeoClearLog {w} {
 #	@param sel 0/1 save all/selected
 proc GeoListSave {w {sel 0}} {
 global lastDir
+global lstTypes
 
 	if {$sel} {
 		set t ""
@@ -1010,7 +1011,7 @@ global lastDir
 	}
 	set fn [string trim [tk_getSaveFile -filetypes $lstTypes \
 		-defaultextension ".lst" -initialdir $lastDir]]
-	if {[string length $fn] && [string match "after#*" $nn] == 0} {
+	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		set lastDir [file dirname $fn]
 		if {[catch {set fd [open $fn w]
 			puts $fd $t
