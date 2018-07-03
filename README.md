@@ -35,3 +35,4 @@ systems are supported. See the [installation guide](doc/install.rst).
 ## Download statistics
 
 ![Download statistics](https://github.com/zsiki/GeoEasy/blob/master/doc/stat.png "Download statistics from October 2017 to July 2018")
+Download statistics between October 2017 and July 2018
