@@ -33,15 +33,15 @@ proc cs2cs {from_epsg to_epsg coords} {
 	} else {
 		set tmpdir "."
 	}
-	set tmpname [file join  $tmpdir tmp.txt]
-	set tmp1name [file join  $tmpdir tmp1.txt]
-	catch {file delete $tmpname $tmp1name]}
-	set fp [open $tmpname w]
+	set tmpname [file join "$tmpdir" tmp.txt]
+	set tmp1name [file join "$tmpdir" tmp1.txt]
+	catch {file delete "$tmpname" "$tmp1name"]}
+	set fp [open "$tmpname" w]
 	foreach coord $coords {
 		puts $fp [lrange $coord 2 end]
 	}
 	close $fp
-	if {[catch {eval [concat exec "{$cs2csProg} -f \"%.7f\" +init=epsg:$from_epsg +to +init=epsg:$to_epsg < $tmpname > $tmp1name"]} msg]} {
+	if {[catch {eval [concat exec "{$cs2csProg} -f \"%.7f\" +init=epsg:$from_epsg +to +init=epsg:$to_epsg < \"$tmpname\" > \"$tmp1name\""]} msg]} {
 		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 		return ""
 	}
