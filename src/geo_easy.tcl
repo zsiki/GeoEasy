@@ -591,7 +591,7 @@ proc GeoModules {moduleinfo} {
 	}
 	# reprojection available?
 	if {[file pathtype $cs2csProg] == "relative"} {
-			set cs2csProg [file join $home $cs2csProg]
+		set cs2csProg [file join $home $cs2csProg]
 	}
 	if {$tcl_platform(platform) == "unix"} {
 		if {[info exists cs2csProg] && [file exists $cs2csProg]} {
