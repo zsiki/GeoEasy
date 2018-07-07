@@ -45,14 +45,15 @@ proc cs2cs {from_epsg to_epsg coords} {
 		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 		return ""
 	}
-	set fp1 [open $tmp1name r]
-	set tr_coords [split [read $fp] "\n"]
+	set fp1 [open "$tmp1name" r]
+	set tr_coords [split [read $fp1] "\n"]
+	# get point number from original list
 	foreach coord $coords tr_coord $tr_coords {
 		set tr [split [string trim $tr_coord "\r"] " \t"]
 		if {[llength $tr] > 1} {
 			lappend res [concat [lrange $coord 0 1] $tr]	
 		}
 	}
-	catch {file delete $tmpname $tmp1name]}
+	catch {file delete "$tmpname" "$tmp1name"]}
 	return $res
 }
