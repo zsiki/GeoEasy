@@ -1546,14 +1546,19 @@ proc GeoBearingDistance {pn {w ""}} {
 }
 
 #
-#	Calculate bearing, distance and angle to a selected points
+#	Calculate polar and rectangular steak out values
+#	and optionally save to geo data set
 #	@param pn point number
 #	@param w widget
 proc GeoAngle {pn {w ""}} {
 	global geoEasyMsg
 	global geoCodes
+	global fileTypes
+	global saveType
 	global PI2
 	global decimals
+	global lastDir
+	global _temp_geo _temp_coo geoLoaded
 
 	set pn_coo [GetCoord $pn {37 38}]
 	if {$pn_coo == ""} {
@@ -1599,6 +1604,15 @@ proc GeoAngle {pn {w ""}} {
 	set slist [GeoListbox $slist 0 $geoEasyMsg(soTitle) -1]
 	if {[llength $slist] == 0} { Beep; return }
 	set blast $b1
+	# create empty arrays for new geo data set
+	array set _temp_geo {}
+	array set _temp_coo {}
+	# add station
+	set _temp_geo(0) [list "2 $pn"]
+	set _temp_geo(1) [list "5 $pn1" "7 0" "11 $d"]
+	set _temp_coo($pn) $pn_coo
+	set _temp_coo($pn1) $pn1_coo
+	set i 2
 	foreach s1 $slist {
 		set pn1 [lindex $s1 0]
 		set pn1_coo [GetCoord $pn1 {37 38}]
@@ -1631,8 +1645,28 @@ proc GeoAngle {pn {w ""}} {
 		GeoLog1 [format "%-10s %s %8.${decimals}f %s %s \
 			%12.${decimals}f %12.${decimals}f" \
 			$pn1 [DMS $b] $d [DMS $alfa] [DMS $alfa0] $abc $ord]
-
+		set _temp_geo($i) [list "5 $pn1" "7 $alfa0" "11 $d"]
+		set _temp_coo($pn1) $pn1_coo
+		incr i
 		set blast $b
+	}
+	set a [tk_dialog .msg $geoEasyMsg(warning) \
+		$geoEasyMsg(saveso) warning 0 $geoEasyMsg(yes) $geoEasyMsg(no)]
+	if {$a == 0} {
+		set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
+		set nn [string trim [tk_getSaveFile -filetypes $typ \
+			-initialdir $lastDir -typevariable saveType]]
+		# string match is used to avoid silly Windows 10 bug
+		if {[string length $nn] == 0 || [string match "after#*" $nn]} {
+			return
+		}
+		set lastDir [file dirname $nn]
+		set rn [file rootname $nn]
+		set fn [file rootname [file tail $nn]]
+		set save_geoLoaded $geoLoaded
+		lappend geoLoaded "_temp"
+		SaveGeo "_temp" $rn
+		set geoLoaded $save_geoLoaded
 	}
 }
 
