@@ -235,22 +235,22 @@ proc GeoEasy {top} {
 
 	set w ""
 #	toolbar images for graph window
-	image create bitmap zoom_in -file [file join $home bitmaps zoom_in.bmp]
-	image create bitmap zoom_out -file [file join $home bitmaps zoom_out.bmp]
-	image create bitmap zoom_prev -file [file join $home bitmaps zoom_prev.bmp]
-	image create bitmap pan -file [file join $home bitmaps pan.bmp]
-	image create bitmap area -file [file join $home bitmaps area.bmp]
-#	image create bitmap newp -file [file join $home bitmaps newp.bmp]
-	image create bitmap ruler -file [file join $home bitmaps ruler.bmp]
-	image create bitmap sp1 -file [file join $home bitmaps sp1.bmp]
+	image create bitmap zoom_in -file [file join $home bitmaps bar zoom_in.bmp]
+	image create bitmap zoom_out -file [file join $home bitmaps bar zoom_out.bmp]
+	image create bitmap zoom_prev -file [file join $home bitmaps bar zoom_prev.bmp]
+	image create bitmap pan -file [file join $home bitmaps bar pan.bmp]
+	image create bitmap area -file [file join $home bitmaps bar area.bmp]
+#	image create bitmap newp -file [file join $home bitmaps bar newp.bmp]
+	image create bitmap ruler -file [file join $home bitmaps bar ruler.bmp]
+	image create bitmap sp1 -file [file join $home bitmaps bar sp1.bmp]
 	if {[lsearch -exact $geoModules "reg"] != -1} {
-		image create bitmap reg -file [file join $home bitmaps reg.bmp]
+		image create bitmap reg -file [file join $home bitmaps bar reg.bmp]
 	}
 	if {[lsearch -exact $geoModules "dtm"] != -1} {
-		image create bitmap zdtm -file [file join $home bitmaps zdtm.bmp]
-		image create bitmap breakline -file [file join $home bitmaps breakline.bmp]
-		image create bitmap hole -file [file join $home bitmaps hole.bmp]
-		image create bitmap xchgtri -file [file join $home bitmaps xchgtri.bmp]
+		image create bitmap zdtm -file [file join $home bitmaps bar zdtm.bmp]
+		image create bitmap breakline -file [file join $home bitmaps bar breakline.bmp]
+		image create bitmap hole -file [file join $home bitmaps bar hole.bmp]
+		image create bitmap xchgtri -file [file join $home bitmaps bar xchgtri.bmp]
 	}
 
 	if {[info exist env(HOME)]} {
