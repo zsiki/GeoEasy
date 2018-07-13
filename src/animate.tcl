@@ -25,7 +25,7 @@ proc init_animate {rw} {
 	# check existance of image files
 	for {set i 0} {$i < 30} {incr i} {
 		set fn [file join $globedir globe_]
-		append fn [format %02d $i] .bmp
+		append fn [format %02d $i] .xbm
 		if {[file exists $fn] == 0} {
 			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn" \
 				warning 0 OK
@@ -33,7 +33,7 @@ proc init_animate {rw} {
 		}
 		set imgName [format "globe_%02d" $i]
 		image create bitmap $imgName -file $fn \
-			-maskfile [file join $globedir gmask.bmp] \
+			-maskfile [file join $globedir gmask.xbm] \
 			-foreground green -background blue
 	}
 
