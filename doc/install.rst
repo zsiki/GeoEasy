@@ -57,6 +57,13 @@ After successful installation the GeoEasy icon can be found on the desktop and i
 
 	GeoEasy icon
 
+Windows portable version
+------------------------
+
+There is a portable Windows zip file. It should be unziped into a new empty
+folder. If you would like to export to GPX or KML format, set up an environment
+variable *PROJ_LIB* to the root directory of GeoEasy.
+
 Linux Installation
 ------------------
 
