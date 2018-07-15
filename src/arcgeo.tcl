@@ -200,7 +200,7 @@ global geoEasyMsg
 	set t [expr {$r * tan($alpha / 2.0)}]
 	GeoLog1 "$geoEasyMsg(arcT): [format %.2f $t]"
 	GeoLog1 "$geoEasyMsg(arcRadius): [format %.2f $r]"
-	GeoLog1 "$geoEasyMsg(arcAlpha): [DMS $alpha]"
+	GeoLog1 [format $geoEasyMsg(arcAlpha) [DMS $alpha] [DMS $beta]]
 
 	# start of arc
 	set xs [expr {$t * sin($back) + [GetVal 38 $corner]}]
@@ -274,11 +274,19 @@ global geoEasyMsg
 	set forth [Bearing [GetVal 38 $corner] [GetVal 37 $corner] \
 		[GetVal 38 $last] [GetVal 37 $last]]
 	set beta [expr {abs($back - $forth)}]
+	if {$beta > $PI} {
+		set beta [expr {$PI2 - $beta}]
+	}
 	# left arc?
 	set left 0
-	if {$beta > $PI} {
+	# line throw first and corner
+	set a [expr {[GetVal 37 $first] - [GetVal 37 $corner]}]
+	set b [expr {[GetVal 38 $corner] - [GetVal 38 $first]}]
+	set c [expr {[GetVal 38 $first] * [GetVal 37 $corner] - \
+		[GetVal 38 $corner] * [GetVal 37 $first]}]
+	# last point left to the line?
+	if {[expr {$a * [GetVal 38 $last] + $b * [GetVal 37 $last] + $c}] > 0} {
 		set left 1
-		set beta [expr {$PI2 - $beta}]
 	}
 	set alpha [expr {$PI - $beta}]
 	# length of transition curve
@@ -301,9 +309,9 @@ global geoEasyMsg
 	# tangent length
 	set t [expr {($r + $dr) * tan($alpha / 2.0) + $x0}]
 	GeoLog1 "$geoEasyMsg(arcT): [format %.2f $t]"
-	GeoLog1 "$geoEasyMsg(arcP): [format %.1f $p]"
 	GeoLog1 "$geoEasyMsg(arcRadius): [format %.2f $r]"
-	GeoLog1 "$geoEasyMsg(arcAlpha): [DMS $alpha]"
+	GeoLog1 [format $geoEasyMsg(arcAlpha) [DMS $alpha] [DMS $beta]]
+	GeoLog1 [format $geoEasyMsg(arcTran) $p $dr $l $x0]
 	# start of arc
 	set xs [expr {$t * sin($back) + [GetVal 38 $corner]}]
 	set ys [expr {$t * cos($back) + [GetVal 37 $corner]}]
@@ -341,18 +349,17 @@ global geoEasyMsg
 		set dl $step
 	}
 	if {$da} {
-		set a $da
-		# points on transition curve
+		# points on first transition curve
 		set i 1
 		set ll $dl
 		set dir1 [expr {$back + $PI}]
 		while {$dir1 > $PI2} { set dir1 [expr {$dir1 - $PI2}]}
 		if {$left} {
 			set dir2 [expr {$dir1 - $PI / 2}]
-			while {$dir2 < 0} { set dir2 [expr {$dir1 + $PI2}] }
+			while {$dir2 < 0} { set dir2 [expr {$dir2 + $PI2}] }
 		} else {
 			set dir2 [expr {$dir1 + $PI / 2}]
-			while {$dir2 > $PI2} { set dir2 [expr {$dir1 - $PI2}]}
+			while {$dir2 > $PI2} { set dir2 [expr {$dir2 - $PI2}]}
 		}
 		while {$ll > 0.1 && $ll < $l} {
 			# local ortogonal coordinates from tangent
@@ -361,12 +368,13 @@ global geoEasyMsg
 			set u [expr {pow($ll,3) / 6.0 / pow($p,2)}]
 			set yt [expr {$u - $ll * pow($u,2) / 9.33 / pow($p,2)}]
 			set xp [expr {$xs + sin($dir1) * $xt + sin($dir2) * $yt}]
-			set yp [expr {$ys + cos($dir1) * $xt - cos($dir2) * $yt}]
+			set yp [expr {$ys + cos($dir1) * $xt + cos($dir2) * $yt}]
 			lappend res [list [list 5 $pre$i] [list 38 $xp] [list 37 $yp]]
 			incr i
 			set ll [expr {$ll + $dl}]
 		}
 		# points on pure arc
+		set a $da
 		while {$a < [expr {$alpha / 2.0 - $tau}]} {
 			set xp [expr {$xc + $r * sin($starta + $a)}]
 			set yp [expr {$yc + $r * cos($starta + $a)}]
@@ -376,16 +384,23 @@ global geoEasyMsg
 		}
 		set a $da
 		set starta [expr {$dir + $PI + $alpha / 2.0 - $tau}]
-		# points on transition arc
+		while {$a < [expr {$alpha / 2.0 - $tau}]} {
+			set xp [ expr {$xc + $r * sin($starta - $a)}]
+			set yp [ expr {$yc + $r * cos($starta - $a)}]
+			set a [expr {$a + $da}]
+			lappend res [list [list 5 $pre$i] [list 38 $xp] [list 37 $yp]]
+			incr i
+		}
+		# points on second transition arc
 		set ll $dl
 		set dir1 [expr {$forth + $PI}]
 		while {$dir1 > $PI2} { set dir1 [expr {$dir1 - $PI2}]}
 		if {$left} {
-			set dir2 [expr {$dir1 - $PI / 2}]
-		while {$dir2 < 0} { set dir2 [expr {$dir1 + $PI2}] }
-		} else {
 			set dir2 [expr {$dir1 + $PI / 2}]
-			while {$dir2 > $PI2} { set dir2 [expr {$dir1 - $PI2}]}
+			while {$dir2 > $PI2} { set dir2 [expr {$dir2 - $PI2}]}
+		} else {
+			set dir2 [expr {$dir1 - $PI / 2}]
+			while {$dir2 < 0} { set dir2 [expr {$dir2 + $PI2}] }
 		}
 		while {$ll > 0.1 && $ll < $l} {
 			# local ortogonal coordinates from tangent
@@ -393,23 +408,11 @@ global geoEasyMsg
 			set xt [expr {$ll - $v + pow($v,2) / 2.16 / $ll}]
 			set u [expr {pow($ll,3) / 6.0 / pow($p,2)}]
 			set yt [expr {$u - $ll * pow($u,2) / 9.33 / pow($p,2)}]
-			if {$left} {
-				set xp [expr {$xe + sin($dir1) * $xt + sin($dir2) * $yt}]
-				set yp [expr {$ye + cos($dir1) * $xt - cos($dir2) * $yt}]
-			} else {
-				set xp [expr {$xe + sin($dir1) * $xt + sin($dir2) * $yt}]
-				set yp [expr {$ye + cos($dir1) * $xt - cos($dir2) * $yt}]
-			}
+			set xp [expr {$xe + sin($dir1) * $xt + sin($dir2) * $yt}]
+			set yp [expr {$ye + cos($dir1) * $xt + cos($dir2) * $yt}]
 			lappend res [list [list 5 $pre$i] [list 38 $xp] [list 37 $yp]]
 			incr i
 			set ll [expr {$ll + $dl}]
-		}
-		while {$a < [expr {$alpha / 2.0 - $tau}]} {
-			set xp [ expr {$xc + $r * sin($starta - $a)}]
-			set yp [ expr {$yc + $r * cos($starta - $a)}]
-			set a [expr {$a + $da}]
-			lappend res [list [list 5 $pre$i] [list 38 $xp] [list 37 $yp]]
-			incr i
 		}
 	}
 	set starta [expr {$dir + $PI + $alpha / 2.0 - $tau}]
