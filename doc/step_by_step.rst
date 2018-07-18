@@ -565,7 +565,7 @@ first point finally). The calculation result are reported in the
 	5003          89398.545     2775.181     1203.396
 
 	Area                                   680295.78817
-	Kerület                                  3674.889
+	Perimeter                                3674.889
 
 .. note::
 
@@ -649,6 +649,40 @@ options can be set for the DXF file.
 The point symbol (AutoCAD point entities), the point ID and the elevation 
 can be exported to the output. The last block is available if a DTM is
 loaded.
+
+Horizontal network adjustment
+-----------------------------
+
+Let's calculate the coordinates of points 5001, 5002, 5003 and 5044 using all
+available observations from points. GeoEasy uses GNU Gama for the network
+adjustment.
+
+Before adjustment calculation the a priori standard deviations should be set
+in the **Calculation parameters** dialog. 3 arc seconds for directions and
+3 mm + 3 ppm for distances.
+
+From the **Calculate** menu select **Horizontal network adjustment**. From the
+first point list select the unknown points (which coordinates are changed
+during adjustment). This list contains all point having preliminary or final
+coordinates.
+
+.. figure:: images/adj1.png
+	:align: center
+
+	Unknown points
+
+From the second point list select the fixed points (if no fixed points
+selected then free network will be calculated). This list contains point 
+with final coordinates.
+
+.. figure:: images/adj2.png
+	:align: center
+
+	Fixed points
+
+The result of the adjustment is shown in the Calculation results window.
+During the adjustment statistical tests are calculated to detect blunders
+but blunders are not eliminated automaticly.
 
 Digital terrain model
 ---------------------
