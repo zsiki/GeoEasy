@@ -290,7 +290,7 @@ black after calculation done.
 .. note::
 
 	You can repeat the intersection calculation selecting different
-	direction. The last calculated coordinates are stored only
+	directions. The last calculated coordinates are stored only
 	in the coordinate list. Previous coordinates will be overwritten.
 
 Resection
@@ -363,10 +363,10 @@ Let's use the distance from point 11 and 12.
 
 .. note::
 
-	Using arcsection there are two solution (two intersection of the two
+	Using arcsection there are two solution (two intersections of the two
 	circles). If there are more observations for the point to be calculated,
 	GeoEasy can choose the right solution as this case a third distance.
-	Otherwise theuser have to select from the two possible solutions.
+	Otherwise the user have to select from the two possible solutions.
 
 .. note::
 
@@ -499,7 +499,7 @@ It will calculate orientation angle automatically if neccessary.
 ::
 
 	2018.01.28 13:30 - New detail points
-														    Oriented   Horizontal
+	                                                        Oriented   Horizontal
 	Point num  Code      E         N           H   Station  direction  distance
 	101              89817.597  3124.363   125.301 1_sp     221-46-38  168.468
 	102              89888.171  3112.673   126.819 1_sp     196-52-41  143.505
@@ -509,7 +509,6 @@ It will calculate orientation angle automatically if neccessary.
 	301              90543.529  2842.469   139.235 3_sp     206-38-02  103.440
 	302              90467.005  2904.622   137.424 3_sp     256-08-41  126.578
 	303              90443.170  2958.505   139.836 3_sp     279-07-35  148.611
-
 
 .. note::
 	You can recalculate all detail points after editing the observation data using
