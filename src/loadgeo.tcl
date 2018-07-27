@@ -1962,6 +1962,7 @@ proc FilterParams {} {
 	global geoFilter
 	global buttonid
 	global geoEasyMsg
+	global filterType
 
 	set w [focus]
 	if {$w == ""} { set w "." }
@@ -1978,9 +1979,25 @@ proc FilterParams {} {
 	wm resizable $this 0 0
 	wm transient $this [winfo toplevel $w]
 	catch {wm attribute $this -topmost}
-	radiobutton $this.all -text $geoEasyMsg(allpoints) -variable x
-	radiobutton $this.pointno -text $geoEasyMsg(pointno) -variable x
-	radiobutton $this.pointrect -text $geoEasyMsg(pointrect) -variable x
-	radiobutton $this.pointcode -text $geoEasyMsg(pointcode) -variable x
+	radiobutton $this.all -text $geoEasyMsg(allpoints) -variable filterType
+	radiobutton $this.pointno -text $geoEasyMsg(pointno) -variable filterType
+	radiobutton $this.pointrect -text $geoEasyMsg(pointrect) -variable filterType
+	radiobutton $this.pointcode -text $geoEasyMsg(pointcode) -variable filterType
+	label $this.lpnFilter -text geoEasyMsg(lpnFilter)
+	entry $this.pnFilter -variable pnFilter
+	label $this.lpcFilter -text geoEasyMsg(lpcFilter)
+	entry $this.pcFilter -variable pcFilter
+	label $this.lrectE1 -text geoEasyMsg(lrectE1)
+	entry $this.rectE1 - variable rectE1
+	label $this.lrectN1 -text geoEasyMsg(lrectN1)
+	entry $this.rectN1 - variable rectN1
+	label $this.lrectE2 -text geoEasyMsg(lrectE2)
+	entry $this.rectE2 - variable rectE2
+	label $this.lrectN2 -text geoEasyMsg(lrectN2)
+	entry $this.rectN2 - variable rectN2
+
+	radiobutton $this.swapEN -text $geoEasyMsg(swapEN) -variable swapEN
+	radiobutton $this.swapEZ -text $geoEasyMsg(swapEZ) -variable swapEZ
+	radiobutton $this.swapNZ -text $geoEasyMsg(swapNZ) -variable swapNZ
 
 }
