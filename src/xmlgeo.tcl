@@ -381,6 +381,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 		if {! [info exists ${geo}_par]} {
 			set ${geo}_par ""	;# to avoid undefined variable
 		}
+		upvar #0 ${geo}_par par
 		# standard deviations
 		set stdL [GetVal 118 $par]
 		if {$stdL == ""} {
