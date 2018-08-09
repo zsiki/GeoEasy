@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes
+	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes
 global geoCodes
 global geoEasyMsg
 
@@ -111,6 +111,9 @@ set docTypes {{"Rich Text Format" {.rtf}}
 }
 
 set csvTypes {{"Comma Separated Values" {.csv}}
+}
+
+set tclTypes {{"Tcl script" {.tcl}}
 }
 
 #
@@ -269,6 +272,7 @@ set geoEasyMsg(menuFileNew)		"Neu ..."
 set geoEasyMsg(menuFileLoad)	"Daten werden geladen ..."
 set geoEasyMsg(menuFileLogLoad)	"Resultatdatei einlesen"
 set geoEasyMsg(menuFileLogClear)	"Inhalt der Resultatdatei löschen"
+set geoEasyMsg(menuFileTclLoad) "Load tcl file"
 set geoEasyMsg(menuFileUnload)	"Beenden"
 set geoEasyMsg(menuFileSave)	"Speichern"
 set geoEasyMsg(menuFileSaveAll)	"Alles speichern"
@@ -312,6 +316,7 @@ set geoEasyMsg(menuPopupAdj1D)  "Elevation adjustment"
 set geoEasyMsg(menuGraph)		"Fenster"
 set geoEasyMsg(menuGraNew)		"Neues graphisches Fenster"
 set geoEasyMsg(menuLogNew)		"Resultatsfenster"
+set geoEasyMsg(menuConsoleNew)  "Console window"
 set geoEasyMsg(menuWin)			"Offene Fenster"
 set geoEasyMsg(menuRefreshAll)	"Alle Fenster aktualisieren"
 set geoEasyMsg(menuResize)		"Anzahl Zeilen ..."
@@ -747,6 +752,7 @@ set geoEasyMsg(modules)		"Modulok:"
 # text window headers
 #
 set geoEasyMsg(logWin)      "Számítási eredmények"
+set geoEasyMsg(consoleWin)  "Tcl console"
 #
 #	headers for fixed forms (traversing, adjustment etc)
 #
@@ -754,10 +760,6 @@ set geoEasyMsg(tra1)		"Beillesztett"
 set geoEasyMsg(tra2)		"Egyik végén tájékozott"
 set geoEasyMsg(tra3)		"Mindkét végén tájékozott"
 set geoEasyMsg(tra4)		"Szabad"
-#
-# text window headers
-#
-set geoEasyMsg(logWin)      "Számítási eredmények"
 #
 # resize mask
 #

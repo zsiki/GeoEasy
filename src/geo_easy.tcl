@@ -219,7 +219,7 @@ proc GeoEasy {top} {
 	}
 
 	if {[catch {source [file join $home com_easy.$geoLang]} msg] == 1} {
-		tk_dialog .msg "Hiba" "Error in message file:\n$msg" error 0 OK
+		tk_dialog .msg "Error" "Error in message file:\n$msg" error 0 OK
 		exit
 	}
 #
@@ -454,6 +454,8 @@ proc GeoEasy {top} {
 		-command "GeoNewWindow" -accelerator "F11"
 	$topw.menu.graph add command -label $geoEasyMsg(menuLogNew) \
 		-command "GeoLogWindow"
+	$topw.menu.graph add command -label $geoEasyMsg(menuConsoleNew) \
+		-command "GeoConsoleWindow"
 	$topw.menu.graph add separator
 	$topw.menu.graph add cascade -label $geoEasyMsg(menuWin) \
 		-menu $topw.menu.graph.win
@@ -1296,13 +1298,26 @@ proc GeoLog1 {{msg ""}} {
 #	@param none
 #	@return none
 proc GeoLogWindow {} {
-	global logFile logName
 	global geoEasyMsg
 
 	if {[winfo exists .log]} {
 		raise .log
 	} else {
-		GeoTextWindow .log $geoEasyMsg(logWin) 1
+		GeoTextWindow .log $geoEasyMsg(logWin) "log"
+	}
+}
+
+#
+#	Open console window if it is not opened before or rise it
+#	@param none
+#	@return none
+proc GeoConsoleWindow {} {
+	global geoEasyMsg
+
+	if {[winfo exists .console]} {
+		raise .console
+	} else {
+		GeoTextWindow .console $geoEasyMsg(consoleWin) "console"
 	}
 }
 
