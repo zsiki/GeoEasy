@@ -890,48 +890,45 @@ proc LoadMask {} {
 #	Creates a new window (w) with a text widget and menu
 #	@param w name of window
 #	@param title window header text
-proc GeoTextWindow {w {title "?"} {isLog 0}} {
+#	@param typ type of wondow simple/log/console
+proc GeoTextWindow {w {title "?"} {typ "simple"}} {
 	global geoEasyMsg tcl_platform
 	global logName
+	global consoleEntry
 
 	toplevel $w
 	wm protocol $w WM_DELETE_WINDOW "GeoFormExit $w"
 	wm protocol $w WM_SAVE_YOURSELF "GeoFormExit $w"
 	wm title $w $title
 	menu $w.menu -tearoff 0 ;# -type menubar
-#	frame $w.menu
-#	pack $w.menu -side top -fill x
 	frame $w.w
 	pack $w.w -side bottom -fill both -expand 1
 
 	$w.menu add cascade -label $geoEasyMsg(menuFile) -menu $w.menu.file
-#	menubutton $w.menu.file -text $geoEasyMsg(menuFile) -menu $w.menu.file.m \
-#		-relief raised
 
 	menu $w.menu.file -tearoff 0
 
 	$w.menu.file add command -label $geoEasyMsg(menuFileFind) \
 		-command "GeoFormFind $w.w.t"
-	if {$isLog > 0} {
+	if {$typ == "log"} {
 		$w.menu.file add command -label $geoEasyMsg(menuFileClear) \
 			-command "$w.w.t delete 0.1 end"
 	}
 	$w.menu.file add separator
-	if {$isLog > 0} {
+	if {$typ == "log"} {
 		$w.menu.file add command -label $geoEasyMsg(menuFileLogLoad) \
 			-command "GeoLoadLog $w"
 		$w.menu.file add command -label $geoEasyMsg(menuFileLogClear) \
 			-command "GeoClearLog $w"
 	}
+	if {$typ == "console"} {
+		$w.menu.file add command -label $geoEasyMsg(menuFileTclLoad) \
+			-command "GeoLoadTcl $w"
+	}
 	$w.menu.file add command -label $geoEasyMsg(menuFileSaveAs) \
 		-command "GeoListSave $w.w.t"
 	$w.menu.file add command -label $geoEasyMsg(menuFileSaveSelection) \
 		-command "GeoListSave $w.w.t 1"
-#	$w.menu.file add separator
-#	$w.menu.file add command -label $geoEasyMsg(menuFilePrint) \
-#		-command "GeoListPrint $w.w.t"
-#	$w.menu.file add command -label $geoEasyMsg(menuFilePrintSelection) \
-#		-command "GeoListPrint $w.w.t 1"
 	if {$tcl_platform(platform) != "unix"} {	;# page setup
 		$w.menu.file add separator
 		$w.menu.file add command -label $geoEasyMsg(menuFileFontSetup) \
@@ -951,13 +948,24 @@ proc GeoTextWindow {w {title "?"} {isLog 0}} {
 	pack $w.w.hs -side bottom -fill x
 	pack $w.w.t -side top -fill both -expand 1
 
+	if {$typ == "console"} {
+		# add text input widget
+		entry $w.input -textvariable consoleEntry -relief sunken -width 40
+		pack $w.input -side bottom -fill x
+	}
+
 	bind $w <Alt-KeyPress-F4> "GeoFormExit $w"
 	bind $w.w.t <Key-Next> "$w.w.t yview scroll 1 pages"
 	bind $w.w.t <Key-Prior> "$w.w.t yview scroll -1 pages"
 	bind $w.w.t <Key-Down> "$w.w.t yview scroll 1 units"
 	bind $w.w.t <Key-Up> "$w.w.t yview scroll -1 units"
 
-	focus $w.w.t 
+	if {$typ == "console"} {
+		bind $w.input <Return> "GeoExec $w" 
+		focus $w.input
+	} else {
+		focus $w.w.t
+	}
 }
 
 #
@@ -1021,6 +1029,37 @@ global lstTypes
 				warning 0 OK
 			return
 		}
+	}
+}
+
+#
+#
+#	Execute command from console input widget
+#	@param w widget for console window
+proc GeoExec {w} {
+	global consoleEntry
+
+	if {[string length $consoleEntry]} {
+		$w.w.t insert end "$consoleEntry\n"
+		GeoLog1 [eval $consoleEntry]
+	}
+}
+
+#
+#
+#	Source a tcl script
+#	@param w widget for console window
+proc GeoLoadTcl {w} {
+	global tclTypes
+	global geoEasyMsg
+	global $lastDir
+
+	set on [string trim [tk_getSaveFile -defaultextension ".tcl" \
+		-initialdir $lastDir -filetypes $tclTypes ]]
+	if {[string length $on] == 0 || [string match "after#*" $on]} { return }
+	set lastDir [file dirname $on]
+	if {[catch {source $on} msg] != 0} {
+		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 	}
 }
 
@@ -3380,4 +3419,3 @@ proc GeoFormExit {w} {
     catch {destroy "$w.find"}
     destroy $w
 }
-

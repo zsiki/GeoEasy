@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes
+	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes
 global geoCodes
 global geoEasyMsg
 
@@ -113,6 +113,9 @@ set docTypes {{"Rich Text Format" {.rtf}}
 }
 
 set csvTypes {{"Comma Separated Values" {.csv}}
+}
+
+set tclTypes {{"Tcl script" {.tcl}}
 }
 
 #
@@ -271,6 +274,7 @@ set geoEasyMsg(menuFileNew)		"New ..."
 set geoEasyMsg(menuFileLoad)	"Load ..."
 set geoEasyMsg(menuFileLogLoad) "Load log file"
 set geoEasyMsg(menuFileLogClear)    "Clear log file"
+set geoEasyMsg(menuFileTclLoad) "Load tcl file"
 set geoEasyMsg(menuFileUnload)	"Close"
 set geoEasyMsg(menuFileSave)	"Save"
 set geoEasyMsg(menuFileSaveAll)	"Save all"
@@ -315,6 +319,7 @@ set geoEasyMsg(menuPopupAdj1D)	"Elevation adjustment"
 set geoEasyMsg(menuGraph)		"Window"
 set geoEasyMsg(menuGraNew)		"New graphic window"
 set geoEasyMsg(menuLogNew)		"Log window"
+set geoEasyMsg(menuConsoleNew)	"Console window"
 set geoEasyMsg(menuWin)			"Window list"
 set geoEasyMsg(menuRefreshAll)  "Refresh all window"
 set geoEasyMsg(menuResize)		"Number of rows ..."
@@ -750,6 +755,7 @@ set geoEasyMsg(modules)		"Modules:"
 # text window headers
 #
 set geoEasyMsg(logWin)		"Calculation results"
+set geoEasyMsg(consoleWin)	"Tcl console"
 #
 # resize mask
 #

@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes
+	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes
 global geoCodes
 global geoEasyMsg
 
@@ -111,6 +111,9 @@ set docTypes {{"Rich Text Format" {.rtf}}
 }
 
 set csvTypes {{"Vesszõvel elválasztott értékek" {.csv}}
+}
+
+set tclTypes {{"Tcl szkript" {.tcl}}
 }
 
 #
@@ -269,6 +272,7 @@ set geoEasyMsg(menuFileNew)		"Új ..."
 set geoEasyMsg(menuFileLoad)	"Betölt ..."
 set geoEasyMsg(menuFileLogLoad)	"Eredmény fájl beolvasása"
 set geoEasyMsg(menuFileLogClear)	"Eredmény fájl tartalmának törlése"
+set geoEasyMsg(menuFileTclLoad) "Tcl fájl betöltés"
 set geoEasyMsg(menuFileUnload)	"Lezár"
 set geoEasyMsg(menuFileSave)	"Ment"
 set geoEasyMsg(menuFileSaveAll)	"Mindent ment"
@@ -312,6 +316,7 @@ set geoEasyMsg(menuPopupAdj1D)	"Magassági kiegyenlítés"
 set geoEasyMsg(menuGraph)		"Ablakok"
 set geoEasyMsg(menuGraNew)		"Új grafikus ablak"
 set geoEasyMsg(menuLogNew)		"Eredmény ablak"
+set geoEasyMsg(menuConsoleNew)  "Konzol ablak"
 set geoEasyMsg(menuWin)			"Nyitott ablakok"
 set geoEasyMsg(menuRefreshAll)	"Minden ablak frissítése"
 set geoEasyMsg(menuResize)		"Sorok száma ..."
@@ -749,6 +754,7 @@ set geoEasyMsg(modules)		"Modulok:"
 # text window headers
 #
 set geoEasyMsg(logWin)      "Számítási eredmények"
+set geoEasyMsg(consoleWin)  "Tcl konzol"
 #
 #	headers for fixed forms (traversing, adjustment etc)
 #
