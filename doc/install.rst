@@ -61,13 +61,17 @@ Windows portable version
 ------------------------
 
 There is a portable Windows zip file. It should be unziped into a new empty
-folder. If you would like to export to GPX or KML format, set up an environment
+folder (for example c:\GeoEasy). 
+If you would like to export to GPX or KML format, set up an environment
 variable *PROJ_LIB* to the root directory of GeoEasy.
+
+.. code::
+	setx PROJ_LIB=C:\GeoEasy
 
 Linux Installation
 ------------------
 
-There is a simple Linux binary release which can be downloaded from
+There is a compressed Linux binary release which can be downloaded from
 http://digikom.hu/english/geo_easy_e.html, it is a simple tar-gzip (.tgz) file.
 
 The following commands have to be executed (it is supposed the tgz file is 
@@ -79,7 +83,11 @@ downloaded into your home directory):
 	cd GeoEasy
 	tar xvzf ../Gizi3xxLinux.tgz
 
-You can start the GeoEasy from the installation directory using the command:
+.. .note:
+	the name of the tgz file is changed release by release, you can find 
+	development (alfa/beta) releases e.g. Gizi303devLinux.tgz
+
+You can start GeoEasy from the installation directory using the command:
 
 .. code:: bash
 
@@ -105,25 +113,52 @@ Install GNU Gama (https://www.gnu.org/software/gama/)
 Install Triangle (https://github.com/MrPhil/Triangle)
 
 Download the source files from GitHub (github.com/zsiki/GeoEasy) either
-the zip file or clone the repository.
+the zip file or git clone the repository. If you would like to update your
+version regularly, then the *git clone* should be prefered.
 
-Change directory to GeoEasy and
+Change directory to **GeoEasy/src** and
 run the following commands from the command line, to prepare it.
 
 .. code:: bash
 
+	cd GeoEasy/src
 	make source
 	chmod +x geo_easy.tcl
 
-To start the program use the following command from the install directory:
+Make a symbolic link from the GEoEasy/src directory to the external programs.
 
 .. code:: bash
 
+	cd GeoEasy/src
+	ln -s /usr/bin/cs2cs cs2cs
+	ln -s /usr/local/bin/gama-local gama-local
+	ln -s /usr/local/bin/triangel triangle
+
+.. note::
+
+	The path to the external program may be different, depending on 
+	your settings and Linux distro.
+
+To start the program use the following command from the **src** directory:
+
+.. code:: bash
+
+	cd GeoEasy/src
 	wish geo_easy.tcl
 
 or
 
 .. code:: bash
 
+	cd GeoEasy/src
 	./geo_easy.tcl
 
+To update to the actual master on GitHub simply *git pull* it, from the GeoEasy
+directory.
+
+.. code:: bash
+
+	cd GeoEasy
+	git pull
+
+The preparation should be repeated (make source).
