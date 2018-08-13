@@ -133,7 +133,7 @@ Make a symbolic link from the GEoEasy/src directory to the external programs.
 	cd GeoEasy/src
 	ln -s /usr/bin/cs2cs cs2cs
 	ln -s /usr/local/bin/gama-local gama-local
-	ln -s /usr/local/bin/triangel triangle
+	ln -s /usr/local/bin/triangle triangle
 
 .. note::
 
