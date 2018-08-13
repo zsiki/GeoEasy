@@ -66,6 +66,7 @@ If you would like to export to GPX or KML format, set up an environment
 variable *PROJ_LIB* to the root directory of GeoEasy.
 
 .. code::
+
 	setx PROJ_LIB=C:\GeoEasy
 
 Linux Installation
