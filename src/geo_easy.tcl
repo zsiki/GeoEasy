@@ -1035,6 +1035,13 @@ proc MenuSaveAs {fn} {
 		if {[string length $nn] == 0 || [string match "after#*" $nn]} {
 			return
 		}
+		# some extra work to get extension for windows
+		regsub "\\(.*\\)$" $saveType "" saveType
+		set saveType [string trim $saveType]
+		set typ [lindex [lindex $saveTypes [lsearch -regexp $saveTypes $saveType]] 1]
+		if {[string match -nocase "*$typ" $nn] == 0} {
+			set nn "$nn$typ"
+		}
 		set lastDir [file dirname $nn]
 		set rn [file rootname $nn]
 		switch -glob $nn {
