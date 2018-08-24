@@ -1719,7 +1719,8 @@ proc GeoJoin { } {
 	}
 	# get output name
 	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
-	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir]]
+	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir \
+		-defaultextension "*.geo"]]
 	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
 	GeoLog "$geoEasyMsg(menuFileJoin) $geoLoaded \-\> $fn"
 	set lastDir [file dirname $fn]

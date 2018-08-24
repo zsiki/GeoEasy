@@ -2499,10 +2499,19 @@ proc CreateGrid {} {
 	global gridDX gridVrml
 	global buttonid
 	global grdTypes
+	global saveType
 
 	set filen [string trim [tk_getSaveFile -filetypes $grdTypes \
-		-defaultextension ".asc" -initialdir $lastDir]]
+		-typevariable saveType -initialdir $lastDir]]
+	# string match is used to avoid silly Windows 10 bug
 	if {[string length $filen] && [string match "after#*" $filen] == 0} {
+        # some extra work to get extension for windows
+        regsub "\\(.*\\)$" $saveType "" saveType
+        set saveType [string trim $saveType]
+        set typ [lindex [lindex $grdTypes [lsearch -regexp $grdTypes $saveType]] 1]
+        if {[string match -nocase "*$typ" $filen] == 0} {
+            set filen "$filen$typ"
+        }
 		set lastDir [file dirname $filen]
 		GridParams
 		tkwait window .gridparams
@@ -2513,6 +2522,7 @@ proc CreateGrid {} {
 			return
 		}
 		tin2grid $filen $gridDX "" "" "" "" $gridVrml
+		GeoLog "$geoEasyMsg(menuDtmGrid) $filen"
 	}
 }
 

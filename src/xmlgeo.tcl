@@ -200,12 +200,21 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 	global xmlTypes lastDir
 	global geoEasyMsg
 	global oriDetail
+	global saveType
 
 	GeoLog1
 	if {[string length $fn] == 0} {
 		set fn [string trim [tk_getSaveFile -filetypes $xmlTypes \
-			-initialdir $lastDir -defaultextension ".g2d"]]
+			-initialdir $lastDir -typevariable saveType]]
 		if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
+		# some extra work to get extension for windows
+        regsub "\\(.*\\)$" $saveType "" saveType
+        set saveType [string trim $saveType]
+        set typ [lindex [lindex $xmlTypes [lsearch -regexp $xmlTypes $saveType]] 1]
+        if {[string match -nocase "*$typ" $fn] == 0} {
+            set fn "$fn$typ"
+        }
+
 		GeoLog "$geoEasyMsg(menuFileExport) $fn"
 	} else {
 		switch -exact [file extension $fn] {
