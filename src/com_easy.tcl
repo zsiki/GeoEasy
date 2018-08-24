@@ -576,6 +576,13 @@ proc ComDownload {} {
 		-initialdir $lastDir -typevariable comSaveType]]
 	# string match is used to avoid silly Windows 10 bug
 	if {[string length $fn] && [string match "after#*" $fn] == 0} {
+		# some extra work to get extension for windows
+		regsub "\\(.*\\)$" $comSaveType "" comSaveType
+		set comSaveType [string trim $comSaveType]
+		set typ [lindex [lindex $comTypes [lsearch -regexp $comTypes $comSaveType]] 1]
+		if {[string match -nocase "*$typ" $fn] == 0} {
+			set fn "$fn$typ"
+		}
 		set lastDir [file dirname $fn]
 		set savename $fn
 		if {[OpenCom] == 0} {

@@ -1554,7 +1554,6 @@ proc GeoAngle {pn {w ""}} {
 	global geoEasyMsg
 	global geoCodes
 	global fileTypes
-	global saveType
 	global PI2
 	global decimals
 	global lastDir
@@ -1655,7 +1654,7 @@ proc GeoAngle {pn {w ""}} {
 	if {$a == 0} {
 		set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
 		set nn [string trim [tk_getSaveFile -filetypes $typ \
-			-initialdir $lastDir -typevariable saveType]]
+			-initialdir $lastDir -defaultextension ".geo"]]
 		# string match is used to avoid silly Windows 10 bug
 		if {[string length $nn] == 0 || [string match "after#*" $nn]} {
 			return
