@@ -475,7 +475,7 @@ proc CreateTinDia {win} {
 				set poly [string trim [tk_getOpenFile \
 					-defaultextension ".poly" \
 					-filetypes $polyTypes -initialdir $lastDir]]
-				if {[string length $poly] == 0 || [string match "after#*"} {
+				if {[string length $poly] == 0 || [string match "after#*"]} {
 					return
 				}
 				set lastDir [file dirname $poly]
@@ -525,14 +525,16 @@ proc CreateTin {polyFile targetFile} {
 			return
 		}
 	}
-	set source [file rootname $polyFile]
+	set src [file rootname $polyFile]
 	set target [file rootname $targetFile]
-	foreach ext {ele poly node} ext1 {dtm pol pnt} {
-		if {[catch {file rename -force "${source}.1.${ext}" "${target}.${ext1}"} msg]} {
+	for {set i 0} {$i < 3} {incr i} {
+		set ext [lindex {ele poly node} $i]
+		set ext1 [lindex {dtm pol pnt} $i]
+		if {[catch {file rename -force "${src}.1.${ext}" "${target}.${ext1}"} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(tinfailed) $msg" \
 				error 0 OK
 			foreach ext {ele poly node} {
-				catch {file delete -force ${source}.1.${ext}}
+				catch {file delete -force ${src}.1.${ext}}
 				catch {file delete -force ${target}.${ext}}
 			}
 			return
