@@ -334,9 +334,15 @@ proc GetHdW {st st_buf tg tg_buf w1} {
 	if {$th == ""} {set th 0}	;# default taget height
 	set d [GetVal 11 $tg_buf]
 	set dm [GetVal 120 $tg_buf]
-	if {$sd != "" && $z != "" && $ih != ""} {	;# trigonometric height diff
-		set dm [expr {$sd * cos($z) + $ih - $th}]
-		set d [expr {$sd * sin($z)}]	;# horizontal distance
+	if {($sd != "" || $d != "") && $z != "" && $ih != ""} {	;# trigonometric height diff
+		if {$d == ""} {
+			set d [expr {$sd * sin($z)}]	;# horizontal distance
+			set dm [expr {$sd * cos($z) + $ih - $th}]
+		}
+		if {$sd == ""} {
+			set sd [expr {$d / sin($z)}]
+			set dm [expr {$d / tan($z) + $ih - $th}]
+		}
 		if {$d > 400 && $refr} {
 			set dm [expr {$dm + [GetRefr $d]}]	;# refraction
 		}
@@ -398,8 +404,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 		}
 		foreach i [lsort -integer [array names ${geo}_geo]] {
 			upvar #0 ${geo}_geo($i) pbuf
-			set p [GetVal 2 $pbuf]
-			if {[string length $p]} {
+			if {[string length [GetVal 2 $pbuf]]} {
 				# station record
 				upvar #0 ${geo}_geo($i) stbuf
 				set stpn [GetVal 2 $stbuf]
@@ -420,7 +425,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 					continue	;# no coordinate for station skip it
 				}
 				set stz [GetVal {39 139} $stcoo]
-			} elseif {[string length $stpn]} {
+			} else {
 				# observation record
 				set p [GetVal {5 62} $pbuf]	;# point number of other end
 				set pcoo ""
