@@ -84,7 +84,6 @@ proc GpxOut {fn rn} {
 	global geoLoaded
 	global ${fn}_coo
 	global tcl_platform
-	global env
 
 	if {[info exists geoLoaded]} {
 		set pos [lsearch -exact $geoLoaded $fn]
@@ -159,7 +158,6 @@ proc KmlOut {fn rn} {
 	global geoLoaded
 	global ${fn}_coo
 	global tcl_platform
-	global env
 
 	if {[info exists geoLoaded]} {
 		set pos [lsearch -exact $geoLoaded $fn]
