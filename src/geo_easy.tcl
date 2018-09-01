@@ -105,20 +105,14 @@ proc GeoEasy {top} {
 	set geoPrinterFont "\"Courier New\" 10"
 	set saveType ""
 	set comSaveType ""
-	# set myName [file tail [file normalize [info nameofexecutable]]]
-	# get home dir from registry/environment
-	if {[catch {set home [registry get HKEY_LOCAL_MACHINE\\SOFTWARE\\GeoEasy home]}]} {
-		set myName [file tail [info nameofexecutable]]
-		if {[regexp -nocase "^GeoEasy(64)?(\.exe)?$" $myName]} {
-			if {[info exists env(GEOEASY)]} {
-				set home $env(GEOEASY)
-			} else {
-				set home [file dirname [info nameofexecutable]]
-			}
-		} else {	;# for debugging
-			set home .
-			set auto_path [linsert $auto_path 0 $home]
-		}
+	# get home dir from name of executable
+	set myName [file tail [info nameofexecutable]]
+	if {[regexp -nocase "^GeoEasy(64)?(\.exe)?$" $myName]} {
+		set home [file dirname [info nameofexecutable]]
+	} else {
+		# for debugging
+		set home .
+		set auto_path [linsert $auto_path 0 $home]
 	}
 	set lastDir [pwd]
 	# central european code page
@@ -253,11 +247,7 @@ proc GeoEasy {top} {
 		image create bitmap xchgtri -file [file join $home bitmaps bar xchgtri.xbm]
 	}
 
-	if {[info exist env(HOME)]} {
-		set logName [file join $env(HOME) geo_easy.log]
-	} else {
-		set logName [file join $home geo_easy.log]
-	}
+	set logName [file join $home geo_easy.log]
 	GeoLog $geoEasyMsg(start)
 #
 #	start the application
