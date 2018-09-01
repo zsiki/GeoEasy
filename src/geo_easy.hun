@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes
+	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
 global geoCodes
 global geoEasyMsg
 
