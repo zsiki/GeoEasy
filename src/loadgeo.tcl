@@ -1818,8 +1818,8 @@ proc GeoSaveParams {} {
 		geoOrientationColor geoNostationColor
 	global defaultObservations defaultDetails defaultPointNumbers \
 		defaultUsedPointsOnly defaultCodedLines
-	global geoMasks geoMaskParams geoMaskDefault
-	global cooMasks cooMaskParams cooMaskDefault
+	global geoMasks geoMaskParams geoMaskWidths geoMaskDefault
+	global cooMasks cooMaskParams cooMaskWidths cooMaskDefault
 	global parMask
 	global geoFormHeaders geoForms geoFormParams geoFormPat
 	global cooFormHeaders cooForms cooFormParams cooFormPat
@@ -1828,6 +1828,9 @@ proc GeoSaveParams {} {
     global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
 	        pcodelayer bname battr block ptext xzplane
 	global polyStyle
+	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
+	global triangleProg
+	global cs2csProg
 
 	# backup original params
 	catch {file copy -force "geo_easy.msk" "geo_easy.msk.bak"}

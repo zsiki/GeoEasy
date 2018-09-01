@@ -1,157 +1,137 @@
-global LICENCE
-set LICENCE {yes}
-# interfesz nyelve
-global geoLang
-set geoLang {hun}
-# kodlap
+# GUI language uncomment next two lines to set GUI language other than OS lang
+#global geoLang
+#set geoLang {eng}
+# code page
 global geoCp
 # set geoCp {cp-1250}
-# ablakok automatikus frissitese
+# automatic window refresh
 global autoRefresh
 set autoRefresh {1}
-#
-# középhibák, redukciok
-#
+# standard deviations, corrections
 global projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
-# vetuleti redukcio mm/km
+# projection reduction mm/km
 set projRed {0.0}
-# atlagos tengerszint feletti magassag
+# average elevation above mean see level
 set avgH {0.0}
-# középhiba irányméréshez
+# standard deviation for directions
 set stdAngle {3.0}
-# középhiba távméréshez stdDist1 + km * stdDist2
+# standard deviation for distances stdDist1 + km * stdDist2
 set stdDist1 {3.0}
-# középhiba távméréshez stdDist1 + km * stdDist2
+# standard deviation for distances stdDist1 + km * stdDist2
 set stdDist2 {3.0}
-# középhiba szintezéshez mm/km
-set stdLevel {10}
-# refrakcio korrekcio 0/1 nem /igen
+# standard deviation for levelling mm/km
+set stdLevel {0.3}
+# refraction korrection 0/1 no/yes
 set refr {0}
-# index es kollimacio hiba korlat masodperc
+# limit for kollimation and index error
 global maxColl maxIndex
 set maxColl {360}
 set maxIndex {360}
-#
-# exportált koordináta lista szeparátor
-#
+# separator for exported coordinate lists
 global cooSep
 set cooSep {;}
-#
-# importalt koordinata file szeparatorok
-#
+# separators for imported coordinate files
 global txtSep multiSep txtFilter header
+# default text file separators
 set txtSep {	;}
+# merge delimiters 0/1 no/yes
 set multiSep {0}
+# regexp to filter input lines
 set txtFilter {}
+# header lines to skip
 set header {0}
-#
-# tizedesek szama a szamitasi jegyzokonyvben (hossz es koordinata)
-#
+# number of decimals in results/field booksand coordinatelists
 global decimals
 set decimals {3}
-#
-# 2.04 elotti szelektalasi stilus
-#
-global oldSel
-set oldSel {0}
-#
-# reszletpontok figyelembe vetele a tajekozasban es kiegyenlitesben
-#
+# detail points in orientation and adjustment 0/1 no/yes
 global oriDetail
 set oriDetail {0}
-# reszletpont nevre regexp
+# regexp for detail points
 global detailreg
-set detailreg ^\[0-9\]+(\[-/\]?(\[a-zA-Z\]|\[0-9\])+)?$
-#
-# alapertelmezett adat konyvtar
-#
+set detailreg {^[0-9]+([-/]?([a-zA-Z]|[0-9])+)?$}
+# default data directory
 global lastDir
 set lastDir {.}
-#
-# regresszio parameterek
-#
+# regression parameters
 global maxIteration epsReg
+# max iteration count
 set maxIteration {5000}
+# tolerance to stop iteration
 set epsReg {0.00005}
-#
-# gama-local parameters
-#
+# gama-local parameters (network adjustment)
 global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
-set gamaProg {gama-local}
-# konfidencia intervallum
+# relative path to executable from GeoEasy home directory or absolute path
+set gamaProg {./gama-local}
+# confidence level
 set gamaConf {0.95}
-# DMS egysegek
+# 360 - DMS , 400 GRAD
 set gamaAngles {360}
 set gamaTol {1000}
-# ennel rovidebb iranyok sulyuzasa eltero
+# distance limit for direction weighting
 set dirLimit {200}
-# hosszu/rovid eredmeny lista 0/1
+# long/short result list 0/1
 set gamaShortOut {0}
-# svg hiba ellipszisek 0/1
+# svg error ellipses 0/1
 set gamaSvgOut {0}
 #
 # triangle parameters
 #
 global triangleProg
-set triangleProg {triangle}
+# relative path to executable from GeoEasy home directory or absolute path
+set triangleProg {./triangle}
+#
+# cs2cs (projection transformation) parameters
+#
+global cs2csProg
+# relative path to executable from GeoEasy home directory or absolute path
+set cs2csProg {./cs2cs}
 #
 # dxf output parameters
 #
-global r dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
+global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
     pcodelayer bname battr block ptext xzplane
-set p3d 0     ;# 2d points
-set pd 0      ;# all points
-set pon 1     ;# point numbers 0/1
-set zon 1     ;# elevations 0/1
-set slay "PT" ;# symbol layer
-set pnlay "PN" ;# point name layer
-set zlay "ZN"  ;# elevation layer
-set r 1.0      ;# size of point symbol
-set dxpn 0.8   ;# offset values to texts
-set dypn 1.0
-set dxz 0.8
-set dyz -1.0
-set spn 1.8    ;# text size for point number
-set sz 1.5     ;# text size for elevation
-set zdec 2     ;# decimals in point height
-set pcodelayer 0  ;# add pointcode to layer name 0/1
-set xzplane 0  ;# draw in xz plane 0/1
-#
-# html bongeszõ a sugó olvasásához (csak UNIX)
-#
+set p3d {0}
+set pd {0}
+set pon {1}
+set zon {1}
+set slay {PT}
+set pnlay {PN}
+set zlay {ZN}
+set rp {1.0}
+set dxpn {0.8}
+set dypn {1.0}
+set dxz {0.8}
+set dyz {-1.0}
+set spn {1.8}
+set sz {1.5}
+set zdec {2}
+set pcodelayer {0}
+set xzplane {0}
+# html browser (UNIX)
 global browser
-set browser {firefox}
-#
-# rtf megjelenítõ (csak UNIX)
-#
+set browser {}
+# rtf viewer (UNIX)
 global rtfview
-set rtfview {openoffice.org -writer}
-#
-# dxf megjelenítõ (csak UNIX)
-#
+set rtfview {}
+# dxf viewer (UNIX)
 global dxfview
-set dxfview {qcad}
-# kml kitoltes szin
+set dxfview {}
+# kml fill color
 global polyStyle
 set polyStyle {}
-#
-#
-#	maszk szinek
-#
+#	mask colors
 global geoMaskColors
 set geoMaskColors {black red blue green cyan}
+# colors in graphic window
 #
-#	grafikus ablak szinei
-#
-#	geoLineColor - mereseket abrazolo vonalak szine
-#	geoObsColor - mereseket abrazolo vonalak szine
-#	geoFinalColor - vegleges koordinatraval biro pontok pontszamanak szine
-#	geoApprColor  - elozetes koordinataval biro pontok pontszamanak szine
-#	geoStationColor - allapontok nullkorenek szine
-#	geOrientationColor - tajekozott allaspontok nullkorrenek szine
-#	geoNostationColor  - nem allaspontok nullkorenek szine
-#
-global geoLineColor geoFinalColor geoApprColor geoStationColor geoOrientationColor geoNostationColor
+#	geoLineColor - color for lines
+#	geoObsColor - color for observaton lines
+#	geoFinalColor - point id color for fix
+#	geoApprColor  - point id color for approximate
+#	geoStationColor - color for station symbol
+#	geOrientationColor - color for oriented station symbol
+#	geoNostationColor  - color for non station points
+global geoLineColor geoObsColor geoFinalColor geoApprColor geoStationColor geoOrientationColor geoNostationColor
 set geoLineColor {black}
 set geoObsColor {yellow}
 set geoFinalColor {black}
@@ -159,15 +139,13 @@ set geoApprColor {red}
 set geoStationColor {red}
 set geoOrientationColor {green}
 set geoNostationColor {white}
-#
-# alapertelmezett parameterek a grafikus ablakhoz
-#   defaultObservations   1/0 meresek vonalai be/kikapcsolva
-#   defaultDetails        1/0 reszletpontok be/kikapcsolva
-#   defaultPointNumbers   1/0 pontszam feliratok be/kikapcsolva
-#   defaultUsedPointsOnly 1/0 csak a mert pontok megjelenites be/kikapcsolva
-#   defaultCodedLines     1/0 pont osszekotesek pontkodok alapjan
-#
-global defaultObservations defaultDetails defaultPointNumbers defaultUsedPointsOnly
+# default parameters for graphic windows
+#   defaultObservations   1/0 observation lines on/off
+#   defaultDetails        1/0 detail points on/off
+#   defaultPointNumbers   1/0 point id texts on/off
+#   defaultUsedPointsOnly 1/0 observed points only on/off
+#   defaultCodedLines     1/0 point connections from codes
+global defaultObservations defaultDetails defaultPointNumbers defaultUsedPointsOnly defaultCodedLines
 set defaultObservations {1}
 set defaultDetails {1}
 set defaultPointNumbers {1}
@@ -176,127 +154,117 @@ set defaultCodedLines {0}
 # linework set regLineStart to empty string to use simple line mode
 global regLineStart regLineCont regLineEnd regLine
 set regLine {_l$}
-set regLineStart {}
+set regLineStart {_st$}
 set regLineCont {_co$}
 set regLineEnd {_en$}
 #
-#	maszkok a mérések megjelenitéséhez a képernyön
-#	==============================================
-#	a mask két részböl áll geoMask(masknev) és geoMaskParams(masknev)
-#	mindkét részt kötelezö megadni
+#	masks for observation display
+#	=============================
+#	a mask consists of two parts geoMask(maskname) Ã©s geoMaskParams(maskname)
+#	both parts are obligatory
 #
-#	geoMask(masknev) egy felsorolás. mely a következö elemekböl áll
-#		1. elem: "table"
-#		2. elem: egesz ertek
-#			 a tablazat sorainak szama
-#		3.-n. elem: egész értékek listája
-#			"{" "}" jelek között felsorolt kód értékek, melyek megjelenítését kéri,
-#			ha egynél több kódot ad meg, akkor az elsö megtalált jelenik meg
-#			a képernyön, az értek szine a geoMaskColors-ban felsorolt
-#			színek kozül az lesz, amelyik pozición áll a listában a megtalált
-#			értékhez tartozó kód
-#			a lehetséges kód értékeket a Geodimeterek müszerkönyve illetve a
-#			súgó tartalmazza
-#			a kódok között koordináta kód (37 38 39 137 138 139) nem szerepelhet
+#	geoMask(masknev) is a list of:
+#		1st item: "table"
+#		2nd item: integer
+#			 number of rows in table
+#		3rd-nth item: integer code list
+#			between "{" "}" markers code list to be displayed,
+#			if more than one code given, thn the first found will be show
+#			with the corresponding color from geoMaskColors
+#			coordinate codes cannot be used (37 38 39 137 138 139)
 #
-#	geoMasParams(masknev) a geoMask-ban megadott kódú értékek megjelenítésének
-#			beállítása a 3. - n. paraméterekre vonatkozik a geoMasks(masknev)-ben
-#		1.-n. elem a geoMasks-ban megadott megfelelö elem megjelenitési
-#			formátuma, megadható értékek "-", "DMS", "DEC n m" "format %.2f"
-#			"-" eseten az ezen a helyen szereplö utolsó érték jelenik meg,
-#				pl. álláspont száma így minden sorban megjeleníthetö
-#			"DMS" szög kiírás fok-perc-másodperc formátumban
-#			"DMS1" szög kiírás fok-perc-másodperc.tizedmp formátumban
-#			"GON" szög kiírás újfokokban (4 tizedes)
-#			"DEG" szög kiírás fok és tizedeiben (6 tizedes)
-#			"FEET" hossz labban $decimals tizedessel
-#			"OL" hossz olben $decimals tizedessel
-#			"FLOAT" tizedes szam parameterekben megadott tizedesekkel
-#			"INT" egesz szam
+#	geoMasParams(maskname) display parameters for value given in  geoMask
+#			beÃ¡llÃ­tÃ¡sa a 3. - n. paramÃ©terekre vonatkozik a geoMasks(masknev)-ben
+#		1st-nth format definition for the corresponding item from  geoMasks
+#			possible values like  "-", "DMS", "DEC n m" "format %.2f"
+#			"-" show previous value
+#				e.g. it is used for station number in field books
+#			"" string value
+#			"DMS" angle in DMS unit (DDD-MM-SS format)
+#			"DMS1" angle in DMS units (DDD-MM-SS.S format)
+#			"GON" angle in GRAD units (4 decimals)
+#			"DEG" angle in DEG units (4 decimals)
+#			"FEET" length/cordinate in foots
+#			"OL" length in fathoms
+#			"FLOAT" real number, numner of decials from global parameter
+#			"INT" integer number
 #		DEC depricated!!!!!!
-#			"DEC n m" szám kiírás "n" szélességü mezöben "m" tizedes jegyre
-#				ha m = 0 egész érték kiírás,
-#				ha n = 0 mezö hossz a szám hosszával egyezik
+#			"DEC n m" width "n", decimals "m"
+#				if m = 0 integer value
+#				if n = 0 width equal to the minimal neccessary value
 #		format depricated!!!!
-#			"format "%n.mt" tetszöleges számformátum beállítás, ahol a % után
-#				a C nyelvben megengedett formátum vezérlök használhatók
-#				pl. %8.2f valós szám kiírás két tizedesre 8 hosszu mezöben
-#				    %10s szöveg kiírás 10 széles mezöben jobbra igazítva
-#				    %-10s szöveg kiírás 10 széles mezöben balra igazítva
+#			"format "%n.mt" C like format
+#				a C nyelvben megengedett formÃ¡tum vezÃ©rlÅ‘k hasznÃ¡lhatÃ³k
+#				e.g. %8.2f real value in 8 char wide field with 2 decimals
+#				    %10s text right aligned in 10 char wide field
+#				    %-10s text left aligned in 10 char wide field
 #
 global maskRows
-set maskRows 20	;# default number of rows in masks
-global geoMasks geoMaskParams geoMaskDefault
+# default number of rows in masks
+set maskRows {20}
+global geoMasks geoMaskParams geoMaskWidths geoMaskDefault
 set geoMaskDefault {tahimeter}
-set geoMasks(tahimeter_kod) [list table $maskRows {2} {5 62} {4} {6 3} {7 21} {8} {9 11}]
-set geoMaskParams(tahimeter_kod) {"-" "" "" FLOAT DMS DMS FLOAT}
-set geoMasks(tajekozas) [list table $maskRows {2} {62 5} {7 21} {100 101}]
-set geoMaskParams(tajekozas) {"-" "" DMS1 DMS1}
-set geoMasks(vizszintes) [list table $maskRows {2} {5 62} {7 21} {8} {11 9}]
-set geoMaskParams(vizszintes) {"-" "" DMS DMS FLOAT}
-set geoMasks(tahimeter_gon) [list table $maskRows {2} {5 62} {6 3} {7 21} {8} {9 11}]
+set geoMasks(tahimeter_code) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
+set geoMaskParams(tahimeter_code) {"-" "" "" FLOAT DMS DMS FLOAT}
+set geoMaskWidths(tahimeter_code) {10 10 10 10 10 10 10}
+set geoMasks(orientation) {table 20 2 {62 5} {7 21} {100 101}}
+set geoMaskParams(orientation) {"-" "" DMS DMS}
+set geoMaskWidths(orientation) {10 10 10 10}
+set geoMasks(horiz) {table 20 2 {5 62} {7 21} 8 {11 9}}
+set geoMaskParams(horiz) {"-" "" DMS DMS FLOAT}
+set geoMaskWidths(horiz) {10 10 10 10 10}
+set geoMasks(tahimeter_gon) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_gon) {"-" "" FLOAT GON GON FLOAT}
-set geoMasks(tahimeter_deg) [list table $maskRows {2} {5 62} {6 3} {7 21} {8} {9 11}]
+set geoMaskWidths(tahimeter_gon) {10 10 10 10 10 10}
+set geoMasks(tahimeter_deg) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_deg) {"-" "" FLOAT DEG DEG FLOAT}
-set geoMasks(tahimeter) [list table $maskRows {2} {5 62} {6 3} {7 21} {8} {9 11}]
+set geoMaskWidths(tahimeter_deg) {10 10 10 10 10 10}
+set geoMasks(tahimeter) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter) {"-" "" FLOAT DMS DMS FLOAT}
-set geoMasks(tahimeter1) [list table $maskRows {2} {5 62} {6 3} {7 21} {8} {9 11}]
+set geoMaskWidths(tahimeter) {10 10 10 10 10 10}
+set geoMasks(tahimeter1) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter1) {"-" "" FLOAT DMS1 DMS1 FLOAT}
-set geoMasks(tahimeter_dm) [list table $maskRows {2} {5 62} {6 3} {7 21} {10 120} {9 11}]
+set geoMaskWidths(tahimeter1) {10 10 10 10 10 10}
+set geoMasks(tahimeter_dm) {table 20 2 {5 62} {6 3} {7 21} {10 120} {9 11}}
 set geoMaskParams(tahimeter_dm) {"-" "" FLOAT DMS FLOAT FLOAT}
-set geoMasks(tahimeter_feet) [list table $maskRows {2} {5 62} {4} {6 3} {7 21} {8} {9 11}]
+set geoMaskWidths(tahimeter_dm) {10 10 10 10 10 10}
+set geoMasks(tahimeter_feet) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
 set geoMaskParams(tahimeter_feet) {"-" "" "" FEET DMS DMS FEET}
-set geoMasks(levelling) [list table $maskRows {2} {5 62} 120 11]
+set geoMaskWidths(tahimeter_feet) {10 10 10 10 10 10 10}
+set geoMasks(levelling) {table 20 2 {5 62} {10 120} {9 11}}
 set geoMaskParams(levelling) {"-" "" FLOAT FLOAT}
+set geoMaskWidths(levelling) {10 10 10 10}
 #
-#	maszkok koordináták megjelenítéséhez a képernyön
-#	a jegyzökönyvekhez használt maszkokkal azonos szerkezetü, de csak
-#	az 5,38,37,39,138,137,139,111 kódok használhatók benne
-#	a kódok jelentése
-#		  5 - pontszám
-#		 38 - geodéziai y koordináta (elsö koordináta)
-#		 37 - geodéziai x koordináta (második koordináta)
-#		 39 - magasság
+#	masks for coordinate lists
+#	similiar to field book masks but only
+#	4,5,37,38,39,40,41,42,138,137,139,111 codes are considered
+#	codes:
+#		  5 - point id
+#		 38 - easting
+#		 37 - northing
+#		 39 - magassÃ¡g
+#		 41 - change in easting (compering to othe coordinate list)
+#        40 - change in northing
+#		 42 - change in elevation
 #		138,
 #		137,
-#		139 - a megfelelö koordináták elözetes értékekei
-#		111 - rendüség
-#		  4 - pontkod
+#		139 - prelimenary coordinates
+#		111 - point order
+#		  4 - point code
 #
-global cooMasks cooMaskParams cooMaskDefault
-set cooMaskDefault {vegleges}
-set cooMasks(elteres) [list table $maskRows {5} {4} {38} {37} {39} {41} {40} {42}]
-set cooMaskParams(elteres) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
-set cooMasks(elozetes_vegleges) [list table $maskRows {5} {4} {38 138} {37 137} {39 139}]
-set cooMaskParams(elozetes_vegleges) {"" "" FLOAT FLOAT FLOAT}
-set cooMasks(vegleges) [list table $maskRows {5} {4} {38} {37} {39}]
-set cooMaskParams(vegleges) {"" "" FLOAT FLOAT FLOAT}
+global cooMasks cooMaskParams cooMaskWidths cooMaskDefault
+set cooMaskDefault {prelim_fix}
+set cooMasks(difference) {table 20 5 4 38 37 39 41 40 42}
+set cooMaskParams(difference) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
+set cooMaskWidths(difference) {10 10 10 10 10 10 10 10}
+set cooMasks(prelim_fix) {table 20 5 4 {38 138} {37 137} {39 139}}
+set cooMaskParams(prelim_fix) {"" "" FLOAT FLOAT FLOAT}
+set cooMaskWidths(prelim_fix) {10 10 10 10 10}
+set cooMasks(fix) {table 20 5 4 38 37 39}
+set cooMaskParams(fix) {"" "" FLOAT FLOAT FLOAT}
+set cooMaskWidths(fix) {10 10 10 10 10}
 #
-# maszk parameterek
+# mask parameters
 #
 global parMask
 set parMask {51 52 53 55 114 115 116 118 0}
-#
-#	form definiciók listák készítéséhez és nyomtatáshoz
-#
-global geoFormHeaders geoForms geoFormParams geoFormPat
-set geoFormHeaders(iranyTav) {}
-set geoForms(iranyTav) {list 30 {2 {2}} {62 {62 21}} {5 {5 {7 21} {9 11}}}}
-set geoFormParams(iranyTav) {{2 ""} {62 {"" DMS}} {5 {"" DMS "format %8.3f"}}}
-set geoFormPat(iranyTav) {"\n ÃllÃ¡spont:  %-10s\n----------------------------------------\n| PontszÃ¡m   | IrÃ¡nyÃ©rtÃ©k |  TÃ¡volsÃ¡g  |" "| %-10s | %10s |          - |" "| %10s | %10s | %10s |"}
-set geoFormHeaders(tahimeter_dm) {}
-set geoForms(tahimeter_dm) {list 30 {2 {2 3}} {62 {62 21}} {5 {5 {7 21} 10 {9 11}}}}
-set geoFormParams(tahimeter_dm) {{2 {"" "format %.2f"}} {62 {"" DMS}} {5 {"" DMS "" "format %8.3f"}}}
-set geoFormPat(tahimeter_dm) {"\n ÃllÃ¡spont:  %-10s h=%s\n-----------------------------------------------------\n| PontszÃ¡m   | IrÃ¡nyÃ©rtÃ©k | Mag.kÃ¼lÃ¶nbs|  TÃ¡volsÃ¡g  |" "| %-10s | %10s |          - |          - |" "| %-10s | %10s | %10s | %10s |"}
-set geoFormHeaders(tahimeter) {}
-set geoForms(tahimeter) {list 30 {2 {2 3}} {62 {62 21}} {5 {5 {7 21} 8 {9 11} {6}}}}
-set geoFormParams(tahimeter) {{2 {"" "format %.2f"}} {62 {"" DMS}} {5 {"" DMS DMS "format %8.3f" "format %5.2f"}}}
-set geoFormPat(tahimeter) {"\n ÃllÃ¡spont:  %-10s h=%s\n-------------------------------------------------------------\n| PontszÃ¡m   | IrÃ¡nyÃ©rtÃ©k |  ZenitszÃ¶g |  TÃ¡volsÃ¡g  |Jelmag.|" "| %-10s | %10s |          - |          - |     - |" "| %-10s | %10s | %10s | %10s | %5s |"}
-global cooFormHeaders cooForms cooFormParams cooFormPat
-set cooFormHeaders(minta) {| PontszÃ¡m   | Pont kod   |         Y     |         X     |         M     |}
-set cooForms(minta) {list 30 {5 {5 4 38 37 39}}}
-set cooFormParams(minta) {{5 "" "" "format %11.2f" "format %11.2f" "format %11.2f"}}
-set cooFormPat(minta) {"| %-10s | %-10s | %13s | %13s | %13s |"}
-
-
-
