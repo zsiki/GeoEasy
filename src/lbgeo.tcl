@@ -682,15 +682,9 @@ proc ShellExec {f} {
 		if {[catch {set prog [registry get "HKEY_CLASSES_ROOT\\$fileType\\shell\\$cmd\\command" ""]} err_str]} {
 			return 1
 		}
-		# replace blackslash to slash
-		#regsub -all "\\\\" [lindex $imp 0] / prog
-		# remove %1 from the end
-		regsub " \"?%\[0-9\]+\"?$" $prog "" prog
-		# remove leading/closing quotes around program name
-		if {[regexp "^\s*\"" $prog]} {
-			regsub "^\s*\"" $prog "" prog
-			regsub "\"" $prog "" prog
-		}
+		# double blackslashes for exec
+		regsub -all {\\} $prog {\\\\} prog
+		set prog [lindex $prog 0]
 		# replace %var% from envexec
 		while {[regexp "%(\[a-zA-Z0-9 \]+)%" $prog e v]} {
 			regsub "$e" $prog $env($v) prog
