@@ -1,6 +1,6 @@
 # GUI language uncomment next two lines to set GUI language other than OS lang
-#global geoLang
-#set geoLang {eng}
+global geoLang
+set geoLang {default}
 # code page
 global geoCp
 # set geoCp {cp-1250}
