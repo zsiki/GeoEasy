@@ -549,7 +549,7 @@ proc GeoOParam {} {
 		-variable locMultiSep
 	checkbutton .oparams.autoR -text $geoEasyMsg(lautor) \
 		-variable locAutoRefresh
-	tk_optionMenu .oparams.lang locLang hun eng ;# ger
+	tk_optionMenu .oparams.lang locLang hun eng ger
 	checkbutton .oparams.ori -text $geoEasyMsg(loridetail) \
 		-variable locOriDetail
 	set gm [tk_optionMenu .oparams.geomask locGeoMaskDefault dummy]
