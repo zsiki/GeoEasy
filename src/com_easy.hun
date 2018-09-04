@@ -11,11 +11,11 @@ set comSetTypes {{"ComEasy paraméterek" {.com}}}
 
 # downloaded file types
 set comTypes {
-	{"Geodimeter" {.job}}
-	{"Geodimeter" {.are}}
+	{"Geodimeter JOB" {.job}}
+	{"Geodimeter ARE" {.are}}
 	{"Sokkia set 4" {.scr}}
 	{"Sokkia sdr" {.sdr}}
-	{"Leica" {.wld}}
+	{"Leica GSI" {.gsi}}
 	{"TopCon GTS-700" {.700}}
 	{"TopCon GTS-210" {.210}}
 	{"Trimble M5" {.m5}}
