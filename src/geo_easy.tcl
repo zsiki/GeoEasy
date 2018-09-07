@@ -247,7 +247,13 @@ proc GeoEasy {top} {
 		image create bitmap xchgtri -file [file join $home bitmaps bar xchgtri.xbm]
 	}
 
-	set logName [file join $home geo_easy.log]
+	# get user's home directory for log file
+	if {$tcl_platform(platform) != "unix"} {
+		set uhome "$env(HOMEDRIVE)$env(HOMEPATH)"
+	} else {
+		set uhome $env(HOME)
+	}
+	set logName [file join $uhome geo_easy.log]
 	GeoLog $geoEasyMsg(start)
 #
 #	start the application
