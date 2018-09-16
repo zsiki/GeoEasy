@@ -257,6 +257,9 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 					Gama2dXmlOut $fn $unknowns $fixed
 					return 1
 				}
+			} else {
+				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
+					warning 0 OK
 			}
 		}
 		".g1d" {
@@ -280,6 +283,9 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 					Gama1dXmlOut $fn $unknowns $fixed
 					return 1
 				}
+			} else {
+				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
+					warning 0 OK
 			}
 		}
 		".g3d" {
@@ -303,6 +309,9 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 					Gama3dXmlOut $fn $unknowns $fixed
 					return 1
 				}
+			} else {
+				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
+					warning 0 OK
 			}
 		}
 	}
