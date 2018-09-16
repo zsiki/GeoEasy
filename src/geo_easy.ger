@@ -437,6 +437,7 @@ set geoEasyMsg(noRes)		"Die Anzahl der Richtungen ist für die Rückwärtsschnittbe
 set geoEasyMsg(noArc)		"Die Anzahl der Strecken ist für die Bogenschnittberechnung ungenügend."
 set geoEasyMsg(noPol)		"Die Anzahl der Messungen ist für die Polarpunktberechnung ungenügend."
 set geoEasyMsg(noAdj)		"Keine Rohkoordinaten vorhanden oder die Anzahl der Messungen ist für die Ausgleichung ungenügend oder die Orientierung fehlt."
+set geoEasyMsg(noUnknowns)  "There are no unknowns for adjustment"
 set geoEasyMsg(pure)		"Túl nagy tisztatag %s-%s %s %s\n iterációra lehet szükség"
 set geoEasyMsg(noCoo)		"Koordinatenberechnung nicht möglich."
 set geoEasyMsg(noAppCoo)	"Keine Koordinaten vorhanden"
