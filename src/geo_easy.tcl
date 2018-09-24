@@ -57,6 +57,8 @@ proc GeoEasy {top} {
 
 	set version 303 ;# updatefor new release!
 	set version_str "[join [split $version {}] .] dev"
+	# supported languages
+	set langs {hun eng ger hu en ge}
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
@@ -150,7 +152,7 @@ proc GeoEasy {top} {
 		catch {set w [string range [string tolower $env(LANG)] 0 2]}
 	}
 	if {! [info exists geoLang] || \
-		[lsearch -exact {hun eng ger hu en ge} $geoLang] == -1} {
+		[lsearch -exact $langs $geoLang] == -1} {
 		switch -exact -- [string range $w 0 1] {
 			"hu" { set geoLang hun }
 			"en" { set geoLang eng }
@@ -180,18 +182,17 @@ proc GeoEasy {top} {
 	}
 	# overwrite language if command line parameter given
 	if {[llength $argv] > 0} {
-		foreach arg $argv {
-			switch -exact -- [string tolower $arg] {
-				"-hu" -
-				"-hun" { set geoLang hun }
-				"-en" -
-				"-eng" { set geoLang eng }
-				"-ge" -
-				"-de" -
-				"-ger" { set geoLang ger }
-			}
+		set lang [getopt $argv "-lang"]  
+		switch -exact -- [string tolower $lang] {
+			"hu" -
+			"hun" { set geoLang hun }
+			"en" -
+			"eng" { set geoLang eng }
+			"ge" -
+			"-ger" { set geoLang ger }
 		}
 	}
+puts $geoLang
 	set msgFile [file join $home geo_easy.$geoLang]
 	if {[file isfile $msgFile] && [file readable $msgFile]} {
 		if {[catch {source $msgFile} msg] == 1} {
@@ -497,7 +498,10 @@ proc GeoEasy {top} {
 			set name [string trim $arg]
 			if {[string length $name]} {
 				# skip switches
-				if {[string match "-*" $name]} { continue }
+				if {[string match "-*" $name] || \
+					[lsearch -exact $langs $name] >= 0} {
+					continue
+				}
 				regsub -all {\\} $name "/" name
 				regsub "^{" $name "" name
 				regsub "}$" $name "" name
@@ -1387,6 +1391,21 @@ proc CenterWnd {this} {
 	set y [expr {int(($h - $hthis) / 2.0)}]
 	wm geometry $this "+${x}+${y}"
 	update
+}
+
+proc getopt {argv name {default ""}} {
+	set pos [lsearch -regexp $argv ^$name]
+	if {$pos >= 0} {
+		incr pos
+		if {[llength $argv] > $pos} {
+			set var [lindex $argv $pos]
+			return $var
+		} else {
+			return ""
+		}
+	} else {
+		return $default
+	}
 }
 #
 #	start application
