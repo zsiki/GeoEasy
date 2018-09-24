@@ -145,7 +145,7 @@ proc GeoEasy {top} {
 		switch -exact [string toupper $ww] {
 			"040E" { set w "hu"}
 			"0409" { set w "en"}
-			"0407" { set w "de"}
+			"0407" { set w "ge"}
 			default { set w "en"}
 		}
 	} else {
@@ -156,7 +156,6 @@ proc GeoEasy {top} {
 		switch -exact -- [string range $w 0 1] {
 			"hu" { set geoLang hun }
 			"en" { set geoLang eng }
-			"de" -
 			"ge" { set geoLang ger }
 			default { set geoLang eng }
 		}
@@ -189,7 +188,7 @@ proc GeoEasy {top} {
 			"en" -
 			"eng" { set geoLang eng }
 			"ge" -
-			"-ger" { set geoLang ger }
+			"ger" { set geoLang ger }
 		}
 	}
 puts $geoLang
