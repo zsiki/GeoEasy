@@ -1393,6 +1393,12 @@ proc CenterWnd {this} {
 	update
 }
 
+#
+#   Get commandline parameter with default value
+#   @param argv command line arguments
+#	@param name nameof argument
+#	@param default default value if switch not given
+#   @return value for name or empty
 proc getopt {argv name {default ""}} {
 	set pos [lsearch -regexp $argv ^$name]
 	if {$pos >= 0} {
