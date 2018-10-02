@@ -191,7 +191,6 @@ proc GeoEasy {top} {
 			"ger" { set geoLang ger }
 		}
 	}
-puts $geoLang
 	set msgFile [file join $home geo_easy.$geoLang]
 	if {[file isfile $msgFile] && [file readable $msgFile]} {
 		if {[catch {source $msgFile} msg] == 1} {
