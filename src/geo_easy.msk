@@ -1,4 +1,4 @@
-# GUI language uncomment next two lines to set GUI language other than OS lang
+# GUI language change default to hun/eng/ger to set GUI language other than OS lang
 global geoLang
 set geoLang {default}
 # code page
