@@ -1603,9 +1603,9 @@ proc GeoAngle {pn {w ""}} {
 	set slist [GeoListbox $slist 0 $geoEasyMsg(soTitle) -1]
 	if {[llength $slist] == 0} { Beep; return }
 	set blast $b1
-	# create empty arrays for new geo data set
-	array set _temp_geo {}
-	array set _temp_coo {}
+	# reset arrays for new geo data set
+	catch {array unset _temp_geo}
+	catch {array unset _temp_coo}
 	# add station
 	set _temp_geo(0) [list "2 $pn"]
 	set _temp_geo(1) [list "5 $pn1" "7 0" "11 $d"]
@@ -1646,6 +1646,7 @@ proc GeoAngle {pn {w ""}} {
 			$pn1 [DMS $b] $d [DMS $alfa] [DMS $alfa0] $abc $ord]
 		set _temp_geo($i) [list "5 $pn1" "7 $alfa0" "11 $d"]
 		set _temp_coo($pn1) $pn1_coo
+puts $_temp_geo($i)
 		incr i
 		set blast $b
 	}
