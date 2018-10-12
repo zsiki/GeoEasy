@@ -1646,7 +1646,6 @@ proc GeoAngle {pn {w ""}} {
 			$pn1 [DMS $b] $d [DMS $alfa] [DMS $alfa0] $abc $ord]
 		set _temp_geo($i) [list "5 $pn1" "7 $alfa0" "11 $d"]
 		set _temp_coo($pn1) $pn1_coo
-puts $_temp_geo($i)
 		incr i
 		set blast $b
 	}
