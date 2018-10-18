@@ -67,10 +67,10 @@ ComEasy.tcl: ${CE_SOURCES}
 	chmod +x ComEasy.tcl
 
 linux: GeoEasy geo_easy.hun geo_easy.eng geo_easy.ger com_easy.hun com_easy.eng com_easy.ger geo_easy.msk
-	rm -f Gizi3Linux.tgz
+	rm -f Gizi303Linux.tgz
 	tar cvzf Gizi3Linux.tgz GeoEasy geo_easy.msk default.msk \
 		geo_easy.eng geo_easy.hun geo_easy.ger \
-		com_easy.eng com_easy.hun geo_easy.ger \
+		com_easy.eng com_easy.hun com_easy.ger \
 		com_set bitmaps demodata *.txp
 doc: ${DOC_SOURCES}
 	# generate doc
