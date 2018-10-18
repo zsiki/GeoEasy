@@ -349,7 +349,8 @@ proc GetSdrHa {angle} {
 	} elseif {$angleUnit == 2} {
 		set angle [Gon2Rad $angle]					;# horiz. angle in Gon
 	} else {
-	# vonas
+		# mills TODO
+		return ""
 	}
 	if {$angleDirection == 2} {
 		# change left hand angle to right hand angle
@@ -372,8 +373,8 @@ proc GetSdrVa {angle} {
 	} elseif {$angleUnit == 2} {
 		set angle [Gon2Rad $angle]					;# vert. angle in Gon
 	} else {
-	#vonas
-	# TBD
+		# mills TODO
+		return ""
 	}
 	return $angle
 }
