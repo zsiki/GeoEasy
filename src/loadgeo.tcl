@@ -1712,6 +1712,7 @@ proc GeoJoin { } {
 	global lastDir
 	global geoEasyMsg
 	global fileTypes
+	global saveType
 
 	if {[llength $geoLoaded] < 1} {
 		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-8) error 0 OK
@@ -1720,8 +1721,15 @@ proc GeoJoin { } {
 	# get output name
 	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
 	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir \
-		-defaultextension "*.geo"]]
+		-typevariable saveType]]
 	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
+    # some extra work to get extension for windows
+    regsub "\\(.*\\)$" $saveType "" saveType
+    set saveType [string trim $saveType]
+    set typ [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1]
+    if {[string match -nocase "*$typ" $fn] == 0} {
+        set fn "$fn$typ"
+    }
 	GeoLog "$geoEasyMsg(menuFileJoin) $geoLoaded \-\> $fn"
 	set lastDir [file dirname $fn]
 	set fn1 "[file rootname $fn].geo"

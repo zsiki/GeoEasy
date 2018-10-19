@@ -55,7 +55,7 @@ proc GeoEasy {top} {
 	global version
 	global saveType comSaveType
 
-	set version 303 ;# updatefor new release!
+	set version 310 ;# updatefor new release!
 	set version_str "[join [split $version {}] .] dev"
 	# supported languages
 	set langs {hun eng ger hu en ge}
@@ -677,11 +677,19 @@ proc MenuNew {w} {
 	global tcl_platform
 	global geoLoaded geoLoadedDir geoChanged
 	global lastDir
+	global saveType
 
 	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
 	set fn ""
 	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir \
-		-defaultextension "*.geo"]]
+		-typevariable saveType]]
+    # some extra work to get extension for windows
+    regsub "\\(.*\\)$" $saveType "" saveType
+    set saveType [string trim $saveType]
+    set typ [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1]
+    if {[string match -nocase "*$typ" $fn] == 0} {
+        set fn "$fn$typ"
+    }
 	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
 	set lastDir [file dirname $fn]
 	set fn "[file rootname $fn].geo"
