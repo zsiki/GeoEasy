@@ -773,6 +773,7 @@ proc TxtGeo {fn {ff ""}} {
 proc n4ce {fn} {
 	global geoLoaded
 	global geoEasyMsg
+	global geoCodes
 
 	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
