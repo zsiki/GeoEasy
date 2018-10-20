@@ -1,12 +1,12 @@
 Package: geoeasy
-Version: 3.0.3-wheezy
+Version: 3.1.0-wheezy
 Architecture: all
 Maintainer: Zoltan Siki <zsiki@github.com>
 Section: science
 Priority: optional
 Depends: tk (>= 8.5.0-1) | wish, license-gpl
 Recommends: gama, triangle-bin, proj-bin
-Installed-Size: 2601
+Installed-Size: 2349
 Homepage: https://github.com/zsiki/GeoEasy
 Description: GeoEasy - surveying calculation, network adjustment
  GeoEasy - surveying calculation, network adjustment,
