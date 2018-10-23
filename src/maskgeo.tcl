@@ -1042,6 +1042,9 @@ proc GeoExec {w} {
 	if {[string length $consoleEntry]} {
 		$w.w.t insert end "$consoleEntry\n"
 		GeoLog1 [eval $consoleEntry]
+		# clear entry
+		$w.input delete 0 200
+		focus $w.input
 	}
 }
 
