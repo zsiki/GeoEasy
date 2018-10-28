@@ -680,9 +680,9 @@ proc MenuNew {w} {
 	global saveType
 
 	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
-	set fn ""
 	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir \
 		-typevariable saveType]]
+	if {$fn == ""} { return }
     # some extra work to get extension for windows
     regsub "\\(.*\\)$" $saveType "" saveType
     set saveType [string trim $saveType]
