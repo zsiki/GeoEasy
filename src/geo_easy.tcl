@@ -182,6 +182,9 @@ proc GeoEasy {top} {
 	# overwrite language if command line parameter given
 	if {[llength $argv] > 0} {
 		set lang [getopt $argv "-lang"]  
+		if {$lang == ""} {
+			set lang [getopt $argv "--lang"]  
+		}
 		switch -exact -- [string tolower $lang] {
 			"hu" -
 			"hun" { set geoLang hun }
