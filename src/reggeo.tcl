@@ -527,7 +527,79 @@ proc CircleReg {plist} {
 }
 
 #
-#	Calculatate best fit sphere0, iteration is used
+#	Calculatate best fit circle with given radius, iteration is used
+#		y = y0 + r * sin(delta)
+#		x = x0 + r * cos(delta)
+#	y0, x0 are unknowns (deltas are estimated)
+#	@param plist list of point numbers to use
+#	@param r given radius
+proc CircleRegR {plist r} {
+	global geoEasyMsg
+	global decimals
+	global reglist
+	global maxIteration epsReg
+
+	set n [expr {double([llength $plist])}]
+	set i 0
+#	coords of points
+	foreach pn $plist {
+		set coords [GetCoord $pn {37 38}]
+		set x($i) [GetVal 37 $coords]
+		set y($i) [GetVal 38 $coords]
+		incr i
+	}
+#	circle on three points (approximate value)
+	set circ [Circle3P $y(0) $x(0) $y(1) $x(1) $y(2) $x(2)]
+	set y0e [lindex $circ 0]
+	set x0e [lindex $circ 1]
+	set iteration 0
+	while 1 {
+		incr iteration
+		set sumsin 0
+		set sumcos 0
+		# relative coordinates to center of circle
+		for {set i 0} {$i < $n} {incr i} {
+			set yo($i) [expr {$y($i) - $y0e}]
+			set xo($i) [expr {$x($i) - $x0e}]
+			set delta [Bearing 0 0 $yo($i) $xo($i)]
+			set sumsin [expr {$sumsin + $yo($i) - $r * sin($delta)}]
+			set sumcos [expr {$sumcos + $xo($i) - $r * cos($delta)}]
+		}
+		set dy0 [expr {$sumsin / $n}]
+		set dx0 [expr {$sumcos / $n}]
+		set y0e [expr {$y0e + $dy0}]
+		set x0e [expr {$x0e + $dx0}]
+#puts "$iteration dy0=$dy0 dx0=$dx0"
+		if {[expr {abs($dy0)}] < $epsReg && [expr {abs($dx0)}] < $epsReg || \
+			$iteration > $maxIteration} {
+			break
+		}
+#puts "y0e=$y0e x0e=$x0e"
+	}
+	GeoLog1
+	GeoLog [lindex $reglist 2]	;# TODO
+	GeoLog1 [format $geoEasyMsg(head0CircleReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $r]]
+	if {$iteration > $maxIteration} {
+		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
+	}
+	GeoLog1
+	GeoLog1 $geoEasyMsg(head1CircleReg)
+	set sdr2 0
+	for {set i 0} {$i < $n} {incr i} {
+		set delta [Bearing $y0e $x0e $y($i) $x($i)]
+		set dr [expr {$r - [Distance $y0e $x0e $y($i) $x($i)]}]
+		set sdr2 [expr {$sdr2 + $dr * $dr}]
+		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
+			[lindex $plist $i] $y($i) $x($i) \
+			[expr {$y0e + $r * sin($delta) - $y($i)}] \
+			[expr {$x0e + $r * cos($delta) - $x($i)}] $dr]
+	}
+	GeoLog1
+	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdr2 / $n)}]]
+}
+
+#
+#	Calculatate best fit sphere, iteration is used
 #		y = y0 + r * cos(alfa) * sin(delta)
 #		x = x0 + r * cos(alfa) * cos(delta)
 #		z = z0 + r * sin(alfa)
@@ -626,10 +698,6 @@ proc SphereReg {plist} {
 		set re [expr {$re + $b(3)}]
 #puts "y0e=$y0e x0e=$x0e r=$re"
 	}
-	set y0e [expr {$y0e + $b(0)}]
-	set x0e [expr {$x0e + $b(1)}]
-	set z0e [expr {$z0e + $b(2)}]
-	set re [expr {$re + $b(3)}]
 	GeoLog1
 	GeoLog [lindex $reglist 6]
 	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $z0e] [format %.${decimals}f $re]]
@@ -653,6 +721,103 @@ proc SphereReg {plist} {
 			[expr {$y0e + $re * cos($alfa) * sin($delta) - $y($i)}] \
 			[expr {$x0e + $re * cos($alfa) * cos($delta) - $x($i)}] \
 			[expr {$z0e + $re * sin($alfa) - $z($i)}] $dr]
+	}
+	GeoLog1
+	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdr2 / $n)}]]
+}
+
+#
+#	Calculatate best fit sphere with given radius, iteration is used
+#		y = y0 + r * cos(alfa) * sin(delta)
+#		x = x0 + r * cos(alfa) * cos(delta)
+#		z = z0 + r * sin(alfa)
+#	y0, x0, z0 are unknowns (alfa, delta is calculated?)
+#	@param plist list of point numbers to use
+#	@param r the given radius
+proc SphereRegR {plist r} {
+	global geoEasyMsg
+	global decimals
+	global reglist
+	global maxIteration epsReg
+
+	set n [expr {double([llength $plist])}]
+	set i 0
+	set sx 0
+	set sy 0
+	set sz 0
+#	coords of points
+	foreach pn $plist {
+		set coords [GetCoord $pn {37 38 39}]
+		set x($i) [GetVal 37 $coords]
+		set y($i) [GetVal 38 $coords]
+		set z($i) [GetVal 39 $coords]
+		set sx [expr {$sx + $x($i)}]
+		set sy [expr {$sy + $y($i)}]
+		set sz [expr {$sz + $z($i)}]
+		incr i
+	}
+#	approximate center is the weight point
+	set y0e [expr {$sy / $n}]
+	set x0e [expr {$sx / $n}]
+	set z0e [expr {$sz / $n}]
+	#set re [Distance3d $y0e $x0e $z0e $x(0) $y(0) $z(0)]
+	set iteration 0
+#puts "y0e=$y0e x0e=$x0e r=$re"
+	while 1 {
+		incr iteration
+		set sumcossin 0
+		set sumcoscos 0
+		set sumsin 0
+		# relative coordinates to center of sphere
+		for {set i 0} {$i < $n} {incr i} {
+			set yo($i) [expr {$y($i) - $y0e}]
+			set xo($i) [expr {$x($i) - $x0e}]
+			set zo($i) [expr {$z($i) - $z0e}]
+			set delta [Bearing 0 0 $yo($i) $xo($i)]
+			set alfa [expr {atan2($zo($i), [Distance 0 0 $yo($i) $xo($i)])}]
+			set w1 [expr {$yo($i) - $r * cos($alfa) * sin($delta)}]
+			set w2 [expr {$xo($i) - $r * cos($alfa) * cos($delta)}]
+			set w3 [expr {$zo($i) - $r * sin($alfa)}]
+			set sumcossin [expr {$sumcossin + $w1}]
+			set sumcoscos [expr {$sumcoscos + $w2}]
+			set sumsin [expr {$sumsin + $w3}]
+		}
+		# set up normal equation
+		set dy0 [expr {$sumcossin / $n}]
+		set dx0 [expr {$sumcoscos / $n}]
+		set dz0 [expr {$sumsin / $n}]
+#puts "$iteration dy0=$dy0 dx0=$dx0 dz0=$dz0]"
+		if {[expr {abs($dy0)}] < $epsReg && [expr {abs($dx0)}] < $epsReg && \
+			[expr {abs($dz0)}] < $epsReg || $iteration > $maxIteration} {
+				break
+		}
+		set y0e [expr {$y0e + $dy0}]
+		set x0e [expr {$x0e + $dx0}]
+		set z0e [expr {$z0e + $dz0}]
+#puts "y0e=$y0e x0e=$x0e z0e=$z0e"
+	}
+	GeoLog1
+	GeoLog [lindex $reglist 6]
+	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $z0e] [format %.${decimals}f $r]]
+	if {$iteration > $maxIteration} {
+		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
+	}
+	GeoLog1
+	GeoLog1 $geoEasyMsg(head1SphereReg)
+	set sdr2 0
+	for {set i 0} {$i < $n} {incr i} {
+		set delta [Bearing 0 0 $yo($i) $xo($i)]
+		set alfa [expr {atan2($zo($i), [Distance 0 0 $yo($i) $xo($i)])}]
+#puts "[lindex $plist $i] $y($i) $x($i) \
+#[expr {$y0e + $r * sin($delta) - $y($i)}] \ 
+#[expr {$x0e + $r * cos($delta) - $x($i)}]"
+		set dr [expr {$r - [Distance3d $y0e $x0e $z0e $y($i) $x($i) $z($i)]}]
+		set sdr2 [expr {$sdr2 + $dr * $dr}]
+		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
+			[lindex $plist $i] $y($i) $x($i) $z($i) \
+			[expr {$y0e + $r * cos($alfa) * sin($delta) - $y($i)}] \
+			[expr {$x0e + $r * cos($alfa) * cos($delta) - $x($i)}] \
+			[expr {$z0e + $r * sin($alfa) - $z($i)}] $dr]
 	}
 	GeoLog1
 	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdr2 / $n)}]]
