@@ -1057,7 +1057,7 @@ proc GeoLoadTcl {w} {
 	global geoEasyMsg
 	global lastDir
 
-	set on [string trim [tk_getSaveFile -defaultextension ".tcl" \
+	set on [string trim [tk_getOpenFile -defaultextension ".tcl" \
 		-initialdir $lastDir -filetypes $tclTypes ]]
 	if {[string length $on] == 0 || [string match "after#*" $on]} { return }
 	set lastDir [file dirname $on]
