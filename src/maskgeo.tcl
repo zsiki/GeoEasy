@@ -1055,7 +1055,7 @@ proc GeoExec {w} {
 proc GeoLoadTcl {w} {
 	global tclTypes
 	global geoEasyMsg
-	global $lastDir
+	global lastDir
 
 	set on [string trim [tk_getSaveFile -defaultextension ".tcl" \
 		-initialdir $lastDir -filetypes $tclTypes ]]
