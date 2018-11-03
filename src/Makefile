@@ -97,6 +97,21 @@ deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 	@head -n 8 ../LICENSE > ../deb/data/usr/share/doc/geoeasy/LICENSE
 	@echo "Read /usr/share/doc/license/gpl/gpl-2.0.txt.gz" >> ../deb/data/usr/share/doc/geoeasy/LICENSE
 	@ln -svf /usr/share/doc/license/gpl/gpl-2.0.txt.gz ../deb/data/usr/share/doc/geoeasy/gpl-2.0.txt.gz
+	echo "Package: geoeasy" > ../deb/config/control
+	echo -n "Version: " >> ../deb/config/control
+	grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$/-wheezy/' >> ../deb/config/control
+	echo "Architecture: all" >> ../deb/config/control
+	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ../deb/config/control
+	echo "Section: science" >> ../deb/config/control
+	echo "Priority: optional" >> ../deb/config/control
+	echo "Depends: tk (>= 8.5.0-1) | wish, license-gpl" >> ../deb/config/control
+	echo "Recommends: gama, triangle-bin, proj-bin" >> ../deb/config/control
+	echo -n "Installed-Size: " >> ../deb/config/control
+	du -s ../deb | grep -o [0-9]* >> ../deb/config/control
+	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ../deb/config/control
+	echo "Description: GeoEasy - surveying calculation, network adjustment" >> ../deb/config/control
+	echo " GeoEasy - surveying calculation, network adjustment," >> ../deb/config/control
+	echo " digital terrain models, regression calculation." >> ../deb/config/control
 	@echo "-----------------------------------------------------"
 	@echo "cd ../deb"
 	@echo "Read README.md"
