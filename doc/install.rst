@@ -105,16 +105,32 @@ You can create a shell script file to start GeoEasy from any directory.
 
 Copy this file into a directory on the PATH.
 
-Install source release (Linux)
+Install source release (Ubuntu)
 ------------------------------
 
-Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/).
+Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/)
+
+.. code:: bash
+
+	sudo apt-get install tcl tk
+
 Install proj (https://proj4.org)
+
+.. code:: bash
+
+	sudo apt-get install proj-bin
+
 Install GNU Gama (https://www.gnu.org/software/gama/)
+There is no binary package for Ubuntu, make it from source.
+
 Install Triangle (https://github.com/MrPhil/Triangle)
 
+.. code:: bash
+
+	sudo apt-get install triangle-bin
+
 Download the source files from GitHub (github.com/zsiki/GeoEasy) either
-the zip file or git clone the repository. If you would like to update your
+the zip file or *git clone* the repository. If you would like to update your
 version regularly, then the *git clone* should be prefered.
 
 Change directory to **GeoEasy/src** and
@@ -139,6 +155,8 @@ Make a symbolic link from the GEoEasy/src directory to the external programs.
 
 	The path to the external program may be different, depending on 
 	your settings and Linux distro.
+
+or change the path to these programs in the geo\_easy.msk file.
 
 To start the program use the following command from the **src** directory:
 
