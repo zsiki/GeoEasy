@@ -72,6 +72,30 @@ variable *PROJ_LIB* to the root directory of GeoEasy.
 Linux Installation
 ------------------
 
+Prerequisites
+.............
+
+Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/)
+
+.. code:: bash
+
+	sudo apt-get install tcl tk
+
+Install proj (https://proj4.org)
+
+.. code:: bash
+
+	sudo apt-get install proj-bin
+
+Install GNU Gama (https://www.gnu.org/software/gama/)
+There is no binary package for Ubuntu, make it from source.
+
+Install Triangle (https://github.com/MrPhil/Triangle)
+
+.. code:: bash
+
+	sudo apt-get install triangle-bin
+
 There is a compressed Linux binary release which can be downloaded from
 http://digikom.hu/english/geo_easy_e.html, it is a simple tar-gzip (.tgz) file.
 
@@ -107,27 +131,6 @@ Copy this file into a directory on the PATH.
 
 Install source release (Ubuntu)
 ------------------------------
-
-Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/)
-
-.. code:: bash
-
-	sudo apt-get install tcl tk
-
-Install proj (https://proj4.org)
-
-.. code:: bash
-
-	sudo apt-get install proj-bin
-
-Install GNU Gama (https://www.gnu.org/software/gama/)
-There is no binary package for Ubuntu, make it from source.
-
-Install Triangle (https://github.com/MrPhil/Triangle)
-
-.. code:: bash
-
-	sudo apt-get install triangle-bin
 
 Download the source files from GitHub (github.com/zsiki/GeoEasy) either
 the zip file or *git clone* the repository. If you would like to update your
