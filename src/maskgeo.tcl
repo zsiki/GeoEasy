@@ -901,6 +901,12 @@ proc GeoTextWindow {w {title "?"} {typ "simple"}} {
 	wm protocol $w WM_SAVE_YOURSELF "GeoFormExit $w"
 	wm title $w $title
 	menu $w.menu -tearoff 0 ;# -type menubar
+	if {$typ == "console"} {
+		# add text input widget
+		entry $w.input -textvariable consoleEntry -relief sunken -width 40
+		pack $w.input -side top -fill x
+	}
+
 	frame $w.w
 	pack $w.w -side bottom -fill both -expand 1
 
@@ -947,12 +953,6 @@ proc GeoTextWindow {w {title "?"} {typ "simple"}} {
 	pack $w.w.vs -side right -fill y
 	pack $w.w.hs -side bottom -fill x
 	pack $w.w.t -side top -fill both -expand 1
-
-	if {$typ == "console"} {
-		# add text input widget
-		entry $w.input -textvariable consoleEntry -relief sunken -width 40
-		pack $w.input -side bottom -fill x
-	}
 
 	bind $w <Alt-KeyPress-F4> "GeoFormExit $w"
 	bind $w.w.t <Key-Next> "$w.w.t yview scroll 1 pages"
