@@ -23,6 +23,12 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	xmlgeo.tcl zsenigeo.tcl \
 	geo_easy.tcl
 #
+# files for debian package
+DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
+	./bitmaps ./com_set geo_easy.msk default.msk ./*.txp ./demodata \
+	geo_easy.hun geo_easy.eng geo_easy.ger \
+	com_easy.hun com_easy.eng com_easy.ger
+
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
 
 GeoEasy: GeoEasy.tcl
@@ -88,9 +94,9 @@ deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 	echo global build_date > build_date.tcl
 	echo set build_date `date +%Y.%m.%d.` >> build_date.tcl
 	./index.tcl ${GE_SOURCES}
-	@cp -frv * ../deb/data/usr/share/geoeasy
+	@cp -frv ${DEB_FILES} ../deb/data/usr/share/geoeasy
 	@ln -svf /usr/bin/cs2cs ../deb/data/usr/share/geoeasy/cs2cs
-	@ln -svf /usr/bin/gama-local ../deb/data/usr/share/geoeasy/gama-local
+	@ln -svf /usr/local/bin/gama-local ../deb/data/usr/share/geoeasy/gama-local
 	@ln -svf /usr/bin/triangle ../deb/data/usr/share/geoeasy/triangle
 	@mkdir -pv ../deb/data/usr/share/doc/geoeasy
 	@cp -frv ../README.md ../doc ../deb/data/usr/share/doc/geoeasy
