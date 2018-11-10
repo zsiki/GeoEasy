@@ -252,7 +252,9 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 						}
 					} else {
 						set fixed [lsort -dictionary [ldiff [GetGiven {37 38} $used] $unknowns]]
-						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+						if {[llength $fixed]} {
+							set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+						}
 					}
 					Gama2dXmlOut $fn $unknowns $fixed
 					return 1
@@ -278,7 +280,9 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 						}
 					} else {
 						set fixed [lsort -dictionary [ldiff [GetGiven {39} $used] $unknowns]]
-						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+						if {[llength $fixed]} {
+							set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+						}
 					}
 					Gama1dXmlOut $fn $unknowns $fixed
 					return 1
@@ -304,7 +308,9 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 						}
 					} else {
 						set fixed [lsort -dictionary [ldiff [GetGiven {37 38 39} $used] $unknowns]]
-						set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+						if {[llength $fixed]} {
+							set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
+						}
 					}
 					Gama3dXmlOut $fn $unknowns $fixed
 					return 1
