@@ -151,21 +151,40 @@ run the following commands from the command line, to prepare it.
 	make source
 	chmod +x geo_easy.tcl
 
-Make a symbolic link from the GEoEasy/src directory to the external programs.
+Make a symbolic link from the GeoEasy/src directory to the external programs.
 
 .. code:: bash
 
 	cd GeoEasy/src
 	ln -s /usr/bin/cs2cs cs2cs
 	ln -s /usr/local/bin/gama-local gama-local
-	ln -s /usr/local/bin/triangle triangle
+	ln -s /usr/bin/triangle triangle
+
+Alternatively you can change the path to these programs in the geo\_easy.msk file. 
+
+.. code:: tcl
+
+	set gamaProg {/usr/local/bin/gama-local/gama-local}
+	...
+	set triangleProg {/usr/bin/triangle}
+	...
+	set cs2csProg {/usr/bin/cs2cs}
+
+Or if the commands are on the PATH input only the name of the commands in the 
+geo_easy.msk file.
+
+.. code:: tcl
+
+	set gamaProg {gama-local}
+	...
+	set triangleProg {triangle}
+	...
+	set cs2csProg {cs2cs}
 
 .. note::
 
-	The path to the external program may be different, depending on 
+ 	The path to the external program may be different, depending on 
 	your settings and Linux distro.
-
-or change the path to these programs in the geo\_easy.msk file.
 
 To start the program use the following command from the **src** directory:
 
