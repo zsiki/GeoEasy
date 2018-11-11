@@ -54,11 +54,12 @@ proc GeoEasy {top} {
 	global fn
 	global version
 	global saveType comSaveType
+	global geoLangs langCodes
 
 	set version 311 ;# update for new release!
 	set version_str "[join [split $version {}] .] dev"
 	# supported languages
-	set langs {hun eng ger hu en ge}
+	#set langs {hun eng ger hu en ge}
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
@@ -141,23 +142,23 @@ proc GeoEasy {top} {
 	# get the language of the operating system
 	if {$tcl_platform(platform) != "unix"} {
 		set ww ""
-		catch {set ww [registry get HKEY_LOCAL_MACHINE\\SYSTEM\\CONTROLSET001\\control\\nls\\language InstallLanguage]}
-		switch -exact [string toupper $ww] {
-			"040E" { set w "hu"}
-			"0409" { set w "en"}
-			"0407" { set w "ge"}
-			default { set w "en"}
+		catch {set ww [string upper [registry get HKEY_LOCAL_MACHINE\\SYSTEM\\CONTROLSET001\\control\\nls\\language InstallLanguage]]}
+		if {[lsearch -exact [array names langCodes] $ww] > -1} {
+			set w $langCodes($ww)
+		} else {
+			set w eng
 		}
 	} else {
 		catch {set w [string range [string tolower $env(LANG)] 0 2]}
 	}
 	if {! [info exists geoLang] || \
-		[lsearch -exact $langs $geoLang] == -1} {
-		switch -exact -- [string range $w 0 1] {
-			"hu" { set geoLang hun }
-			"en" { set geoLang eng }
-			"ge" { set geoLang ger }
-			default { set geoLang eng }
+		[lsearch -exact [array names geoLangs] $geoLang] == -1} {
+		set geoLang eng ;# default language
+		foreach lang [array names geoLangs] {
+			if {[lsearch $geoLangs($lang) [string range $w 0 1]] > -1} {
+				set geoLang $lang
+				break
+			}
 		}
 	}
 	if {! [info exists geoCp] || \
@@ -181,17 +182,22 @@ proc GeoEasy {top} {
 	}
 	# overwrite language if command line parameter given
 	if {[llength $argv] > 0} {
-		set lang [getopt $argv "-lang"]  
-		if {$lang == ""} {
-			set lang [getopt $argv "--lang"]  
+		set l [getopt $argv "-lang"]  
+		if {$l == ""} {
+			set l [getopt $argv "--lang"]  
 		}
-		switch -exact -- [string tolower $lang] {
-			"hu" -
-			"hun" { set geoLang hun }
-			"en" -
-			"eng" { set geoLang eng }
-			"ge" -
-			"ger" { set geoLang ger }
+		set l [string tolower $l]
+		set i [lsearch -exact [array names geoLangs] $l]
+		if {$i == -1} {
+			set geoLang eng ;# default language
+			foreach lang [array names geoLangs] {
+				if {[lsearch $geoLangs($lang) [string range $l 0 1]] > -1} {
+					set geoLang $lang
+					break
+				}
+			}
+		} else {
+			set geoLang $l
 		}
 	}
 	set msgFile [file join $home geo_easy.$geoLang]
@@ -500,7 +506,7 @@ proc GeoEasy {top} {
 			if {[string length $name]} {
 				# skip switches
 				if {[string match "-*" $name] || \
-					[lsearch -exact $langs $name] >= 0} {
+					[lsearch -exact [array names geoLangs] $name] >= 0} {
 					continue
 				}
 				regsub -all {\\} $name "/" name
