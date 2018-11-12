@@ -170,6 +170,7 @@ proc GeoEasy {top} {
 			set geoCp [string range $w $p end]
 		} else {
 			if {$tcl_platform(platform) != "unix"} {
+			#TODO what about other languages?
 				if {$geoLang == "hu"} {
 					set geoCp "cp-1250"
 				} else {
@@ -200,29 +201,19 @@ proc GeoEasy {top} {
 			set geoLang $l
 		}
 	}
-	set msgFile [file join $home geo_easy.$geoLang]
-	if {[file isfile $msgFile] && [file readable $msgFile]} {
-		if {[catch {source $msgFile} msg] == 1} {
-			tk_dialog .msg "Error" "Error in message file:\n$msg" error 0 OK
+#	GeoEasy & ComEasy message file
+	foreach name [list geo_easy com_easy] {
+		set msgFile [file join $home i18n $name.$geoLang]
+		if {[file isfile $msgFile] && [file readable $msgFile]} {
+			if {[catch {source $msgFile} msg] == 1} {
+				tk_dialog .msg "Error" "Error in message file:\n$msg" error 0 OK
+				exit
+			}
+		} else {
+			tk_dialog .msg "Error" \
+				"Message file ($msgFile) not found" error 0 OK
 			exit
 		}
-	} else {
-		tk_dialog .msg "Error" \
-			"Message file ($msgFile) not found" error 0 OK
-		exit
-	}
-
-#	ComEasy message file
-	if {[file isfile [file join $home com_easy.$geoLang]] == 0 || \
-			[file readable [file join $home com_easy.$geoLang]] == 0} {
-		tk_dialog .msg "Error" "Message file (com_easy.$geoLang) not found" \
-			error 0 OK
-		exit
-	}
-
-	if {[catch {source [file join $home com_easy.$geoLang]} msg] == 1} {
-		tk_dialog .msg "Error" "Error in message file:\n$msg" error 0 OK
-		exit
 	}
 #
 #	regular expressions for forms
