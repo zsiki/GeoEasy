@@ -26,14 +26,14 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 # files for debian package
 DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
 	./bitmaps ./com_set geo_easy.msk default.msk ./*.txp ./demodata \
-	geo_easy.hun geo_easy.eng geo_easy.ger \
-	com_easy.hun com_easy.eng com_easy.ger
+	./i18n/geo_easy.hun ./i18n/geo_easy.eng ./i18n/geo_easy.ger \
+	./i18n/com_easy.hun ./i18n/com_easy.eng ./i18n/com_easy.ger
 
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
 
 GeoEasy: GeoEasy.tcl
 # check message files
-	./msg_check.sh
+	cd i18n && ./msg_check.sh
 # new freewrap package
 	$(FREE_WRAP)/linux64/freewrap GeoEasy.tcl -forcewrap -o GeoEasy
 GeoEasy.exe: GeoEasy.tcl
@@ -72,11 +72,11 @@ ComEasy.tcl: ${CE_SOURCES}
 	tcl_cruncher ${CE_SOURCES} > ComEasy.tcl
 	chmod +x ComEasy.tcl
 
-linux: GeoEasy geo_easy.hun geo_easy.eng geo_easy.ger com_easy.hun com_easy.eng com_easy.ger geo_easy.msk
+linux: GeoEasy ./i18n/geo_easy.hun ./i18n/geo_easy.eng ./i18n/geo_easy.ger ./i18n/com_easy.hun ./i18n/com_easy.eng ./i18n/com_easy.ger geo_easy.msk
 	rm -f Gizi303Linux.tgz
 	tar cvzf Gizi3Linux.tgz GeoEasy geo_easy.msk default.msk \
-		geo_easy.eng geo_easy.hun geo_easy.ger \
-		com_easy.eng com_easy.hun com_easy.ger \
+		./i18n/geo_easy.eng ./i18n/geo_easy.hun ./i18n/geo_easy.ger \
+		./i18n/com_easy.eng ./i18n/com_easy.hun ./i18n/com_easy.ger \
 		com_set bitmaps demodata *.txp
 doc: ${DOC_SOURCES}
 	# generate doc
@@ -127,5 +127,5 @@ clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
 		ComEasy.tcl ComEasy ComEasy.exe ComEasy64.exe \
 		build_date.tcl defaultmask.tcl \
-		eng_[a-z][a-z][a-z].txt ceng_[a-z][a-z][a-z].txt \
-		eng.txt eng_code.txt
+		i18n/eng_[a-z][a-z][a-z].txt i18n/ceng_[a-z][a-z][a-z].txt \
+		i18n/eng.txt i18n/eng_code.txt
