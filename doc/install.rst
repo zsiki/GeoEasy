@@ -103,7 +103,7 @@ Debian package
 ..............
 
 There is a Debian package for Debian/Ubuntu Linux distributions which can be downloaded from
-http://digikom.hu/english/geo_easy_e.html, it is a standard Debian package (geoeasy*version*-wheezy_all.deb). You can use the package manager to install it (right click onthe file in the file manager or use dpkg)
+http://digikom.hu/english/geo_easy_e.html, it is a standard Debian package (geoeasy*version*-wheezy_all.deb). You can use the package manager to install it (right click on the file in the file manager or use dpkg)
 
 .. code:: bash
 
@@ -157,6 +157,10 @@ Install source release (Ubuntu)
 Download the source files from GitHub (github.com/zsiki/GeoEasy) either
 the zip file or *git clone* the repository. If you would like to update your
 version regularly, then the *git clone* should be prefered.
+
+.. code:: bash
+
+	git clone https://github.com/zsiki/GeoEasy.git
 
 Change directory to **GeoEasy/src** and
 run the following commands from the command line, to prepare it.
