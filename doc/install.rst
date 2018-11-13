@@ -99,12 +99,28 @@ Install Triangle (https://github.com/MrPhil/Triangle)
 
 	sudo apt-get install triangle-bin
 
+Debian package
+..............
+
+There is a Debian package for Debian/Ubuntu Linux distributions which can be downloaded from
+http://digikom.hu/english/geo_easy_e.html, it is a standard Debian package (geoeasy*version*-wheezy_all.deb). You can use the package manager to install it (right click onthe file in the file manager or use dpkg)
+
+.. code:: bash
+
+	sudo dpkg -i geoeasy*version*-wheezy_all.deb
+
+To start GeoEasy select it from the menu or type in the terminal window:
+
+.. code:: bash
+
+	geoeasy
+
+
 Ubuntu binary release
 .....................
 
 There is a compressed Linux binary release which can be downloaded from
-http://digikom.hu/english/geo_easy_e.html, it is a simple tar-gzip (.tgz) file.
-
+http://digikom.hu/english/geo_easy_e.html, it is a simple tar-gzip (Gizi*version*Linux.tgz) file. 
 The following commands have to be executed (it is supposed the tgz file is 
 downloaded into your home directory):
 
