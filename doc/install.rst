@@ -115,6 +115,7 @@ To start GeoEasy select it from the menu or type in the terminal window:
 
 	geoeasy
 
+The Debian install package was created by https://github.com/zvezdochiot.
 
 Ubuntu binary release
 .....................
@@ -230,7 +231,3 @@ directory.
 
 The preparation should be repeated (make source).
 
-Debian package
-..............
-
-A Debian install package is mainteaned by https://github.com/zvezdochiot.
