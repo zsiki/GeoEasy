@@ -26,8 +26,9 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 # files for debian package
 DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
 	./bitmaps ./com_set geo_easy.msk default.msk ./*.txp ./demodata \
-	./i18n/geo_easy.hun ./i18n/geo_easy.eng ./i18n/geo_easy.ger \
-	./i18n/com_easy.hun ./i18n/com_easy.eng ./i18n/com_easy.ger
+	./i18n
+
+VERSION = `grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$//'`
 
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
 
@@ -73,8 +74,8 @@ ComEasy.tcl: ${CE_SOURCES}
 	chmod +x ComEasy.tcl
 
 linux: GeoEasy ./i18n/geo_easy.hun ./i18n/geo_easy.eng ./i18n/geo_easy.ger ./i18n/com_easy.hun ./i18n/com_easy.eng ./i18n/com_easy.ger geo_easy.msk
-	rm -f Gizi303Linux.tgz
-	tar cvzf Gizi3Linux.tgz GeoEasy geo_easy.msk default.msk \
+	rm -f Gizi${VERSION}Linux.tgz
+	tar cvzf Gizi${VERSION}Linux.tgz GeoEasy geo_easy.msk default.msk \
 		./i18n/geo_easy.eng ./i18n/geo_easy.hun ./i18n/geo_easy.ger \
 		./i18n/com_easy.eng ./i18n/com_easy.hun ./i18n/com_easy.ger \
 		com_set bitmaps demodata *.txp
@@ -105,12 +106,14 @@ deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 	@ln -svf /usr/share/doc/license/gpl/gpl-2.0.txt.gz ../deb/data/usr/share/doc/geoeasy/gpl-2.0.txt.gz
 	echo "Package: geoeasy" > ../deb/config/control
 	echo -n "Version: " >> ../deb/config/control
-	grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$/-wheezy/' >> ../deb/config/control
+	#grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$/-wheezy/' >> ../deb/config/control
+	echo ${VERSION}-wheezy >> ../deb/config/control
 	echo "Architecture: all" >> ../deb/config/control
 	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ../deb/config/control
 	echo "Section: science" >> ../deb/config/control
 	echo "Priority: optional" >> ../deb/config/control
-	echo "Depends: tk (>= 8.5.0-1) | wish, license-gpl" >> ../deb/config/control
+	#echo "Depends: tk (>= 8.5.0-1) | wish, license-gpl" >> ../deb/config/control
+	echo "Depends: tk (>= 8.5.0-1) | wish" >> ../deb/config/control
 	echo "Recommends: gama, triangle-bin, proj-bin" >> ../deb/config/control
 	echo -n "Installed-Size: " >> ../deb/config/control
 	du -s ../deb | grep -o [0-9]* >> ../deb/config/control
@@ -126,6 +129,6 @@ deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
 		ComEasy.tcl ComEasy ComEasy.exe ComEasy64.exe \
-		build_date.tcl defaultmask.tcl \
+		build_date.tcl defaultmask.tcl Gizi*.tgz\
 		i18n/eng_[a-z][a-z][a-z].txt i18n/ceng_[a-z][a-z][a-z].txt \
 		i18n/eng.txt i18n/eng_code.txt
