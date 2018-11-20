@@ -1,6 +1,0 @@
-?package(geoeasy):\
-needs="X11"\
-section="Applications/Science/Geoscience"\
-title="GeoEasy"\
-icon="/usr/share/pixmaps/geoeasy.xpm"\
-command="/usr/bin/geoeasy"
