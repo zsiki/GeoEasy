@@ -25,7 +25,7 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 #
 # files for debian package
 DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
-	./bitmaps ./com_set geo_easy.msk default.msk ./*.txp ./demodata \
+	./bitmaps ./com_set geo_easy.msk default.msk ./demodata \
 	./i18n
 
 VERSION = `grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$//'`
@@ -78,7 +78,7 @@ linux: GeoEasy ./i18n/geo_easy.hun ./i18n/geo_easy.eng ./i18n/geo_easy.ger ./i18
 	tar cvzf Gizi${VERSION}Linux.tgz GeoEasy geo_easy.msk default.msk \
 		./i18n/geo_easy.eng ./i18n/geo_easy.hun ./i18n/geo_easy.ger \
 		./i18n/com_easy.eng ./i18n/com_easy.hun ./i18n/com_easy.ger \
-		com_set bitmaps demodata *.txp
+		com_set bitmaps demodata
 doc: ${DOC_SOURCES}
 	# generate doc
 	$(TCL_DOC) --overview overview.html --force ../tcldoc \
@@ -95,18 +95,20 @@ deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 	echo global build_date > build_date.tcl
 	echo set build_date `date +%Y.%m.%d.` >> build_date.tcl
 	./index.tcl ${GE_SOURCES}
+	@mkdir -pv ../deb/data/usr/share/doc/geoeasy ../deb/data/usr/share/geoeasy
 	@cp -frv ${DEB_FILES} ../deb/data/usr/share/geoeasy
 	@ln -svf /usr/bin/cs2cs ../deb/data/usr/share/geoeasy/cs2cs
 	@ln -svf /usr/local/bin/gama-local ../deb/data/usr/share/geoeasy/gama-local
 	@ln -svf /usr/bin/triangle ../deb/data/usr/share/geoeasy/triangle
 	@mkdir -pv ../deb/data/usr/share/doc/geoeasy
-	@cp -frv ../README.md ../doc ../deb/data/usr/share/doc/geoeasy
-	@head -n 8 ../LICENSE > ../deb/data/usr/share/doc/geoeasy/LICENSE
-	@echo "Read /usr/share/doc/license/gpl/gpl-2.0.txt.gz" >> ../deb/data/usr/share/doc/geoeasy/LICENSE
-	@ln -svf /usr/share/doc/license/gpl/gpl-2.0.txt.gz ../deb/data/usr/share/doc/geoeasy/gpl-2.0.txt.gz
+	#@cp -frv ../README.md ../doc ../deb/data/usr/share/doc/geoeasy
+	@cp -frv ../README.md ../doc/*.pdf ../deb/data/usr/share/doc/geoeasy
+	#@head -n 8 ../LICENSE > ../deb/data/usr/share/doc/geoeasy/LICENSE
+	#@echo "Read /usr/share/doc/license/gpl/gpl-2.0.txt.gz" >> ../deb/data/usr/share/doc/geoeasy/LICENSE
+	@ln -svf ../doc/gpl-2.0.txt.gz ../deb/data/usr/share/doc/geoeasy/gpl-2.0.txt.gz
+	@cp -f ../LICENSE ../deb/data/usr/share/doc/geoeasy/LICENSE
 	echo "Package: geoeasy" > ../deb/config/control
 	echo -n "Version: " >> ../deb/config/control
-	#grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$/-wheezy/' >> ../deb/config/control
 	echo ${VERSION}-wheezy >> ../deb/config/control
 	echo "Architecture: all" >> ../deb/config/control
 	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ../deb/config/control
