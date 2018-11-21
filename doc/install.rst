@@ -68,7 +68,7 @@ folder (for example c:\\GeoEasy).
 If you would like to export to GPX or KML format, set up an environment
 variable *PROJ_LIB* to the root directory of GeoEasy.
 
-.. code::
+.. code:: bash
 
 	setx PROJ_LIB=C:\GeoEasy
 
