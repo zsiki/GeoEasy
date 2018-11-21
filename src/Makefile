@@ -28,7 +28,13 @@ DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
 	./bitmaps ./com_set geo_easy.msk default.msk ./demodata \
 	./i18n
 
+OSDISTNAME = `lsb_release -c -s`
 VERSION = `grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$//'`
+
+EXTERNAL_CS2CS = `command -v cs2cs`
+EXTERNAL_GAMMALOCAL = `command -v gama-local`
+EXTERNAL_TRIANGLE = `command -v triangle`
+
 
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
 
@@ -83,7 +89,7 @@ doc: ${DOC_SOURCES}
 	# generate doc
 	$(TCL_DOC) --overview overview.html --force ../tcldoc \
 		${DOC_SOURCES}
-deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
+deb-share: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 	rm -f tclIndex
 	echo "#-----------------------------------------------------" > defaultmask.tcl
 	echo "#	-- SetDefaultMsk" >> defaultmask.tcl
@@ -97,19 +103,21 @@ deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 	./index.tcl ${GE_SOURCES}
 	@mkdir -pv ../deb/data/usr/share/doc/geoeasy ../deb/data/usr/share/geoeasy
 	@cp -frv ${DEB_FILES} ../deb/data/usr/share/geoeasy
-	@ln -svf /usr/bin/cs2cs ../deb/data/usr/share/geoeasy/cs2cs
-	@ln -svf /usr/local/bin/gama-local ../deb/data/usr/share/geoeasy/gama-local
-	@ln -svf /usr/bin/triangle ../deb/data/usr/share/geoeasy/triangle
 	@mkdir -pv ../deb/data/usr/share/doc/geoeasy
 	#@cp -frv ../README.md ../doc ../deb/data/usr/share/doc/geoeasy
-	@cp -frv ../README.md ../doc/*.pdf ../deb/data/usr/share/doc/geoeasy
+	@cp -frv ../README.md ../doc/*.odp ../deb/data/usr/share/doc/geoeasy
 	#@head -n 8 ../LICENSE > ../deb/data/usr/share/doc/geoeasy/LICENSE
 	#@echo "Read /usr/share/doc/license/gpl/gpl-2.0.txt.gz" >> ../deb/data/usr/share/doc/geoeasy/LICENSE
 	@ln -svf ../doc/gpl-2.0.txt.gz ../deb/data/usr/share/doc/geoeasy/gpl-2.0.txt.gz
 	@cp -f ../LICENSE ../deb/data/usr/share/doc/geoeasy/LICENSE
+deb-external:
+	@ln -svf ${EXTERNAL_CS2CS} ../deb/data/usr/share/geoeasy/cs2cs
+	@ln -svf ${EXTERNAL_GAMMALOCAL} ../deb/data/usr/share/geoeasy/gama-local
+	@ln -svf ${EXTERNAL_TRIANGLE} ../deb/data/usr/share/geoeasy/triangle
+deb-config:
 	echo "Package: geoeasy" > ../deb/config/control
 	echo -n "Version: " >> ../deb/config/control
-	echo ${VERSION}-wheezy >> ../deb/config/control
+	echo ${VERSION}-${OSDISTNAME} >> ../deb/config/control
 	echo "Architecture: all" >> ../deb/config/control
 	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ../deb/config/control
 	echo "Section: science" >> ../deb/config/control
@@ -123,6 +131,16 @@ deb: ${GE_SOURCES} ${CE_SOURCES} index.tcl
 	echo "Description: GeoEasy - surveying calculation, network adjustment" >> ../deb/config/control
 	echo " GeoEasy - surveying calculation, network adjustment," >> ../deb/config/control
 	echo " digital terrain models, regression calculation." >> ../deb/config/control
+deb-exec:
+	@mkdir -pv ../deb/data/usr/bin
+	@cp -fv ../doc/debian/geoeasy.sh ../deb/data/usr/bin/geoeasy
+	@mkdir -pv ../deb/data/usr/share/applications
+	@cp -fv ../doc/debian/geoeasy.desktop ../deb/data/usr/share/applications
+	@mkdir -pv ../deb/data/usr/share/menu
+	@cp -fv ../doc/debian/geoeasy.menu ../deb/data/usr/share/menu/geoeasy
+	@mkdir -pv ../deb/data/usr/share/pixmaps
+	@cp -fv ../doc/debian/geoeasy.png ../doc/debian/geoeasy.xpm ../deb/data/usr/share/pixmaps
+deb: deb-share deb-external deb-config deb-exec
 	@echo "-----------------------------------------------------"
 	@echo "cd ../deb"
 	@echo "Read README.md"
