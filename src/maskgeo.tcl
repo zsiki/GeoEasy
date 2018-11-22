@@ -1582,13 +1582,13 @@ proc LastVal {w} {
 		global $geo
 		if {[regexp "._geo" $geo]} {
 			# observations
-			set geoNum([winfo toplevel $w]) \
-				"[expr {$entryRow($w) + 1}]/[array size $geo]"
+			catch {set geoNum([winfo toplevel $w]) \
+				"[expr {$entryRow($w) + 1}]/[array size $geo]"}
 		} else {
 			# coordinates
 			set pns [lsort -dictionary [array names $geo]]
-			set geoNum([winfo toplevel $w]) \
-				"[expr {[lsearch -exact $pns $entryRow($w)] + 1}]/[array size $geo]"
+			catch {set geoNum([winfo toplevel $w]) \
+				"[expr {[lsearch -exact $pns $entryRow($w)] + 1}]/[array size $geo]"}
 		}
 	}
 }
