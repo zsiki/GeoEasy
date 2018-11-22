@@ -9,9 +9,16 @@ https://github.com/zsiki/GeoEasy, https://github.com/zvezdochiot/GeoEasy
 cd ../src
 make deb
 cd ../deb
+cd geoeasy
 du -s
 nano config/control
 sudo bash-deb-build lzma
+mv *.deb ..
+cd ../geoeasy-doc
+du -s
+nano config/control
+sudo bash-deb-build lzma
+mv *.deb ..
 ```
 
 ## Utilites

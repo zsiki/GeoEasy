@@ -28,6 +28,9 @@ DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
 	./bitmaps ./com_set geo_easy.msk default.msk ./demodata \
 	./i18n
 
+DEBBASE_PATH = "../deb"
+DEB_PATH = "${DEBBASE_PATH}/geoeasy"
+DEBDOC_PATH = "${DEBBASE_PATH}/geoeasy-doc"
 OSDISTNAME = `lsb_release -c -s`
 VERSION = `grep 'set version ' geo_easy.tcl | grep -o [0-9]* | sed -e 's/./&./g;s/\.$$//'`
 
@@ -89,60 +92,60 @@ doc: ${DOC_SOURCES}
 	# generate doc
 	$(TCL_DOC) --overview overview.html --force ../tcldoc \
 		${DOC_SOURCES}
-deb-share: ${GE_SOURCES} ${CE_SOURCES} index.tcl
-	rm -f tclIndex
-	echo "#-----------------------------------------------------" > defaultmask.tcl
-	echo "#	-- SetDefaultMsk" >> defaultmask.tcl
-	echo "#	Set defaults for .msk file if it is missing, destroyd" >> defaultmask.tcl
-	echo "#-----------------------------------------------------" >> defaultmask.tcl
-	echo "proc SetDefaultMsk {} {" >> defaultmask.tcl
-	cat geo_easy.msk >> defaultmask.tcl
-	echo "}" >> defaultmask.tcl
-	echo global build_date > build_date.tcl
-	echo set build_date `date +%Y.%m.%d.` >> build_date.tcl
-	./index.tcl ${GE_SOURCES}
-	@mkdir -pv ../deb/data/usr/share/doc/geoeasy ../deb/data/usr/share/geoeasy
-	@cp -frv ${DEB_FILES} ../deb/data/usr/share/geoeasy
-	@mkdir -pv ../deb/data/usr/share/doc/geoeasy
-	#@cp -frv ../README.md ../doc ../deb/data/usr/share/doc/geoeasy
-	@cp -frv ../README.md ../doc/*.odp ../deb/data/usr/share/doc/geoeasy
-	#@head -n 8 ../LICENSE > ../deb/data/usr/share/doc/geoeasy/LICENSE
-	#@echo "Read /usr/share/doc/license/gpl/gpl-2.0.txt.gz" >> ../deb/data/usr/share/doc/geoeasy/LICENSE
-	@ln -svf ../doc/gpl-2.0.txt.gz ../deb/data/usr/share/doc/geoeasy/gpl-2.0.txt.gz
-	@cp -f ../LICENSE ../deb/data/usr/share/doc/geoeasy/LICENSE
+deb-init:
+	@mkdir -pv ${DEB_PATH}/config ${DEB_PATH}/data/usr/bin ${DEB_PATH}/data/usr/share/doc/geoeasy ${DEB_PATH}/data/usr/share/geoeasy ${DEB_PATH}/data/usr/share/applications ${DEB_PATH}/data/usr/share/menu ${DEB_PATH}/data/usr/share/pixmaps
+	@mkdir -pv ${DEBDOC_PATH}/config ${DEBDOC_PATH}/data/usr/share/doc/geoeasy
+deb-share: source ${CE_SOURCES}
+	@cp -frv ${DEB_FILES} ${DEB_PATH}/data//usr/share/geoeasy
+	@cp -frv ../README.md ../LICENSE ${DEB_PATH}/data/usr/share/doc/geoeasy
 deb-external:
-	@ln -svf ${EXTERNAL_CS2CS} ../deb/data/usr/share/geoeasy/cs2cs
-	@ln -svf ${EXTERNAL_GAMMALOCAL} ../deb/data/usr/share/geoeasy/gama-local
-	@ln -svf ${EXTERNAL_TRIANGLE} ../deb/data/usr/share/geoeasy/triangle
+	@ln -svf ${EXTERNAL_CS2CS} ${DEB_PATH}/data/usr/share/geoeasy/cs2cs
+	@ln -svf ${EXTERNAL_GAMMALOCAL} ${DEB_PATH}/data/usr/share/geoeasy/gama-local
+	@ln -svf ${EXTERNAL_TRIANGLE} ${DEB_PATH}/data/usr/share/geoeasy/triangle
 deb-config:
-	echo "Package: geoeasy" > ../deb/config/control
-	echo -n "Version: " >> ../deb/config/control
-	echo ${VERSION}-${OSDISTNAME} >> ../deb/config/control
-	echo "Architecture: all" >> ../deb/config/control
-	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ../deb/config/control
-	echo "Section: science" >> ../deb/config/control
-	echo "Priority: optional" >> ../deb/config/control
-	#echo "Depends: tk (>= 8.5.0-1) | wish, license-gpl" >> ../deb/config/control
-	echo "Depends: tk (>= 8.5.0-1) | wish" >> ../deb/config/control
-	echo "Recommends: gama, triangle-bin, proj-bin" >> ../deb/config/control
-	echo -n "Installed-Size: " >> ../deb/config/control
-	du -s ../deb | grep -o [0-9]* >> ../deb/config/control
-	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ../deb/config/control
-	echo "Description: GeoEasy - surveying calculation, network adjustment" >> ../deb/config/control
-	echo " GeoEasy - surveying calculation, network adjustment," >> ../deb/config/control
-	echo " digital terrain models, regression calculation." >> ../deb/config/control
+	echo "Package: geoeasy" > ${DEB_PATH}/config/control
+	echo -n "Version: " >> ${DEB_PATH}/config/control
+	echo ${VERSION}-${OSDISTNAME} >> ${DEB_PATH}/config/control
+	echo "Architecture: all" >> ${DEB_PATH}/config/control
+	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ${DEB_PATH}/config/control
+	echo "Section: science" >> ${DEB_PATH}/config/control
+	echo "Priority: optional" >> ${DEB_PATH}/config/control
+	echo "Depends: tk (>= 8.5.0-1) | wish" >> ${DEB_PATH}/config/control
+	echo "Recommends: gama, triangle-bin, proj-bin" >> ${DEB_PATH}/config/control
+	echo -n "Installed-Size: " >> ${DEB_PATH}/config/control
+	du -s ${DEB_PATH} | grep -o [0-9]* >> ${DEB_PATH}/config/control
+	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ${DEB_PATH}/config/control
+	echo "Description: GeoEasy - surveying calculation, network adjustment" >> ${DEB_PATH}/config/control
+	echo " GeoEasy - surveying calculation, network adjustment," >> ${DEB_PATH}/config/control
+	echo " digital terrain models, regression calculation." >> ${DEB_PATH}/config/control
+	@cp -fv ../doc/debian/postinst.sh ${DEB_PATH}/config/postinst
+	@cp -fv ../doc/debian/postrm.sh ${DEB_PATH}/config/postrm
 deb-exec:
-	@mkdir -pv ../deb/data/usr/bin
-	@cp -fv ../doc/debian/geoeasy.sh ../deb/data/usr/bin/geoeasy
-	@mkdir -pv ../deb/data/usr/share/applications
-	@cp -fv ../doc/debian/geoeasy.desktop ../deb/data/usr/share/applications
-	@mkdir -pv ../deb/data/usr/share/menu
-	@cp -fv ../doc/debian/geoeasy.menu ../deb/data/usr/share/menu/geoeasy
-	@mkdir -pv ../deb/data/usr/share/pixmaps
-	@cp -fv ../doc/debian/geoeasy.png ../doc/debian/geoeasy.xpm ../deb/data/usr/share/pixmaps
-deb: deb-share deb-external deb-config deb-exec
+	@cp -fv ../doc/debian/geoeasy.sh ${DEB_PATH}/data/usr/bin/geoeasy
+	@cp -fv ../doc/debian/geoeasy.desktop ${DEB_PATH}/data/usr/share/applications
+	@cp -fv ../doc/debian/geoeasy.menu ${DEB_PATH}/data/usr/share/menu/geoeasy
+	@cp -fv ../doc/debian/geoeasy.png ../doc/debian/geoeasy.xpm ${DEB_PATH}/data/usr/share/pixmaps
+deb-doc:
+	@cp -frv ../doc/*.odp ../doc/*.pdf ${DEBDOC_PATH}/data/usr/share/doc/geoeasy
+deb-doc-config:
+	echo "Package: geoeasy-doc" > ${DEBDOC_PATH}/config/control
+	echo -n "Version: " >> ${DEBDOC_PATH}/config/control
+	echo ${VERSION}-${OSDISTNAME} >> ${DEBDOC_PATH}/config/control
+	echo "Architecture: all" >> ${DEBDOC_PATH}/config/control
+	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ${DEBDOC_PATH}/config/control
+	echo "Section: doc" >> ${DEBDOC_PATH}/config/control
+	echo "Priority: optional" >> ${DEBDOC_PATH}/config/control
+	echo -n "Installed-Size: " >> ${DEBDOC_PATH}/config/control
+	du -s ${DEBDOC_PATH} | grep -o [0-9]* >> ${DEBDOC_PATH}/config/control
+	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ${DEBDOC_PATH}/config/control
+	echo "Description: Documentation for Geoeasy" >> ${DEBDOC_PATH}/config/control
+	echo " GeoEasy - surveying calculation, network adjustment," >> ${DEBDOC_PATH}/config/control
+	echo " digital terrain models, regression calculation." >> ${DEBDOC_PATH}/config/control
+	echo " Documentation." >> ${DEBDOC_PATH}/config/control
+deb: deb-init deb-share deb-external deb-config deb-exec deb-doc deb-doc-config
+	@cp -fv ../doc/debian/README.md ${DEBBASE_PATH}
 	@echo "-----------------------------------------------------"
-	@echo "cd ../deb"
+	@echo "cd ${DEBBASE_PATH}"
 	@echo "Read README.md"
 	@echo "-----------------------------------------------------"
 
