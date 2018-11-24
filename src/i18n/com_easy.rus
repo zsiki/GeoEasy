@@ -1,0 +1,100 @@
+#-------------------------------------------------------------------------------
+#	-- ComEasy message file
+#-------------------------------------------------------------------------------
+global comEasyMsg
+global fileTypes
+global comTypes
+global comSetTypes
+
+# saved Communication Parameters
+set comSetTypes {{"ComEasy параметры" {.com}}}
+
+# accepted file types for download
+set comTypes {
+	{"Geodimeter JOB" {.job}}
+	{"Geodimeter ARE" {.are}}
+	{"Sokkia set 4" {.scr}}
+	{"Sokkia sdr" {.sdr}}
+	{"Leica GSI" {.gsi}}
+	{"TopCon GTS-700" {.700}}
+	{"TopCon GTS-210" {.210}}
+	{"Trimble M5" {.m5}}
+	{"Nikon DTM-300" {.nik}}
+	{"Geodat 124 formátum" {.dat}}
+	{"Все файлы" {.*}}
+}
+
+# window titles
+set comEasyMsg(comTitle)		"ComEasy V1.0"
+set comEasyMsg(digikom)			"Sponsor DigiKom Ltd."
+set comEasyMsg(about1)			"Последовательная связь"
+set comEasyMsg(about2)			"Для геодезистов"
+set comEasyMsg(parsTitle)		"Параметры связи"
+set comEasyMsg(error)			"Ошибка"
+
+# menu text
+set comEasyMsg(mComFile)		"Команды"
+set comEasyMsg(mComPars)		"Настройки ..."
+set comEasyMsg(mComDir)			"Папки"
+set comEasyMsg(mComDownload)	"Сохранить ..."
+set comEasyMsg(mComUpload)		"Загрузить ..."
+set comEasyMsg(mComStop)		"Отменить"
+set comEasyMsg(mComExit)		"Выход"
+set comEasyMsg(mComHelp)		"Справка"
+set comEasyMsg(mComHelp1)		"Помощь ..."
+set comEasyMsg(mComAbout)		"О ..."
+set comEasyMsg(mComStored)		"Сохраненные параметры"
+set comEasyMsg(mComPrint)		"Печать"
+set comEasyMsg(mComPrintSelection)	"Выбор принтера"
+
+# label text
+set comEasyMsg(parsHead1)		"Параметры линии"
+set comEasyMsg(parsHead2)		"Параметры связи"
+set comEasyMsg(parsHead3)		"Другие параметры"
+
+set comEasyMsg(parsPort)		"Канал:"
+set comEasyMsg(parsBaud)		"Скорость:"
+set comEasyMsg(parsParity)		"Четность:"
+set comEasyMsg(parsData)		"Биты данных:"
+set comEasyMsg(parsStop)		"Стоповые бит:"
+set comEasyMsg(parsEofchar)		"EOF-маркер:"
+
+set comEasyMsg(parsBlocking)	"Блокировка:"
+set comEasyMsg(parsTranslation)	"EOL-маркер:"
+set comEasyMsg(parsBuffering)	"Буферизация:"
+set comEasyMsg(parsBuffsize)	"Размер буфера:"
+set comEasyMsg(parsEncoding)	"Кодовая страница:"
+set comEasyMsg(parsInit)		"Начальная последовательность:"
+set comEasyMsg(parsQuery)		"Определитель записи:"
+set comEasyMsg(parsSendquery)	"Завершающая запись:"
+set comEasyMsg(parsDir)			"Папка:"
+
+# button labels
+set comEasyMsg(ok)				"ОК"
+set comEasyMsg(cancel)			"Отменить"
+set comEasyMsg(save)			"Сохранить"
+set comEasyMsg(load)			"Загрузить"
+
+# error messages
+set comEasyMsg(warning)			"предупреждение"
+set comEasyMsg(helpfile)		"Файл справки не найден"
+set comEasyMsg(browser)			"Справка не может быть отображена\nregister your word html browser to open .html files"
+set comEasyMsg(gizidll)			"Код ошибки установки=1"
+set comEasyMsg(comOpen)			"Ошибка открытия канала"
+set comEasyMsg(comConfigure)	"Ошибка настройки канала"
+set comEasyMsg(cantSave)		"Ошибка открытия файла на запись"
+set comEasyMsg(cantOpen)		"Ошибка открытия файла на чтение"
+set comEasyMsg(cantSource)		"Ошибка загрузки файла параметров"
+set comEasyMsg(cantRead)		"Ошибка чтения канала"
+set comEasyMsg(cantWrite)		"Ошибка записи канала"
+set comEasyMsg(cantFRead)		"Ошибка чтения файла"
+set comEasyMsg(cantFWrite)		"Ошибка записи файла"
+set comEasyMsg(noBlocking)		"Блокировка связи пока недоступна"
+
+# info messages
+set comEasyMsg(waiting)			"Ожидание данных ... (нажмите Ctrl-Z для отмены)"
+set comEasyMsg(comClose)		"Коммуникационный канал закрыт"
+set comEasyMsg(comFClose)		"Файл закрыт"
+set comEasyMsg(eof)				"Конец файла"
+set comEasyMsg(loadgizi)		"Загрузить данные в GeoEasy?"
+set comEasyMsg(separator)		"---------------------"
