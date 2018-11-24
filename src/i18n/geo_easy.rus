@@ -1,0 +1,891 @@
+#-------------------------------------------------------------------------------
+#
+#	-- GeoEasy файл сообщений
+#
+#-------------------------------------------------------------------------------
+global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
+	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
+	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+global geoCodes
+global geoEasyMsg
+
+# regression types
+global reglist
+set reglist { "2D Линия" "Параллельная 2D линия" "Круг" \
+	"Плоскость" "Горизонтальная плоскость" "Вертикальная плоскость" \
+	"Сфера" "3D линия"} ;# "Вертикальный параболоид" 
+
+set fileTypes {
+	{"GeoEasy формат" {.geo .GEO}}
+	{"Geodimeter формат" {.job .are .JOB .ARE}}
+	{"Sokkia set 4 формат" {.set .scr .SET .SCR}}
+	{"Sokkia sdr формат" {.sdr .crd .SDR .CRD}}
+	{"Leica GSI формат" {.wld .gre .gsi .WLD .GRE .GSI}}
+	{"Leica IDEX формат" {.idx .IDX}}
+	{"TopCon GTS-700 формат" {.700 .yxz .gts7 .YXZ .GTS7}}
+	{"TopCon GTS-210 формат" {.210}}
+	{"Trimble M5 формат" {.m5 .M5}}
+	{"SurvCE RAW формат" {.rw5 .RW5}}
+	{"n4ce txt формат" {.n4c N4C}}
+	{"Nikon DTM-300 формат" {.nik .NIK}}
+	{"Geodat 124 формат" {.gdt .GDT}}
+	{"GeoProfi формат" {.mjk .MJK}}
+	{"GeoProfi координаты" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}
+	{"GeoCalc3 формат" {.gmj .GMJ}}
+	{"GeoZseni формат" {.gjk .GJK}}
+	{"Список координат" {.txt .csv .dat .pnt .TXT .CSV .DAT .PNT}}
+	{"Fieldbook" {.dmp .DMP}}
+	{"DTM GRID файл" {.asc .arx .ASC .ARX}}
+	{"AutoCAD DXF файл" {.dxf .DXF}}
+	{"Все файлы" {.*}}
+}
+
+set saveTypes {
+	{"GeoEasy формат" {.geo}}
+	{"Geodimeter координаты" {.are}}
+	{"Geodimeter наблюдения и координаты" {.job}}
+	{"Sokkia set 4 координаты" {.scr}}
+	{"Sokkia sdr33 координаты" {.sdr}}
+	{"Leica координаты 8 байт" {.wld}}
+	{"Leica координаты 16 байт" {.gsi}}
+	{"Nikon DTM-300 координаты" {.nik}}
+	{"Fieldbook" {.dmp}}
+	{"Список координат" {.csv}}
+	{"ITR 2.x список координат" {.itr}}
+	{"GPS Trackmaker" {.txt}}
+	{"GPS XML" {.gpx}}
+	{"Keyhole Markup файл разметки" {.kml}}
+}
+
+set xmlTypes {
+	{"GNU GaMa xml для 2D построений" {.g2d}}
+	{"GNU GaMa xml для 1D построений" {.g1d}}
+	{"GNU GaMa xml для 3D построений" {.g3d}}
+}
+
+set projTypes {{"GeoEasy проект" {.gpr}}
+}
+
+set trTypes {{"Аффинная трансформация" {.prm}}
+}
+
+set trHTypes {{"Vertical shift" {.vsh}}
+}
+
+set tr1Types {{"Ортогональное/Аффинное преобразование" {.prm}}
+}
+
+set tr2Types {{"TRAFO преобразование" {.all}}
+}
+
+set tinTypes {{"GeoEasy dtm" {.dtm}}
+}
+
+set polyTypes {{"GeoEasy dtm исходный файл" {.poly}}
+}
+
+set vrmlTypes {{"Файл виртуальной реальности" {.wrl}}
+}
+
+set kmlTypes {{"Keyhole Markup файл разметки" {.kml}}
+}
+
+set grdTypes {{"ESRI ASCII GRID" {.asc}}
+        {"GRASS ASCII GRID" {.arx}}
+}
+
+set txpTypes {{"Txt/csv file definition .txp" {.txp}}
+}
+
+set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set mskTypes {{"GeoEasy mask" {.dxf}}
+}
+
+set lstTypes {{"Текстовый список" {.lst}}
+}
+
+set webTypes {{"Веб страница" {.html}}
+}
+
+set docTypes {{"Rich Text Format" {.rtf}}
+}
+
+set csvTypes {{"Разделяемые запятой значения" {.csv}}
+}
+
+set tclTypes {{"Tcl скрипт" {.tcl}}
+}
+
+#
+#	codes used in geo data set
+#
+set geoCodes(-1)	"Пропустить"
+set geoCodes(0)		"Информация"
+set geoCodes(1)		"Данные, используемые в INFO/DATA"
+set geoCodes(2)		"Номер станции"
+set geoCodes(3)		"Высота инструмента"
+set geoCodes(4)		"Код точки"
+set geoCodes(5)		"Номер точки"
+set geoCodes(6)		"Сила сигнала"
+set geoCodes(7)		"Горизонтальный угол"
+set geoCodes(8)		"Вертикальный угол"
+set geoCodes(9)		"Наклонное расстояние"
+set geoCodes(10)	"Превышение"
+set geoCodes(120)   "Регулировка превышения" 
+set geoCodes(11)	"Горизонтальное расстояние"
+set geoCodes(12)	"Площадь поверхности"
+set geoCodes(13)	"Объем"
+set geoCodes(14)	"Percent of grade"
+set geoCodes(15)	"Area file"
+set geoCodes(16)	"C1-C2"
+set geoCodes(17)	"HAII"
+set geoCodes(18)	"VAII"
+set geoCodes(19)	"dV"
+set geoCodes(20)	"Offset constant to slope distance"
+set geoCodes(21)	"Horizontal ref. angle"
+set geoCodes(22)	"Компенсатор"
+set geoCodes(23)	"Units"
+set geoCodes(24)	"HAI"
+set geoCodes(25)	"VAI"
+set geoCodes(26)	"SVA"
+set geoCodes(27)	"SHA"
+set geoCodes(28)	"SHD"
+set geoCodes(29)	"SHT"
+set geoCodes(30)	"Атмосферная поправка PPM"
+set geoCodes(37)	"Широта"
+set geoCodes(38)	"Долгота"
+set geoCodes(39)	"Высота"
+set geoCodes(40)	"dN"
+set geoCodes(41)	"dE"
+set geoCodes(42)	"dELE"
+set geoCodes(43)	"UTMSC"
+set geoCodes(44)	"Уклон"
+set geoCodes(45)	"dHA"
+set geoCodes(46)	"Стандартное отклонение"
+set geoCodes(47)	"Rel. north coord."
+set geoCodes(48)	"Rel. east coord."
+set geoCodes(49)	"Vertical distance"
+set geoCodes(50)	"Номер работы"
+set geoCodes(51)	"Дата"
+set geoCodes(52)	"Время"
+set geoCodes(53)	"Оператор №"
+set geoCodes(54)	"Проект №"
+set geoCodes(55)	"Инструмент №"
+set geoCodes(56)	"Температура"
+set geoCodes(57)	"Пустая строка"
+set geoCodes(58)	"Радиус Земли"
+set geoCodes(59)	"Рефракция"
+set geoCodes(60)	"Shot identity"
+set geoCodes(61)	"Activity code"
+set geoCodes(62)	"Reference object"
+set geoCodes(63)	"Диаметр"
+set geoCodes(64)	"Радиус"
+set geoCodes(65)	"Геометрия"
+set geoCodes(66)	"Фигура"
+set geoCodes(67)	"SON"
+set geoCodes(68)	"SOE"
+set geoCodes(69)	"SHT"
+set geoCodes(72)	"Radoffs"
+set geoCodes(73)	"Rt.offs"
+set geoCodes(74)	"Давление воздуха"
+set geoCodes(75)	"dHT"
+set geoCodes(76)	"dHD"
+set geoCodes(77)	"dHA"
+set geoCodes(78)	"com"
+set geoCodes(79)	"END"
+set geoCodes(80)	"Секция"
+set geoCodes(81)	"A-параметр"
+set geoCodes(82)	"Section interval"
+set geoCodes(83)	"Cl.ofs"
+set geoCodes(100)	"Orientation angle"
+set geoCodes(101)	"Average orientation angle"
+set geoCodes(102)	"Prelim. orientation"
+set geoCodes(103)	"Average prelim. orientation"
+set geoCodes(110)   "Наблюдатель"
+set geoCodes(111)   "Point order"
+set geoCodes(112)   "Количество повторов"
+set geoCodes(114)   "Direction stddev \[\"\]"
+set geoCodes(115)   "Distance stddev (additive) \[mm\]"
+set geoCodes(116)   "Distance stddev (multiplyer) \[ppm\]"
+set geoCodes(117)	"Total length"
+set geoCodes(118)	"Levelling stddev \[mm/km\]"
+set geoCodes(137)	"Northing prelim."
+set geoCodes(138)	"Easting prelim."
+set geoCodes(139)	"Height prelim."
+set geoCodes(140)	"EPSG code"
+#
+#	general messages button names
+#
+set geoEasyMsg(warning)		"предупреждение"
+set geoEasyMsg(error)		"ошибка"
+set geoEasyMsg(info)		"инфо"
+set geoEasyMsg(ok)			"ОК"
+set geoEasyMsg(yes)			"Да"
+set geoEasyMsg(no)			"Нет"
+set geoEasyMsg(cancel)		"Отмена"
+set geoEasyMsg(loadbut)		"Открыть"
+set geoEasyMsg(savebut)		"Сохранить"
+set geoEasyMsg(all)			"Все"
+set geoEasyMsg(ende)        "Готово"
+set geoEasyMsg(ignore)      "Без предупреждений"
+set geoEasyMsg(wait)		"Подождите"
+set geoEasyMsg(help)		"Справка"
+set geoEasyMsg(find)		"Найти"
+set geoEasyMsg(findNext)	"Найти далее"
+set geoEasyMsg(delete)		"Удалить"
+set geoEasyMsg(add)			"Добавить"
+set geoEasyMsg(newObs)		"Новое наблюдение"
+set geoEasyMsg(newSt)		"Новая станция"
+set geoEasyMsg(newCoo)		"Новый пункт"
+set geoEasyMsg(insSt)		"Вставить запись станции"
+set geoEasyMsg(delSt)		"Удалить запись станции"
+set geoEasyMsg(finalCoo)    "Предварительные -> конечные координаты"
+set geoEasyMsg(lastPoint)   "Конечная точка"
+set geoEasyMsg(browse)      "Обзор ..."
+set geoEasyMsg(up)			"Вверх"
+set geoEasyMsg(down)		"Вниз"
+set geoEasyMsg(opensource)  "Open source GPL 2"
+#
+#	labels
+#
+set geoEasyMsg(pattern)		"Pattern:"
+#
+#	menu and title texts
+#
+set geoEasyMsg(maskTitle)		"Select mask"
+set geoEasyMsg(graphTitle)      "Графическое окно"
+set geoEasyMsg(lbTitle)			"Выбрать %d элементов"
+set geoEasyMsg(lbTitle1)		"Выберите не менее %d элементов"
+set geoEasyMsg(lbTitle2)		"Выбрать неизвестные точки"
+set geoEasyMsg(lbTitle3)        "Выбрать %d station"
+set geoEasyMsg(lbTitle4)        "Выбрать координату"
+set geoEasyMsg(lbTitle5)        "Выбрать известные точки"
+set geoEasyMsg(lbReg)           "Тип регрессии"
+set geoEasyMsg(refTitle)        "Reference direction"
+set geoEasyMsg(soTitle)         "Настройка точки"
+set geoEasyMsg(l1Title)         "Первая линия"
+set geoEasyMsg(l2Title)         "Вторая линя"
+set geoEasyMsg(p1Title)         "Первая точка"
+set geoEasyMsg(p2Title)         "Вторая точка"
+set geoEasyMsg(menuFile)		"Файл"
+set geoEasyMsg(menuFileNew)		"Новый ..."
+set geoEasyMsg(menuFileLoad)	"Открыть ..."
+set geoEasyMsg(menuFileLogLoad) "Открыть файл журнала"
+set geoEasyMsg(menuFileLogClear)    "Очистить файл журнала"
+set geoEasyMsg(menuFileTclLoad) "Открыть tcl файл"
+set geoEasyMsg(menuFileUnload)	"Закрыть"
+set geoEasyMsg(menuFileSave)	"Сохранить"
+set geoEasyMsg(menuFileSaveAll)	"Сохранить все"
+set geoEasyMsg(menuFileSaveAs)	"Сохранить как ..."
+set geoEasyMsg(menuFileJoin)    "Объединить ..."
+set geoEasyMsg(menuFileExport)  "GNU Gama экспорт ..."
+set geoEasyMsg(menuProjLoad)    "Открыть проект ..."
+set geoEasyMsg(menuProjSave)    "Сохранить проект ..."
+set geoEasyMsg(menuProjClose)   "Закрыть проект"
+set geoEasyMsg(menuComEasy)     "ComEasy ..."
+set geoEasyMsg(menuFileStat)    "Статистика ..."
+set geoEasyMsg(menuFileCParam)  "Параметры вычислений ..."
+set geoEasyMsg(menuFileGamaParam)  "Настройки ..."
+set geoEasyMsg(menuFileColor)   "Цвета ..."
+set geoEasyMsg(menuFileOParam)  "Другие параметры ..."
+set geoEasyMsg(menuFileSaveP)   "Сохранить параметры"
+set geoEasyMsg(menuFileSaveSelection)   "Сохранить выделение ..."
+set geoEasyMsg(menuFileFontSetup)   "Шрифт ..."
+set geoEasyMsg(menuFileFind)	"Найти"
+set geoEasyMsg(menuFileClear)   "Очистить содержимое"
+set geoEasyMsg(menuFileExit)	"Выход"
+set geoEasyMsg(menuEdit)		"Правка"
+set geoEasyMsg(menuEditGeo)		"Наблюдения"
+set geoEasyMsg(menuEditCoo)		"Координаты"
+set geoEasyMsg(menuEditPar)     "Параметры наблюдений"
+set geoEasyMsg(menuEditMask)	"Load mask definitions"
+set geoEasyMsg(menuHelpAbout)	"О GeoEasy ..."
+set geoEasyMsg(menuPopupBD)		"Bearing/Расстояние"
+set geoEasyMsg(menuPopupAngle)  "Настройка"
+set geoEasyMsg(menuPopupOri)	"Ориентация"
+set geoEasyMsg(menuPopupAppOri)	"Appr. orientation"
+set geoEasyMsg(menuCalDelOri)	"Delete orientations ..."
+set geoEasyMsg(menuPopupPol)	"Полярная точка"
+set geoEasyMsg(menuPopupSec)	"Intersection"
+set geoEasyMsg(menuPopupRes)	"Resection"
+set geoEasyMsg(menuPopupArc)	"Arcsection"
+set geoEasyMsg(menuPopupEle)	"Высота"
+set geoEasyMsg(menuPopupDetail)	"Detail points"
+set geoEasyMsg(menuPopupAdj3D)	"3D adjustment"
+set geoEasyMsg(menuPopupAdj2D)	"Horizontal adjustment"
+set geoEasyMsg(menuPopupAdj1D)	"Elevation adjustment"
+set geoEasyMsg(menuGraph)		"Окно"
+set geoEasyMsg(menuGraNew)		"Новое графическое окно"
+set geoEasyMsg(menuLogNew)		"Окно журнала"
+set geoEasyMsg(menuConsoleNew)	"Окно команд"
+set geoEasyMsg(menuWin)			"Список окон"
+set geoEasyMsg(menuRefreshAll)  "Обновить все окна"
+set geoEasyMsg(menuResize)		"Количество строк ..."
+set geoEasyMsg(menuMask)		"Mask ..."
+set geoEasyMsg(menuGraCom)		"Команды"
+set geoEasyMsg(menuGraRefresh)	"Обновить"
+set geoEasyMsg(menuGraFind)     "Найти точку ..."
+set geoEasyMsg(menuGraPn)       "Имена точек"
+set geoEasyMsg(menuGraObs)		"Наблюдения"
+set geoEasyMsg(menuGraDet)		"Detail points"
+set geoEasyMsg(menuGraLines)	"Линии"
+set geoEasyMsg(menuGraUsed)     "Только наблюдаемые точки"
+set geoEasyMsg(menuGraZoomAll)	"Увеличить все"
+set geoEasyMsg(menuGraDXF)		"DXF экспорт ..."
+set geoEasyMsg(menuGraClose)	"Закрыть"
+set geoEasyMsg(menuGraCal)		"Вычисления"
+set geoEasyMsg(menuCalTra)		"Traversing"
+set geoEasyMsg(menuCalTraNode)  "Travesing node"
+set geoEasyMsg(menuCalTrig)		"Trigonometrical line"
+set geoEasyMsg(menuCalTrigNode) "Trigonometrical node"
+set geoEasyMsg(menuCalPre)		"Предварительные координаты"
+set geoEasyMsg(menuRecalcPre)	"Пересчитать предварительные координаты"
+set geoEasyMsg(menuCalDet)      "New detail points"
+set geoEasyMsg(menuCalDetAll)   "All detail point"
+set geoEasyMsg(menuCalOri)      "Orientations"
+set geoEasyMsg(menuCalAppOri)   "Preliminary orientations"
+set geoEasyMsg(menuCalAdj3D)	"3D network adjustment"
+set geoEasyMsg(menuCalAdj2D)	"Horizontal network adjustment"
+set geoEasyMsg(menuCalAdj1D)	"Leveling network adjustment"
+set geoEasyMsg(menuCalTran)     "Преобразование координат"
+set geoEasyMsg(menuCalHTran)    "Преобразование высоты"
+set geoEasyMsg(menuCalLine)     "Пересечение двух линий"
+set geoEasyMsg(menuCalPntLine)  "Точка на линии"
+set geoEasyMsg(menuCalArea)     "Площадь"
+set geoEasyMsg(menuCalLength)   "Длина"
+set geoEasyMsg(menuCalArc)      "Arc setting out"
+set geoEasyMsg(menuCalFront)	"3D-пересечения"
+set geoEasyMsg(menuCoord)       "Список координат"
+set geoEasyMsg(menuObs)         "Полевой журнал"
+set geoEasyMsg(menuCheckObs)    "Проверить полевой журнал"
+set geoEasyMsg(menuCheckCoord)  "Проверить список координат"
+set geoEasyMsg(menuSaveCsv)    "Сохранить как CSV"
+set geoEasyMsg(menuSaveHtml)    "Сохранить как HTML"
+set geoEasyMsg(menuSaveRtf)     "Сохранить как RTF"
+set geoEasyMsg(menuCooTr)       "Преобразование ..."
+set geoEasyMsg(menuCooTrFile)	"Преобразование, параметры из файла"
+set geoEasyMsg(menuCooDif)		"Расхождение координат"
+set geoEasyMsg(menuCooDelAppr)  "Удалить предварительные координаты"
+set geoEasyMsg(menuCooDel)		"Удалить все координаты"
+set geoEasyMsg(menuPntDel)		"Удалить все точки"
+set geoEasyMsg(menuCooDelDetail)    "Delte all detail coordinates"
+# regression
+set geoEasyMsg(menuReg)         "Расчет регрессии"
+set geoEasyMsg(menuRegLDist)    "Расстояние от линии"
+set geoEasyMsg(menuRegPDist)    "Расстояние от плоскости"
+# dtm/tin
+set geoEasyMsg(menuDtm)         "DTM"
+set geoEasyMsg(menuDtmCreate)   "Создать ..."
+set geoEasyMsg(menuDtmLoad)     "Открыть ..."
+set geoEasyMsg(menuDtmAdd)		"Добавить ..."
+set geoEasyMsg(menuDtmUnload)   "Закрыть"
+set geoEasyMsg(menuDtmSave)     "Сохранить"
+set geoEasyMsg(menuDtmInterp)	"Профиль ..."
+set geoEasyMsg(menuDtmContour)  "Контуры ..."
+set geoEasyMsg(menuDtmVolume)   "Объем ..."
+set geoEasyMsg(menuDtmVolumeDif)   "Volume difference ..."
+set geoEasyMsg(menuDtmVrml)     "VRML экспорт ..."
+set geoEasyMsg(menuDtmKml)      "KML экспорт ..."
+set geoEasyMsg(menuDtmGrid)     "ASCII grid экспорт ..."
+set geoEasyMsg(menuLandXML)     "LandXML экспорт ..."
+#
+#	Errors and warnings
+#
+set geoEasyMsg(-1)	"Ошибка открытия файла данных"
+set geoEasyMsg(-2)	"Набор геоданных уже загружен"
+set geoEasyMsg(-3)	"Ошибка создания geo файла"
+set geoEasyMsg(-4)	"Ошибка создания coo файла"
+set geoEasyMsg(-5)	"Ошибка в файле данных"
+set geoEasyMsg(-6)	"Ошибка открытия geo файла"
+set geoEasyMsg(-7)	"Ошибка открытия coo файла"
+set geoEasyMsg(-8)	"Нет загруженного набора геоданных"
+set geoEasyMsg(-9)  "Ошибка в файле координат в строке:"
+set geoEasyMsg(-10) "Ошибка в файле prject в строке:"
+set geoEasyMsg(-11) "Ошибка создания файла параметров"
+set geoEasyMsg(1)	"Нет наблюдений в загруженном наборе данных Geo"
+set geoEasyMsg(2)	"Нет координат в загруженном наборе данных Geo"
+set geoEasyMsg(skipped) "Unknown record skipped line/item: "
+set geoEasyMsg(overw) "Файл (ы) существует, перезаписывать?"
+set geoEasyMsg(loaded)	"Используются координаты из уже загруженного файла"
+set geoEasyMsg(helpfile)	"Файл справки не найден"
+set geoEasyMsg(browser)		"Help cannot be displayed\nregister your html browser to open .html files"
+set geoEasyMsg(rtfview)		"RTF file cannot be displayed\nregister your word processor to open .rtf files"
+set geoEasyMsg(filetype)	"Неизвестный файл или неподдерживаемый тип"
+set geoEasyMsg(saveext)		"Пожалуйста, укажите расширение после имени файла"
+set geoEasyMsg(noGeo)		"Нет загруженных данных"
+set geoEasyMsg(noStation)	"Отсутствует запись станции в начале полевого журнала"
+set geoEasyMsg(saveit)		"Вы хотите сохранить данные?"
+set geoEasyMsg(saveso)		"Вы хотите сохранить заданные данные в набор геоданных?"
+set geoEasyMsg(image)		"Изображение не найдено: "
+set geoEasyMsg(geocode)		"Unknown geo code in mask definition: %s"
+set geoEasyMsg(nomask)		"No mask loaded at all"
+set geoEasyMsg(wrongmask)	"Error in mask definition: %s"
+set geoEasyMsg(openit)		"Вы хотите открыть результат?"
+set geoEasyMsg(wrongval)	"Недопустимое значение"
+set geoEasyMsg(mustfill)	"Вы должны заполнить это поле, использовать delete, чтобы удалить всю строку"
+set geoEasyMsg(stndel)		"Вы действительно хотите удалить всю станцию?"
+set geoEasyMsg(recdel)		"Вы уверены, что хотите удалить запись?"
+set geoEasyMsg(noOri)		"No reference directions or coords for this point"
+set geoEasyMsg(noOri1)		"No orientation for point"
+set geoEasyMsg(noOri2)		"Orientation cannot be calculated for this station"
+set geoEasyMsg(cantOri)		"Orientation cannot be calculated for any station"
+set geoEasyMsg(readyOri)	"All station has orientation. Do you want to recalculate all orientation?"
+set geoEasyMsg(samePnt)		"Станция и контрольная точка имеют одинаковые координаты!"
+set geoEasyMsg(noStn)		"Это не станция"
+set geoEasyMsg(noSec)		"Недостаточно внешних направлений для intersection"
+set geoEasyMsg(noRes)		"Недостаточно внешних направлений для resection"
+set geoEasyMsg(noArc)		"Недостаточно расстояний для arcsection"
+set geoEasyMsg(noPol)		"Недостаточно наблюдений для polar"
+set geoEasyMsg(noAdj)		"Недостаточно наблюдений для adjustment or no orientation for stations"
+set geoEasyMsg(noUnknowns)	"There are no unknowns for adjustment"
+set geoEasyMsg(pure)		"Too large  %s-%s %s %s\n iteration may neccessary"
+set geoEasyMsg(noCoo)		"Я не могу вычислить координаты"
+set geoEasyMsg(noAppCoo)	"Нет координат для точки"
+set geoEasyMsg(noAppZ)		"Нет высоты для"
+set geoEasyMsg(cantSave)    "Не удается сохранить файл"
+set geoEasyMsg(fewCoord)	"Недостаточно координат для вычисления"
+set geoEasyMsg(pointsDropped)	"Нет координат для точек:"
+set geoEasyMsg(delappr)		"Вы хотите удалить предварительные координаты?"
+set geoEasyMsg(delcoo)		"Вы хотите удалить все координаты?"
+set geoEasyMsg(delpnt)		"Вы хотите удалить все точки?"
+set geoEasyMsg(deldetailpnt)		"Вы хотите удалить всех detail points?"
+set geoEasyMsg(delori)		"Вы хотите удалить все orientations?"
+set geoEasyMsg(nodetail)    "No detail points to calculate"
+
+set geoEasyMsg(double)		"Двойные координаты"
+set geoEasyMsg(noEle)		"Недостаточно наблюдений для расчета высоты"
+set geoEasyMsg(wrongsel)	"Неправильный выбор"
+set geoEasyMsg(wrongsel1)	"Выберите именно %d элементов"
+set geoEasyMsg(wrongsel2)	"Выберите не менее %d элементов"
+set geoEasyMsg(nst)			"Количество occupations:"
+set geoEasyMsg(ndist)		"Количество расстояний:"
+set geoEasyMsg(next)		"Количество внешних направлений:"
+set geoEasyMsg(usedPn)		"Имя точки, уже используемое в загруженном наборе данных"
+set geoEasyMsg(dblPn)		"Repeated point number/coordinate"
+set geoEasyMsg(nonNumPn)	"Skipped non numeric point numbers:"
+set geoEasyMsg(units)		"Meter and DMS units can be used only"
+set geoEasyMsg(nomore)		"No more found"
+set geoEasyMsg(tajErr)		"Direction error over limit"
+set geoEasyMsg(finalize)	"Finalize preliminary coordinates?"
+set geoEasyMsg(logDelete)	"Вы хотите удалить файл журнала?"
+set geoEasyMsg(cancelled)	"Операция отменена"
+set geoEasyMsg(dist)		"Расчет расстояния"
+set geoEasyMsg(area)		"Расчет площади"
+set geoEasyMsg(sum)			"Сумма"
+set geoEasyMsg(sum1)		"Площадь"
+set geoEasyMsg(sum2)		"Периметр"
+set geoEasyMsg(endp)		"Endpoint?"
+set geoEasyMsg(maxGr)		"10 graphic windows can be opened only"
+set geoEasyMsg(orist)		"Not enough known (N,E,Z) oriented stations"
+
+set geoEasyMsg(linreg)		"Линия регрессии не может быть рассчитана"
+set geoEasyMsg(planreg)		"Регрессионная плоскость не может быть рассчитана"
+
+set geoEasyMsg(check)		"Fieldbook проверка"
+set geoEasyMsg(missing)		"Отсутствует обязательное значение %s в строке %s"
+set geoEasyMsg(together)	"Отсутствует значение %s в строке %s"
+set geoEasyMsg(notTogether)	"Значения не могут использоваться вместе с %s в строке %s"
+set geoEasyMsg(stationpn)	"Station and target are the same point %s at line %s"
+set geoEasyMsg(missingstation) "Отсутствует станция до строки %s"
+set geoEasyMsg(doublepn)	"Повторная точка для станции %s в строке %s"
+set geoEasyMsg(numError)	"Ошибка %d"
+set geoEasyMsg(csvwarning)	"Чтобы сохранить координаты для импорта в другое программное обеспечение, используйте 'Сохранить как' в главном окне. Вы хотите продолжить?"
+
+set geoEasyMsg(tinfailed)	"Не удалось создать DTM"
+set geoEasyMsg(tinload)     "Не удалось открыть DTM"
+set geoEasyMsg(fewmassp)	"Few points to create DTM"
+set geoEasyMsg(delbreakline) "Delete break line?"
+set geoEasyMsg(delhole)		"Delete marker?"
+set geoEasyMsg(deldtmpnt)	"Удалить точку DTM?"
+set geoEasyMsg(deldtmtri)	"Удалить треугольник DTM?"
+set geoEasyMsg(errsavedtm)	"Ошибка сохранения DTM"
+
+set geoEasyMsg(stat)		"Статистика %d загруженных наборов данных\nКолчество пунктов: %d\nКоличество известных точек: %d\nКоличество detailed points: %d\nКоличество станций: %d\nКоличество известных станций: %d\nКоличество occupations: %d\nКоличество oriented occupations: %d\n"
+# gama
+set geoEasyMsg(gamapar)		"Adjustment parameters"
+set geoEasyMsg(gamaconf)    "Confidence level (0-1)"
+set geoEasyMsg(gamaangles)  "Angle units"
+set geoEasyMsg(gamatol)     "Tolerance \[mm\]"
+set geoEasyMsg(gamadirlimit)    "Distance limit \[m\]"
+set geoEasyMsg(gamashortout)    "Short output list"
+set geoEasyMsg(gamasvgout)  "SVG error ellipses"
+set geoEasyMsg(gamanull)	"No text file result"
+set geoEasyMsg(gamanull1)	"No xml file result"
+set geoEasyMsg(gamaori)		"Trouble storing orientation angle"
+set geoEasyMsg(gamastdhead0)    "Standard deviation of unit weight"
+set geoEasyMsg(gamastdhead1)    "  m0  apriori    :"
+set geoEasyMsg(gamastdhead2)    "  m0' aposteriori:"
+set geoEasyMsg(gamastdhead3)    "% interval"
+set geoEasyMsg(gamastdhead4)    "contains the m0'/m0 value"
+set geoEasyMsg(gamastdhead5)    "doesn't contain the m0'/m0 value"
+set geoEasyMsg(gamacoohead0)    "Coordinates"
+set geoEasyMsg(gamacoohead1)    "Point id       E        N       Z"
+set geoEasyMsg(gamaobshead0)    "Observations"
+set geoEasyMsg(gamaobshead1)    "Station  Observed Adj.obs. Residual Stdev"
+#
+# tooltips
+#
+set geoEasyMsg(toolZoomin)	"Увеличить по окну или точке"
+set geoEasyMsg(toolZoomout)	"Уменьшить"
+set geoEasyMsg(toolPan)		"Pan"
+set geoEasyMsg(toolRuler)	"Расстояние"
+set geoEasyMsg(toolArea)	"Площадь"
+set geoEasyMsg(toolSp)		"Перемещение"
+set geoEasyMsg(toolReg)		"Регрессия"
+set geoEasyMsg(toolZdtm)	"Height interpolation"
+set geoEasyMsg(toolBreak)	"Break line"
+set geoEasyMsg(toolHole)	"Hole in DTM"
+set geoEasyMsg(toolXchgtri)	"Exchange triangles"
+#
+# dxf output
+#
+set geoEasyMsg(dxfpar)		"Параметры экспорта DXF"
+set geoEasyMsg(dxfinpar)	"Параметры импорта DXF"
+set geoEasyMsg(layer1)		"Название точечного слоя"
+set geoEasyMsg(block)		"Использовать блоки"
+set geoEasyMsg(layerb)		"Название блока"
+set geoEasyMsg(attrib)		"Атрибут номера точки"
+set geoEasyMsg(attrcode)	"Атрибут кода точки"
+set geoEasyMsg(attrelev)	"Атрибут высоты точки"
+set geoEasyMsg(pcode)		"Point code to layer"
+set geoEasyMsg(xzplane)		"Рисовать в плоскости yz"
+set geoEasyMsg(useblock)	"Блоки"
+set geoEasyMsg(pcode1)		"Read point code from layer name"
+set geoEasyMsg(dxfpnt)		"Использовать точки"
+set geoEasyMsg(3d)			"3D"
+set geoEasyMsg(addlines)    "Linework"
+set geoEasyMsg(pd)			"Detail points only"
+set geoEasyMsg(ptext)		"Point numbers from text"
+set geoEasyMsg(layer2)		"Имя слоя"
+set geoEasyMsg(layer3)		"Имя слоя"
+set geoEasyMsg(ssize)		"Размер символа"
+set geoEasyMsg(pnon)		"Point name labels"
+set geoEasyMsg(dxpn)		"X shift"
+set geoEasyMsg(dypn)		"Y shift"
+set geoEasyMsg(pzon)		"Elevation labels"
+set geoEasyMsg(dxz)			"X shift"
+set geoEasyMsg(dyz)			"Y shift"
+set geoEasyMsg(zdec)		"Десятичные числа"
+set geoEasyMsg(spn)			"Размер текста"
+set geoEasyMsg(sz)			"Размер текста"
+set geoEasyMsg(layerlist)	"Список слоев ..."
+set geoEasyMsg(blocklist)	"Список блоков ..."
+set geoEasyMsg(attrlist)	"Список атрибутов ..."
+#
+#	txt columns
+#
+set geoEasyMsg(txtcols)		"Столбцы в файле"
+#
+# parameters
+#
+set geoEasyMsg(parTitle)	"Параметры расчета"
+set geoEasyMsg(projred)		"Reduction for projection \[mm/km\]:"
+set geoEasyMsg(avgh)		"Средняя высота над MSL \[m\]:"
+set geoEasyMsg(stdangle)	"Стандартное отклонение для направлений \[\"\]:"
+set geoEasyMsg(stddist1)	"Стандартное отклонение для расстояний \[mm\]:"
+set geoEasyMsg(stddist2)	"Стандартное отклонение для расстояний \[mm/km\]:"
+set geoEasyMsg(stdlevel)	"Стандартное отклонение для высот \[mm/km\]:"
+set geoEasyMsg(refr)		"Рассчитать преломление и кривую Земли"
+set geoEasyMsg(dec)			"Десятичные результаты:"
+#
+# color dialog
+#
+set geoEasyMsg(colTitle)	"Настройки цвета"
+set geoEasyMsg(mask)		"Mask window"
+set geoEasyMsg(mask1Color)	"1st colour in mask window:"
+set geoEasyMsg(mask2Color)	"2nd colour in mask window:"
+set geoEasyMsg(mask3Color)	"3nd colour in mask window:"
+set geoEasyMsg(mask4Color)	"4th colour in mask window:"
+set geoEasyMsg(mask5Color)	"5th colour in mask window:"
+set geoEasyMsg(obsColor)	"Цвет наблюдения"
+set geoEasyMsg(lineColor)	"Цвет линии:"
+set geoEasyMsg(finalColor)	"Конечные координаты:"
+set geoEasyMsg(apprColor)	"Предварительные координаты:"
+set geoEasyMsg(nostationColor) "Цвет точки:"
+set geoEasyMsg(stationColor) "Цвет станции:"
+set geoEasyMsg(orientColor)	"Цвет ориентированной станции:"
+#
+# other parameters
+#
+set geoEasyMsg(oparTitle)	"Другие параметры"
+set geoEasyMsg(lcoosep)		"Разделитель в экспортируемых списках:"
+set geoEasyMsg(ltxtsep)		"Разделители в импортированных списках:"
+set geoEasyMsg(lmultisep)	"Пропустить повторные разделители"
+set geoEasyMsg(lautor)		"Автообновление окон"
+set geoEasyMsg(llang)		"Язык:"
+set geoEasyMsg(loridetail)  "Use detail points in orientation and adjustment"
+set geoEasyMsg(lbrowser)	"Браузер:"
+set geoEasyMsg(lrtfview)	"RTF просмотрщик:"
+set geoEasyMsg(defaultgeomask) "Default fieldbook mask:"
+set geoEasyMsg(defaultcoomask) "Default coordinate mask:"
+set geoEasyMsg(maskrows)	"Number of rows in masks:"
+set geoEasyMsg(langChange)	"Сохранить параметры и перезапустить программу для изменения языка"
+set geoEasyMsg(lheader)		"Number of header lines:"
+set geoEasyMsg(lfilter)		"Filter expression (regexp):"
+#
+# tip parameters
+#
+set geoEasyMsg(tinpar)		"Создать DTM"
+set geoEasyMsg(gepoints)	"Из точек в списках координат"
+set geoEasyMsg(dxffile) 	"Из файла DXF"
+set geoEasyMsg(dxfpoint)	"Слой для mass points:"
+set geoEasyMsg(dxfbreak)	"Слой для break line:"
+set geoEasyMsg(dxfhole)		"Слой для hole markers:"
+set geoEasyMsg(asciifile)	"Из текстового файла"
+set geoEasyMsg(convex)		"Выпуклая граница"
+#
+# contour parameters
+#
+set geoEasyMsg(contourpar)	"Контурные линии"
+set geoEasyMsg(contourInterval) "Контурный интервал:"
+set geoEasyMsg(contourLayer)	"Название слоя для высот"
+set geoEasyMsg(contour3Dface)	"3DFaces to DXF"
+set geoEasyMsg(contourIntErr) "Недопустимый контурный интервал или DTM"
+#
+# volume calculation
+#
+set geoEasyMsg(volumepar)	"Расчет объема"
+set geoEasyMsg(volumeLevel)	"Эталонная высота:"
+set geoEasyMsg(volumeErr)	"Недопустимая эталонная высота или DTM"
+
+# orthogonal transformation
+set geoEasyMsg(trpar)		"Параметры преобразования"
+set geoEasyMsg(trdy)		"Shift E:"
+set geoEasyMsg(trdx)		"Shift N:"
+set geoEasyMsg(trrot)		"Вращение (DMS):"
+set geoEasyMsg(trscale)		"SМасштабный коэффициен E and N:"
+set geoEasyMsg(trdz)		"Shift Z:"
+set geoEasyMsg(trscalez)	"Масштабный коэффициен для Z:"
+set geoEasyMsg(allparnum)	"Число параметров в файле больше 21"
+
+# point filter dialog
+set geoEasyMsg(filterpar)   "Фильтр точек"
+set geoEasyMsg(allpoints)   "Все точки"
+set geoEasyMsg(pointno)     "Номер точки"
+set geoEasyMsg(pointrect)   "Прямоугольник"
+set geoEasyMsg(pointcode)   "Код точки"
+
+# observation parameters
+set geoEasyMsg(parmask)		"Параметры"
+
+set geoEasyMsg(horizDia)	"Новые точки, новые orientations:"
+set geoEasyMsg(oriDia)		"Новые orientations:"
+set geoEasyMsg(elevDia)		"Новые точки:"
+set geoEasyMsg(adjDia)		"Наблюдения, неизвестные: "
+set geoEasyMsg(adjModule)	"Модуль Network adjustment нуждается в gama-local, установите его"
+set geoEasyMsg(dtmModule)	"Модуль DTM нуждается в triangle, установите его"
+set geoEasyMsg(crsModule)	"Reprojection нуждается в cs2cs (from Proj), установите его"
+set geoEasyMsg(travLine)	"line"
+set geoEasyMsg(trigLineToo)	"Trigonometric line too?"
+set geoEasyMsg(noTra)		"Few points for traverse"
+set geoEasyMsg(noTraCoo)	"Нет координат для 1-й точки"
+set geoEasyMsg(startTra)	"Первая точка"
+set geoEasyMsg(nextTra)		"Следующая точка"
+set geoEasyMsg(numTra)		"Номер точки для узла:"
+set geoEasyMsg(nodeTra)		"Узел"
+set geoEasyMsg(freeTra)		"Нет координаторов для конечной точки\nfree taverse"
+set geoEasyMsg(firstTra)	"No orientation on 1st point\nbeillesztett traverse"
+set geoEasyMsg(lastTra)		"No orientation on last point\negyszeresen taj."
+set geoEasyMsg(firstTra)	"No orientation on first beillesztett"
+set geoEasyMsg(lastTra)		"No orientation on last egyik vegen"
+set geoEasyMsg(distTra)		"Missing distance in traverse"
+set geoEasyMsg(angTra)		"Missing angle in traverse"
+set geoEasyMsg(error1Tra)	"Error limits                 Angle (sec)        Distance (cm)"
+set geoEasyMsg(error2Tra)	"Main, precise traversing "
+set geoEasyMsg(error3Tra)	"Precise traversing       "
+set geoEasyMsg(error4Tra)	"Main traversing          "
+set geoEasyMsg(error5Tra)	"Traversing               "
+set geoEasyMsg(error6Tra)	"Rural main traversing    "
+set geoEasyMsg(error7Tra)	"Rural traversing         "
+set geoEasyMsg(travChk)		"Traversing"
+set geoEasyMsg(trigChk)		"Trigonometric line"
+set geoEasyMsg(miszTri)		"Missing heighti at the start point in trigonometric line"
+set geoEasyMsg(freeTri)		"Free trigonometric line"
+set geoEasyMsg(dzTri)		"Cannnot calculate height diff. in trigonometric line"
+set geoEasyMsg(errorTri)	"Error limit: "
+set geoEasyMsg(limTrig)		"Error is over limit\nDo you want to store heights?"
+#
+# coordinate transformation
+#
+set geoEasyMsg(fromCS)		"Набор данных для преобразования"
+set geoEasyMsg(toCS)		"Целевой набор данных"
+set geoEasyMsg(fewPoints)	" Несколько точек для преобразования"
+set geoEasyMsg(pnttitle)	"Ориентиры"
+set geoEasyMsg(typetitle)	"Тип преобразования"
+set geoEasyMsg(typeHelmert4) "4 parameters orthogonal transformation"
+set geoEasyMsg(typeHelmert3) "3 parameters orthogonal transformation"
+set geoEasyMsg(typeAffin)	"Affine transformation"
+set geoEasyMsg(typePoly2)   "2nd order polynom transformation"
+set geoEasyMsg(typePoly3)   "3rd order polynom transformation"
+set geoEasyMsg(trSave)		"Save transformed coordinates to file"
+set geoEasyMsg(parSave)		"Save transformation parameters to file"
+set geoEasyMsg(formulaH4y)	"  E = %s + e * %.9f - n * %.9f"
+set geoEasyMsg(formulaH4x)	"  N = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaH3y)	"  E = %s + e * %.9f - n * %.9f"
+set geoEasyMsg(formulaH3x)	"  N = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaAfy)	"  E = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaAfx)	"  N = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaPrmy) "  E = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaPrmx) "  N = %s + e * %.9f + n * %.9f"
+
+set geoEasyMsg(formulaP2)	"  y' = y - %s    x' = x - %s"
+set geoEasyMsg(formulaP2y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y' * %.8e + x'^2 * %.8e"
+set geoEasyMsg(formulaP2x)	"  X = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y' * %.8e + x'^2 * %.8e"
+set geoEasyMsg(formulaP3y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
+set geoEasyMsg(formulaP3x)	"  X = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
+set geoEasyMsg(formula1D)	"  Z = z + %s"
+set geoEasyMsg(scaleRot)	"  Scale = %.8f Rotation = %s"
+#
+# find/replace dialog
+#
+set geoEasyMsg(findpar)     "Найти/заменить"
+set geoEasyMsg(findWhat)    "Найти:"
+set geoEasyMsg(replaceWith) "Заменить:"
+set geoEasyMsg(findMode)    "Регулярное выражение"
+#
+# about window messages
+#
+set y [clock format [clock seconds] -format %Y]
+set geoEasyMsg(digikom)		"Sponsored by DigiKom Ltd."
+set geoEasyMsg(about1)		"Геодезические вычисления"
+set geoEasyMsg(about2)		"для землеустроителей"
+set geoEasyMsg(modules)		"Модули:"
+#
+# text window headers
+#
+set geoEasyMsg(logWin)		"Результаты вычислений"
+set geoEasyMsg(consoleWin)	"Tcl консоль"
+#
+# resize mask
+#
+set geoEasyMsg(rowCount)	"Количество строк:"
+set geoEasyMsg(resize)		"Размер окна"
+#
+# log messages
+#
+set geoEasyMsg(start)		"GeoEasy started"
+set geoEasyMsg(stop)		"GeoEasy stopped"
+set geoEasyMsg(load)		"data set loaded"
+set geoEasyMsg(save)		"data set saved"
+set geoEasyMsg(saveas)		"data set saved as:"
+set geoEasyMsg(unload)		"data set closed"
+set geoEasyMsg(psave)		"project saved"
+set geoEasyMsg(pload)		"project loaded"
+#
+set geoEasyMsg(faces)		"Two faces "
+set geoEasyMsg(face2)		"Station   Collimation     Index Distance T.height"
+set geoEasyMsg(face3)		"Target        error       error   diff.    diff."
+set geoEasyMsg(noface2)		"Double observed point or too big difference between the two faces %s"
+set geoEasyMsg(msgsave)		"Parameters saved to geo_easy.msk\nprevious parameters are backed up into geo_easy.msk.bak."
+#
+#	headers for fixed forms (traversing & adjustment)
+#
+set geoEasyMsg(tra1)        "Open, no orientation"
+set geoEasyMsg(tra2)        "Open, one orientation"
+set geoEasyMsg(tra3)        "Open, two orientation"
+set geoEasyMsg(tra4)		"Free end"
+set geoEasyMsg(head1Tra)	"            bearing    bw dist"
+set geoEasyMsg(head2Tra)	"Point        angle     distance  (dE)     (dN)       dE         dN"
+set geoEasyMsg(head3Tra)	"           correction  fw dist    corrections      Easting    Northing"
+
+set geoEasyMsg(head1Adj)	"Station    Point      Observation  Residual   Adjusted obs."
+set geoEasyMsg(m0Adj)		"Standard deviation of unit weight: %8.4f Number of extra observations %d"
+set geoEasyMsg(head2Adj)	"Point      Code        Easting    dE    std dev  Northing  dN    std dev"
+set geoEasyMsg(head1Trig)	"                       Height differences"
+set geoEasyMsg(head2Trig)	"Point    Distance   Foward Backward    Mean  Correction Elevation"
+set geoEasyMsg(head1Sec)    "Point num  Code              E            N       Bearing"
+set geoEasyMsg(head1Res)    "Point num  Code              E            N        Direction  Angle"
+set geoEasyMsg(head1Arc)    "Point num  Code              E            N        Distance"
+set geoEasyMsg(head1Pol)    "Point num  Code              E            N      Distance    Bearing"
+set geoEasyMsg(head1Pnt)    "Point num  Code              E            N      Distance    Total dist"
+set geoEasyMsg(head1Ele)    "Point num  Code            Height      Distance"
+set geoEasyMsg(head1Det)	"                                                                         Oriented   Horizontal"
+set geoEasyMsg(head2Det)    "Point num  Code              E            N              H   Station     direction  distance"
+set geoEasyMsg(head1Ori)    "Point num  Code         Direction    Bearing   Orient ang   Distance   e\" e\"max   E(m)"
+set geoEasyMsg(head1Dis)    "Point num  Point num  Bearing   Distance Slope dis Zenith angle"
+set geoEasyMsg(head1Angle)  "Point num  Bearing   Distance Angle     Angle from 1st  Local E     Local N"
+# transformation
+set geoEasyMsg(head1Tran)	"Point num          e            n            E            N          dE           dN           dist"
+set geoEasyMsg(head2Tran)	"Point num          e            n            E            N"
+set geoEasyMsg(head1HTran)	"Point num          z            Z           dZ"
+set geoEasyMsg(head2HTran)	"Point num          z            Z"
+set geoEasyMsg(headTraNode)	"Point num    Length         E            N"
+set geoEasyMsg(headTrigNode)	"Point num    Length         Z"
+set geoEasyMsg(headDist)	"Point num          E            N         Length"
+set geoEasyMsg(head1Front)	"Point num  Code                E            N            dE          dN           Z            dZ"
+#
+# regression
+#
+set geoEasyMsg(cantSolve)		"Cannot solve the task"
+set geoEasyMsg(head0LinRegX)    "N = %+.8f * E %s"
+set geoEasyMsg(head0LinRegY)    "E = %+.8f * N %s"
+set geoEasyMsg(hAngleReg)       "Angle from east:"
+set geoEasyMsg(vAngleReg)       "Angle from north:"
+set geoEasyMsg(correlation)     "Correlation coefficient:"
+set geoEasyMsg(head1LinRegX)	"Point num          E            N            dN"
+set geoEasyMsg(head1LinRegY)	"Point num          E            N            dE"
+set geoEasyMsg(head2LinReg)		"Point num          E            N            dE          dN          dist"
+set geoEasyMsg(head0PlaneReg)	"z = %s %+.8f * E %+.8f * N"
+set geoEasyMsg(head00PlaneReg)	"Slope direction: %s  Slope angle: %s"
+set geoEasyMsg(head1PlaneReg)	"Point num          E            N            Z           dZ"
+set geoEasyMsg(head0CircleReg)  "Y0 = %s X0 = %s R = %s"
+set geoEasyMsg(head1CircleReg)	"Point num          E            N            dE           dN           dR"
+set geoEasyMsg(head2CircleReg)  "After %d iteration greater than %.4f m change in unknowns"
+set geoEasyMsg(head0HPlaneReg)  "z = %s"
+set geoEasyMsg(head0LDistReg)   "Distance from the %s - %s line"
+set geoEasyMsg(head1LDistReg)	"Point num          E            N        Distance         dE           dN"
+set geoEasyMsg(head0PDistReg)   "Distance from the %s - %s - %s plane"
+set geoEasyMsg(head1PDistReg)	"Point num          E            N            Z        Distance         dE            dN            dZ"
+set geoEasyMsg(head0SphereReg)	"E0 = %s N0 = %s Z0 = %s R = %s"
+set geoEasyMsg(head1SphereReg)	"Point num          E            N            Z            dE           dN            dZ           dR"
+set geoEasyMsg(head0Line3DReg)  "E = %s %+.8f * t\nN = %s %+.8f * t\nZ = %s %+.8f * t"
+set geoEasyMsg(head1Line3DReg)  "Point num          E            N            Z            dE           dN           dZ           dt"
+#
+# dtm
+#
+set geoEasyMsg(creaDtm)		"Failed to create DTM"
+set geoEasyMsg(loadDtm)		"Failed to load DTM"
+set geoEasyMsg(regenDtm)	"Regenerate DTM? To create a new DTM close the loaded DTM."
+set geoEasyMsg(closDtm)		"Previous DTM will be closed"
+set geoEasyMsg(saveDtm)		"Do you want to save previous DTM?"
+set geoEasyMsg(ZDtm)		"Height: %.2f m"
+set geoEasyMsg(noZDtm)		"No height for the point"
+set geoEasyMsg(zfaclabel)	"Z factor"
+set geoEasyMsg(gridtitle)   "ASCII GRID"
+set geoEasyMsg(griddx)  	"Grid step:"
+set geoEasyMsg(griddx1)  	"Grid step: %.2f"
+set geoEasyMsg(llc)  		"Lower left  corner: %.2f %.2f"
+set geoEasyMsg(urc)  		"Upper right corner: %.2f %.2f"
+set geoEasyMsg(gridvrml)  	"VRML export"
+set geoEasyMsg(cs2cs)		"Reprojection failed"
+set geoEasyMsg(headVolume)	"Base height  Volume        Above        Below       Area     Surface area"
+set geoEasyMsg(dtmStat)		"%s DTM\n%d points\n%d triangles\n%d break lines/border lines\n%d holes\nE min: %.2f\nN min: %.2f\nH min: %.2f\nE max: %.2f\nN max: %.2f\nH max: %.2f"
+set geoEasyMsg(voldif)  "Cut  Volume: %.1f m3 Area: %.1f m2\nFill Volume: %.1f m3  Area: %.1f m2\nSame: %.1f m2"
+set geoEasyMsg(interpolateTin) "Interpolation:"
+set geoEasyMsg(interptitle) "Profile"
+set geoEasyMsg(lx) "E start: "
+set geoEasyMsg(ly) "N start: "
+#set geoEasyMsg(lz) "Z: "
+set geoEasyMsg(lx1) "E end: "
+set geoEasyMsg(ly1) "N end: "
+set geoEasyMsg(ldxf) "DXF file"
+set geoEasyMsg(lstep) "Step: "
+# arc setting out
+set geoEasyMsg(cornerTitle) "Arc corner"
+set geoEasyMsg(spTitle) "First line"
+set geoEasyMsg(epTitle) "Second line"
+set geoEasyMsg(arcPar) "Arc parameters"
+set geoEasyMsg(arcRadius) "Radius"
+set geoEasyMsg(arcParam) "Transition parameter"
+set geoEasyMsg(arcTran) "Transition curve\n  parameter: %.1f\n  dR: %.2f\n  length: %.2f\n  X0: %.2f"
+set geoEasyMsg(arcStep) "Distance between detail points \[m\]"
+set geoEasyMsg(arcNum) "or number of points"
+set geoEasyMsg(arcSave) "Save coordinates"
+set geoEasyMsg(arcPrefix) "Point id prefix"
+set geoEasyMsg(arcT) "Tangent length"
+set geoEasyMsg(arcP) "Transitive arc parameter"
+set geoEasyMsg(arcAlpha) "Alpha: %s  Beta: %s"
+set geoEasyMsg(arcHeader) "  Point id          E              N"
+set geoEasyMsg(fromEpsg) "Source projection"
