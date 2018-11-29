@@ -512,6 +512,9 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 		}
 	}
 	GeoDiaEnd .dia
+	if {$nmeasure < 2} {
+		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+	}
 	# xml output
 	set xml [open $fn w]
 	puts $xml "<?xml version=\"1.0\" ?>"
@@ -929,6 +932,9 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 		return 0
 	}
 	GeoDiaEnd .dia
+	if {$nmeasure < 3} {
+		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+	}
 	# xml output
 	set xml [open $fn w]
 	puts $xml "<?xml version=\"1.0\" ?>"
@@ -1416,6 +1422,9 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 		return 0
 	}
 	GeoDiaEnd .dia
+	if {$nmeasure < 4} {
+		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+	}
 	# xml output
 	set xml [open $fn w]
 	puts $xml "<?xml version=\"1.0\" ?>"
