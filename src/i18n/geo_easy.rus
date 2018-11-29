@@ -442,6 +442,7 @@ set geoEasyMsg(noAdj)		"Недостаточно наблюдений для adj
 set geoEasyMsg(noUnknowns)	"There are no unknowns for adjustment"
 set geoEasyMsg(pure)		"Too large  %s-%s %s %s\n iteration may neccessary"
 set geoEasyMsg(noCoo)		"Я не могу вычислить координаты"
+set geoEasyMsg(noObs)       "Not enough observations for adjustment"
 set geoEasyMsg(noAppCoo)	"Нет координат для точки"
 set geoEasyMsg(noAppZ)		"Нет высоты для"
 set geoEasyMsg(cantSave)    "Не удается сохранить файл"
