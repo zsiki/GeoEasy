@@ -442,6 +442,7 @@ set geoEasyMsg(noAdj)		"Not enough observations for adjustment or no orientation
 set geoEasyMsg(noUnknowns)	"There are no unknowns for adjustment"
 set geoEasyMsg(pure)		"Too large  %s-%s %s %s\n iteration may neccessary"
 set geoEasyMsg(noCoo)		"I cannot calculate coordinates"
+set geoEasyMsg(noObs)		"Not enough observations for adjustment"
 set geoEasyMsg(noAppCoo)	"No coordinates for point"
 set geoEasyMsg(noAppZ)		"No elevation for"
 set geoEasyMsg(cantSave)    "Can't save file"
