@@ -440,6 +440,7 @@ set geoEasyMsg(noAdj)		"Keine Rohkoordinaten vorhanden oder die Anzahl der Messu
 set geoEasyMsg(noUnknowns)  "There are no unknowns for adjustment"
 set geoEasyMsg(pure)		"Túl nagy tisztatag %s-%s %s %s\n iterációra lehet szükség"
 set geoEasyMsg(noCoo)		"Koordinatenberechnung nicht möglich."
+set geoEasyMsg(noObs)       "Not enough observations for adjustment"
 set geoEasyMsg(noAppCoo)	"Keine Koordinaten vorhanden"
 set geoEasyMsg(noAppZ)		"Punkthöhen nicht vorhanden"
 set geoEasyMsg(cantSave)	"Die Speicherung der Datei ist fehlgeschlagen."
