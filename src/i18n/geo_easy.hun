@@ -444,6 +444,7 @@ set geoEasyMsg(noAdj)		"Nincs elõzetes koordináta vagy elég mérés a kiegyenlítés
 set geoEasyMsg(noUnknowns)  "Nincsenek ismeretlenek a kiegyenlítéshez"
 set geoEasyMsg(pure)		"Túl nagy tisztatag %s-%s %s %s\n iterációra lehet szükség"
 set geoEasyMsg(noCoo)		"Nem tudok koordinátát számítani"
+set geoEasyMsg(noObs)       "Not enough observations for adjustment"
 set geoEasyMsg(noAppCoo)	"Nincs koordináta a pont(ok)ra"
 set geoEasyMsg(noAppZ)		"Nincs magasság a pontokra"
 set geoEasyMsg(cantSave)	"Nem sikerült a fájl mentése"
