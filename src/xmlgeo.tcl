@@ -348,7 +348,7 @@ proc GetHdW {st st_buf tg tg_buf w1} {
 	set th [GetVal 6 $tg_buf]
 	if {$th == ""} {set th 0}	;# default taget height
 	set d [GetVal 11 $tg_buf]
-	set dm [GetVal 120 $tg_buf]
+	set dm [GetVal {120 10} $tg_buf]
 	if {($sd != "" || $d != "") && $z != "" && $ih != ""} {	;# trigonometric height diff
 		if {$d == ""} {
 			set d [expr {$sd * sin($z)}]	;# horizontal distance
