@@ -17,22 +17,22 @@ output formats, so it can easily be inserted into user’s work-flow.
 GeoEasy main window
 -------------------
 
-Starting the program the main window appears at upper left corner of the 
-display. This window has menus only. If the globe is not rotating the 
-program is busy, the user have to wait.
+Starting the program the main window appears at the upper left corner of the 
+display. This window has only menus and decorations. If the globe is not
+rotating the program is busy, the user have to wait.
 
 File menu
 ~~~~~~~~~
 
-In the file menu the besides the file and project handling functions the
-communicaton program (ComEasy) and settings are available.
-projects, the third group 
+In the file menu besides the file and project handling functions the
+communicaton program (ComEasy) and settings can be found.
 
 New
 ...
 
 A new geo data set is created, in the **Save As** dialog of the operating system
 the user can set the location and the name of the new file.
+The type of the new file will be the nativ GeoEasy *geo* format.
 
 .. image:: rg_images/new.png
 	:align: center
@@ -40,7 +40,7 @@ the user can set the location and the name of the new file.
 Load
 ....
 
-Open one or more data set. There are several data types you can select from
+Open one or more data sets. There are several data types you can select from
 (e.g. .geo, .csv, .gsi, etc). You can select more files to load, use Shift or
 Ctrl key to select more files. Only the 
 memory of the computer limits the number of loaded data sets.
@@ -51,9 +51,11 @@ memory of the computer limits the number of loaded data sets.
 If the observations were made in face left and face right, from the readings on
 the horizontal and vertical circle and the distances an average is calculated.
 GeoEasy stores and uses these average values.
+Averages are calculated if the collimation and index errors are below the 
+**maxColl** and **maxIndex** values set in the geo_easy.msk file.
 
 .. note::
-	The name of the loaded data sets must be different even if they are
+	The name of the loaded data sets must be unique even if they were
 	loaded from different folders.
 
 Close
@@ -61,7 +63,8 @@ Close
 
 Close a loaded data set. Beside this menu option a cascading list of the
 loaded data sets pops up. The user can select a data set name from the list.
-If the data set to close have been changed, the user has an option to save it.
+If the data set to be closed have been changed, the user has an option to save 
+it.
 
 Save
 ....
@@ -75,7 +78,7 @@ files is the same as the loaded data set.
 Save all
 ........
 
-Save all changed data set to GeoEasy format.
+Save all changed data sets to GeoEasy format.
 
 Save as
 .......
@@ -104,10 +107,15 @@ select fixed and adjusted points. Only the observation belonging to the
 selected points are written to the output file.
 If no fixed points are selected a free network adjustment is solved.
 
+.. note::
+
+	GNU Gama export is only necessary if you would like edit the 
+	xml file before adjustment.
+
 Load project
 ............
 
-Load a previously saved project. Data set and windows are opened a saved to
+Load a previously saved project. Data set and windows are opened as saved to
 the project.
 
 Save project
@@ -115,12 +123,12 @@ Save project
 
 Save the actual state of GeoEasy. The list of  opened datasets and windows are 
 saved into the project file (.gpr). The project file is a simple text file.
-to the project
 
 Close project
 .............
 
-Close all data sets and windows except **Calculation results** and main window.
+Close all opened data sets and windows except **Calculation results** and 
+main window.
 
 ComEasy
 .......
