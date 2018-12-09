@@ -20,7 +20,7 @@ set comTypes {
 	{"TopCon GTS-210" {.210}}
 	{"Trimble M5" {.m5}}
 	{"Nikon DTM-300" {.nik}}
-	{"Geodat 124 formátum" {.dat}}
+	{"Geodat 124 формат" {.dat}}
 	{"Все файлы" {.*}}
 }
 
@@ -78,7 +78,7 @@ set comEasyMsg(load)			"Загрузить"
 # error messages
 set comEasyMsg(warning)			"предупреждение"
 set comEasyMsg(helpfile)		"Файл справки не найден"
-set comEasyMsg(browser)			"Справка не может быть отображена\nregister your word html browser to open .html files"
+set comEasyMsg(browser)			"Справка не может быть отображена\nсделайте ассоциацию браузера, чтобы открыть .html файлы"
 set comEasyMsg(gizidll)			"Код ошибки установки=1"
 set comEasyMsg(comOpen)			"Ошибка открытия канала"
 set comEasyMsg(comConfigure)	"Ошибка настройки канала"
