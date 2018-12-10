@@ -23,6 +23,17 @@ See the [doc](./doc) folder for various reStructuredText files, the [wiki](https
 Users can select source or [binary releases](http://digikom.hu/english/geo_easy_e.html). Linux and Windows operating
 systems are supported. See the [installation guide](doc/install.rst).
 
+## Localization
+
+GeoEasy available in different languages. You can localize GeoEasy to your language, see [wiki page](https://github.com/zsiki/GeoEasy/wiki/How-to-localize-GeoEasy-to-my-mother-tongue%3F)
+
+| Language  | Translator(s)                                |
+|-----------|----------------------------------------------|
+| Czech     | Bc. Tomáš Bouček, Bc. Jana Špererová         |
+| Russian   | звездочёт (zvezdochiot)                      |
+| Hungarian | Zoltán Siki                                  |
+| English   | Andras Gabriel, Zoltán Siki                  |
+
 ## Open source software/packages used
 
 * Tcl/Tk (https://www.tcl.tk/) the programming language for the project
