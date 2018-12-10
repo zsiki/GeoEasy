@@ -27,12 +27,12 @@ systems are supported. See the [installation guide](doc/install.rst).
 
 GeoEasy available in different languages. You can localize GeoEasy to your language, see [wiki page](https://github.com/zsiki/GeoEasy/wiki/How-to-localize-GeoEasy-to-my-mother-tongue%3F)
 
-| Language  | Translator(s)                                |
-|-----------|----------------------------------------------|
-| Czech     | Bc. Tomáš Bouček, Bc. Jana Špererová         |
+| Language  | Translator(s)                                             |
+|-----------|-----------------------------------------------------------|
+| Czech     | Bc. Tomáš Bouček, Bc. Jana Špererová                      |
 | Russian   | звездочёт ([zvezdochiot](https://github.com/zvezdochiot)) |
-| Hungarian | Zoltán Siki                                  |
-| English   | Andras Gabriel, Zoltán Siki                  |
+| Hungarian | [Zoltán Siki](https://github.com/zsiki)                   |
+| English   | Andras Gabriel, [Zoltán Siki](https://github.com/zsiki)   |
 
 ## Open source software/packages used
 
