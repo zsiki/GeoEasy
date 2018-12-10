@@ -30,7 +30,7 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 | Language  | Translator(s)                                |
 |-----------|----------------------------------------------|
 | Czech     | Bc. Tomáš Bouček, Bc. Jana Špererová         |
-| Russian   | звездочёт (zvezdochiot)                      |
+| Russian   | звездочёт ([zvezdochiot](https://github.com/zvezdochiot)) |
 | Hungarian | Zoltán Siki                                  |
 | English   | Andras Gabriel, Zoltán Siki                  |
 
