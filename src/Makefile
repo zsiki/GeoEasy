@@ -38,7 +38,6 @@ EXTERNAL_CS2CS = `command -v cs2cs`
 EXTERNAL_GAMMALOCAL = `command -v gama-local`
 EXTERNAL_TRIANGLE = `command -v triangle`
 
-
 all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
 
 GeoEasy: GeoEasy.tcl

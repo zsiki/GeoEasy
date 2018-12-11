@@ -1,0 +1,890 @@
+#-------------------------------------------------------------------------------
+#
+#	-- GeoEasy message file
+#
+#-------------------------------------------------------------------------------
+global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
+	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
+	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+global geoCodes
+global geoEasyMsg
+
+# regression types
+global reglist
+set reglist { "2D linie" "Rovnoběžné 2D linie" "Kružnice" \
+	"Rovina" "Horizontální rovina" "Vertikální rovina" \
+	"Koule" "3D linie"} ;# "Vertikální paraboloid"
+
+set fileTypes {
+	{"GeoEasy" {.geo .GEO}}
+	{"Geodimeter" {.job .are .JOB .ARE}}
+	{"Sokkia set 4" {.set .scr .SET .SCR}}
+	{"Sokkia sdr" {.sdr .crd .SDR .CRD}}
+	{"Leica GSI" {.wld .gre .gsi .WLD .GRE .GSI}}
+	{"Leica IDEX" {.idx .IDX}}
+	{"TopCon GTS-700" {.700 .yxz .gts7 .YXZ .GTS7}}
+	{"TopCon GTS-210" {.210}}
+	{"Trimble M5" {.m5 .M5}}
+	{"SurvCE RAW" {.rw5 .RW5}}
+	{"n4ce txt" {.n4c N4C}}
+	{"Nikon DTM-300" {.nik .NIK}}
+	{"Geodat 124" {.gdt .GDT}}
+	{"GeoProfi" {.mjk .MJK}}
+	{"Souřadnice GeoProfi" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}
+	{"GeoCalc3" {.gmj .GMJ}}
+	{"GeoZseni" {.gjk .GJK}}
+	{"Seznam souřadnic" {.txt .csv .dat .pnt .TXT .CSV .DAT .PNT}}
+	{"Měřický zápisník" {.dmp .DMP}}
+	{"DTM GRID" {.asc .arx .ASC .ARX}}
+	{"AutoCAD DXF" {.dxf .DXF}}
+	{"Všechny soubory" {.*}}
+}
+
+set saveTypes {
+	{"GeoEasy" {.geo}}
+	{"Souřadnice Geodimeter" {.are}}
+	{"Měření a souřadnice Geodimeter" {.job}}
+	{"Souřadnice Sokkia set 4" {.scr}}
+	{"Souřadnice Sokkia sdr33" {.sdr}}
+	{"Souřadnice Leica 8 bytes" {.wld}}
+	{"Souřadnice Leica 16 bytes" {.gsi}}
+	{"Souřadnice Nikon DTM-300" {.nik}}
+	{"Měřický zápisník" {.dmp}}
+	{"Seznam souřadnic" {.csv}}
+	{"Seznam souřadnic ITR 2.x" {.itr}}
+	{"GPS trasa" {.txt}}
+	{"GPS XML" {.gpx}}
+	{"Keyhole Markup Language soubor" {.kml}}
+}
+
+set xmlTypes {
+	{"GNU GaMa xml pro 2D vyrovnání" {.g2d}}
+	{"GNU GaMa xml pro 1D vyrovnání" {.g1d}}
+	{"GNU GaMa xml pro 3D vyrovnání" {.g3d}}
+}
+
+set projTypes {{"GeoEasy projekt" {.gpr}}
+}
+
+set trTypes {{"Afinní transformace" {.prm}}
+}
+
+set trHTypes {{"Vertikální posun" {.vsh}}
+}
+
+set tr1Types {{"Ortogonální/Afinní transformace" {.prm}}
+}
+
+set tr2Types {{"TRAFO transformace" {.all}}
+}
+
+set tinTypes {{"GeoEasy DMT" {.dtm}}
+}
+
+set polyTypes {{"GeoEasy DMT zdrojový soubor" {.poly}}
+}
+
+set vrmlTypes {{"Soubor virtuální reality" {.wrl}}
+}
+
+set kmlTypes {{"Keyhole Markup Language soubor" {.kml}}
+}
+
+set grdTypes {{"ESRI ASCII GRID" {.asc}}
+        {"GRASS ASCII GRID" {.arx}}
+}
+
+set txpTypes {{"Definice souboru txt/csv .txp" {.txp}}
+}
+
+set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set mskTypes {{"GeoEasy maska" {.dxf}}
+}
+
+set lstTypes {{"Textový seznam" {.lst}}
+}
+
+set webTypes {{"Domovská stránka" {.html}}
+}
+
+set docTypes {{"Formát RTF" {.rtf}}
+}
+
+set csvTypes {{"Formát CSV" {.csv}}
+}
+
+set tclTypes {{"Tcl skript" {.tcl}}
+}
+
+#
+#	kódy použité v geodatasetu
+#
+set geoCodes(-1)	"Přeskočit"
+set geoCodes(0)		"Informarmace"
+set geoCodes(1)		"Použitá data v INFO/DATA kombinaci"
+set geoCodes(2)		"Číslo stanoviska"
+set geoCodes(3)		"Výška stroje"
+set geoCodes(4)		"Kód bodu"
+set geoCodes(5)		"Číslo bodu"
+set geoCodes(6)		"Výška cíle"
+set geoCodes(7)		"Vodorovný úhel"
+set geoCodes(8)		"Zenitový úhel"
+set geoCodes(9)		"Šikmá vzdálenost"
+set geoCodes(10)	"Převýšení"
+set geoCodes(120)   "Měřené převýšení" 
+set geoCodes(11)	"Vodorovná vzdálenost"
+set geoCodes(12)	"Výměra"
+set geoCodes(13)	"Kubatura"
+set geoCodes(14)	"Procento sklonu"
+set geoCodes(15)	"Area soubor"
+set geoCodes(16)	"C1-C2"
+set geoCodes(17)	"Vodorovný úhel - II. poloha"
+set geoCodes(18)	"Zenitový úhel - II. poloha"
+set geoCodes(19)	"dV"
+set geoCodes(20)	"Konstanta hranolu"
+set geoCodes(21)	"Směr na orientaci"
+set geoCodes(22)	"Kompenzátor"
+set geoCodes(23)	"Jednotky"
+set geoCodes(24)	"Voddorovný úhel - I. poloha"
+set geoCodes(25)	"Zenitový úhel - I. poloha"
+set geoCodes(26)	"SVA"
+set geoCodes(27)	"SHA"
+set geoCodes(28)	"SHD"
+set geoCodes(29)	"SHT"
+set geoCodes(30)	"Fyzikální korekce PPM"
+set geoCodes(37)	"X"
+set geoCodes(38)	"Y"
+set geoCodes(39)	"Z"
+set geoCodes(40)	"dX"
+set geoCodes(41)	"dY"
+set geoCodes(42)	"dZ"
+set geoCodes(43)	"Souřadnicový systém UTM"
+set geoCodes(44)	"Sklon svahu"
+set geoCodes(45)	"dHz"
+set geoCodes(46)	"Směrodatná odchylka"
+set geoCodes(47)	"Relativní souřadnice X"
+set geoCodes(48)	"Relativní souřadnice Y"
+set geoCodes(49)	"Vertikální vzdálenost"
+set geoCodes(50)	"Číslo zakázky"
+set geoCodes(51)	"Datum"
+set geoCodes(52)	"Čas"
+set geoCodes(53)	"Operátor id"
+set geoCodes(54)	"Číslo projektu"
+set geoCodes(55)	"Číslo stroje"
+set geoCodes(56)	"Teplota"
+set geoCodes(57)	"Prázdný řádek"
+set geoCodes(58)	"Poloměr Země"
+set geoCodes(59)	"Refrakce"
+set geoCodes(60)	"Shot identity"
+set geoCodes(61)	"Activity code"
+set geoCodes(62)	"Referenční objekt"
+set geoCodes(63)	"Průměr"
+set geoCodes(64)	"Poloměr"
+set geoCodes(65)	"Geometrie"
+set geoCodes(66)	"Figure"
+set geoCodes(67)	"SON"
+set geoCodes(68)	"SOE"
+set geoCodes(69)	"SHT"
+set geoCodes(72)	"Radoffs"
+set geoCodes(73)	"Rt.offs"
+set geoCodes(74)	"Tlak"
+set geoCodes(75)	"dHT"
+set geoCodes(76)	"dHD"
+set geoCodes(77)	"dHA"
+set geoCodes(78)	"com"
+set geoCodes(79)	"Konec"
+set geoCodes(80)	"Sekce"
+set geoCodes(81)	"A-parametr"
+set geoCodes(82)	"Část intervalu"
+set geoCodes(83)	"Cl.ofs"
+set geoCodes(100)	"Orientační posun"
+set geoCodes(101)	"Průměrný orientační posun"
+set geoCodes(102)	"Přibližná orientace"
+set geoCodes(103)	"Průměrná přibližná orientace"
+set geoCodes(110)   "Měřič"
+set geoCodes(111)   "Pořadí bodů"
+set geoCodes(112)   "Počet opakování"
+set geoCodes(114)   "Směrodatná odchylka směru \[\"\]"
+set geoCodes(115)   "Směrodatná odchylka vzdálenosti (aditivní) \[mm\]"
+set geoCodes(116)   "Směrodatná odchylka vzdálenosti (multiplikační) \[ppm\]"
+set geoCodes(117)	"Celková vzdálenost"
+set geoCodes(118)	"Směrodatná odchylka převýšení \[mm/km\]"
+set geoCodes(137)	"Přibližná souřadnice X"
+set geoCodes(138)	"Přibližná souřadnice Y"
+set geoCodes(139)	"Přibližná výška"
+set geoCodes(140)	"EPSG kód"
+#
+#	general messages button names
+#
+set geoEasyMsg(warning)		"Varování"
+set geoEasyMsg(error)		"Chyba"
+set geoEasyMsg(info)		"Info"
+set geoEasyMsg(ok)			"OK"
+set geoEasyMsg(yes)			"Ano"
+set geoEasyMsg(no)			"Ne"
+set geoEasyMsg(cancel)		"Zrušit"
+set geoEasyMsg(loadbut)		"Načíst"
+set geoEasyMsg(savebut)		"Uložit"
+set geoEasyMsg(all)			"Vše"
+set geoEasyMsg(ende)        "Ukončit"
+set geoEasyMsg(ignore)      "Žádná varování"
+set geoEasyMsg(wait)		"Čekejte"
+set geoEasyMsg(help)		"Nápověda"
+set geoEasyMsg(find)		"Najít"
+set geoEasyMsg(findNext)	"Najít další"
+set geoEasyMsg(delete)		"Smazat"
+set geoEasyMsg(add)			"Přidat"
+set geoEasyMsg(newObs)		"Nové měření"
+set geoEasyMsg(newSt)		"Nové stanovisko"
+set geoEasyMsg(newCoo)		"Nový bod"
+set geoEasyMsg(insSt)		"Vložit informace o stanovisku"
+set geoEasyMsg(delSt)		"Smazat indormace o stanovisku"
+set geoEasyMsg(finalCoo)    "Přibližné -> vyrovnané souřadnice"
+set geoEasyMsg(lastPoint)   "Koncový bod"
+set geoEasyMsg(browse)      "Prohlížet ..."
+set geoEasyMsg(up)			"Nahoru"
+set geoEasyMsg(down)		"Dolu"
+set geoEasyMsg(opensource)  "Otevřít zdroj GPL 2"
+#
+#	Labels
+#
+set geoEasyMsg(pattern)		"Vzor:"
+#
+#	menu and title texts
+#
+set geoEasyMsg(maskTitle)		"Vybrat masku"
+set geoEasyMsg(graphTitle)      "Grafické okno"
+set geoEasyMsg(lbTitle)			"Vybrat %d položek"
+set geoEasyMsg(lbTitle1)		"Vybrat alespoň %d položek"
+set geoEasyMsg(lbTitle2)		"Vybrat neznámé body"
+set geoEasyMsg(lbTitle3)        "Vybrat %d stanoviska"
+set geoEasyMsg(lbTitle4)        "Vybrat souřadnice"
+set geoEasyMsg(lbTitle5)        "Vybrat známé body"
+set geoEasyMsg(lbReg)           "Typ regrese"
+set geoEasyMsg(refTitle)        "Referenční směr"
+set geoEasyMsg(soTitle)         "Výpis bodů"
+set geoEasyMsg(l1Title)         "První linie"
+set geoEasyMsg(l2Title)         "Druhý linie"
+set geoEasyMsg(p1Title)         "První bod"
+set geoEasyMsg(p2Title)         "Druhý bod"
+set geoEasyMsg(menuFile)		"Soubor"
+set geoEasyMsg(menuFileNew)		"Nový ..."
+set geoEasyMsg(menuFileLoad)	"Načíst ..."
+set geoEasyMsg(menuFileLogLoad) "Načíst protokol"
+set geoEasyMsg(menuFileLogClear)    "Vymazat protokol"
+set geoEasyMsg(menuFileTclLoad) "Načíst tcl soubor"
+set geoEasyMsg(menuFileUnload)	"Zavřít"
+set geoEasyMsg(menuFileSave)	"Uložit"
+set geoEasyMsg(menuFileSaveAll)	"Uložit vše"
+set geoEasyMsg(menuFileSaveAs)	"Uložit jako ..."
+set geoEasyMsg(menuFileJoin)    "Spojit ..."
+set geoEasyMsg(menuFileExport)  "GNU Gama export ..."
+set geoEasyMsg(menuProjLoad)    "Načíst projekt ..."
+set geoEasyMsg(menuProjSave)    "Uložit projekt ..."
+set geoEasyMsg(menuProjClose)   "Zavřít projekt"
+set geoEasyMsg(menuComEasy)     "ComEasy ..."
+set geoEasyMsg(menuFileStat)    "Statistika ..."
+set geoEasyMsg(menuFileCParam)  "Výpočet parametrů ..."
+set geoEasyMsg(menuFileGamaParam)  "Parametry vyrovnání ..."
+set geoEasyMsg(menuFileColor)   "Barvy ..."
+set geoEasyMsg(menuFileOParam)  "Ostatní parametry ..."
+set geoEasyMsg(menuFileSaveP)   "Uložit parametry"
+set geoEasyMsg(menuFileSaveSelection)   "Uložit výběr ..."
+set geoEasyMsg(menuFileFontSetup)   "Font ..."
+set geoEasyMsg(menuFileFind)	"Najít"
+set geoEasyMsg(menuFileClear)   "Vymazat obsah"
+set geoEasyMsg(menuFileExit)	"Ukončit"
+set geoEasyMsg(menuEdit)		"Editovat"
+set geoEasyMsg(menuEditGeo)		"Měření"
+set geoEasyMsg(menuEditCoo)		"Souřadnice"
+set geoEasyMsg(menuEditPar)     "Parametry měření"
+set geoEasyMsg(menuEditMask)	"Načíst definiční masku"
+set geoEasyMsg(menuHelpAbout)	"O GeoEasy ..."
+set geoEasyMsg(menuPopupBD)		"Azimut/Vzdálenost"
+set geoEasyMsg(menuPopupAngle)  "Nastavení"
+set geoEasyMsg(menuPopupOri)	"Orientace"
+set geoEasyMsg(menuPopupAppOri)	"Přibližná orientace"
+set geoEasyMsg(menuCalDelOri)	"Smazat orientace ..."
+set geoEasyMsg(menuPopupPol)	"Polární bod"
+set geoEasyMsg(menuPopupSec)	"Protínání"
+set geoEasyMsg(menuPopupRes)	"Protínání zpět"
+set geoEasyMsg(menuPopupArc)	"Protínání z délek"
+set geoEasyMsg(menuPopupEle)	"Nadmořská výška"
+set geoEasyMsg(menuPopupDetail)	"Podrobné body"
+set geoEasyMsg(menuPopupAdj3D)	"3D vyrovnání"
+set geoEasyMsg(menuPopupAdj2D)	"2D vyrovnání"
+set geoEasyMsg(menuPopupAdj1D)	"Výškové vyrovnání"
+set geoEasyMsg(menuGraph)		"Okno"
+set geoEasyMsg(menuGraNew)		"Nové grafické okno"
+set geoEasyMsg(menuLogNew)		"Okno s výsledky"
+set geoEasyMsg(menuConsoleNew)	"Okno programu"
+set geoEasyMsg(menuWin)			"Seznam oken"
+set geoEasyMsg(menuRefreshAll)  "Obnovit všechna okna"
+set geoEasyMsg(menuResize)		"Počet řádků ..."
+set geoEasyMsg(menuMask)		"Maska ..."
+set geoEasyMsg(menuGraCom)		"Příkazy"
+set geoEasyMsg(menuGraRefresh)	"Obnovit"
+set geoEasyMsg(menuGraFind)     "Najít bod ..."
+set geoEasyMsg(menuGraPn)       "Názvy bodů"
+set geoEasyMsg(menuGraObs)		"Měření"
+set geoEasyMsg(menuGraDet)		"Podrobné body"
+set geoEasyMsg(menuGraLines)	"Linie"
+set geoEasyMsg(menuGraUsed)     "Pouze zaměřené body"
+set geoEasyMsg(menuGraZoomAll)	"Přiblížit vše"
+set geoEasyMsg(menuGraDXF)		"DXF výstup ..."
+set geoEasyMsg(menuGraClose)	"Zavřít"
+set geoEasyMsg(menuGraCal)		"Vypočítat"
+set geoEasyMsg(menuCalTra)		"Polygonový pořad"
+set geoEasyMsg(menuCalTraNode)  "Bod polygonu"
+set geoEasyMsg(menuCalTrig)		"Trigonometrické měření délek"
+set geoEasyMsg(menuCalTrigNode) "Trigonometrický bod"
+set geoEasyMsg(menuCalPre)		"Přibližné souřadnice"
+set geoEasyMsg(menuRecalcPre)	"Přepočítat přibližné souřadnice"
+set geoEasyMsg(menuCalDet)      "Nový deail bodu"
+set geoEasyMsg(menuCalDetAll)   "Všechny podrobné body"
+set geoEasyMsg(menuCalOri)      "Orietace"
+set geoEasyMsg(menuCalAppOri)   "Přibližné orientace"
+set geoEasyMsg(menuCalAdj3D)	"3D vyrovnání sítě"
+set geoEasyMsg(menuCalAdj2D)	"2D vyrovnání sítě"
+set geoEasyMsg(menuCalAdj1D)	"Výškové vyrovnání sítě"
+set geoEasyMsg(menuCalTran)     "Transformace souřadnice"
+set geoEasyMsg(menuCalHTran)    "Transformace výšek"
+set geoEasyMsg(menuCalLine)     "Průsečík dvou linií"
+set geoEasyMsg(menuCalPntLine)  "Bod na linii"
+set geoEasyMsg(menuCalArea)     "Plocha"
+set geoEasyMsg(menuCalLength)   "Délka"
+set geoEasyMsg(menuCalArc)      "Oblouk"
+set geoEasyMsg(menuCalFront)	"3D průsečík"
+set geoEasyMsg(menuCoord)       "Seznam souřadnic"
+set geoEasyMsg(menuObs)         "Zápisník"
+set geoEasyMsg(menuCheckObs)    "Zkontrolovat zápisník"
+set geoEasyMsg(menuCheckCoord)  "Zkontrolovat seznam souřadnic"
+set geoEasyMsg(menuSaveCsv)    "Uložit jako CSV"
+set geoEasyMsg(menuSaveHtml)    "Uložit jako HTML"
+set geoEasyMsg(menuSaveRtf)     "Uložit jako"
+set geoEasyMsg(menuCooTr)       "Transformace ..."
+set geoEasyMsg(menuCooTrFile)	"Transformace, parametry ze souboru"
+set geoEasyMsg(menuCooDif)		"Rozdíly souřadnic"
+set geoEasyMsg(menuCooDelAppr)  "Smazat přibližné souřadnice"
+set geoEasyMsg(menuCooDel)		"Smazat všechny souřadnice"
+set geoEasyMsg(menuPntDel)		"Smazat všechny body"
+set geoEasyMsg(menuCooDelDetail)    "Smazat všechny souřadnice podrobných bodů"
+# regression
+set geoEasyMsg(menuReg)         "Regresní kalkulačka"
+set geoEasyMsg(menuRegLDist)    "Vzdálenost od linie"
+set geoEasyMsg(menuRegPDist)    "Vzdálenost od roviny"
+# dtm/tin
+set geoEasyMsg(menuDtm)         "DMT"
+set geoEasyMsg(menuDtmCreate)   "Vytvořit ..."
+set geoEasyMsg(menuDtmLoad)     "Načíst ..."
+set geoEasyMsg(menuDtmAdd)		"Přidat ..."
+set geoEasyMsg(menuDtmUnload)   "Zavřít"
+set geoEasyMsg(menuDtmSave)     "Uložit"
+set geoEasyMsg(menuDtmInterp)	"Profil ..."
+set geoEasyMsg(menuDtmContour)  "Vrstevnice ..."
+set geoEasyMsg(menuDtmVolume)   "Kubatury ..."
+set geoEasyMsg(menuDtmVolumeDif)   "Rozdíly kubatur ..."
+set geoEasyMsg(menuDtmVrml)     "VRML export ..."
+set geoEasyMsg(menuDtmKml)      "KML export ..."
+set geoEasyMsg(menuDtmGrid)     "ASCII síť export ..."
+set geoEasyMsg(menuLandXML)     "LandXML export ..."
+#
+#	Errors and warnings
+#
+set geoEasyMsg(-1)	"Chyba v otevření datového souboru"
+set geoEasyMsg(-2)	"Geodataset je již otevřen"
+set geoEasyMsg(-3)	"Chyba při vytvoření geo souboru"
+set geoEasyMsg(-4)	"Chyba ve vytvoření souboru souřadnic"
+set geoEasyMsg(-5)	"Chyba v datovém souboru"
+set geoEasyMsg(-6)	"Chyba v otevření geo souboru"
+set geoEasyMsg(-7)	"Chyba v otevření souboru souřadnic"
+set geoEasyMsg(-8)	"Nebyl načten žádný geodataset"
+set geoEasyMsg(-9)  "Chyba v souboru souřadnic na řádku:"
+set geoEasyMsg(-10) "Chyba v projektu na řádku:"
+set geoEasyMsg(-11) "Chyba při vytvoření souboru parametrů"
+set geoEasyMsg(1)	"V načteném geodatasetu není žádné měření"
+set geoEasyMsg(2)	"V načteném geodatasetu nejsou žádné souřadnice"
+set geoEasyMsg(skipped) "Neznámý záznam přeskočen. řádek/položka: "
+set geoEasyMsg(overw) "Soubor již existuje, chcete ho přepsat?"
+set geoEasyMsg(loaded)	"Souřadnice z již načteného souboru byly použity."
+set geoEasyMsg(helpfile)	"Soubor nenalezen"
+set geoEasyMsg(browser)		"Nelze zobrazit. Použít váš prohlížeč pro otevření .html souborů"
+set geoEasyMsg(rtfview)		"RTF nelze zobrazit. Použít váš textový editor pro otevření .rtf souborů"
+set geoEasyMsg(filetype)	"Neznámý soubor nebo nepodporovaný fomát"
+set geoEasyMsg(saveext)		"Prosím specifikujte formát(příponu) souboru"
+set geoEasyMsg(noGeo)		"Nenačtena žádná data"
+set geoEasyMsg(noStation)	"Chybějící záznam o stanovisku na začátku měřického zápisníku"
+set geoEasyMsg(saveit)		"Chcete uložit data?"
+set geoEasyMsg(saveso)		"Chcete uložit nastavení dat do geodatasetu?"
+set geoEasyMsg(image)		"Obrázek nenalezen: "
+set geoEasyMsg(geocode)		"Neznámý geo kód v definici masky: %s"
+set geoEasyMsg(nomask)		"Nenačtena žádná maska"
+set geoEasyMsg(wrongmask)	"Chyba v definici masky: %s"
+set geoEasyMsg(openit)		"Chcete otevřít výsledek?"
+set geoEasyMsg(wrongval)	"Chybná hodnota"
+set geoEasyMsg(mustfill)	"Musíte vyplnit toto pole, použijte smazat pro smazání celého řádku"
+set geoEasyMsg(stndel)		"Jste si jistí, že chcete smazat celý záznam stanoviska?"
+set geoEasyMsg(recdel)		"Jste si jistí, že chcete smazat záznam?"
+set geoEasyMsg(noOri)		"Žádné referenční směry nebo souřadnice tohoto bodu"
+set geoEasyMsg(noOri1)		"Žádná orientace na bod"
+set geoEasyMsg(noOri2)		"Orientace nemohli být spočtena pro toto stanovisko"
+set geoEasyMsg(cantOri)		"Orientace nemohli být spočtena pro žádné stanovisko"
+set geoEasyMsg(readyOri)	"Všechna stanoviska mají orientace. Chcete přepočítat všechny orientace?"
+set geoEasyMsg(samePnt)		"Stanovisko a referenční bod mají stejné souřadnice!"
+set geoEasyMsg(noStn)		"Toto není stanovisko"
+set geoEasyMsg(noSec)		"Nedostatek směrů pro protínání"
+set geoEasyMsg(noRes)		"Nedostatek směrů pro protínání zpět"
+set geoEasyMsg(noArc)		"Nedostatek vzdáleností pro protínání z délek"
+set geoEasyMsg(noPol)		"Nedostatek měření pro výpočet polární metody"
+set geoEasyMsg(noAdj)		"Nedostatek měření pro vyrovnání nebo žádné orientace na stanovisku"
+set geoEasyMsg(noUnknowns)	"Žádné neznámé pro vyrovnání"
+set geoEasyMsg(pure)		"Příliš velké  %s-%s %s %s\n může být nutná iterace"
+set geoEasyMsg(noCoo)		"Nelze vypočítat souřadnice"
+set geoEasyMsg(noObs)       "Not enough observations for adjustment"
+set geoEasyMsg(noAppCoo)	"Žádné souřadnice bodů"
+set geoEasyMsg(noAppZ)		"Žádná výška"
+set geoEasyMsg(cantSave)    "Nelze uložit soubor"
+set geoEasyMsg(fewCoord)	"Nedostatek souřadnic pro výpočet"
+set geoEasyMsg(pointsDropped)	"Žádné souřadnice bodů:"
+set geoEasyMsg(delappr)		"Chcete smazat přibližné souřadnice?"
+set geoEasyMsg(delcoo)		"Chcete smazat všechny souřadnice?"
+set geoEasyMsg(delpnt)		"Chcete smazat všechny body?"
+set geoEasyMsg(deldetailpnt)		"Chcete smazat souřadnice všech podrobných bodů?"
+set geoEasyMsg(delori)		"Chcete smazat všechny orientace?"
+set geoEasyMsg(nodetail)    "Žádné podrobné body pro výpočet"
+
+set geoEasyMsg(double)		"Dvoje souřadnice"
+set geoEasyMsg(noEle)		"Nedostatek měření pro výpočet výšky"
+set geoEasyMsg(wrongsel)	"Chybný výběr"
+set geoEasyMsg(wrongsel1)	"Vyber právě %d položek"
+set geoEasyMsg(wrongsel2)	"Vyber alespoň %d položek"
+set geoEasyMsg(nst)			"Počet stanovisek:"
+set geoEasyMsg(ndist)		"Počet vzdáleností:"
+set geoEasyMsg(next)		"Počet směrů:"
+set geoEasyMsg(usedPn)		"Číslo bodu již bylo použito v načteném datasetu"
+set geoEasyMsg(dblPn)		"Opakující se číslo/souřadnice bodu"
+set geoEasyMsg(nonNumPn)	"Počet přeskočených neočíslovaných bodů:"
+set geoEasyMsg(units)		"Mohou být použity pouze jednotky \[m\] a \[° ' \"\]"
+set geoEasyMsg(nomore)		"Žádné další záznamy"
+set geoEasyMsg(tajErr)		"Byla překročena mezní odchylka směru"
+set geoEasyMsg(finalize)	"Dokončit přibližné souřadnice?"
+set geoEasyMsg(logDelete)	"Chcete smazat protokol?"
+set geoEasyMsg(cancelled)	"Operace ukončena."
+set geoEasyMsg(dist)		"Výpočet vzdálenosti"
+set geoEasyMsg(area)		"Výpočet výměry"
+set geoEasyMsg(sum)			"Součet"
+set geoEasyMsg(sum1)		"Výměra"
+set geoEasyMsg(sum2)		"Obvod"
+set geoEasyMsg(endp)		"Koncový bod?"
+set geoEasyMsg(maxGr)		"Může být otevřeno max. 10 grafických oken"
+set geoEasyMsg(orist)		"Nedostatek známých (y,x,z) orientovaných stanovisek"
+
+set geoEasyMsg(linreg)		"Regresní přímku nelze vypočítat"
+set geoEasyMsg(planreg)		"Regresní rovninu nelze vypočítat"
+
+set geoEasyMsg(check)		"Kontrola měřického zápisníku"
+set geoEasyMsg(missing)		"Chybějící povinná hodnota %s na řádku %s"
+set geoEasyMsg(together)	"Chybějící hodnota %s na řádku %s"
+set geoEasyMsg(notTogether)	"Hodnoty nemohou být použity společně %s na řádku %s"
+set geoEasyMsg(stationpn)	"Stanovisko a cíl jsou shodné %s na řádku %s"
+set geoEasyMsg(missingstation) "Chybějící stanovisko před řádkem %s"
+set geoEasyMsg(doublepn)	"Opakující se bod na stanovisku %s na řádku %s"
+set geoEasyMsg(numError)	"Chyba %d"
+set geoEasyMsg(csvwarning)	"Pro uložení souřadnic pro import do jiného softwaru použijte 'Uložizt jako' z hlavního menu. Chcete pokračovat?"
+
+set geoEasyMsg(tinfailed)	"Nepodařilo se vytvořit DMT"
+set geoEasyMsg(tinload)     "Nepodařilo se načíst DMT"
+set geoEasyMsg(fewmassp)	"Málo bodů pro vytvoření DMT"
+set geoEasyMsg(delbreakline) "Smazat lomovou hranu?"
+set geoEasyMsg(delhole)		"Smazat ukazatel?"
+set geoEasyMsg(deldtmpnt)	"Smazat bod DMT?"
+set geoEasyMsg(deldtmtri)	"Smazat trojúhelník DMT?"
+set geoEasyMsg(errsavedtm)	"Chyba při ukládání DMT"
+
+set geoEasyMsg(stat)		"Statistika %d načteného datasetu \nPočet bodů: %d\nPočet známých bodů: %d\nPočet podrobných bodů: %d\nPočet stanovisek: %d\nPočet známých stanovisek: %d\nNumber of occupations: %d\nPočet orientovaných stanovisek: %d\n"
+# gama
+set geoEasyMsg(gamapar)		"Parametry vyrovnání"
+set geoEasyMsg(gamaconf)    "Hladina významnosti (0-1)"
+set geoEasyMsg(gamaangles)  "Úhlové jednotky"
+set geoEasyMsg(gamatol)     "Tolerance \[mm\]"
+set geoEasyMsg(gamadirlimit)    "Limitní vzdálenost \[m\]"
+set geoEasyMsg(gamashortout)    "Stručný výstup"
+set geoEasyMsg(gamasvgout)  "SVG elipsy chyb"
+set geoEasyMsg(gamanull)	"Žádný textový sbour s výsledky"
+set geoEasyMsg(gamanull1)	"Žádný xml soubo s výsledky"
+set geoEasyMsg(gamaori)		"Potíže s uložením orientačního úhlu"
+set geoEasyMsg(gamastdhead0)    "Směrodatná odchylka váhy"
+set geoEasyMsg(gamastdhead1)    "  m0  aprioriorní    :"
+set geoEasyMsg(gamastdhead2)    "  m0' aposteriorní:"
+set geoEasyMsg(gamastdhead3)    "% interval"
+set geoEasyMsg(gamastdhead4)    "Obsahuje hodnotu m0'/m0"
+set geoEasyMsg(gamastdhead5)    "Neobsahuje hodnotu m0'/m0"
+set geoEasyMsg(gamacoohead0)    "Souřadnice"
+set geoEasyMsg(gamacoohead1)    "Bod id       Y        X       Z"
+set geoEasyMsg(gamaobshead0)    "Měření"
+set geoEasyMsg(gamaobshead1)    "Stanovisko  Cíl  Vyrovnané měření  Oprava  Směrodatná odchylka"
+#
+# tooltips
+#
+set geoEasyMsg(toolZoomin)	"Přiblížit oknem nebo bodem"
+set geoEasyMsg(toolZoomout)	"Oddálit"
+set geoEasyMsg(toolPan)		"Posunout"
+set geoEasyMsg(toolRuler)	"Vzdálenostt"
+set geoEasyMsg(toolArea)	"Výměra"
+set geoEasyMsg(toolSp)		"Polygon"
+set geoEasyMsg(toolReg)		"Regrese"
+set geoEasyMsg(toolZdtm)	"Interpolace výšek"
+set geoEasyMsg(toolBreak)	"Lomová hrana"
+set geoEasyMsg(toolHole)	"Mezera DMT"
+set geoEasyMsg(toolXchgtri)	"Změna trojúhelníků"
+#
+# dxf výstup
+#
+set geoEasyMsg(dxfpar)		"DXF export parametrů"
+set geoEasyMsg(dxfinpar)	"DXF import parametrů"
+set geoEasyMsg(layer1)		"Název bodové vrstvy"
+set geoEasyMsg(block)		"Použít blok"
+set geoEasyMsg(layerb)		"Název bloku"
+set geoEasyMsg(attrib)		"Číslo bodu"
+set geoEasyMsg(attrcode)	"Kód bodu"
+set geoEasyMsg(attrelev)	"Výška bodu"
+set geoEasyMsg(pcode)		"Kód bodu do vrstvy"
+set geoEasyMsg(xzplane)		"Kreslit rovinu v YZ"
+set geoEasyMsg(useblock)	"Bloky"
+set geoEasyMsg(pcode1)		"Číst kódy bodů z vrstvy"
+set geoEasyMsg(dxfpnt)		"Použít body"
+set geoEasyMsg(3d)			"3D"
+set geoEasyMsg(addlines)    "Vektorová kresba"
+set geoEasyMsg(pd)			"Pouze podrobné body"
+set geoEasyMsg(ptext)		"Čísla bodů z textu"
+set geoEasyMsg(layer2)		"Název vrstvy"
+set geoEasyMsg(layer3)		"Název vrstvy"
+set geoEasyMsg(ssize)		"Velikost symbolu"
+set geoEasyMsg(pnon)		"Štítek s názvem bodu"
+set geoEasyMsg(dxpn)		"X posun"
+set geoEasyMsg(dypn)		"Y posun"
+set geoEasyMsg(pzon)		"Štítek s výškou bodu"
+set geoEasyMsg(dxz)			"X posun"
+set geoEasyMsg(dyz)			"Y posun"
+set geoEasyMsg(zdec)		"Desetinná místa"
+set geoEasyMsg(spn)			"Velikost textu"
+set geoEasyMsg(sz)			"Velikost textu"
+set geoEasyMsg(layerlist)	"Seznam vrstev ..."
+set geoEasyMsg(blocklist)	"Seznam bloků ..."
+set geoEasyMsg(attrlist)	"Seznam atributů ..."
+#
+#	txt sloupce
+#
+set geoEasyMsg(txtcols)		"Sloupce v souboru"
+#
+# parameters
+#
+set geoEasyMsg(parTitle)	"Výpočet parametrů"
+set geoEasyMsg(projred)		"Redukce projekce \[mm/km\]:"
+set geoEasyMsg(avgh)		"Průměrná nadmořská výška \[m\]:"
+set geoEasyMsg(stdangle)	"Směrodatná odchylka směru \[\"\]:"
+set geoEasyMsg(stddist1)	"Směrodatná odchylka vzdálenosti \[mm\]:"
+set geoEasyMsg(stddist2)	"Směrodatná odchylka vzdálenosti \[mm/km\]:"
+set geoEasyMsg(stdlevel)	"Směrodatná odchylka převýšení \[mm/km\]:"
+set geoEasyMsg(refr)		"Výpočet refrakce a zakřivení země"
+set geoEasyMsg(dec)			"Počet desetinných míst ve výsledcích:"
+#
+# Barva dialogu
+#
+set geoEasyMsg(colTitle)	"Nastavení barev"
+set geoEasyMsg(mask)		"Vzhled okna"
+set geoEasyMsg(mask1Color)	"První barva vzhledu okna:"
+set geoEasyMsg(mask2Color)	"Druhá barva vzhledu okna:"
+set geoEasyMsg(mask3Color)	"Třetí barva vzhledu okna:"
+set geoEasyMsg(mask4Color)	"Čtvrtá barva vzhledu okna:"
+set geoEasyMsg(mask5Color)	"Pátá barva vzhledu okna:"
+set geoEasyMsg(obsColor)	"Barva měření"
+set geoEasyMsg(lineColor)	"Barva linie:"
+set geoEasyMsg(finalColor)	"Výsledné souřadnice:"
+set geoEasyMsg(apprColor)	"Přibližné souřadnice:"
+set geoEasyMsg(nostationColor) "Barva bodu:"
+set geoEasyMsg(stationColor) "Barva stanoviska:"
+set geoEasyMsg(orientColor)	"Barva orientovaného stanoviska:"
+#
+# Ostatní parametry
+#
+set geoEasyMsg(oparTitle)	"Ostatní parametry"
+set geoEasyMsg(lcoosep)		"Oddělovač v exportovaném seznamu:"
+set geoEasyMsg(ltxtsep)		"Oddělovač v importovaném seznamu:"
+set geoEasyMsg(lmultisep)	"Přeskočit opakování oddělovače"
+set geoEasyMsg(lautor)		"Automatické obnovení okna"
+set geoEasyMsg(llang)		"Jazyk:"
+set geoEasyMsg(loridetail)  "Použít podrobné body pro orientaci a vyrovnání"
+set geoEasyMsg(lbrowser)	"Prohlížeč:"
+set geoEasyMsg(lrtfview)	"RTF prohlížeč:"
+set geoEasyMsg(defaultgeomask) "Výchozí vzhled měřického zápisníku:"
+set geoEasyMsg(defaultcoomask) "Výchozí vzhled souřadnic:"
+set geoEasyMsg(maskrows)	"Počet řádků v masce:"
+set geoEasyMsg(langChange)	"Uložit parametry a restartovat program pro změnu jazyka"
+set geoEasyMsg(lheader)		"Počet řádků v hlavičce:"
+set geoEasyMsg(lfilter)		"Filtrovat výraz:"
+#
+# tip parametrů
+#
+set geoEasyMsg(tinpar)		"Vytvořit DMT"
+set geoEasyMsg(gepoints)	"Z bodů v seznamu souřadnic"
+set geoEasyMsg(dxffile) 	"Z DXF soboru"
+set geoEasyMsg(dxfpoint)	"Vrstva pro hromadné body:"
+set geoEasyMsg(dxfbreak)	"Vrstva pro lomové hrany:"
+set geoEasyMsg(dxfhole)		"Vrstva pro mezery:"
+set geoEasyMsg(asciifile)	"Z textového souboru"
+set geoEasyMsg(convex)		"Konvexní hranice"
+#
+# Parametry vrstevnic
+#
+set geoEasyMsg(contourpar)	"Vrstevnice"
+set geoEasyMsg(contourInterval) "Interval vrstevnic:"
+set geoEasyMsg(contourLayer)	"Název vrstvy pro výšku"
+set geoEasyMsg(contour3Dface)	"3D ohraničené to DXF"
+set geoEasyMsg(contourIntErr) "Neplatný interval vrstevnic nebo DMT"
+#
+# Výpočet kubatur
+#
+set geoEasyMsg(volumepar)	"Výpočet kubatur"
+set geoEasyMsg(volumeLevel)	"Referenční výška:"
+set geoEasyMsg(volumeErr)	"Neplatná refernční výška nebo DMT"
+
+# orthogonal transformation
+set geoEasyMsg(trpar)		"Parametry transformace"
+set geoEasyMsg(trdy)		"Posun Y:"
+set geoEasyMsg(trdx)		"Posun X:"
+set geoEasyMsg(trrot)		"Rotace:"
+set geoEasyMsg(trscale)		"Měřítko X a Y:"
+set geoEasyMsg(trdz)		"Posun Z:"
+set geoEasyMsg(trscalez)	"Měřítko Z:"
+set geoEasyMsg(allparnum)	"Počet parametrů v souboru je větší než 21"
+
+# point filter dialog
+set geoEasyMsg(filterpar)   "Bodový filtr"
+set geoEasyMsg(allpoints)   "Všechny body"
+set geoEasyMsg(pointno)     "Číslo bodu"
+set geoEasyMsg(pointrect)   "Obdélník"
+set geoEasyMsg(pointcode)   "Kód bodu"
+
+# observation parameters
+set geoEasyMsg(parmask)		"Parametry"
+
+set geoEasyMsg(horizDia)	"Nový bod, nová orientace:"
+set geoEasyMsg(oriDia)		"Nové orientace:"
+set geoEasyMsg(elevDia)		"Nové body:"
+set geoEasyMsg(adjDia)		"Měření, neznámé: "
+set geoEasyMsg(adjModule)	"Modul vyrovnání sítě potřebuje gama-local, prosím, nainstalujte ho"
+set geoEasyMsg(dtmModule)	"Modul DMT potřebuje triangulaci, prosím, nainstalujte ji"
+set geoEasyMsg(crsModule)	"Reprojekce potřebuje cs2cs (z Proj), prosím, instalujte jej"
+set geoEasyMsg(travLine)	"linie"
+set geoEasyMsg(trigLineToo)	"Trigonometrické linie také?"
+set geoEasyMsg(noTra)		"Málo bodů pro polygonový pořad"
+set geoEasyMsg(noTraCoo)	"Žádné souřadnice prvního bodu"
+set geoEasyMsg(startTra)	"První bod"
+set geoEasyMsg(nextTra)		"Další bod"
+set geoEasyMsg(numTra)		"Číslo uzlového bodu:"
+set geoEasyMsg(nodeTra)		"Uzel"
+set geoEasyMsg(freeTra)		"Žádné souřadnice koncového bodu\nvolný polygonový pořad"
+set geoEasyMsg(firstTra)	"Žádná orientace prvního bodu\nvetknutý polygonový pořad"
+set geoEasyMsg(lastTra)		"Žádná orientace koncového bodu\njeden po druhém"
+set geoEasyMsg(distTra)		"Chybějící vzdálenost v polygonovém pořadu"
+set geoEasyMsg(angTra)		"Chybějící úhel v polygonovém pořadu"
+set geoEasyMsg(error1Tra)	"Mezní odchylky                 Úhel (sec)        Vzdálenost (cm)"
+set geoEasyMsg(error2Tra)	"Volný polygonový pořad "
+set geoEasyMsg(error3Tra)	"Precise traversing       "
+set geoEasyMsg(error4Tra)	"Main traversing          "
+set geoEasyMsg(error5Tra)	"Traversing               "
+set geoEasyMsg(error6Tra)	"Rural main traversing    "
+set geoEasyMsg(error7Tra)	"Rural traversing         "
+set geoEasyMsg(travChk)		"Polygonový pořad"
+set geoEasyMsg(trigChk)		"Trigonometrická linie"
+set geoEasyMsg(miszTri)		"Chybějící výška v počátečním bodě trigonometrické linie"
+set geoEasyMsg(freeTri)		"Volná trigonometrická linie"
+set geoEasyMsg(dzTri)		"Nelze vypočítat rozdíl výšek trigonometrické linie"
+set geoEasyMsg(errorTri)	"Mezní odchylka: "
+set geoEasyMsg(limTrig)		"Byla překročena mezní odchylka\nChcete uložit výšky?"
+#
+# coordinate transformation
+#
+set geoEasyMsg(fromCS)		"Dataset pro transformaci"
+set geoEasyMsg(toCS)		"Označit dataset"
+set geoEasyMsg(fewPoints)	"Málo bodů pro transformaci"
+set geoEasyMsg(pnttitle)	"Referenční body"
+set geoEasyMsg(typetitle)	"Typ transformace"
+set geoEasyMsg(typeHelmert4) "Podobnostní transformace"
+set geoEasyMsg(typeHelmert3) "Shodnostní transformace"
+set geoEasyMsg(typeAffin)	"Afiní transformace"
+set geoEasyMsg(typePoly2)   "Polynomická transformace druhého stupně"
+set geoEasyMsg(typePoly3)   "Polynomická transformace třetího stupně"
+set geoEasyMsg(trSave)		"Uložit transformované souřadnice do souboru"
+set geoEasyMsg(parSave)		"Uložit parametry transofmrace do souboru"
+set geoEasyMsg(formulaH4y)	"  Y = %s + y * %.9f - x * %.9f"
+set geoEasyMsg(formulaH4x)	"  X = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaH3y)	"  Y = %s + y * %.9f - x * %.9f"
+set geoEasyMsg(formulaH3x)	"  X = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaAfy)	"  Y = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaAfx)	"  X = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaPrmy) "  Y = %s + y * %.9f + x * %.9f"
+set geoEasyMsg(formulaPrmx) "  X = %s + y * %.9f + x * %.9f"
+
+set geoEasyMsg(formulaP2)	"  y' = y - %s    x' = x - %s"
+set geoEasyMsg(formulaP2y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y' * %.8e + x'^2 * %.8e"
+set geoEasyMsg(formulaP2x)	"  X = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y' * %.8e + x'^2 * %.8e"
+set geoEasyMsg(formulaP3y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
+set geoEasyMsg(formulaP3x)	"  X = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
+set geoEasyMsg(formula1D)	"  Z = z + %s"
+set geoEasyMsg(scaleRot)	"  Měřítko = %.8f Rotace = %s"
+#
+# find/replace dialog
+#
+set geoEasyMsg(findpar)     "Najít/Nahradit"
+set geoEasyMsg(findWhat)    "Najít:"
+set geoEasyMsg(replaceWith) "Nahradit:"
+set geoEasyMsg(findMode)    "Regulární výraz"
+#
+# about window messages
+#
+set y [clock format [clock seconds] -format %Y]
+set geoEasyMsg(digikom)		"Sponzorováno DigiKom Ltd."
+set geoEasyMsg(about1)		"Geodetické výpočty"
+set geoEasyMsg(about2)		"Pro zeměměřiče"
+set geoEasyMsg(modules)		"Moduly:"
+#
+# text window headers
+#
+set geoEasyMsg(logWin)		"Výsledky výpočtů"
+set geoEasyMsg(consoleWin)	"Tcl konzole"
+#
+# resize mask
+#
+set geoEasyMsg(rowCount)	"Počet řádků:"
+set geoEasyMsg(resize)		"Velikost okna"
+#
+# log messages
+#
+set geoEasyMsg(start)		"GeoEasy spuštěno"
+set geoEasyMsg(stop)		"GeoEasy zastaveno"
+set geoEasyMsg(load)		"dataset načten"
+set geoEasyMsg(save)		"dataset uložen"
+set geoEasyMsg(saveas)		"dataset uložen jako:"
+set geoEasyMsg(unload)		"dataset zavřen"
+set geoEasyMsg(psave)		"projekt uložen"
+set geoEasyMsg(pload)		"projekt načten"
+#
+set geoEasyMsg(faces)		"Dvě polohy"
+set geoEasyMsg(face2)		"Stanovisko   kolimace     index vzdálenost výška"
+set geoEasyMsg(face3)		"Cíl        chyba       chyba   rozdíl    rozdíl"
+set geoEasyMsg(noface2)		"Dvojí měření bodu nebo příliš velký rozdíl mezi 2 polohami%s"
+set geoEasyMsg(msgsave)		"Parametry uloženy do geo_easy.msk\npředchozí parametry jsou zazálohovány v geo_easy.msk.bak."
+#
+#	headers for fixed forms (traversing & adjustment)
+#
+set geoEasyMsg(tra1)        "Otevřít, žádná orientace"
+set geoEasyMsg(tra2)        "Otevřít, jedna orientace"
+set geoEasyMsg(tra3)        "Otevřít, dvě orientace"
+set geoEasyMsg(tra4)		"Volný konec"
+set geoEasyMsg(head1Tra)	"            směrník    vzdálenost zpět"
+set geoEasyMsg(head2Tra)	"Bod        úhel     vzdálenost  (dY)     (dX)       dY         dX"
+set geoEasyMsg(head3Tra)	"           oprava  vzdálenost vpřed    opravy      Y    X"
+
+set geoEasyMsg(head1Adj)	"Stanovisko    bod      měření  opravy   vyrovnané měření"
+set geoEasyMsg(m0Adj)		"Směrodatná odchylka váhy: %8.4f Počet nadbytečných měření %d"
+set geoEasyMsg(head2Adj)	"Bod      Kód        Y    dY    směrodatná odchylka Y  X  dX    směrodatná odchylka X"
+set geoEasyMsg(head1Trig)	"                       Rozdíly výšek"
+set geoEasyMsg(head2Trig)	"Bod    Vzdálenost   Vpřed Vzad    Průměr  Opravy Výška"
+set geoEasyMsg(head1Sec)    "Číslo bodu  Kód              Y            X       Směrník"
+set geoEasyMsg(head1Res)    "Číslo bodu  Kód              Y            X        Směr  Úhel"
+set geoEasyMsg(head1Arc)    "Číslo bodu  Kód              Y            X        Vzdálenost"
+set geoEasyMsg(head1Pol)    "Číslo bodu  Kód              Y            X      Vzdálenost    Směrník"
+set geoEasyMsg(head1Pnt)    "Číslo bodu  Kód              Y            X      Vzdálenost    Celková vzdálenost"
+set geoEasyMsg(head1Ele)    "Číslo bodu  Kód            Výška      Vzdálenost"
+set geoEasyMsg(head1Det)	"                                                                         Orientováno   Zhorizontováno"
+set geoEasyMsg(head2Det)    "Číslo bodu  Kód              Y            X              H   Stanovisko     směr  vzdálenost"
+set geoEasyMsg(head1Ori)    "Číslo bodu  Kód         Směr    Směr   Orientační směr   Vzdálenost   e\" e\"max   X(m)"
+set geoEasyMsg(head1Dis)    "Číslo bodu  Číslo bodu  Směrník   Vzdálenost Sklon dis Zenitový úhel"
+set geoEasyMsg(head1Angle)  "Číslo bodu  Směrník   Vzdálenost Úhel     Úhel z prvního  Local X     Local Y"
+# transformation
+set geoEasyMsg(head1Tran)	"Číslo bodu          y            x            Y            X          dY           dX           vzdálenost"
+set geoEasyMsg(head2Tran)	"Číslo bodu          y            x            Y            X"
+set geoEasyMsg(head1HTran)	"Číslo bodu          z            Z           dZ"
+set geoEasyMsg(head2HTran)	"Číslo bodu          z            Z"
+set geoEasyMsg(headTraNode)	"Číslo bodu    Délka         Y            X"
+set geoEasyMsg(headTrigNode)	"Číslo bodu    délka         Z"
+set geoEasyMsg(headDist)	"Číslo bodu          Y            X         Délka"
+set geoEasyMsg(head1Front)	"Číslo bodu  Kód                Y            X            dY          dX           Z            dZ"
+#
+# regression
+#
+set geoEasyMsg(cantSolve)		"Nelze vyřešit úkon"
+set geoEasyMsg(head0LinRegX)    "X = %+.8f * Y %s"
+set geoEasyMsg(head0LinRegY)    "Y = %+.8f * X %s"
+set geoEasyMsg(hAngleReg)       "Úhel osy Y:"
+set geoEasyMsg(vAngleReg)       "Úhel osy X:"
+set geoEasyMsg(correlation)     "Korelační koeficient:"
+set geoEasyMsg(head1LinRegX)	"Číslo bodu          Y            X            dX"
+set geoEasyMsg(head1LinRegY)	"Číslo bodu          Y            X            dY"
+set geoEasyMsg(head2LinReg)		"Číslo bodu          Y            X            dY          dX          vzdálenost"
+set geoEasyMsg(head0PlaneReg)	"z = %s %+.8f * y %+.8f * x"
+set geoEasyMsg(head00PlaneReg)	"Směr sklonu: %s  Úhel sklonu: %s"
+set geoEasyMsg(head1PlaneReg)	"Číslo bodu          Y            X            Z           dZ"
+set geoEasyMsg(head0CircleReg)  "Y0 = %s X0 = %s R = %s"
+set geoEasyMsg(head1CircleReg)	"Číslo bodu          Y            X            dY           dX           dR"
+set geoEasyMsg(head2CircleReg)  "Po %d iteracích s přesností na %.4f m změň v neznámé"
+set geoEasyMsg(head0HPlaneReg)  "z = %s"
+set geoEasyMsg(head0LDistReg)   "Vzdálenost z %s - %s linii"
+set geoEasyMsg(head1LDistReg)	"Číslo bodu          Y            X        vzdálenost         dY           dX"
+set geoEasyMsg(head0PDistReg)   "Vzdálenost z %s - %s - %s roviny"
+set geoEasyMsg(head1PDistReg)	"Číslo bodu          Y            X            Z        vzdálenost  dY            dX            dZ"
+set geoEasyMsg(head0SphereReg)	"Y0 = %s X0 = %s Z0 = %s R = %s"
+set geoEasyMsg(head1SphereReg)	"Číslo bodu        Y            X            Z            dY           dX            dZ           dR"
+set geoEasyMsg(head0Line3DReg)  "Y = %s %+.8f * t\nX = %s %+.8f * t\nZ = %s %+.8f * t"
+set geoEasyMsg(head1Line3DReg)  "Číslo bodu          Y            X            Z            dY           dX           dZ           dt"
+#
+# dtm
+#
+set geoEasyMsg(creaDtm)		"Nepodařilo se vytvořit DMT"
+set geoEasyMsg(loadDtm)		"Nepodařilo se načíst DMT"
+set geoEasyMsg(regenDtm)	"Obnovit DMT? Pro vytvoření nového DMT zavřete načtebý DMT."
+set geoEasyMsg(closDtm)		"Předchozí DMT bude zavřen"
+set geoEasyMsg(saveDtm)		"Chcete uložit předchozí DMT?"
+set geoEasyMsg(ZDtm)		"Výška: %.2f m"
+set geoEasyMsg(noZDtm)		"Žádná výška bodu"
+set geoEasyMsg(zfaclabel)	"Z faktor"
+set geoEasyMsg(gridtitle)   "ASCII GRID"
+set geoEasyMsg(griddx)  	"Krok mřížky:"
+set geoEasyMsg(griddx1)  	"Krok mřížky: %.2f"
+set geoEasyMsg(llc)  		"Levý spodní roh: %.2f %.2f"
+set geoEasyMsg(urc)  		"Pravý horní roh: %.2f %.2f"
+set geoEasyMsg(gridvrml)  	"VRML export"
+set geoEasyMsg(cs2cs)		"Reprojekce selhala"
+set geoEasyMsg(headVolume)	"Výška základny  Objem        nad        pod       Výměra     Výměra plochy"
+set geoEasyMsg(dtmStat)		"%s DMT\n%d body\n%d trojúhelníky\n%d lomové hrany/hraniční linie\n%d mezery\nY min: %.2f\nX min: %.2f\nH min: %.2f\nY max: %.2f\nX max: %.2f\nH max: %.2f"
+set geoEasyMsg(voldif)  "Ořezat  Objem: %.1f m3 Výměra: %.1f m2\nVYplnit objem: %.1f m3  Výměra: %.1f m2\nTotožné: %.1f m2"
+set geoEasyMsg(interpolateTin) "Interpolace:"
+set geoEasyMsg(interptitle) "Profil"
+set geoEasyMsg(lx) "X počáteční: "
+set geoEasyMsg(ly) "Y počáteční: "
+#set geoEasyMsg(lz) "Z: "
+set geoEasyMsg(lx1) "X koncový: "
+set geoEasyMsg(ly1) "Y koncový: "
+set geoEasyMsg(ldxf) "DXF soubor"
+set geoEasyMsg(lstep) "Krok: "
+# arc setting out
+set geoEasyMsg(cornerTitle) "Oblouk"
+set geoEasyMsg(spTitle) "První linie"
+set geoEasyMsg(epTitle) "Druhá linie"
+set geoEasyMsg(arcPar) "Parametry oblouku"
+set geoEasyMsg(arcRadius) "Poloměr"
+set geoEasyMsg(arcParam) "Přechodový parametr"
+set geoEasyMsg(arcTran) "Přechodnice\n  parametr: %.1f\n  dR: %.2f\n  délka: %.2f\n  X0: %.2f"
+set geoEasyMsg(arcStep) "Vzdálenost mezi podrobnými body \[m\]"
+set geoEasyMsg(arcNum) "nebo číslo bodu"
+set geoEasyMsg(arcSave) "Uložit souřadnice"
+set geoEasyMsg(arcPrefix) "Předčíslí bodu"
+set geoEasyMsg(arcT) "Délka tečny"
+set geoEasyMsg(arcP) "Parametry přechodnice"
+set geoEasyMsg(arcAlpha) "Alfa: %s  Beta: %s"
+set geoEasyMsg(arcHeader) "  Bod id          Y              X"
+set geoEasyMsg(fromEpsg) "Zdrojová projekce"

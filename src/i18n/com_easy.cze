@@ -1,0 +1,100 @@
+#-------------------------------------------------------------------------------
+#	-- ComEasy message file
+#-------------------------------------------------------------------------------
+global comEasyMsg
+global fileTypes
+global comTypes
+global comSetTypes
+
+# saved Communication Parameters
+set comSetTypes {{"ComEasy parameters" {.com}}}
+
+# accepted file types for download
+set comTypes {
+	{"Geodimeter JOB" {.job}}
+	{"Geodimeter ARE" {.are}}
+	{"Sokkia set 4" {.scr}}
+	{"Sokkia sdr" {.sdr}}
+	{"Leica GSI" {.gsi}}
+	{"TopCon GTS-700" {.700}}
+	{"TopCon GTS-210" {.210}}
+	{"Trimble M5" {.m5}}
+	{"Nikon DTM-300" {.nik}}
+	{"Geodat 124 formátum" {.dat}}
+	{"All files" {.*}}
+}
+
+# window titles
+set comEasyMsg(comTitle)		"ComEasy V1.0"
+set comEasyMsg(digikom)			"Sponzor DigiKom Ltd."
+set comEasyMsg(about1)			"Sériová Komunikace"
+set comEasyMsg(about2)			"Pro Zeměměřiče"
+set comEasyMsg(parsTitle)		"Komunikační Parametry"
+set comEasyMsg(error)			"Chyba"
+
+# menu text
+set comEasyMsg(mComFile)		"Příkazy"
+set comEasyMsg(mComPars)		"Nastavení ..."
+set comEasyMsg(mComDir)			"Adresář"
+set comEasyMsg(mComDownload)	"Stáhnout ..."
+set comEasyMsg(mComUpload)		"Nahrát ..."
+set comEasyMsg(mComStop)		"Přerušit"
+set comEasyMsg(mComExit)		"Konec"
+set comEasyMsg(mComHelp)		"Nápověda"
+set comEasyMsg(mComHelp1)		"Nápověda ..."
+set comEasyMsg(mComAbout)		"O programu ..."
+set comEasyMsg(mComStored)		"Uložené parametry"
+set comEasyMsg(mComPrint)		"Tisk"
+set comEasyMsg(mComPrintSelection)	"Tisk výběru"
+
+# label text
+set comEasyMsg(parsHead1)		"Parametry řádku"
+set comEasyMsg(parsHead2)		"Komunikační parametry"
+set comEasyMsg(parsHead3)		"Ostatní parametry"
+
+set comEasyMsg(parsPort)		"Kanál:"
+set comEasyMsg(parsBaud)		"Rychlost:"
+set comEasyMsg(parsParity)		"Parita:"
+set comEasyMsg(parsData)		"Datové bity:"
+set comEasyMsg(parsStop)		"Stop bity:"
+set comEasyMsg(parsEofchar)		"EOF ukazatel:"
+
+set comEasyMsg(parsBlocking)	"Blokování:"
+set comEasyMsg(parsTranslation)	"EOL ukazatel:"
+set comEasyMsg(parsBuffering)	"Načítání:"
+set comEasyMsg(parsBuffsize)	"Velikost vyrovnávací paměti:"
+set comEasyMsg(parsEncoding)	"Kódová stránka:"
+set comEasyMsg(parsInit)		"Počáteční sekvence:"
+set comEasyMsg(parsQuery)		"Záznam dotazu:"
+set comEasyMsg(parsSendquery)	"Konec záznamu:"
+set comEasyMsg(parsDir)			"Adresář:"
+
+# button labels
+set comEasyMsg(ok)				"OK"
+set comEasyMsg(cancel)			"Zrušit"
+set comEasyMsg(save)			"Uložit"
+set comEasyMsg(load)			"Načídt"
+
+# error messages
+set comEasyMsg(warning)			"Varování"
+set comEasyMsg(helpfile)		"Soubor nápovědy nebyl nalezen"
+set comEasyMsg(browser)			"Nápovědu nelze zobrazit\nzaregistrujte svůj html prohlížeš k otevření .html souborů "
+set comEasyMsg(gizidll)			"Chyba instalace code=1"
+set comEasyMsg(comOpen)			"Chyba při otevírání kanálu"
+set comEasyMsg(comConfigure)	"Chyba při konfiguraci kanálu"
+set comEasyMsg(cantSave)		"Chyba otevření souboru pro zápis"
+set comEasyMsg(cantOpen)		"Chyba otevření souboru pro čtení"
+set comEasyMsg(cantSource)		"Chyba při načítání souboru parametrů"
+set comEasyMsg(cantRead)		"Chyba při čtení kanálu"
+set comEasyMsg(cantWrite)		"Chyba zápisu kanálu"
+set comEasyMsg(cantFRead)		"Chyba při čtení souboru"
+set comEasyMsg(cantFWrite)		"Chyba při psaní souboru"
+set comEasyMsg(noBlocking)		"Blokování komunikace není dosud k dispozici"
+
+# info messages
+set comEasyMsg(waiting)			"Čekání na data ... (pro zastavení stiskněte Ctrl-Z)"
+set comEasyMsg(comClose)		"Komunikační kanál zavřen"
+set comEasyMsg(comFClose)		"Soibor zavřen"
+set comEasyMsg(eof)				"Konec souboru"
+set comEasyMsg(loadgizi)		"Načíst data do GeoEasy?"
+set comEasyMsg(separator)		"---------------------"
