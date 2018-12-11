@@ -3,7 +3,8 @@
 exec tclsh "$0" "$@"
 # check language dependent message files of GeoEasy and ComEasy
 set base eng				;# language to compare others to
-set langs [list $base hun ger]	;# add here more languages after transation
+# add here more languages after translation
+set langs [list $base hun ger rus cze]
 foreach lang $langs {
 	source geo_easy.$lang
 	# GeoEasy messages
