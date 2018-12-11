@@ -1,9 +1,9 @@
 # supported languages
 global geoLangs
-array set geoLangs {hun hu eng {en us} ger {ge de} rus ru}
+array set geoLangs {hun hu eng {en us} ger {ge de} rus ru cze cz}
 # language codes for windows
 global langCodes
-array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus}
+array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus "040E" cze}
 # GUI language change default to hun/eng/ger to set GUI language other than OS lang
 global geoLang
 set geoLang {default}
