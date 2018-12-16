@@ -81,11 +81,10 @@ ComEasy.tcl: ${CE_SOURCES}
 	tcl_cruncher ${CE_SOURCES} > ComEasy.tcl
 	chmod +x ComEasy.tcl
 
-linux: GeoEasy ./i18n/geo_easy.hun ./i18n/geo_easy.eng ./i18n/geo_easy.ger ./i18n/com_easy.hun ./i18n/com_easy.eng ./i18n/com_easy.ger geo_easy.msk
+linux: GeoEasy ./i18n/geo_easy.* ./i18n/com_easy.* geo_easy.msk
 	rm -f Gizi${VERSION}Linux.tgz
 	tar cvzf Gizi${VERSION}Linux.tgz GeoEasy geo_easy.msk default.msk \
-		./i18n/geo_easy.eng ./i18n/geo_easy.hun ./i18n/geo_easy.ger \
-		./i18n/com_easy.eng ./i18n/com_easy.hun ./i18n/com_easy.ger \
+		./i18n/geo_easy.* ./i18n/com_easy.* \
 		com_set bitmaps demodata
 doc: ${DOC_SOURCES}
 	# generate doc
