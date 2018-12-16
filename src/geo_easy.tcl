@@ -58,7 +58,6 @@ proc GeoEasy {top} {
 
 	set version 311 ;# update for new release!
 	set version_str "[join [split $version {}] .] dev"
-	# supported languages
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
@@ -141,7 +140,7 @@ proc GeoEasy {top} {
 	# get the language of the operating system
 	if {$tcl_platform(platform) != "unix"} {
 		set ww ""
-		catch {set ww [string upper [registry get HKEY_LOCAL_MACHINE\\SYSTEM\\CONTROLSET001\\control\\nls\\language InstallLanguage]]}
+		catch {set ww [string toupper [registry get HKEY_LOCAL_MACHINE\\SYSTEM\\CONTROLSET001\\control\\nls\\language InstallLanguage]]}
 		if {[lsearch -exact [array names langCodes] $ww] > -1} {
 			set w $langCodes($ww)
 		} else {
