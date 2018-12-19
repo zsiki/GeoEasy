@@ -219,7 +219,7 @@ proc TxtCoo {fn {ff ""}} {
 	if {[catch {set f1 [open $fn r]}] != 0} {
 			return -1		;# cannot open input file
 	}
-	set codes [TxtCols {5 38 37 39 4} $fn $ff]	;# order of values
+	set codes [TxtCols {5 38 37 39 4} {5 38 37 39 4 111 138 137 139} $fn $ff]	;# order of values
 	if {[llength $codes] == 0} {
 		return -999
 	}
@@ -393,7 +393,7 @@ proc SaveITR2 {fn rn} {
 #	@param fn file name to load
 #	@param ff format definition file (optional)
 #	@return 0 on success
-proc TxtCols {codes fn {ff ""}} {
+proc TxtCols {codes allCodes fn {ff ""}} {
 	global geoCodes
 	global geoEasyMsg
 	global buttonid
@@ -401,7 +401,9 @@ proc TxtCols {codes fn {ff ""}} {
 	global txtFilter locTxtFilter
 	global codelist
 	global txpTypes
+	global tmpAllCodes
 
+	set tmpAllCodes $allCodes
 	set codelist ""
 	set locTxtSep "$txtSep"
 	set locMultiSep $multiSep
@@ -457,9 +459,10 @@ proc TxtCols {codes fn {ff ""}} {
 		c_state
 	}
 	button $this.1.2.add -text $geoEasyMsg(add) -command {
+		global tmpAllCodes
 		set al $geoCodes(-1)	;# skip
 		set ll [.txtcols.1.1.l get 0 end]
-		foreach c {5 38 37 39 4 111 138 137 139} {
+		foreach c $tmpAllCodes {
 			if {[lsearch -exact $ll $geoCodes($c)] == -1} {
 				lappend al "$geoCodes($c)"
 			}
@@ -515,6 +518,8 @@ proc TxtCols {codes fn {ff ""}} {
 		global locTxtSep locMultiSep header
 		global codelist txpTypes
 		global geoCodes
+		global tmpAllCodes
+
 		set fn [string trim [tk_getSaveFile -defaultextension ".txp" \
 			-filetypes $txpTypes]]
 		if {[string length $fn] && [string match "after#*" $fn] == 0} {
@@ -525,7 +530,7 @@ proc TxtCols {codes fn {ff ""}} {
 			puts $fp "set locTxtFilter \"$locTxtFilter\""
 			set cl ""
 			foreach cv [.txtcols.1.1.l get 0 end] {
-				foreach c {-1 5 38 37 39 4 111 138 137 139} {
+				foreach c $tmpAllCodes {
 					if {$cv == $geoCodes($c)} {
 						lappend cl $c
 						break
@@ -613,7 +618,7 @@ proc c_state {} {
 #	@param ff format file optional
 #	@return 0 on success
 proc TxtGeo {fn {ff ""}} {
-	global geoEasyMsg
+	global geoEasyMsg geoCodes
 	global reg
 	global txtSep multiSep header txtFilter
 
@@ -627,14 +632,14 @@ proc TxtGeo {fn {ff ""}} {
 	if {[catch {set f1 [open $fn r]}] != 0} {
 			return -1		;# cannot open input file
 	}
-	set codes [TxtCols {2 5 7 8 9} $fn $ff]	;# order of values
+	set codes [TxtCols {2 5 7 8 9 6 3} {2 5 7 8 9 6 3 11 4 10 120} $fn $ff]	;# order of values
 	if {[llength $codes] == 0} {
 		return -999
 	}
 	set apn [lsearch -exact $codes 2]
 	set npn [lsearch -exact $codes 5]
 	if {$npn < 0 || $apn < 0} {
-		return -1	;# TBD felrevezeto hibauzetet ad mas return kod kellene!!!
+		return -12
 	}
 	set src 0			;# input line number
 	set nrow 0			;# number of rows in fieldbook
