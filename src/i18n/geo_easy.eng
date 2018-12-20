@@ -820,6 +820,8 @@ set geoEasyMsg(head1Front)	"Point num  Code                E            N       
 #
 # regression
 #
+set geoEasyMsg(unknown)			"unknown"
+set geoEasyMsg(fixedRadius)		"Fixed radius"
 set geoEasyMsg(cantSolve)		"Cannot solve the task"
 set geoEasyMsg(head0LinRegX)    "N = %+.8f * E %s"
 set geoEasyMsg(head0LinRegY)    "E = %+.8f * N %s"
