@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017 Zoltan Siki siki1958 (at) gmail (dot) com
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -19,7 +18,8 @@
 #	@param regindex index of regression type
 proc GeoReg {regindex} {
 	global reglist
-	global geoEasyMsg
+	global geoEasyMsg geoCodes
+	global reg
 
 #	select points for regression
 	if {$regindex == 0} {
@@ -53,7 +53,17 @@ proc GeoReg {regindex} {
 		if {[llength $plist] > 2} {
 			set rplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
 			if {[llength $rplist] >= 3} {
-				CircleReg $rplist
+				set r [GeoEntry "$geoCodes(64):" $geoCodes(64) $geoEasyMsg(unknown)]
+				regsub "^\[     \]*" $r "" r    ;# remove leading spaces/tabs
+				regsub "\[  \]*$" $r "" r       ;# remove trailing spaces/tabs
+				if {[regexp $reg(2) $r] == 0} {
+					set r ""
+				}
+				if {$r == ""} {
+					CircleReg $rplist
+				} else {
+					CircleRegR $rplist $r
+				}
 			}
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
@@ -69,7 +79,19 @@ proc GeoReg {regindex} {
 					3 { PlaneRegYXZ $rplist }
 					4 { PlaneHReg $rplist }
 					5 { LinRegXY $rplist [lindex $reglist 5]}
-					6 { SphereReg $rplist }
+					6 { 
+						set r [GeoEntry "$geoCodes(64):" $geoCodes(64) $geoEasyMsg(unknown)]
+						regsub "^\[     \]*" $r "" r    ;# remove leading spaces/tabs
+						regsub "\[  \]*$" $r "" r       ;# remove trailing spaces/tabs
+						if {[regexp $reg(2) $r] == 0} {
+							set r ""
+						}
+						if {$r == ""} {
+							SphereReg $rplist		;# sphere
+						} else {
+							SphereRegR $rplist $r	;# sphere with known radius
+						}
+					}
 					7 { Line3DReg $rplist }
 					8 { ParabReg $rplist }
 				}
@@ -85,7 +107,8 @@ proc GeoReg {regindex} {
 #	@param plist
 proc GeoReg1 {plist} {
 	global reglist
-	global geoEasyMsg
+	global geoEasyMsg geoCodes
+	global reg
 
 #	select regression type
 	set regtype [GeoListbox $reglist {0 1 2 3 4} $geoEasyMsg(lbReg) 1]
@@ -111,7 +134,17 @@ proc GeoReg1 {plist} {
 		} elseif {$regindex == 1} {
 			# nop for paralel lines TODO
 		} elseif {[llength $rplist] > 2 && $regindex == 2} {
-			CircleReg $rplist
+			set r [GeoEntry "$geoCodes(64):" $geoCodes(64) $geoEasyMsg(unknown)]
+			regsub "^\[     \]*" $r "" r    ;# remove leading spaces/tabs
+			regsub "\[  \]*$" $r "" r       ;# remove trailing spaces/tabs
+			if {[regexp $reg(2) $r] == 0} {
+				set r ""
+			}
+			if {$r == ""} {
+				CircleReg $rplist
+			} else {
+				CircleRegR $rplist $r
+			}
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
@@ -135,7 +168,17 @@ proc GeoReg1 {plist} {
 		} elseif {[llength $rplist] >= 2 && $regindex == 5} {
 			LinRegXY $rplist [lindex $reglist 5]	;# vertical plane
 		} elseif {[llength $rplist] >= 4 && $regindex == 6} {
-			SphereReg $rplist		;# sphere
+			set r [GeoEntry "$geoCodes(64):" $geoCodes(64) $geoEasyMsg(unknown)]
+			regsub "^\[     \]*" $r "" r    ;# remove leading spaces/tabs
+			regsub "\[  \]*$" $r "" r       ;# remove trailing spaces/tabs
+			if {[regexp $reg(2) $r] == 0} {
+				set r ""
+			}
+			if {$r == ""} {
+				SphereReg $rplist		;# sphere
+			} else {
+				SphereRegR $rplist $r	;# sphere with known radius
+			}
 		} elseif {[llength $rplist] >= 4 && $regindex == 7} {
 			Line3DReg $rplist		;# 3D line
 		} elseif {[llength $rplist] >= 5 && $regindex == 8} {
@@ -577,7 +620,7 @@ proc CircleRegR {plist r} {
 #puts "y0e=$y0e x0e=$x0e"
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 2]	;# TODO
+	GeoLog "[lindex $reglist 2] $geoEasyMsg(fixedRadius)"
 	GeoLog1 [format $geoEasyMsg(head0CircleReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $r]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -797,7 +840,7 @@ proc SphereRegR {plist r} {
 #puts "y0e=$y0e x0e=$x0e z0e=$z0e"
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 6]
+	GeoLog "[lindex $reglist 6] $geoEasyMsg(fixedRadius)"
 	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $z0e] [format %.${decimals}f $r]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]

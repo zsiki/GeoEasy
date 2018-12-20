@@ -818,6 +818,8 @@ set geoEasyMsg(head1Front)	"Èíslo bodu  Kód                Y            X       
 #
 # regression
 #
+set geoEasyMsg(unknown)         "unknown"		;# TODO
+set geoEasyMsg(fixedRadius)     "Fixed radius"	;# TODO
 set geoEasyMsg(cantSolve)		"Nelze vyøešit úkon"
 set geoEasyMsg(head0LinRegX)    "X = %+.8f * Y %s"
 set geoEasyMsg(head0LinRegY)    "Y = %+.8f * X %s"
