@@ -98,7 +98,7 @@ set txpTypes {{"txt/csv Datei Definition .txp" {.txp}}
 set cadTypes {{"AutoCAD DXF" {.dxf}}
 }
 
-set mskTypes {{"GeoEasy Eingabemaske" {.dxf}}
+set mskTypes {{"GeoEasy Eingabemaske" {.msk}}
 }
 
 set lstTypes {{"Textliste" {.lst}}
