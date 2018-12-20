@@ -1944,8 +1944,10 @@ proc TxtOut {fn {nn ""}} {
 			if {$d != ""} { set d [format "%.${decimals}f" $d] }
 			set th [GetVal {6} $rec]
 			if {$th != ""} { set th [format "%.${decimals}f" $th] }
+			set dm [GetVal {10 120} $rec]
+			if {$dm != ""} { set dm [format "%.${decimals}f" $dm] }
 
-			puts $f1 "$stpn;[GetVal {5 62} $rec];$hz;$v;$d;$th;$ih"
+			puts $f1 "$stpn;[GetVal {5 62} $rec];$hz;$v;$d;$th;$ih;$dm"
 		}
 		incr lineno
 	}
