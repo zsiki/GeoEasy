@@ -100,7 +100,7 @@ set txpTypes {{"Definice souboru txt/csv .txp" {.txp}}
 set cadTypes {{"AutoCAD DXF" {.dxf}}
 }
 
-set mskTypes {{"GeoEasy maska" {.dxf}}
+set mskTypes {{"GeoEasy maska" {.msk}}
 }
 
 set lstTypes {{"Textový seznam" {.lst}}

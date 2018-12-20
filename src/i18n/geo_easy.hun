@@ -101,7 +101,7 @@ set txpTypes {{"Txt/csv fájl definíció .txp" {.txp}}
 set cadTypes {{"AutoCAD DXF" {.dxf}}
 }
 
-set mskTypes {{"GeoEasy maszk" {.dxf}}
+set mskTypes {{"GeoEasy maszk" {.msk}}
 }
 
 set lstTypes {{"Szöveges lista" {.lst}}
