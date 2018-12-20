@@ -834,6 +834,8 @@ set geoEasyMsg(head1Front)	"Pontszám   Pontkód             Y            X       
 #
 # regression
 #
+set geoEasyMsg(unknown)         "ismeretlen"
+set geoEasyMsg(fixedRadius)     "Rögzített sugár"
 set geoEasyMsg(cantSolve)		"Nem tudom megoldani a feladatot"
 set geoEasyMsg(head0LinRegX)	"x = %+.8f * y %s"
 set geoEasyMsg(head0LinRegY)	"y = %+.8f * x %s"
