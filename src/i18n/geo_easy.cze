@@ -873,6 +873,7 @@ set geoEasyMsg(ly) "Y poèáteèní: "
 set geoEasyMsg(lx1) "X koncový: "
 set geoEasyMsg(ly1) "Y koncový: "
 set geoEasyMsg(ldxf) "DXF soubor"
+set geoEasyMsg(lcoo) "Coordinate file"	;# TODO
 set geoEasyMsg(lstep) "Krok: "
 # arc setting out
 set geoEasyMsg(cornerTitle) "Oblouk"
