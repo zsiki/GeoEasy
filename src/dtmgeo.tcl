@@ -2571,7 +2571,7 @@ proc GridParams {} {
 proc DtmInterpolateDialog {} {
 	global geoEasyMsg
 	global buttonid
-	global xInterp yInterp x1Interp y1Interp stepInterp dxfProfile
+	global xInterp yInterp x1Interp y1Interp stepInterp dxfProfile cooProfile
 	global gwin
 
 	set w [focus]
@@ -2600,6 +2600,7 @@ proc DtmInterpolateDialog {} {
 	label $this.lstep -text $geoEasyMsg(lstep)
 	entry $this.step -textvariable stepInterp -width 10
 	checkbutton $this.dxf -text $geoEasyMsg(ldxf) -variable dxfProfile
+	checkbutton $this.coo -text $geoEasyMsg(lcoo) -variable cooProfile
 	button $this.exit -text $geoEasyMsg(ok) \
 		-command {destroy .interpolatedia
 					global gwin
@@ -2618,8 +2619,9 @@ proc DtmInterpolateDialog {} {
 	grid $this.y1 -row 3 -column 1 -sticky w
 	grid $this.step -row 4 -column 1 -sticky w
 	grid $this.dxf -row 5 -column 1 -sticky w
-	grid $this.exit -row 6 -column 1
-	grid $this.cancel -row 6 -column 0
+	grid $this.coo -row 6 -column 1 -sticky w
+	grid $this.exit -row 7 -column 1
+	grid $this.cancel -row 7 -column 0
 	tkwait visibility $this
 	CenterWnd $this
 	grab set $this
@@ -2633,8 +2635,8 @@ proc DtmProfile {this} {
 	global tcl_platform dxfview
 	global decimals
 	global reg
-	global xInterp yInterp x1Interp y1Interp stepInterp dxfProfile
-	global cadTypes
+	global xInterp yInterp x1Interp y1Interp stepInterp dxfProfile cooProfile
+	global cadTypes fileTypes
 
 	set can $this.map.c
 	if {[regexp $reg(2) $xInterp] == 0 || [regexp $reg(2) $yInterp] == 0} {
@@ -2674,7 +2676,27 @@ proc DtmProfile {this} {
 		}
 		puts $fd "  0\nSECTION\n  2\nENTITIES"
 	}
- 
+	if {$cooProfile} {
+		set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
+		set fn [string trim [tk_getSaveFile -filetypes $typ \
+			-defaultextension ".geo" -initialdir $lastDir]]
+		if {[string length $fn] == 0 || [string match "after#*" $fn]} {
+			return
+		}
+        set lastDir [file dirname $fn]
+		if {[catch {set fc [open $fn w]} msg]} {
+			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
+				error 0 OK
+			return
+		}
+        set fn "[file rootname $fn].geo"
+        # create empty geo
+        set fc [open $fn "w"]
+        close $fc
+		# create coo
+        set fn "[file rootname $fn].coo"
+        set fc [open $fn "w"]
+	} 
 	set d [Distance $xInterp $yInterp $x1Interp $y1Interp]
 	for {set i 0} {$i < $d} {set i [expr {$i + $stepInterp}]} {
 		set x [expr {$xInterp + ($x1Interp - $xInterp) / $d * $i}]
@@ -2682,7 +2704,7 @@ proc DtmProfile {this} {
 		set cx [GeoX $can $x]	;# calculate canvas coords
 		set cy [GeoY $can $y]
 		set z [InterpolateTin $this $cx $cy]
-# TBD mi van ha szakadas van a metszetben? (lyuk a dtm-ben)
+# TODO mi van ha szakadas van a metszetben? (lyuk a dtm-ben)
 		GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" $x $y $z $i]
 		if {$dxfProfile} {
 			if {$i >= $stepInterp && $last_z > -9999 && $z > -9999} {
@@ -2692,6 +2714,9 @@ proc DtmProfile {this} {
 			}
 			set last_i $i
 			set last_z $z
+		}
+		if {$cooProfile} {
+			puts $fc [list [list 5 s$i] [list 38 $x] [list 37 $y] [list 39 $z]]
 		}
 	}
 	set cx [GeoX $can $x1Interp]	;# calculate canvas coords
@@ -2708,11 +2733,15 @@ proc DtmProfile {this} {
 		close $fd
 		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
-			if {[ShellExec $target]} {
+			if {[ShellExec $filen]} {
 				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
 					warning 0 OK
 			}
 		}
+	}
+	if {$cooProfile} {
+		puts $fc [list [list 5 s$i] [list 38 $x1Interp] [list 37 $y1Interp] [list 39 $z]]
+		close $fc
 	}
 }
 
