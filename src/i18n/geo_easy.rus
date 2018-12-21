@@ -875,6 +875,7 @@ set geoEasyMsg(ly) "N start: "
 set geoEasyMsg(lx1) "E end: "
 set geoEasyMsg(ly1) "N end: "
 set geoEasyMsg(ldxf) "DXF файл"
+set geoEasyMsg(lcoo) "Coordinate file"	;# TODO
 set geoEasyMsg(lstep) "Шаг: "
 # arc setting out
 set geoEasyMsg(cornerTitle) "Угол дуги"
