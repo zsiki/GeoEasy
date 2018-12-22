@@ -476,12 +476,85 @@ proc LinRegXY {plist title} {
 }
 
 #
+#	Calculatate best fit circle, direct formula
+#		r^2 = (x-x0)^2 + (y - y0)^2
+#	y0, x0 and r are unknowns
+#	@param plist list of point numbers to use
+proc CircleReg {plist} {
+	global geoEasyMsg
+	global decimals
+	global reglist
+
+	set n [expr {double([llength $plist])}]
+	set i 0
+	set sx 0
+	set sy 0
+	set sxy 0
+	set sx2 0
+	set sy2 0
+	set l0 0
+	set l1 0
+	set l2 0
+#	coords of points
+	foreach pn $plist {
+		set coords [GetCoord $pn {37 38}]
+		set x($i) [GetVal 37 $coords]
+		set y($i) [GetVal 38 $coords]
+		set x2 [expr {$x($i) * $x($i)}]
+		set y2 [expr {$y($i) * $y($i)}]
+		set sx [expr {$sx + $x($i)}]
+		set sy [expr {$sy + $y($i)}]
+		set sxy [expr {$sxy + $x($i) * $y($i)}]
+		set sx2 [expr {$sx2 + $x2}]
+		set sy2 [expr {$sy2 + $y2}]
+		set l0 [expr {$l0 + $x($i) * ($x2 + $y2)}]
+		set l1 [expr {$l1 + $y($i) * ($x2 + $y2)}]
+		set l2 [expr {$l2 + $x2 + $y2}]
+		incr i
+	}
+	# set up normal equatiion
+	set a(0,0) $sx2
+	set a(0,1) $sxy
+	set a(0,2) $sx
+	set a(1,0) $sxy
+	set a(1,1) $sy2
+	set a(1,2) $sy
+	set a(2,0) $sx
+	set a(2,1) $sy
+	set a(2,2) $n
+	set b(0) -$l0
+	set b(1) -$l1
+	set b(2) -$l2
+	GaussElimination a b 3
+	set x0e [expr {-0.5 * $b(0)}]
+	set y0e [expr {-0.5 * $b(1)}]
+	set re [expr {sqrt(($b(0) * $b(0) + $b(1) * $b(1)) / 4.0 - $b(2))}]
+	GeoLog1
+	GeoLog [lindex $reglist 2]
+	GeoLog1 [format $geoEasyMsg(head0CircleReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $re]]
+	GeoLog1
+	GeoLog1 $geoEasyMsg(head1CircleReg)
+	set sdr2 0
+	for {set i 0} {$i < $n} {incr i} {
+		set delta [Bearing $y0e $x0e $y($i) $x($i)]
+		set dr [expr {$re - [Distance $y0e $x0e $y($i) $x($i)]}]
+		set sdr2 [expr {$sdr2 + $dr * $dr}]
+		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
+			[lindex $plist $i] $y($i) $x($i) \
+			[expr {$y0e + $re * sin($delta) - $y($i)}] \
+			[expr {$x0e + $re * cos($delta) - $x($i)}] $dr]
+	}
+	GeoLog1
+	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdr2 / $n)}]]
+}
+
+#
 #	Calculatate best fit circle, iteration is used
 #		y = y0 + r * sin(delta)
 #		x = x0 + r * cos(delta)
 #	y0, x0 and r are unknowns (deltas are estimated)
 #	@param plist list of point numbers to use
-proc CircleReg {plist} {
+proc CircleRegOld {plist} {
 	global geoEasyMsg
 	global decimals
 	global reglist
@@ -537,12 +610,10 @@ proc CircleReg {plist} {
 		set y0e [expr {$y0e + $b(0)}]
 		set x0e [expr {$x0e + $b(1)}]
 		set re $b(2)
-#puts "$iteration y0=$b(0)] x0=$b(1)] r=$b(2)]"
 		if {[expr {abs($b(0))}] < $epsReg && [expr {abs($b(1))}] < $epsReg &&
 			[expr {abs($b(2) - $re)}] < $epsReg || $iteration > $maxIteration} {
 			break
 		}
-#puts "y0e=$y0e x0e=$x0e r=$re"
 	}
 	GeoLog1
 	GeoLog [lindex $reglist 2]
@@ -555,9 +626,6 @@ proc CircleReg {plist} {
 	set sdr2 0
 	for {set i 0} {$i < $n} {incr i} {
 		set delta [Bearing $y0e $x0e $y($i) $x($i)]
-#puts "[lindex $plist $i] $y($i) $x($i) \
-#[expr {$y0e + $re * sin($delta) - $y($i)}] \ 
-#[expr {$x0e + $re * cos($delta) - $x($i)}]"
 		set dr [expr {$re - [Distance $y0e $x0e $y($i) $x($i)]}]
 		set sdr2 [expr {$sdr2 + $dr * $dr}]
 		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
@@ -612,12 +680,10 @@ proc CircleRegR {plist r} {
 		set dx0 [expr {$sumcos / $n}]
 		set y0e [expr {$y0e + $dy0}]
 		set x0e [expr {$x0e + $dx0}]
-#puts "$iteration dy0=$dy0 dx0=$dx0"
 		if {[expr {abs($dy0)}] < $epsReg && [expr {abs($dx0)}] < $epsReg || \
 			$iteration > $maxIteration} {
 			break
 		}
-#puts "y0e=$y0e x0e=$x0e"
 	}
 	GeoLog1
 	GeoLog "[lindex $reglist 2] $geoEasyMsg(fixedRadius)"
@@ -642,13 +708,109 @@ proc CircleRegR {plist r} {
 }
 
 #
+#	Calculatate best fit sphere, direct formula
+#		r^2 = (x-x0)^2 + (y - y0)^2 + (z - z0)^2
+#	y0, x0, z0 and r are unknowns
+#	@param plist list of point numbers to use
+proc SphereReg {plist} {
+	global geoEasyMsg
+	global decimals
+	global reglist
+
+	set n [expr {double([llength $plist])}]
+	set i 0
+	set sx 0
+	set sy 0
+	set sz 0
+	set sxy 0
+	set sxz 0
+	set syz 0
+	set sx2 0
+	set sy2 0
+	set sz2 0
+	set l0 0
+	set l1 0
+	set l2 0
+	set l3 0
+#	coords of points
+	foreach pn $plist {
+		set coords [GetCoord $pn {37 38}]
+		set x($i) [GetVal 37 $coords]
+		set y($i) [GetVal 38 $coords]
+		set z($i) [GetVal 39 $coords]
+		set x2 [expr {$x($i) * $x($i)}]
+		set y2 [expr {$y($i) * $y($i)}]
+		set z2 [expr {$z($i) * $z($i)}]
+		set sx [expr {$sx + $x($i)}]
+		set sy [expr {$sy + $y($i)}]
+		set sz [expr {$sz + $z($i)}]
+		set sxy [expr {$sxy + $x($i) * $y($i)}]
+		set sxz [expr {$sxz + $x($i) * $z($i)}]
+		set syz [expr {$syz + $y($i) * $z($i)}]
+		set sx2 [expr {$sx2 + $x2}]
+		set sy2 [expr {$sy2 + $y2}]
+		set sz2 [expr {$sz2 + $z2}]
+		set l0 [expr {$l0 + $x($i) * ($x2 + $y2 + $z2)}]
+		set l1 [expr {$l1 + $y($i) * ($x2 + $y2 + $z2)}]
+		set l2 [expr {$l2 + $z($i) * ($x2 + $y2 + $z2)}]
+		set l3 [expr {$l3 + $x2 + $y2 + $z2}]
+		incr i
+	}
+	# set up normal equatiion
+	set a(0,0) $sx2
+	set a(0,1) $sxy
+	set a(0,2) $sxz
+	set a(0,3) $sx
+	set a(1,0) $sxy
+	set a(1,1) $sy2
+	set a(1,2) $syz
+	set a(1,3) $sy
+	set a(2,0) $sxz
+	set a(2,1) $syz
+	set a(2,2) $sz2
+	set a(2,3) $sz
+	set a(3,0) $sx
+	set a(3,1) $sy
+	set a(3,2) $sz
+	set a(3,3) $n
+	set b(0) -$l0
+	set b(1) -$l1
+	set b(2) -$l2
+	set b(3) -$l3
+	GaussElimination a b 4
+	set x0e [expr {-0.5 * $b(0)}]
+	set y0e [expr {-0.5 * $b(1)}]
+	set z0e [expr {-0.5 * $b(2)}]
+	set re [expr {sqrt(($b(0) * $b(0) + $b(1) * $b(1) + $b(2) * $b(2)) / 4.0 - $b(3))}]
+	GeoLog1
+	GeoLog1 $geoEasyMsg(head1SphereReg)
+	set sdr2 0
+	for {set i 0} {$i < $n} {incr i} {
+		set yo [expr {$y($i) - $y0e}]
+		set xo [expr {$x($i) - $x0e}]
+		set zo [expr {$z($i) - $z0e}]
+		set delta [Bearing 0 0 $yo $xo]
+		set alfa [expr {atan2($zo, [Distance 0 0 $yo $xo])}]
+		set dr [expr {$re - [Distance3d $y0e $x0e $z0e $y($i) $x($i) $z($i)]}]
+		set sdr2 [expr {$sdr2 + $dr * $dr}]
+		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
+			[lindex $plist $i] $y($i) $x($i) $z($i) \
+			[expr {$y0e + $re * cos($alfa) * sin($delta) - $y($i)}] \
+			[expr {$x0e + $re * cos($alfa) * cos($delta) - $x($i)}] \
+			[expr {$z0e + $re * sin($alfa) - $z($i)}] $dr]
+	}
+	GeoLog1
+	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdr2 / $n)}]]
+}
+
+#
 #	Calculatate best fit sphere, iteration is used
 #		y = y0 + r * cos(alfa) * sin(delta)
 #		x = x0 + r * cos(alfa) * cos(delta)
 #		z = z0 + r * sin(alfa)
 #	y0, x0, z0 and r are unknowns (alfa, delta is calculated?)
 #	@param plist list of point numbers to use
-proc SphereReg {plist} {
+proc SphereRegOld {plist} {
 	global geoEasyMsg
 	global decimals
 	global reglist
@@ -676,7 +838,6 @@ proc SphereReg {plist} {
 	set z0e [expr {$sz / $n}]
 	set re [Distance3d $y0e $x0e $z0e $x(0) $y(0) $z(0)]
 	set iteration 0
-#puts "y0e=$y0e x0e=$x0e r=$re"
 	while 1 {
 		incr iteration
 		set sumcossin 0
@@ -729,7 +890,6 @@ proc SphereReg {plist} {
 		set b(2) $sumb2
 		set b(3) $sumb3
 		GaussElimination a b 4
-#puts "$iteration y0=$b(0)] x0=$b(1)] r=$b(2)]"
 		if {[expr {abs($b(0))}] < $epsReg && [expr {abs($b(1))}] < $epsReg && \
 			[expr {abs($b(2))}] < $epsReg && \
 			[expr {abs($b(3))}] < $epsReg || $iteration > $maxIteration} {
@@ -739,7 +899,6 @@ proc SphereReg {plist} {
 		set x0e [expr {$x0e + $b(1)}]
 		set z0e [expr {$z0e + $b(2)}]
 		set re [expr {$re + $b(3)}]
-#puts "y0e=$y0e x0e=$x0e r=$re"
 	}
 	GeoLog1
 	GeoLog [lindex $reglist 6]
@@ -751,12 +910,8 @@ proc SphereReg {plist} {
 	GeoLog1 $geoEasyMsg(head1SphereReg)
 	set sdr2 0
 	for {set i 0} {$i < $n} {incr i} {
-#		set delta [Bearing $y0e $x0e $y($i) $x($i)]
 		set delta [Bearing 0 0 $yo($i) $xo($i)]
 		set alfa [expr {atan2($zo($i), [Distance 0 0 $yo($i) $xo($i)])}]
-#puts "[lindex $plist $i] $y($i) $x($i) \
-#[expr {$y0e + $re * sin($delta) - $y($i)}] \ 
-#[expr {$x0e + $re * cos($delta) - $x($i)}]"
 		set dr [expr {$re - [Distance3d $y0e $x0e $z0e $y($i) $x($i) $z($i)]}]
 		set sdr2 [expr {$sdr2 + $dr * $dr}]
 		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
@@ -805,7 +960,6 @@ proc SphereRegR {plist r} {
 	set z0e [expr {$sz / $n}]
 	#set re [Distance3d $y0e $x0e $z0e $x(0) $y(0) $z(0)]
 	set iteration 0
-#puts "y0e=$y0e x0e=$x0e r=$re"
 	while 1 {
 		incr iteration
 		set sumcossin 0
@@ -829,7 +983,6 @@ proc SphereRegR {plist r} {
 		set dy0 [expr {$sumcossin / $n}]
 		set dx0 [expr {$sumcoscos / $n}]
 		set dz0 [expr {$sumsin / $n}]
-#puts "$iteration dy0=$dy0 dx0=$dx0 dz0=$dz0]"
 		if {[expr {abs($dy0)}] < $epsReg && [expr {abs($dx0)}] < $epsReg && \
 			[expr {abs($dz0)}] < $epsReg || $iteration > $maxIteration} {
 				break
@@ -837,7 +990,6 @@ proc SphereRegR {plist r} {
 		set y0e [expr {$y0e + $dy0}]
 		set x0e [expr {$x0e + $dx0}]
 		set z0e [expr {$z0e + $dz0}]
-#puts "y0e=$y0e x0e=$x0e z0e=$z0e"
 	}
 	GeoLog1
 	GeoLog "[lindex $reglist 6] $geoEasyMsg(fixedRadius)"
@@ -851,9 +1003,6 @@ proc SphereRegR {plist r} {
 	for {set i 0} {$i < $n} {incr i} {
 		set delta [Bearing 0 0 $yo($i) $xo($i)]
 		set alfa [expr {atan2($zo($i), [Distance 0 0 $yo($i) $xo($i)])}]
-#puts "[lindex $plist $i] $y($i) $x($i) \
-#[expr {$y0e + $r * sin($delta) - $y($i)}] \ 
-#[expr {$x0e + $r * cos($delta) - $x($i)}]"
 		set dr [expr {$r - [Distance3d $y0e $x0e $z0e $y($i) $x($i) $z($i)]}]
 		set sdr2 [expr {$sdr2 + $dr * $dr}]
 		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
@@ -1170,19 +1319,7 @@ proc PlaneRegYXZ { plist } {
 	set AA(2,1) $eta_zeta
 	set AA(2,2) $zeta_2
 	# look for eigenvalues
-#GeoLog1 "matrix"
-#for {set i 0} {$i < 3} {incr i} {
-#	GeoLog1 "$AA($i,0) $AA($i,1) $AA($i,2)"
-#}
 	Jacobi AA VV 3
-#GeoLog1 "eigen values"
-#for {set i 0} {$i < 3} {incr i} {
-#	GeoLog1 "$AA($i,0) $AA($i,1) $AA($i,2)"
-#}
-#GeoLog1 "eigen vectors"
-#for {set i 0} {$i < 3} {incr i} {
-#	GeoLog1 "$VV($i,0) $VV($i,1) $VV($i,2)"
-#}
 	# look for smallest eigenvalue
 	set index 0
 	for {set i 0} {$i < 3} {incr i} {
@@ -1207,7 +1344,6 @@ proc PlaneRegYXZ { plist } {
 	GeoLog1 [format $geoEasyMsg(head0PlaneReg) [format "%+.${decimals}f" $a0] $a1 $a2]
 #	slope angle and direction
 	set dir [Bearing $a1 $a2 0 0]
-#	while {$dir < 0} { set dir [expr {$dir + $PI2}]}
 	set ang [expr {atan(sqrt($a1*$a1+$a2*$a2))}]
 	GeoLog1 [format $geoEasyMsg(head00PlaneReg) [DMS $dir] [DMS $ang]]
 	GeoLog1
@@ -1552,7 +1688,6 @@ proc ParabReg {plist} {
 	set z0e [expr {$sz / $n}]
 	set ae 1
 	set iteration 0
-#puts "y0e=$y0e x0e=$x0e
 	while 1 {
 		incr iteration
 		set sumw1 0
@@ -1609,7 +1744,6 @@ proc ParabReg {plist} {
 		set b(2) $sumb3
 		set b(3) $sumb4
 		GaussElimination a b 4
-#puts "$iteration y0=$b(0)] x0=$b(1)] r=$b(2)]"
 		if {[expr {abs($b(0))}] < $epsReg && [expr {abs($b(1))}] < $epsReg && \
 			[expr {abs($b(2))}] < $epsReg && \
 			[expr {abs($b(3) - $re)}] < $epsReg || $iteration > $maxIteration} {
@@ -1619,7 +1753,6 @@ proc ParabReg {plist} {
 		set x0e [expr {$x0e + $b(1)}]
 		set z0e [expr {$z0e + $b(2)}]
 		set ae [expr {$ae + $b(3)}]
-#puts "y0e=$y0e x0e=$x0e r=$re"
 	}
 	set y0e [expr {$y0e + $b(0)}]
 	set x0e [expr {$x0e + $b(1)}]
@@ -1706,7 +1839,6 @@ proc ParLin {alist blist} {
 	set m [expr {tan($fi)}]
 	set b [expr {$xs - $m * $ys}]
 	set b1 [expr {$xs1 - $m * $ys1}]
-	#puts "$m $b $b1"
 	GeoLog1
 	GeoLog [lindex $reglist 1]
 	GeoLog1 [format $geoEasyMsg(head0LinRegX) $m [format %+.${decimals}f $b]]
