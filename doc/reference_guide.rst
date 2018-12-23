@@ -14,6 +14,31 @@ GeoEasy is a complex tool for land surveyors
 The program supports several input and
 output formats, so it can easily be inserted into user’s work-flow.
 
+Starting the program
+--------------------
+
+GeoEasy accepts command line parameters. The language of the user interface
+can be selected and input data set can be given.
+
+GeoEasy by default uses the language of the operating system if it is
+available. Five languages are available when writing this documentation:
+English, German, Russian, Czeh and Hungarian.
+
+You can switch to a different language from the default by the *--lang* 
+command line switch. The ISO 639-1 two or ISO 639-2/B three letters codes 
+are accepted. For example:
+
+.. code:: bash
+
+	geoeasy --lang hun
+
+After the optional language switch you can give a serie of GeoEasy data sets
+and/or Tcl scripts. For example:
+
+.. code:: bash
+
+	geoeasy --lang hun ~/demodata/test1.geo ./startup.tcl
+
 GeoEasy main window
 -------------------
 
@@ -414,23 +439,86 @@ Intersection of two lines
 .........................
 
 Two lines are given by two-two points and the intersection of the two lines
-is calculated. The id/name of the intersection point canalso be given if
-so the intersection point is stored in the opened data sets. This calculation 
-is made in 2D.
+is calculated. The id/name of the intersection point can also be given if
+so the intersection point is stored in the opened data sets.
+The result of the calculation can be seen in the Calculation results window.
+This calculation is made in 2D.
 
 Point on line
 .............
 
-
+A new point is calculated along a line given by an offset from the first point.
+Beside the offset (Horizontal distance) optionally the measured distance 
+(total length) can be given. The total length is used to calculate a scale 
+between the calculated and the measured lengths.
+The result of the calculation can be seen in the Calculation results window.
+This calculation is made in 2D.
 
 Length
 ......
 
+The lengths between a serie of points can be calculated. 
+Both the total length and the individual distences are shown in the
+*Calculation results* window. There is a tool in the graphic window,
+where you can mark points by the mouse.
+
+.. code:: text
+
+	2018.12.23 17:27 - Distance calculation
+	Point num          E            N         Length
+	11            91515.440     2815.220
+	12            90661.580     1475.280     1588.873
+	13            84862.540     3865.360     6272.268
+	14            91164.160     4415.080     6325.552
+
+	Sum                                     14186.693
+
 Area
 ....
 
+The area of a polygon can be calculated. Beside the area the perimeter and
+side length are displayed in *Calulation results* window. 
+There is a tool in the graphic window,
+where you can mark points by the mouse.
+
+.. code:: text
+
+	2018.12.23 16:31 - Area calculation
+	Point num          E            N         Length
+	16            90050.240     3525.120
+	231           88568.240     2281.760     1934.494
+	232           88619.860     3159.880      879.636
+	16            90050.240     3525.120     1476.275
+
+	Area                                   618595.79840
+	Perimeter                                4290.405
+
 Arc setting out
 ...............
+
+The coordinates of arc points can be calculated here. Pure arc and 
+arc with transition curves are both allowed. Three points have to be
+specified, first the intersection of tangents, an arbitrary point on the
+incoming and outgoing tangent. Finally the otherr parameters of the arc
+have to be given in a dialog box.
+
+.. image:: rg_images/arc.png
+	:align: center
+
+Leave the *Transition parameter* empty if pure arc is planed.
+Optionally detail points can be calculated giving a distance or a number of 
+points. If both fields are empty only the main points of arc are calculated.
+
+.. code:: text
+
+	2018.12.23 17:17 - Arc setting out
+	Tangent length: 1510.37
+	Radius: 500.00
+	Alpha: 143-21-59  Beta:  36-38-01
+	  Point id          E              N
+	   arc1_ie      90023.538       3050.712
+	   arc1_iv      90177.720       2113.983
+	   arc1_ik      90438.941       2638.032
 
 Preliminary coordinates
 .......................
