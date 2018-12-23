@@ -759,6 +759,7 @@ set geoEasyMsg(modules)		"Modules:"
 #
 set geoEasyMsg(logWin)		"Calculation results"
 set geoEasyMsg(consoleWin)	"Tcl console"
+set geoEasyMsg(startup)		"Tcl startup script executed: "
 #
 # resize mask
 #

@@ -184,6 +184,7 @@ proc GeoEasy {top} {
 		set l [getopt $argv "-lang"]  
 		if {$l == ""} {
 			set l [getopt $argv "--lang"]  
+puts "lang = $l"
 		}
 		set l [string tolower $l]
 		set i [lsearch -exact [array names geoLangs] $l]
@@ -192,6 +193,7 @@ proc GeoEasy {top} {
 			foreach lang [array names geoLangs] {
 				if {[lsearch $geoLangs($lang) [string range $l 0 1]] > -1} {
 					set geoLang $lang
+puts "lang = $l"
 					break
 				}
 			}
@@ -506,6 +508,10 @@ proc GeoEasy {top} {
 						MenuLoad $top $name
 					}
 					*.gpr { GeoProjLoad $top $name }
+					*.tcl {
+						source $name
+						GeoLog "$geoEasyMsg(startup) $name"
+					}
 					default { tk_dialog .msg $geoEasyMsg(warning) \
 						"$geoEasyMsg(filetype) $name"  warning 0 OK}
 				}
