@@ -184,21 +184,23 @@ proc GeoEasy {top} {
 		set l [getopt $argv "-lang"]  
 		if {$l == ""} {
 			set l [getopt $argv "--lang"]  
-puts "lang = $l"
 		}
-		set l [string tolower $l]
-		set i [lsearch -exact [array names geoLangs] $l]
-		if {$i == -1} {
-			set geoLang eng ;# default language
-			foreach lang [array names geoLangs] {
-				if {[lsearch $geoLangs($lang) [string range $l 0 1]] > -1} {
-					set geoLang $lang
-puts "lang = $l"
-					break
+		if {[string length $l]} {
+			set l [string tolower $l]
+			set i [lsearch -exact [array names geoLangs] $l]
+			if {$i == -1} {
+				set geoLang eng ;# default language
+				foreach lang [array names geoLangs] {
+					if {[lsearch $geoLangs($lang) [string range $l 0 1]] > -1} {
+						set l $lang
+						break
+					}
 				}
 			}
-		} else {
 			set geoLang $l
+			# remove processed command line parameters
+			set argv [lrange $argv 2 end]
+			set argc [llength $argv]
 		}
 	}
 #	GeoEasy & ComEasy message file
