@@ -108,13 +108,17 @@ proc GeoEasy {top} {
 	set comSaveType ""
 	# get home dir from name of executable
 	set myName [file tail [info nameofexecutable]]
-	if {[regexp -nocase "^GeoEasy(64)?(\.exe)?$" $myName]} {
+	if {[regexp "^GeoEasy(64)?(\.exe)?$" $myName]} {
+		# Linux or Windows binary release
 		set home [file dirname [info nameofexecutable]]
+	} elseif {[regexp "^wish" $myName]} {
+		# for debian package
+		set home [file dirname [file normalize [info script]]]
 	} else {
 		# for debugging
 		set home .
-		set auto_path [linsert $auto_path 0 $home]
 	}
+	set auto_path [linsert $auto_path 0 $home]
 	set lastDir [pwd]
 	# central european code page
 #	catch {encoding system cp1250}
