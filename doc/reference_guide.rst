@@ -21,7 +21,7 @@ GeoEasy accepts command line parameters. The language of the user interface
 can be selected and input data set can be given.
 
 GeoEasy by default uses the language of the operating system if it is
-available. Five languages are available when writing this documentation:
+available. Five languages are supported when writing this documentation:
 English, German, Russian, Czeh and Hungarian.
 
 You can switch to a different language from the default by the *--lang* 
@@ -32,8 +32,19 @@ are accepted. For example:
 
 	geoeasy --lang hun
 
-After the optional language switch you can give a serie of GeoEasy data sets
-and/or Tcl scripts. For example:
+Log messages and calculation results are written to a log beside the
+calculation results window. The default location of the log file is the
+user's home directory and the name is *geo_easy.log*. Using the *--log*
+command line parameter the name and the location of the log file can be
+given in the command line. For example:
+
+.. code:: bash
+
+	geoeasy --log /tmp/mylog.log
+
+
+After the optional language and log switches you can give a serie of
+GeoEasy data sets and/or Tcl scripts. For example:
 
 .. code:: bash
 
@@ -523,13 +534,27 @@ points. If both fields are empty only the main points of arc are calculated.
 Preliminary coordinates
 .......................
 
+Preliminary coordinates are used to display points in the graphics window, 
+before calculating final coordinates. Other usage of preliminary coordinates
+belongs to network adjustment. Preliminary coordinates have different colour
+in the coordinate list and in the graphic window.
+
+Preliminay coordinates and orientations are calculated in an iteration. You 
+may get a message about points which horizontal or elevation cannot be
+calculated for.
+
 Recalculate preliminary coordinates
 ...................................
+
+All preliminary coorsinates are deleted and the preliminary coordinate
+calculation is invoked. It is useful if faullty preliminary coordinates 
+were calculated caused by errors in the data sets. After corecting 
+errors use this option to recalculate preliminary coordinates.
 
 3D network adjustment
 .....................
 
-Horizoltal network adjustment
+Horizontal network adjustment
 .............................
 
 Levelling network adjustment
@@ -544,6 +569,9 @@ Elevation transformation
 New detail points
 .................
 
+Calculate horizontal coordinates and elevations for all detail ponts which
+have no final coordinates yet.
+
 All detail point
 ................
 
@@ -555,6 +583,9 @@ Windows menu
 
 New graphic window
 ..................
+
+Open a new graphic window. The number of open graphic windows is limited to ten.
+Grpahic windows have manu and toolbar.
 
 Log window
 ..........
