@@ -183,11 +183,19 @@ proc GeoEasy {top} {
 			}
 		}
 	}
-	# overwrite language if command line parameter given
+	# get user's home directory for log file
+	if {$tcl_platform(platform) != "unix"} {
+		set uhome "$env(HOMEDRIVE)$env(HOMEPATH)"
+	} else {
+		set uhome $env(HOME)
+	}
+	set logName [file join $uhome geo_easy.log]
+	# process command line switches
 	if {[llength $argv] > 0} {
-		set l [getopt $argv "-lang"]  
+		# overwrite language if command line parameter given
+		set l [getopt "-lang"]  
 		if {$l == ""} {
-			set l [getopt $argv "--lang"]  
+			set l [getopt "--lang"]  
 		}
 		if {[string length $l]} {
 			set l [string tolower $l]
@@ -202,11 +210,11 @@ proc GeoEasy {top} {
 				}
 			}
 			set geoLang $l
-			# remove processed command line parameters
-			set argv [lrange $argv 2 end]
-			set argc [llength $argv]
 		}
+		# overwrite log name if given
+		set logName [getopt "--log" $logName]  
 	}
+
 #	GeoEasy & ComEasy message file
 	foreach name [list geo_easy com_easy] {
 		set msgFile [file join $home i18n $name.$geoLang]
@@ -252,14 +260,6 @@ proc GeoEasy {top} {
 		image create bitmap xchgtri -file [file join $home bitmaps bar xchgtri.xbm]
 	}
 
-	# get user's home directory for log file
-	if {$tcl_platform(platform) != "unix"} {
-		set uhome "$env(HOMEDRIVE)$env(HOMEPATH)"
-	} else {
-		set uhome $env(HOME)
-	}
-	set logName [file join $uhome geo_easy.log]
-	GeoLog $geoEasyMsg(start)
 #
 #	start the application
 #
@@ -494,9 +494,11 @@ proc GeoEasy {top} {
 	init_animate $topw
 
 	$top configure -menu $topw.menu
+	GeoLog $geoEasyMsg(start)
+
 #	catch {raise $top .log}
 #	catch {raise $top}
-	# process command line arguments
+	# process command line file arguments
 	if {[llength $argv] > 0} {
 		foreach arg $argv {
 			set name [string trim $arg]
@@ -1411,24 +1413,28 @@ proc CenterWnd {this} {
 
 #
 #   Get commandline parameter with default value
-#   @param argv command line arguments
 #	@param name nameof argument
 #	@param default default value if switch not given
 #   @return value for name or empty
-proc getopt {argv name {default ""}} {
+proc getopt {name {default ""}} {
+	global argv
+
 	set pos [lsearch -regexp $argv ^$name]
 	if {$pos >= 0} {
-		incr pos
-		if {[llength $argv] > $pos} {
-			set var [lindex $argv $pos]
+		set pos1 [expr {$pos + 1}]
+		if {[llength $argv] > $pos1} {
+			set var [lindex $argv $pos1]
+			set argv [lreplace $argv $pos $pos1]
 			return $var
 		} else {
+			set argv [lreplace $argv $pos $pos]
 			return ""
 		}
 	} else {
 		return $default
 	}
 }
+
 #
 #	start application
 #
