@@ -42,6 +42,12 @@ given in the command line. For example:
 
 	geoeasy --log /tmp/mylog.log
 
+.. note:: For Linux users
+
+	If no log file needed for you, you can specify *--log /dev/null* to 
+	supress logging. There are two more special log file specifications,
+	the *stdout* and the *stderr*. Giving one of these as log file, the
+	log messages are sent to the teminal window.
 
 After the optional language and log switches you can give a serie of
 GeoEasy data sets and/or Tcl scripts. For example:
@@ -374,7 +380,7 @@ coordinates, id/name of observer, date, instrument type and standard
 deviations. All fields are optional. If no standard deviations are given, the
 values defined in the  **Calculation parameters** are used.
 
-.. image:: obsparam.png
+.. image:: rg_images/obsparam.png
 	:align: center
 
 Load mask definitions
