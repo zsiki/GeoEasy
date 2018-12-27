@@ -1300,14 +1300,18 @@ proc GeoLog1 {{msg ""}} {
 	global logName
 	global geoEasyMsg
 
-	if {[catch {set logFile [open $logName "a+"]} errmsg] == 1} {
+	if {$logName == "stdout" || $logName == "stderr"} {
+		set logFile $logName
+	} elseif {[catch {set logFile [open $logName "a+"]} errmsg] == 1} {
 		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK	
 	}
 	if {[catch {puts $logFile $msg} errmsg] == 1} {
 		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK	
 	}
-	if {[catch {close $logFile} errmsg] == 1} {
-		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK	
+	if {$logName != "stdout" && $logName != "stderr"} {
+		if {[catch {close $logFile} errmsg] == 1} {
+			tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK	
+		}
 	}
 	if {[winfo exists .log]} {
 		if {[catch {.log.w.t insert end "$msg\n"} errmsg] == 1} {
