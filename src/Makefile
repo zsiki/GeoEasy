@@ -91,11 +91,12 @@ doc: ${DOC_SOURCES}
 	$(TCL_DOC) --overview overview.html --force ../tcldoc \
 		${DOC_SOURCES}
 deb-init:
-	@mkdir -pv ${DEB_PATH}/config ${DEB_PATH}/data/usr/bin ${DEB_PATH}/data/usr/share/doc/geoeasy ${DEB_PATH}/data/usr/share/geoeasy ${DEB_PATH}/data/usr/share/applications ${DEB_PATH}/data/usr/share/menu ${DEB_PATH}/data/usr/share/pixmaps
+	@mkdir -pv ${DEB_PATH}/config ${DEB_PATH}/data/usr/bin ${DEB_PATH}/data/usr/share/doc/geoeasy ${DEB_PATH}/data/usr/share/geoeasy ${DEB_PATH}/data/usr/share/applications ${DEB_PATH}/data/usr/share/menu ${DEB_PATH}/data/usr/share/pixmaps ${DEB_PATH}/data/usr/share/man/man1
 	@mkdir -pv ${DEBDOC_PATH}/config ${DEBDOC_PATH}/data/usr/share/doc/geoeasy
 deb-share: source ${CE_SOURCES}
 	@cp -frv ${DEB_FILES} ${DEB_PATH}/data//usr/share/geoeasy
 	@cp -frv ../README.md ../LICENSE ${DEB_PATH}/data/usr/share/doc/geoeasy
+	@cp -fv ../doc/man/man1/geoeasy.1 ${DEB_PATH}/data/usr/share/man/man1
 deb-external:
 	@ln -svf ${EXTERNAL_CS2CS} ${DEB_PATH}/data/usr/share/geoeasy/cs2cs
 	@ln -svf ${EXTERNAL_GAMMALOCAL} ${DEB_PATH}/data/usr/share/geoeasy/gama-local
