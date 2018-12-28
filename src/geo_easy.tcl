@@ -214,6 +214,63 @@ proc GeoEasy {top} {
 		# overwrite log name if given
 		set logName [getopt "--log" $logName]  
 	}
+	# parse help options
+	set help [getopt "--help" "not"]
+	if {$help != "not"} {
+		puts $geoEasyMsg(mainTitle)
+		puts ""
+		if {$help == "authors"} {
+			puts "Authors:"
+			puts "Copyright (c) 2017, Zoltan Siki <zsiki@github.com>."
+		} elseif {$help == "modules"} {
+			puts "Modules:"
+			puts "adjgeo.tcl"
+			puts "animate.tcl"
+			puts "arcgeo.tcl"
+			puts "build_date.tcl"
+			puts "calcgeo.tcl"
+			puts "com_easy.tcl"
+			puts "dtmgeo.tcl"
+			puts "dxfgeo.tcl"
+			puts "gamaxml.tcl"
+			puts "gc3.tcl"
+			puts "geodimet.tcl"
+			puts "geo_easy.tcl"
+			puts "graphgeo.tcl"
+			puts "grid.tcl"
+			puts "helpgeo.tcl"
+			puts "lbgeo.tcl"
+			puts "leica.tcl"
+			puts "loadgeo.tcl"
+			puts "maincom_easy.tcl"
+			puts "maskgeo.tcl"
+			puts "nikon.tcl"
+			puts "profigeo.tcl"
+			puts "proj.tcl"
+			puts "reggeo.tcl"
+			puts "sdr.tcl"
+			puts "sokkia.tcl"
+			puts "topcon.tcl"
+			puts "trackmaker.tcl"
+			puts "transgeo.tcl"
+			puts "travgeo.tcl"
+			puts "trimble.tcl"
+			puts "xmlgeo.tcl"
+			puts "zsenigeo.tcl"
+		} elseif {$help == "version"} {
+			puts "Changes:"
+			puts "Update i18n and deb"
+			puts "Circle regression"
+			puts "Command line params"
+		} else {
+			puts "Usage: geoeasy \[options\]"
+			puts " options:"
+			puts "  --help \[string\] - print help info and exit {authors, modules, version}"
+			puts "  --lang \[string\] - switch to a different language {hun, eng, ger, rus, cze}, default=auto"
+			puts "  --log \[string\] - select log {path/to/file.log | stdout | stderr}, default=$logName"
+		}
+		exit 0
+	}  
 
 #	GeoEasy & ComEasy message file
 	foreach name [list geo_easy com_easy] {
@@ -1424,19 +1481,19 @@ proc getopt {name {default ""}} {
 	global argv
 
 	set pos [lsearch -regexp $argv ^$name]
+	set var ""
 	if {$pos >= 0} {
 		set pos1 [expr {$pos + 1}]
 		if {[llength $argv] > $pos1} {
 			set var [lindex $argv $pos1]
 			set argv [lreplace $argv $pos $pos1]
-			return $var
 		} else {
 			set argv [lreplace $argv $pos $pos]
-			return ""
 		}
 	} else {
-		return $default
+		set var $default
 	}
+	return $var
 }
 
 #
