@@ -11,8 +11,14 @@ Clone the repository, change the code and send us back a pull request to include
 .B geoeasy [OPTIONS] [data-file] [tcl-script]
 .SH OPTIONS
 .TP
-.B \-\-lang string
-Switch to a different language {hun, eng, ger, rus, cze}.
+.B \-\-help [string]
+Print help info and exit {authors, modules, version}.
+.TP
+.B \-\-lang [string]
+Switch to a different language {hun, eng, ger, rus, cze}, default=auto.
+.TP
+.B \-\-log [string]
+Select log {path/to/file.log | stdout | stderr}, default=~/geo_easy.log
 .SH EXAMPLE
 geoeasy --lang hun ~/demodata/test1.geo ./startup.tcl
 .SH SEE ALSO
