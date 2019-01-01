@@ -752,16 +752,23 @@ proc MenuNew {w} {
 	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir \
 		-typevariable saveType]]
 	if {$fn == ""} { return }
+puts $fn
     # some extra work to get extension for windows
+puts $saveType
+
     regsub "\\(.*\\)$" $saveType "" saveType
     set saveType [string trim $saveType]
-    set typ [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1]
+puts $saveType
+    set typ [lindex [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1] 0]
+puts $typ
     if {[string match -nocase "*$typ" $fn] == 0} {
         set fn "$fn$typ"
+puts "$fn$typ"
     }
 	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
 	set lastDir [file dirname $fn]
 	set fn "[file rootname $fn].geo"
+puts $fn
 	if {$tcl_platform(platform) != "unix" && \
 		([file exists $fn] || [file exists "[file rootname $fn].coo"] || \
 		[file exists "[file rootname $fn].par"])} {
