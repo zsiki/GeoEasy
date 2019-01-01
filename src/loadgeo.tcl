@@ -1726,7 +1726,7 @@ proc GeoJoin { } {
     # some extra work to get extension for windows
     regsub "\\(.*\\)$" $saveType "" saveType
     set saveType [string trim $saveType]
-    set typ [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1]
+    set typ [lindex [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1] 0]
     if {[string match -nocase "*$typ" $fn] == 0} {
         set fn "$fn$typ"
     }
