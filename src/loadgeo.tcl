@@ -1711,7 +1711,7 @@ proc GeoJoin { } {
 	global geoLoaded
 	global lastDir
 	global geoEasyMsg
-	global fileTypes
+	global saveTypes
 	global saveType
 
 	if {[llength $geoLoaded] < 1} {
@@ -1719,7 +1719,7 @@ proc GeoJoin { } {
 		return
 	}
 	# get output name
-	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
+	set typ [list [lindex $saveTypes [lsearch -glob $saveTypes "*.geo*"]]]
 	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir \
 		-typevariable saveType]]
 	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
