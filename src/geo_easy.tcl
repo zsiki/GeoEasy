@@ -741,14 +741,14 @@ proc WinFill {m} {
 #		geoLoaded changes and new global arrays are created
 #	@param w handle to top level widget
 proc MenuNew {w} {
-	global fileTypes
+	global saveTypes
 	global geoEasyMsg
 	global tcl_platform
 	global geoLoaded geoLoadedDir geoChanged
 	global lastDir
 	global saveType
 
-	set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
+	set typ [list [lindex $saveTypes [lsearch -glob $saveTypes "*.geo*"]]]
 	set fn [string trim [tk_getSaveFile -filetypes $typ -initialdir $lastDir \
 		-typevariable saveType]]
 	if {$fn == ""} { return }
@@ -759,7 +759,7 @@ puts $saveType
     regsub "\\(.*\\)$" $saveType "" saveType
     set saveType [string trim $saveType]
 puts $saveType
-    set typ [lindex [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1] 0]
+    set typ [lindex [lindex $typ [lsearch -regexp $typ $saveType]] 1]
 puts $typ
     if {[string match -nocase "*$typ" $fn] == 0} {
         set fn "$fn$typ"
