@@ -37,7 +37,7 @@ proc Sdr {fn} {
 	set src 0				;# input line number
 	set points 0			;# number of points in coord list
 	set code ""
-	# default angle unit 1 DMS
+	# default angle unit 1 DEG
 	set angleUnit 1
 	# default distance unit 1 meter
 	set distanceUnit 1
@@ -68,7 +68,7 @@ proc Sdr {fn} {
 				set ${fa}_par [list [list 0 [string range $buf 4 8]] \
 					[list 51 [string range $buf 24 32]] \
 					[list 52 [string range $buf 34 38]]]
-				# angle unit 1 DEG 2 GON 3 VONAS
+				# angle unit 1 DEG 2 GON 3 MILL
 				set angleUnit [string range $buf 40 40]
 				# distance unit 1 meter 2 feet
 				set distanceUnit [string range $buf 41 41]
