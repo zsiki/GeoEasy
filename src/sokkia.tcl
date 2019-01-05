@@ -100,7 +100,7 @@
 #		tilt angle in x direction
 #		tilt angle in y direction
 #		checksum
-#		
+#
 #	6 coordinates
 #		point number
 #		record identifier (Ed)
@@ -432,8 +432,8 @@ proc GetVa {angle state} {
 }
 
 #
-#	Adds coordinates to actual _coo array
-#		coords are not overwritten except previous value 0
+#	Add coordinates to actual _coo array;
+#		coords are not overwritten except previous value is 0
 #	@param f name of geo data set
 #	@param pn point name
 #	@param x,y,z coordinates (xy and z optional)
@@ -528,7 +528,7 @@ proc SaveScr {fn rn} {
 }
 
 #
-#	Get Sokkia checsum for buf. Second complement of the sum of ascii codes
+#	Get Sokkia checksum for buf. Second complement of the sum of ascii codes
 #	@param buf calculate scr checksum
 #	@return checksum
 proc checksum {buf} {
