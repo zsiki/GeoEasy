@@ -1609,8 +1609,10 @@ proc GeoAngle {pn {w ""}} {
 	# add station
 	set _temp_geo(0) [list "2 $pn"]
 	set _temp_geo(1) [list "5 $pn1" "7 0" "11 $d"]
-	set _temp_coo($pn) $pn_coo
-	set _temp_coo($pn1) $pn1_coo
+	set _temp_coo($pn) [list [list 5 $pn] [list 38 0] [list 37 0]]
+	set d [Distance [GetVal {38} $pn_coo] [GetVal {37} $pn_coo] \
+		[GetVal {38} $pn1_coo] [GetVal {37} $pn1_coo]]
+	set _temp_coo($pn1) [list [list 5 $pn1] [list 38 $d] [list 37 0]]
 	set i 2
 	foreach s1 $slist {
 		set pn1 [lindex $s1 0]
@@ -1645,7 +1647,7 @@ proc GeoAngle {pn {w ""}} {
 			%12.${decimals}f %12.${decimals}f" \
 			$pn1 [DMS $b] $d [DMS $alfa] [DMS $alfa0] $abc $ord]
 		set _temp_geo($i) [list "5 $pn1" "7 $alfa0" "11 $d"]
-		set _temp_coo($pn1) $pn1_coo
+		set _temp_coo($pn1) [list [list 5 $pn1] [list 38 $abc] [list 37 $ord]]
 		incr i
 		set blast $b
 	}
