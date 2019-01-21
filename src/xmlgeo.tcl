@@ -397,6 +397,8 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
 	global SEC2CC
 
+	set newst 0
+	set newp 0
 	set used ""
 	set msg_flag 0	;# display warning on too large pure value
 	set nmeasure 0
@@ -440,7 +442,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 					continue	;# no coordinate for station skip it
 				}
 				set stz [GetVal {39 139} $stcoo]
-			} else {
+			} elseif {$stpn != ""} {	;# there is station elevation
 				# observation record
 				set p [GetVal {5 62} $pbuf]	;# point number of other end
 				set pcoo ""
