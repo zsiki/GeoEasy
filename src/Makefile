@@ -26,7 +26,7 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 # files for debian package
 DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
 	./bitmaps ./com_set geo_easy.msk default.msk build_date.tcl ./demodata \
-	./i18n
+	./i18n ./tsdata
 
 DEBBASE_PATH = "../deb"
 DEB_PATH = "${DEBBASE_PATH}/geoeasy"
