@@ -393,12 +393,30 @@ file.
 Calculate menu
 ~~~~~~~~~~~~~~
 
+The calculation menu contains those calculation which works with several 
+point and the results cause change more lines in fieldbooks, coordinate lists,
+like for example traversing.
+
 Orientations
 ............
 
 This menu option calculates orientations for all unoriented known stations.
 The results are listed in the **Calculation results** window and the orientation
 angles are stored in the field-books.
+
+.. code:: text
+
+	2019.01.02 10:08 - Orientation - 11
+	Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+	12                      295-54-35   212-30-25   276-35-50   1588.873    1   19    0.010
+	14                       71-01-11   347-36-58   276-35-47   1637.971   -1   18   -0.010
+	Average orientation angle                       276-35-48
+
+	2019.01.02 10:08 - Orientation - 12
+	Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+	231                     232-53-54   291-04-11    58-10-17   2243.319    0   16    0.010
+	11                      334-20-10    32-30-25    58-10-15   1588.873   -1   19   -0.010
+	Average orientation angle                        58-10-16
 
 Preliminary orientations
 ........................
@@ -414,6 +432,8 @@ Delete orientations
 ...................
 
 This menu option removes all orientation angles from the loaded data sets.
+It is useful if all orientations should be recalculated. First delete
+orientations, than calculate orientations.
 
 Traversing
 ..........
@@ -543,28 +563,59 @@ Preliminary coordinates
 Preliminary coordinates are used to display points in the graphics window, 
 before calculating final coordinates. Other usage of preliminary coordinates
 belongs to network adjustment. Preliminary coordinates have different colour
-in the coordinate list and in the graphic window.
+(red is the default) in the coordinate list and in the graphic window.
 
 Preliminay coordinates and orientations are calculated in an iteration. You 
-may get a message about points which horizontal or elevation cannot be
-calculated for.
+may get a message about points which horizontal coordinates or elevation
+cannot be calculated for.
 
 Recalculate preliminary coordinates
 ...................................
 
-All preliminary coorsinates are deleted and the preliminary coordinate
+All preliminary coordinates are deleted and the preliminary coordinate
 calculation is invoked. It is useful if faullty preliminary coordinates 
 were calculated caused by errors in the data sets. After corecting 
 errors use this option to recalculate preliminary coordinates.
 
-3D network adjustment
-.....................
+3D network adjustment, Horizontal network adjustment, Levelling network adjustment
+..................................................................................
 
-Horizontal network adjustment
-.............................
+..note::
 
-Levelling network adjustment
-............................
+	Before adjustment you have the set/check the mean errors of observations and
+	adjustment parameters.
+
+During 3D network adjustment both horizontal coordinates an elevations are
+calculated using the least squares method. During horizontan network
+adjustment the horizontal coordinates are calculated. During levelling network
+adjustment the elevations are calculated
+All loaded data sets are considered during the adjustment calculation.
+The three network adjusments are very similiar from the point of the user 
+interface.
+
+First you have to select unknown points from a list, the coordinates of these 
+points are changed during the calculations. The list contains all points 
+having preliminary or final coordinates considering the dimension of the
+adjusted network (e.g. incase of 3D adjustment points having 3D coordinates
+are listed). At least one point have to be selected.
+
+.. image:: rg_images/adj1_3d.png
+	:align: center
+
+In the second list the fixed points can be selected. Here the points having 
+final coordinates are only listed.  If none of the points are selected a 
+free network adjusment is calculated.
+
+.. image:: rg_images/adj2_3d.png
+	:align: center
+
+GeoEasy will prepare an xml file for GNU Gama with the coordinats of the 
+selected points and observations among the selected unknown and fixes points.
+The calculation is made by GNU Gama and the results of the calculation is
+shown in thecalculation results window. Please use GNU Gama documentation
+for the details of the result list.
+The coordinates of the unknown points are updated in the coordinate lists 
+after adjustent.
 
 Coordinate transformation
 .........................
@@ -581,32 +632,51 @@ have no final coordinates yet.
 All detail point
 ................
 
+Recalculates the coordinates, elevations of all detail points even 
+already calculated.
+
 3D intersections
 ................
 
+This calculation calculates 3D positions from directions and
+zenith angles measured from the endpoints of a base line.
+
 Windows menu
 ~~~~~~~~~~~~
+
+From the window menu new windows can be opened and the user can switch 
+among opened windows.
 
 New graphic window
 ..................
 
 Open a new graphic window. The number of open graphic windows is limited to ten.
-Grpahic windows have manu and toolbar.
+Each graphic window has menu and toolbar.
 
 Log window
 ..........
 
+Only one log window can be opened. It shows the resuts of calculations.
+
 Console window
 ..............
 
+In the console window users can input Tcl commands or load custom Tcl scripts.
+
 Window list
 ...........
+
+From the cascading menu beside this menu option, user can select one from the 
+opened windows. The selected window is raised and become the active window.
 
 Refresh all window
 ..................
 
 Help menu
 ~~~~~~~~~
+
+After some actions the content of the windows are not refeshed, user can use
+this option to force a refresh all opened windows.
 
 GeoEasy field-book window
 -------------------------
@@ -659,6 +729,21 @@ Popup menu
 GeoEasy calculation results
 ---------------------------
 
+All calculation results are sent to this window. Users can copy
+selected part of the content from this window to the clipboarand paste that
+to other application (e.g. into doc files).
+
+.. note::
+
+	On Windows operating system use the Ctrl/C to copy selected part to
+	the clipboard. On Linux use middle mouse button click to paste
+	selected part into another application.
+
+All strings written to the Calculation results windoware also sent to the log
+file. So if this windows is closed the calculation results are preserved in
+the log and user can review them later.
+
+
 File menu
 ~~~~~~~~~
 
@@ -667,3 +752,125 @@ GeoEasy consol window
 
 File menu
 ~~~~~~~~~
+
+Appendices
+==========
+
+GeoEasy data format
+-------------------
+
+GeoEasy uses three files for each field-book, in the same folder. The name of 
+these three files have to be the same.
+
+	.geo
+		the observations
+
+	.coo
+		the coordinates
+
+	.par
+		meta-data (optional)
+
+Each line of the files consists of a list of code-value pairs. The order of the
+code-valu pairs is not significant.
+
+geo file
+~~~~~~~~
+
+Lines in the geo file contain station or observed point data. Station records
+contain code 2 (station id) while observation records contain code 5/62 
+(point id/reference id).
+
+Allowed codes in station record:
+
+	* 2 station ID (obligatory)
+	* 3 instrument height
+	* 101 average orientation angle
+	* 103 average preliminary orientation angle
+
+Allowed codes in observation record:
+
+	* 5 point ID (obligatory)
+	* 4 point code
+	* 6 Signal height
+	* 7 horizontal angle (radians)
+	* 8 zenith angle (radians)
+	* 9 slope distance (m)
+	* 10 height difference (m)
+	* 11 horizontal distance (m)
+	* 112 repeat count
+	* 120 height difference from levelling
+
+Sample geo file
+
+.. code::
+
+	{2 11} {3 1.45}
+	{62 12} {21 5.164598941}
+	{5 5004} {7 5.713640739}
+	{5 5002} {7 5.930037326} {11 954.73} {6 1.30}
+	{62 14} {21 1.239527987}
+	{2 12}
+	{62 231} {21 4.064842739}
+	{5 5004} {7 4.744590305}
+	{5 5002} {7 5.201662947} {11 1117.28}
+	{62 11} {21 5.835265947}
+	{2 231}
+	{62 15} {21 5.96845881}
+	{62 13} {21 0.921587175}
+	{5 5002} {7 3.507811212}
+	{5 5004} {7 3.710909359}
+
+coo file
+~~~~~~~~
+
+Each line in the coo file contains coordinate data of a point.
+Allowed codes are:
+
+	* 4 point code
+	* 5 point ID
+	* 37 north
+	* 38 east
+	* 39 elevation
+	* 137 preliminary north
+	* 138 preliminary east
+	* 139 preliminary elevation
+
+Sample coo file:
+
+.. code::
+	{5 1_sp} {139 123.94770} {38 89929.8365} {37 3249.9968}
+	{5 2_sp} {139 124.25470} {38 90260.0046} {37 3267.5266}
+	{5 3_sp} {139 136.88876} {38 90589.8991} {37 2934.9344}
+	{5 101} {138 89817.6011} {137 3124.3328} {139 125.31640}
+	{5 102} {138 89888.1756} {137 3112.6413} {139 126.83410}
+	{5 103} {138 90043.3355} {137 3181.3309} {139 127.00320}
+	{5 201} {138 90257.6411} {137 3134.3656} {139 124.37520}
+	{5 202} {138 90112.9292} {137 3206.3220} {139 120.76200}
+	{38 88568.24} {37 2281.76} {5 231}
+	{38 88619.86} {37 3159.88} {5 232}
+	
+
+par file
+~~~~~~~~
+
+The par file contains only one line. Allowed codes are
+
+	* 51 date
+	* 52 time
+	* 53 operator id/name
+	* 55 instrument ID/name
+	* 114 direction standard deviation (seconds)
+	* 115 distance standard deviation (additive) (mm)
+	* 116 distance standard deviation (multiplyer) (ppm)
+	* 118 levelling stadard deviation (ppm)
+	* 0 comment
+
+All codes are optional.
+
+Sample par file:
+
+.. code::
+
+	{51 2019-01-24} {55 "Leica TPS 1201"} {114 1} {115 1.5} {116 1}
+
