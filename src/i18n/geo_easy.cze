@@ -513,6 +513,7 @@ set geoEasyMsg(gamatol)     "Tolerance \[mm\]"
 set geoEasyMsg(gamadirlimit)    "Limitní vzdálenost \[m\]"
 set geoEasyMsg(gamashortout)    "Struèný výstup"
 set geoEasyMsg(gamasvgout)  "SVG elipsy chyb"
+set geoEasyMsg(gamaxmlout)  "Preserve GaMa XML output"	;# TODO
 set geoEasyMsg(gamanull)	"Žádný textový sbour s výsledky"
 set geoEasyMsg(gamanull1)	"Žádný xml soubo s výsledky"
 set geoEasyMsg(gamaori)		"Potíže s uložením orientaèního úhlu"
