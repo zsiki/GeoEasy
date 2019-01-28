@@ -64,7 +64,7 @@ set maxIteration {5000}
 # tolerance to stop iteration
 set epsReg {0.00005}
 # gama-local parameters (network adjustment)
-global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
+global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 # relative path to executable from GeoEasy home directory or absolute path
 set gamaProg {./gama-local}
 # confidence level
@@ -74,10 +74,12 @@ set gamaAngles {360}
 set gamaTol {1000}
 # distance limit for direction weighting
 set dirLimit {200}
-# long/short result list 0/1
+# long/short result list 0/1 NOT IMPLEMENTED YET
 set gamaShortOut {0}
 # svg error ellipses 0/1
 set gamaSvgOut {0}
+# preserve gama xml output
+set gamaXmlOut {0}
 #
 # triangle parameters
 #
