@@ -516,7 +516,7 @@ set geoEasyMsg(gamatol)		"Tolerancia \[mm\]"
 set geoEasyMsg(gamadirlimit)	"Távolság limit \[m\]"
 set geoEasyMsg(gamashortout)	"Rövid eredmény lista"
 set geoEasyMsg(gamasvgout)	"SVG hiba ellipszisek"
-
+set geoEasyMsg(gamaxmlout)  "GaMa XML output megõrzése"
 set geoEasyMsg(gamanull)	"Nincs szöveges eredmény fájl"
 set geoEasyMsg(gamanull1)	"Nincs xml eredmény fájl"
 set geoEasyMsg(gamaori)		"Probléma a tájékozási szög tárolásánál"
