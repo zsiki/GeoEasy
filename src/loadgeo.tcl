@@ -1836,7 +1836,7 @@ proc GeoSaveParams {} {
     global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
 	        pcodelayer bname battr block ptext xzplane
 	global polyStyle
-	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 	global triangleProg
 	global cs2csProg
 

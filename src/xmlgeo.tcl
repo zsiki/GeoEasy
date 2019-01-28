@@ -24,7 +24,7 @@ proc GeoNet3D {{pns ""}} {
 	global env
 	global home
 	global lastDir
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 
 	if {[info exists env(TMP)]} {
 		set tmpname $env(TMP)
@@ -70,6 +70,14 @@ proc GeoNet3D {{pns ""}} {
 	}
 	# read back coordinates and orientations from tmp.g3d.xml
 	if {[file exists "${tmpname}.xml"]} {
+		if {$gamaXmlOut} {
+			set filen [string trim [tk_getSaveFile -filetypes \
+				{{"GNU GaMa 3D XML output" {.g3d}}} \
+				-defaultextension ".g3d" -initialdir $lastDir]]
+			if {[string length $filen]} {
+				catch {file copy "${tmpname}.xml" $filen}
+			}
+		}
 		ProcessXml "${tmpname}.xml"
 	} else {
 		GeoLog1 $geoEasyMsg(gamanull1)
@@ -87,7 +95,7 @@ proc GeoNet2D {{pns ""}} {
 	global env
 	global home
 	global lastDir
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 
 	if {[info exists env(TMP)]} {
 		set tmpname $env(TMP)
@@ -133,6 +141,15 @@ proc GeoNet2D {{pns ""}} {
 	}
 	# read back coordinates and orientations from tmp.g2d.xml
 	if {[file exists "${tmpname}.xml"]} {
+puts $gamaXmlOut
+		if {$gamaXmlOut} {
+			set filen [string trim [tk_getSaveFile -filetypes \
+				{{"GNU GaMa 2D XML output" {.g2d}}} \
+				-defaultextension ".g2d" -initialdir $lastDir]]
+			if {[string length $filen]} {
+				catch {file copy "${tmpname}.xml" $filen}
+			}
+		}
 		ProcessXml "${tmpname}.xml"
 	} else {
 		GeoLog1 $geoEasyMsg(gamanull1)
@@ -149,7 +166,7 @@ proc GeoNet1D {{pns ""}} {
 	global geoLang geoCp
 	global env
 	global home
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 
 	if {[info exists env(TMP)]} {
 		set tmpname $env(TMP)
@@ -181,6 +198,14 @@ proc GeoNet1D {{pns ""}} {
 	}
 # read back coordinates and orientations from tmp.g1d.xml
 	if {[file exists "${tmpname}.xml"]} {
+		if {$gamaXmlOut} {
+			set filen [string trim [tk_getSaveFile -filetypes \
+				{{"GNU GaMa 1D XML output" {.g1d}}} \
+				-defaultextension ".g1d" -initialdir $lastDir]]
+			if {[string length $filen]} {
+				catch {file copy "${tmpname}.xml" $filen}
+			}
+		}
 		ProcessXml "${tmpname}.xml"
 	} else {
 		GeoLog1 $geoEasyMsg(gamanull1)
@@ -394,7 +419,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	global decimals
 	global n nmeasure
 	global stdAngle stdDist1 stdDist2 stdLevel
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global SEC2CC
 
 	set newst 0
@@ -592,7 +617,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	global lastDir
 	global decimals
 	global n nmeasure
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global RO
 	global SEC2CC
 
@@ -1030,7 +1055,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	global xmlTypes 
 	global lastDir
 	global nmeasure n
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global RO
 	global SEC2CC
 
@@ -1525,7 +1550,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 #	@param name name of xml file to process
 proc ProcessXml {name} {
 	global autoRefresh
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut
+	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 
 	set f [open $name "r"]
 	set xmllist [xml2list [read $f]]
@@ -1654,8 +1679,8 @@ proc StoreOri {pn oa aoa} {
 #   Get parameters for GNU GaMa local network adjustment
 proc GamaParams {} {
     global geoEasyMsg
-	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
-	global lgamaConf lgamaAngles lgamaTol ldirLimit
+	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
+	global lgamaConf lgamaAngles lgamaTol ldirLimit lgamaSvgOut lgamaXmlOut
 	global buttonid
 
     set w [focus]
@@ -1677,6 +1702,8 @@ proc GamaParams {} {
 	set lgamaAngles $gamaAngles
 	set lgamaTol $gamaTol
 	set ldirLimit $dirLimit
+	set lgamaSvgOut $gamaSvgOut
+	set lgamaXmlOut $gamaXmlOut
 
 	label $this.lconf -text $geoEasyMsg(gamaconf)
 	entry $this.conf -textvariable lgamaConf -width 10
@@ -1688,7 +1715,9 @@ proc GamaParams {} {
 	entry $this.dirlimit -textvariable ldirLimit -width 10
 	#label $this.lshort -text $geoEasyMsg(gamashortout)
 	checkbutton $this.svg -text $geoEasyMsg(gamasvgout) \
-	        -variable gamaSvgOut
+	        -variable lgamaSvgOut
+	checkbutton $this.xml -text $geoEasyMsg(gamaxmlout) \
+	        -variable lgamaXmlOut
 
 	button $this.exit -text $geoEasyMsg(ok) \
 		-command "destroy $this; set buttonid 0"
@@ -1704,8 +1733,9 @@ proc GamaParams {} {
 	grid $this.ldirlimit -row 3 -column 0 -sticky w
 	grid $this.dirlimit -row 3 -column 1 -sticky w
 	grid $this.svg -row 4 -column 0 -columnspan 2 -sticky e
-	grid $this.exit -row 5 -column 0
-	grid $this.cancel -row 5 -column 1
+	grid $this.xml -row 5 -column 0 -columnspan 2 -sticky e
+	grid $this.exit -row 6 -column 0
+	grid $this.cancel -row 6 -column 1
 	tkwait visibility $this
 	CenterWnd $this
 	grab set $this
@@ -1716,6 +1746,9 @@ proc GamaParams {} {
 		set gamaAngles $lgamaAngles
 		if {[catch {format %f $lgamaTol}] == 0} { set gamaTol $lgamaTol }
 		if {[catch {format %f $ldirLimit}] == 0} { set dirLimit $ldirLimit }
+		set gamaSvgOut $lgamaSvgOut
+		set gamaXmlOut $lgamaXmlOut
+puts "$lgamaXmlOut $gamaXmlOut $gamaSvgOut"
 	}
 }
 
