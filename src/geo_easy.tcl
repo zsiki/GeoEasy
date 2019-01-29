@@ -1328,6 +1328,14 @@ proc GeoProjClose {} {
 	foreach ds $geoLoaded {
 		MenuUnload $ds
 	}
+	# close graphic/console/calculation result windows
+	foreach wi [winfo children .] {
+		switch -glob -- $wi {
+			.g[0-9] {GeoWindowExit $wi}
+			.log -
+			.console {GeoFormExit $wi}
+		}
+	}
 }
 
 #
