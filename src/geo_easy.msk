@@ -78,7 +78,7 @@ set dirLimit {200}
 set gamaShortOut {0}
 # svg error ellipses 0/1
 set gamaSvgOut {0}
-# preserve gama xml output
+# preserve gama xml output 0/1
 set gamaXmlOut {0}
 #
 # triangle parameters
