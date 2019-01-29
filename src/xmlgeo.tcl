@@ -72,8 +72,8 @@ proc GeoNet3D {{pns ""}} {
 	if {[file exists "${tmpname}.xml"]} {
 		if {$gamaXmlOut} {
 			set filen [string trim [tk_getSaveFile -filetypes \
-				{{"GNU GaMa 3D XML output" {.g3d}}} \
-				-defaultextension ".g3d" -initialdir $lastDir]]
+				{{"GNU GaMa 3D XML output" {.g3o}}} \
+				-defaultextension ".g3o" -initialdir $lastDir]]
 			if {[string length $filen]} {
 				catch {file copy "${tmpname}.xml" $filen}
 			}
@@ -141,11 +141,10 @@ proc GeoNet2D {{pns ""}} {
 	}
 	# read back coordinates and orientations from tmp.g2d.xml
 	if {[file exists "${tmpname}.xml"]} {
-puts $gamaXmlOut
 		if {$gamaXmlOut} {
 			set filen [string trim [tk_getSaveFile -filetypes \
-				{{"GNU GaMa 2D XML output" {.g2d}}} \
-				-defaultextension ".g2d" -initialdir $lastDir]]
+				{{"GNU GaMa 2D XML output" {.g2o}}} \
+				-defaultextension ".g2o" -initialdir $lastDir]]
 			if {[string length $filen]} {
 				catch {file copy "${tmpname}.xml" $filen}
 			}
@@ -200,8 +199,8 @@ proc GeoNet1D {{pns ""}} {
 	if {[file exists "${tmpname}.xml"]} {
 		if {$gamaXmlOut} {
 			set filen [string trim [tk_getSaveFile -filetypes \
-				{{"GNU GaMa 1D XML output" {.g1d}}} \
-				-defaultextension ".g1d" -initialdir $lastDir]]
+				{{"GNU GaMa 1D XML output" {.g1o}}} \
+				-defaultextension ".g1o" -initialdir $lastDir]]
 			if {[string length $filen]} {
 				catch {file copy "${tmpname}.xml" $filen}
 			}
@@ -551,7 +550,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "<description>"
 	puts $xml "GeoEasy 1D network"
 	puts $xml "</description>"
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates=\"yes\" cov-band=\"0\" />"
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" cov-band = \"0\" />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjz "Z"
@@ -972,7 +971,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "GeoEasy 2D network"
 	puts $xml "</description>"
 #TBD valodi parameterek
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates=\"yes\" cov-band=\"0\" />"
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" cov-band = \"0\" />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjxy "XY"
@@ -1462,7 +1461,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "GeoEasy 3D network"
 	puts $xml "</description>"
 #TBD valodi parameterek
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates=\"yes\" cov-band=\"0\" />"
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" cov-band = \"0\" />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjxyz "XYZ"
