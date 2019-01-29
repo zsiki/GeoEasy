@@ -774,6 +774,11 @@ these three files have to be the same.
 Each line of the files consists of a list of code-value pairs. The order of the
 code-valu pairs is not significant.
 
+Beside the above mentioned data file there is a project file (.gpr) also to 
+save the state of your work. The project file stores the opened data set names
+and opened windows state. There is a .msk file beside the project file to save 
+the state of parameters.
+
 geo file
 ~~~~~~~~
 
@@ -874,3 +879,29 @@ Sample par file:
 
 	{51 2019-01-24} {55 "Leica TPS 1201"} {114 1} {115 1.5} {116 1}
 
+gpr file
+~~~~~~~~
+
+The GeoEasy Project File (gpr) is divided into sections:
+
+	data section
+		list of opened data sets
+	
+	win section
+		list of opened windows with geometry
+
+Sample project file:
+
+.. code::
+	[data]
+	/home/siki/GeoEasy/src/demodata/test1.geo
+	[win]
+	.g0 421x366+10+402 1 1 1 0 0 0.059952038369304558 88053.720000000001 2493.6599999999999
+	.test1_coo prelim_fix 0 +867+245
+	.log  +10+215
+
+msk file
+~~~~~~~~
+
+GeoEasy configuration file. It is a Tcl executable file vith saved
+parameters.
