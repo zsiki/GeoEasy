@@ -1801,10 +1801,10 @@ proc GeoJoin { } {
 }
 
 #
-#	Save parameters to geo_easy.msk file
-#	@param none
+#	Save parameters to geo_easy.msk or other file
+#	@param fn target file (default geo_easy.msk)
 #	@return none
-proc GeoSaveParams {} {
+proc GeoSaveParams {{fn "geo_easy.msk"}} {
 	global geoEasyMsg
 # global variables a msk file
 	global geoLang geoCp
@@ -1841,9 +1841,13 @@ proc GeoSaveParams {} {
 	global cs2csProg
 
 	# backup original params
-	catch {file copy -force "geo_easy.msk" "geo_easy.msk.bak"}
-	set fn "geo_easy.msk"
-	set oldfn "geo_easy.msk.bak"
+	set oldfn "${fn}.bak"
+	if {! [file exists $fn]} {
+		catch {file copy "geo_easy.msk" $fn}
+	}
+
+	catch {file copy -force $fn $oldfn}
+	#set fn "geo_easy.msk"
 	if {[catch {set fi [open $oldfn "r"]} errmsg] == 1} {
 		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
 		return

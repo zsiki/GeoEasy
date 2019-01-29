@@ -1179,6 +1179,7 @@ proc GeoProjLoad {top {pn ""}} {
 	}
 	set type 0
 	set n 0
+	set prjd [file dirname $pn]
 	while {! [eof $f]} {
 		set fn [string trim [gets $f]]
 		incr n
@@ -1190,7 +1191,15 @@ proc GeoProjLoad {top {pn ""}} {
 		} elseif {[string compare $fn "\[dtm\]"] == 0} {
 			set type 3
 		} elseif {$type == 1} {
-			MenuLoad $top $fn
+			set prn [file join $prjd $fn]
+			set prn1 [file join $prjd [file tail $fn]]
+			if {[file exists $prn]} {
+				MenuLoad $top $prn	;# try project relative
+			} elseif {[file exists $prn1]} {
+				MenuLoad $top $prn1	;# try from project dir
+			} else {
+				MenuLoad $top $fn	;# try absolute path
+			}
 		} elseif {$type == 2} {
 			set par [split $fn]
 			set w [lindex $par 0]
@@ -1228,12 +1237,25 @@ proc GeoProjLoad {top {pn ""}} {
 				}
 			}
 		} elseif {$type == 3} {
-			LoadTin $fn
+			set prn [file join $prjd $fn]
+			set prn1 [file join $prjd [file tail $fn]]
+			if {[file exists $prn]} {
+				LoadTin $prn	;# try project relative
+			} elseif {[file exists $prn1]} {
+				LoadTin $top $prn1	;# try from project dir
+			} else {
+				LoadTin $fn	;# try absolute path
+			}
 		} else {
 			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-10) $n" \
 				warning 0 OK
 			return
 		}
+	}
+	# load params if exists
+	set pn1 "[file rootname $pn].msk"
+	if {[file exists $pn1]} {
+		source $pn1
 	}
 	GeoLog "$pn $geoEasyMsg(pload)"
 }
@@ -1273,7 +1295,12 @@ proc GeoProjSave {} {
 	}
 	# save loaded data set names
 	puts $f "\[data\]"
+	set pd [file dirname $pn]
 	foreach fn $geoLoadedDir {
+		# make project relative path if possible
+		if {[string match "${pd}*" $fn]} {
+			set fn [string range $fn [expr {[string length $pd] + 1}] end]
+		}
 		puts $f $fn
 	}
 	puts $f "\[win\]"
@@ -1308,6 +1335,9 @@ proc GeoProjSave {} {
 		puts $f "[file join $tinPath $tinLoaded]"
 	}
 	close $f
+	# save settings
+	set pn1 "[file rootname $pn].msk"
+	GeoSaveParams $pn1
 	GeoLog "$pn $geoEasyMsg(psave)"
 }
 
