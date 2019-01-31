@@ -282,8 +282,7 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 							set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
 						}
 					}
-					Gama2dXmlOut $fn $unknowns $fixed
-					return 1
+					return [Gama2dXmlOut $fn $unknowns $fixed]
 				}
 			} else {
 				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
@@ -310,8 +309,7 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 							set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
 						}
 					}
-					Gama1dXmlOut $fn $unknowns $fixed
-					return 1
+					return [Gama1dXmlOut $fn $unknowns $fixed]
 				}
 			} else {
 				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
@@ -338,8 +336,7 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 							set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
 						}
 					}
-					Gama3dXmlOut $fn $unknowns $fixed
-					return 1
+					return [Gama3dXmlOut $fn $unknowns $fixed]
 				}
 			} else {
 				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
@@ -542,6 +539,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	GeoDiaEnd .dia
 	if {$nmeasure < 2} {
 		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+		return 0
 	}
 	# xml output
 	set xml [open $fn w]
@@ -596,6 +594,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "</network>"
 	puts $xml "</gama-local>"
 	close $xml
+	return 1
 }
 
 #
@@ -961,6 +960,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	GeoDiaEnd .dia
 	if {$nmeasure < 3} {
 		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+		return 0
 	}
 	# xml output
 	set xml [open $fn w]
@@ -1034,6 +1034,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "</network>"
 	puts $xml "</gama-local>"
 	close $xml
+	return 1
 }
 
 #
@@ -1450,6 +1451,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	GeoDiaEnd .dia
 	if {$nmeasure < 4} {
 		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+		return 0
 	}
 	# xml output
 	set xml [open $fn w]
@@ -1542,6 +1544,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "</network>"
 	puts $xml "</gama-local>"
 	close $xml
+	return 1
 }
 
 #
