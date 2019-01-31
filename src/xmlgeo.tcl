@@ -161,6 +161,7 @@ proc GeoNet2D {{pns ""}} {
 #	all loaded data sets are considered
 #	@param pns optional list of unknowns
 proc GeoNet1D {{pns ""}} {
+	global lastDir
 	global geoEasyMsg
 	global geoLang geoCp
 	global env
@@ -221,10 +222,11 @@ proc GeoNet1D {{pns ""}} {
 #	@param pns list of unknown points optional (default selected by user)
 #	@param fixed list of fixed points optional (default selected by user, "all" can be used)
 proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
-	global xmlTypes lastDir
+	global xmlTypes
 	global geoEasyMsg
 	global oriDetail
 	global saveType
+	global lastDir
 
 	GeoLog1
 	if {[string length $fn] == 0} {
@@ -613,7 +615,6 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	global decimals
 	global autoRefresh
 	global xmlTypes 
-	global lastDir
 	global decimals
 	global n nmeasure
 	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
@@ -1052,7 +1053,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	global decimals
 	global autoRefresh
 	global xmlTypes 
-	global lastDir
 	global nmeasure n
 	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global RO
