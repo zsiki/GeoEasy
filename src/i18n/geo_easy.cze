@@ -215,6 +215,9 @@ set geoCodes(137)	"Pøibližná souøadnice X"
 set geoCodes(138)	"Pøibližná souøadnice Y"
 set geoCodes(139)	"Pøibližná výška"
 set geoCodes(140)	"EPSG kód"
+set geoCodes(237)   "Northing stdev"		;# TODO
+set geoCodes(238)   "Easting stdev"			;# TODO
+set geoCodes(239)   "Height stdev"			;# TODO
 #
 #	general messages button names
 #
