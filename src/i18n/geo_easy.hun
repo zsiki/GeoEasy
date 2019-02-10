@@ -216,6 +216,9 @@ set geoCodes(137)	"Elõzetes X"
 set geoCodes(138)	"Elõzetes Y"
 set geoCodes(139)	"Elõzetes M"
 set geoCodes(140)   "EPSG kód"
+set geoCodes(237)   "X középh."
+set geoCodes(238)   "Y középh."
+set geoCodes(239)   "M középh."
 #
 #	általános üzenetek és nyomógomb nevek
 #
