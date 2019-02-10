@@ -215,6 +215,9 @@ set geoCodes(137)	"Широта грубая"
 set geoCodes(138)	"Долгота грубая"
 set geoCodes(139)	"Высота грубая"
 set geoCodes(140)	"EPSG код"
+set geoCodes(237)   "Northing stdev"		;# TODO
+set geoCodes(238)   "Easting stdev"			;# TODO
+set geoCodes(239)   "Height stdev"			;# TODO
 #
 #	general messages button names
 #

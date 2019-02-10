@@ -213,6 +213,9 @@ set geoCodes(137)	"rohe X-Koordinate Hochwert"
 set geoCodes(138)	"rohe Y-Koordinate Rechtswert"
 set geoCodes(139)	"rohe Höhe"
 set geoCodes(140)	"EPSG Code"
+set geoCodes(237)   "Northing stdev"		;# TODO
+set geoCodes(238)   "Easting stdev"			;# TODO
+set geoCodes(239)   "Height stdev"			;# TODO
 #
 #	allgemeine Meldungen und Knopfnamen
 #
