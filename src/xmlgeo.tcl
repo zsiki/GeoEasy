@@ -1553,6 +1553,9 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 proc ProcessXml {name} {
 	global autoRefresh
 	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global pl_dim pl_ids
+	set pl_dim 0
+	set pl_ids {}
 
 	set f [open $name "r"]
 	set xmllist [xml2list [read $f]]
@@ -1571,11 +1574,39 @@ proc ProcessXml {name} {
 #	Read coordinates and orientations from list and store them
 #	@param l list of GNU gam xml output
 proc ProcessList {l} {
+	global pl_dim pl_ids
 
 	foreach item $l {
 		if {[llength $item] > 1} {
 			set head [lindex $item 0]
 			switch -exact -- $head {
+				"network-processing-summary" {
+					set nps [lindex [lrange [lindex [lindex [lrange $item 2 end] 0] 0] 2 end] 0]
+					foreach np $nps {
+						switch -exact -- [lindex $np 0] {
+							"coordinates-summary-adjusted" {
+								set c [lindex [lrange $np 2 end] 0]
+								foreach cc $c {
+									switch -exact -- [lindex $cc 0] {
+										"count-xyz" {
+											set xyz [lindex [lindex [lindex $cc 2] 0] 1]
+											if {$xyz > 0} {set pl_dim 3}
+										}
+										"count-xy" {
+											set xy [lindex [lindex [lindex $cc 2] 0] 1]
+											if {$xy > 0} {set pl_dim 2}
+										}
+										"count-z" {
+											set z [lindex [lindex [lindex $cc 2] 0] 1]
+											if {$z > 0} {set pl_dim 1}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
 				"adjusted" {
 					set cs [lindex [lrange $item 2 end] 0]
 					foreach c $cs {
@@ -1584,9 +1615,10 @@ proc ProcessList {l} {
 						set x ""
 						set z ""
 						foreach p [lindex $c 2] {
-							switch [lindex $p 0] {
+							switch -exact -- [lindex $p 0] {
 								"id" {
 									set pn [lindex [lindex [lindex $p 2] 0] 1]
+									lappend pl_ids $pn
 								}
 								"X" -
 								"x" {
@@ -1613,7 +1645,7 @@ proc ProcessList {l} {
 						set oa ""
 						set aoa ""
 						foreach p [lindex $o 2] {
-							switch [lindex $p 0] {
+							switch -exact -- [lindex $p 0] {
 								"id" {
 									set pn [lindex [lindex [lindex $p 2] 0] 1]
 								}
@@ -1630,9 +1662,40 @@ proc ProcessList {l} {
 						}
 					}
 				}
+				"cov-mat" {
+					set cm [lindex [lrange $item 2 end] 0]
+					set band 0
+					set d 0
+					set flt {}
+					foreach i $cm {
+						switch -exact -- [lindex $i 0] {
+							"dim" {
+								set d [lindex [lindex [lindex $i 2] 0] 1]
+							}
+							"band" {
+								set band [lindex [lindex [lindex $i 2] 0] 1]
+							}
+							"flt" {
+								lappend flt [lindex [lindex [lindex $i 2] 0] 1]
+							}
+						}
+					}
+					# store mean errors
+					set n [llength $pl_ids]
+					set j 0		;# index for mean errors
+					set l 0
+					for {set i 0} {$i < $n} {incr i} {
+						set stdev {}
+						for {set k 0} {$k < $pl_dim} {incr k} {
+							set l [expr {$j + $k * ($band + 1)}]
+							lappend stdev [format "%.5f" [expr {sqrt([lindex $flt $l]) / 1000.0}]]
+						}
+						StoreStdev [lindex $pl_ids $i] $stdev
+						set j [expr {$l + 1}]
+					}
+				}
 				"fixed" -
 				"approximate" -
-				"cov-mat" -
 				"original-index" -
 				"observations" -
 				"network-processing-summary" {

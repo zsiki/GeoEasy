@@ -616,6 +616,42 @@ proc StoreZ {pn z {flag 0}} {
 }
 
 #
+#	Store or replace the mean errors of 'pn' in every data set where
+#	it is referenced. 
+#	@param pn point number
+#	@param list of mean errors
+proc StoreStdev {pn stdev} {
+	global geoLoaded
+	global geoChanged
+
+	set dim [llength $stdev]
+	if {$dim == 0} {return}
+#
+#	check loaded data sets
+#
+	foreach geo $geoLoaded {
+		global ${geo}_geo ${geo}_coo ${geo}_ref
+		# if has coordinates
+		if {[info exists ${geo}_coo($pn)]} {
+			upvar #0 ${geo}_coo($pn) coo_rec
+			if {$dim == 3} {
+				set coo_rec [DelVal {238 237 239} $coo_rec]
+				lappend coo_rec [list 238 [lindex $stdev 0]]
+				lappend coo_rec [list 237 [lindex $stdev 1]]
+				lappend coo_rec [list 239 [lindex $stdev 2]]
+			} elseif {$dim == 2} {
+				set coo_rec [DelVal {238 237} $coo_rec]
+				lappend coo_rec [list 238 [lindex $stdev 0]]
+				lappend coo_rec [list 237 [lindex $stdev 1]]
+			} elseif {$dim == 1} {
+				set coo_rec [DelVal {239} $coo_rec]
+				lappend coo_rec [list 239 [lindex $stdev 0]]
+			}
+			set geoChanged($geo) 1
+		}
+	}
+}
+#
 #	Generate a list of different point numbers in loaded geo data sets
 #	@param none
 #	Return the list of different point numbers in loaded geo data sets
