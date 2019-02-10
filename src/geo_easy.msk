@@ -270,6 +270,9 @@ set cooMaskWidths(prelim_fix) {10 10 10 10 10}
 set cooMasks(fix) {table 20 5 4 38 37 39}
 set cooMaskParams(fix) {"" "" FLOAT FLOAT FLOAT}
 set cooMaskWidths(fix) {10 10 10 10 10}
+set cooMasks(fix_stdev) {table 20 5 4 38 238 37 237 39 239}
+set cooMaskParams(fix_stdev) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
+set cooMaskWidths(fix_stdev) {10 10 10 10 10 10 10 10}
 #
 # mask parameters
 #
