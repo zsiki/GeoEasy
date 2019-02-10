@@ -808,7 +808,7 @@ Allowed codes in observation record:
 
 Sample geo file
 
-.. code::
+.. code:: ascii
 
 	{2 11} {3 1.45}
 	{62 12} {21 5.164598941}
@@ -840,6 +840,9 @@ Allowed codes are:
 	* 137 preliminary north
 	* 138 preliminary east
 	* 139 preliminary elevation
+	* 237 mean error of noth coordinate (got from GNU Gama adjustment)
+	* 238 mean error of east coordinate (got from GNU Gama adjustment)
+	* 239 mean error of elevation (got from GNU Gama adjustment)
 
 Sample coo file:
 
@@ -855,7 +858,6 @@ Sample coo file:
 	{38 88568.24} {37 2281.76} {5 231}
 	{38 88619.86} {37 3159.88} {5 232}
 	
-
 par file
 ~~~~~~~~
 
@@ -875,7 +877,7 @@ All codes are optional.
 
 Sample par file:
 
-.. code::
+.. code:: ascii
 
 	{51 2019-01-24} {55 "Leica TPS 1201"} {114 1} {115 1.5} {116 1}
 
@@ -885,16 +887,20 @@ gpr file
 The GeoEasy Project File (gpr) is divided into sections:
 
 	data section
-		list of opened data sets
+		list of opened data sets (relative path to project file or full path)
 	
 	win section
-		list of opened windows with geometry
+		list of opened windows with geometry and other settings
+	
+	dtm section
+		name of opened digital terrain model
 
 Sample project file:
 
-.. code::
+.. code:: ascii
+
 	[data]
-	/home/siki/GeoEasy/src/demodata/test1.geo
+	test1.geo
 	[win]
 	.g0 421x366+10+402 1 1 1 0 0 0.059952038369304558 88053.720000000001 2493.6599999999999
 	.test1_coo prelim_fix 0 +867+245
@@ -903,5 +909,153 @@ Sample project file:
 msk file
 ~~~~~~~~
 
-GeoEasy configuration file. It is a Tcl executable file vith saved
+GeoEasy configuration file. It is a Tcl executable file with saved
 parameters.
+It also contains the field-book and coordinate list definitions (masks).
+Each mask has three lists to define data, field format and field size. 
+These lits are collected in three associative arrays, the mask name is the
+index. Separate arrays are
+maintened for field-books and coordinate lists, geoMasks, geoMaskParams and
+geoMaskWidths for field-books and cooMaks, cooMaksParams and cooMaksWidths
+for coordinate lists.
+
+geoMask definition:
+
+   +------+-------------------------------------------------+
+   | item | description                                     |
+   +======+=================================================+
+   |  1   | must be "table"                                 |
+   +------+-------------------------------------------------+
+   |  2   | number of rows in the table                     |
+   +------+-------------------------------------------------+
+   | 3..n | list of codes to be shown in fields             |
+   |      | the order is significant                        |
+   +------+-------------------------------------------------+
+
+geoMaskParams definition
+
+   +------+-------------------------------------------------+
+   | item | description                                     |
+   +======+=================================================+
+   | 1..n | Format definition for the fields                |
+   +------+-------------------------------------------------+
+
+format definitions
+
+   +--------------+-------------------------------------------+
+   | definition   | description                               |
+   +==============+===========================================+
+   | -            | show the previous vele of the same code   |
+   |              | used for station ID                       |
+   +--------------+-------------------------------------------+
+   | ""           | left aligned string                       |
+   +--------------+-------------------------------------------+
+   | FLOAT        | float value, the number of decials are    |
+   |              | defined in calculation parameters         |
+   +--------------+-------------------------------------------+
+   | DEC n m      | float value with width n and m decimals   |
+   +--------------+-------------------------------------------+
+   | format %n.mf | same as DEC n m                           |
+   +--------------+-------------------------------------------+
+   | INT          | integer value                             |
+   +--------------+-------------------------------------------+
+   | DEC n        | integer value with width n                |
+   +--------------+-------------------------------------------+
+   | format %nd   | same as DEC n                             |
+   +--------------+-------------------------------------------+
+   | DMS          | angle in degree-minutes-seconds           |
+   +--------------+-------------------------------------------+
+   | DMS1         | angle in degree-minutes-seconds.tenth     |
+   +--------------+-------------------------------------------+
+   | GON          | angle in gons (4 decimals)                |
+   +--------------+-------------------------------------------+
+   | FEET         | float value changed from meter to feet    |
+   +--------------+-------------------------------------------+
+   | OL           | float value changed from meter to phatom  |
+   +--------------+-------------------------------------------+
+
+codes used
+
+
+	+-----+------------------------------------+
+	| 0   | Information                        |
+	+=====+====================================+
+	| 2   | Station number                     |
+	+-----+------------------------------------+
+	| 3   | Instrument height                  |
+	+-----+------------------------------------+
+	| 4   | Point code                         |
+	+-----+------------------------------------+
+	| 5   | Point number                       |
+	+-----+------------------------------------+
+	| 6   | Signal height                      |
+	+-----+------------------------------------+
+	| 7   | Horizontal angle                   |
+	+-----+------------------------------------+
+	| 8   | Vertical angle                     |
+	+-----+------------------------------------+
+	| 9   | Slope distance                     |
+	+-----+------------------------------------+
+	| 10  | Height diff                        |
+	+-----+------------------------------------+
+	| 120 | Height diff. levelling             |
+	+-----+------------------------------------+
+	| 11  | Horizontal distance                |
+	+-----+------------------------------------+
+	| 21  | Horizontal ref. angle              |
+	+-----+------------------------------------+
+	| 37  | Northing                           |
+	+-----+------------------------------------+
+	| 38  | Easting                            |
+	+-----+------------------------------------+
+	| 39  | Elevation                          |
+	+-----+------------------------------------+
+	| 51  | Date                               |
+	+-----+------------------------------------+
+	| 52  | Time                               |
+	+-----+------------------------------------+
+	| 53  | Operator id                        |
+	+-----+------------------------------------+
+	| 55  | Instrument id                      |
+	+-----+------------------------------------+
+	| 62  | Reference object                   |
+	+-----+------------------------------------+
+	| 100 | Orientation angle                  |
+	+-----+------------------------------------+
+	| 101 | Average orientation angle          |
+	+-----+------------------------------------+
+	| 102 | Prelim. orientation                |
+	+-----+------------------------------------+
+	| 103 | Average prelim. orientation        |
+	+-----+------------------------------------+
+	| 110 | Observer                           |
+	+-----+------------------------------------+
+	| 111 | Point order                        |
+	+-----+------------------------------------+
+	| 112 | Repeat count                       |
+	+-----+------------------------------------+
+	| 114 | Direction stddev [seconds]         |
+	+-----+------------------------------------+
+	| 115 | Distance stddev (additive) [mm]    |
+	+-----+------------------------------------+
+	| 116 | Distance stddev (multiplyer) [ppm] |
+	+-----+------------------------------------+
+	| 117 | Total length                       |
+	+-----+------------------------------------+
+	| 118 | Levelling stddev [mm/km]           |
+	+-----+------------------------------------+
+	| 137 | Northing prelim.                   |
+	+-----+------------------------------------+
+	| 138 | Easting prelim.                    |
+	+-----+------------------------------------+
+	| 139 | Height prelim.                     |
+	+-----+------------------------------------+
+	| 140 | EPSG code                          |
+	+-----+------------------------------------+
+	| 237 | Northing stdev                     |
+	+-----+------------------------------------+
+	| 238 | Easting stdev                      |
+	+-----+------------------------------------+
+	| 239 | Height stdev                       |
+	+-----+------------------------------------+
+
