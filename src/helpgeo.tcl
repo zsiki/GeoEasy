@@ -14,10 +14,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#	Display link to docs
+proc GeoHelp {} {
+	global geoEasyMsg
+	tk_dialog .msg $geoEasyMsg(info) "http://github.com/zsiki/GeoEasy/doc" \
+		info 0 OK
+}
+
 #	Display html document in browser
 #	@param doc name of html file to open in browser
 #	@param topic position in html file (for example #load)
-proc GeoHelp {{doc "sugo.html"} {topic ""}} {
+proc GeoHelpOld {{doc "sugo.html"} {topic ""}} {
 	global geoEasyMsg
 	global comEasyMsg
 	global browser
