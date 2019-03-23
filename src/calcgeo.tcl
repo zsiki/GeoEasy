@@ -14,6 +14,17 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #
+#	Average of a list
+#	@param l list to process
+#	@return avarage of list
+proc avg {l} {
+	set s 0.0
+	foreach w $l {
+		set s [expr {$s + $w}]
+	}
+	return [expr {$s / [llength $l]}]
+}
+#
 #	Orientation calculation for a station
 #		reference angles are added to geo data set with	code 100/102 
 #		the station gets the average of reference angles with code 101/103
