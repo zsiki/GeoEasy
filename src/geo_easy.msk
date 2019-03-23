@@ -9,6 +9,9 @@ global geoLang
 set geoLang {default}
 # code page
 global geoCp
+# link to help/docs
+global geoDoc
+set geoDoc "http://github.com/zsiki/GeoEasy/doc"
 # automatic window refresh
 global autoRefresh
 set autoRefresh {1}
