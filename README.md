@@ -47,4 +47,4 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 
 ## Download statistics
 
-![Download statistics](https://github.com/zsiki/GeoEasy/blob/master/doc/downloads.png "Download statistics from October 2017 to November 2018")
+![Download statistics](doc/downloads.png "Download statistics from October 2017 to November 2018")
