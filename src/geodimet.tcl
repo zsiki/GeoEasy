@@ -35,6 +35,8 @@ proc Geodimeter {fn} {
 	set src 0				;# input line number
 	set points 0			;# number of points in coord list
 	set pcode ""
+	set hz {}
+	set v {}
 
 	while {! [eof $f1]} {
 		incr src
@@ -54,7 +56,7 @@ proc Geodimeter {fn} {
 				$code] != -1 && [regexp $reg(2) $val] == 0} {
 			return $src  ;# error in input
 		}
-#		remove the same code if it was given before
+		# remove the same code if it was given before
 		if {$code != 2 && $code != 62 && $code != 5} {;# not a start of a new p
 			set obuf [DelVal $code $obuf]
 		}
@@ -68,35 +70,90 @@ proc Geodimeter {fn} {
 			2 -
 			5 -
 			62 {
-				if {[llength $obuf] > 1 || [GetVal 2 $obuf] != ""} {
-					set ${fa}_geo($lines) $obuf
-					if {[info exists ${fa}_ref($pno)] == -1} {
-						set ${fa}_ref($pno) $lines
-					} else {
-						lappend ${fa}_ref($pno) $lines
+				# start a new station or target
+				if {[llength $obuf] > 0} {
+					if {[llength $hz]} {
+						# average direction
+						set w [avg $hz]
+						if {[llength $hz] > 1} {
+							foreach h $hz {
+								set coll [expr {$w - $h}]
+								GeoLog1 [format "%-10s %10s kollimacio" \
+									[string range $pno 0 9] [DMS $coll]]
+								if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
+									GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(7)"
+								}
+							}
+						}
+						lappend obuf "7 $w"
 					}
-					incr lines
+					if {[llength $v]} {
+						# average zenith
+						set w [avg $v]
+						if {[llength $v] > 1} {
+							foreach h $v {
+								set ind [expr {$w - $h}]
+								GeoLog1 [format "%-10s %10s index" \
+									[string range $pno 0 9] [DMS $ind]]
+								if {[expr {abs($ind)}] > [expr {$maxIndex / $RO}]} {
+									# too large error > 6'
+									GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(8)"
+								}
+							}
+						}
+						lappend obuf "8 $w"
+					}
+					if {[llength $obuf] > 1 || [GetVal 2 $obuf] != ""} {
+						set ${fa}_geo($lines) $obuf
+						if {[info exists ${fa}_ref($pno)] == -1} {
+							set ${fa}_ref($pno) $lines
+						} else {
+							lappend ${fa}_ref($pno) $lines
+						}
+						incr lines
+					}
 					set pcode ""
 				}
 				set obuf [list $buflist]
-#				set ptype $code
 				set pno [lindex $buflist 1]
+				set hz {}
+				set v {}
 				if {$code == 2} {
 					GeoLog1 "$geoCodes(2) $pno"
 				}
 			}
 			7 -
-			21 {
-				# remove previous 7 21 values to avoid 7 & 21 codes together
-				set obuf [DelVal {7 21} $obuf]
+			21 -
+			24 {
+				# direction in face left
 				set w [Deg2Rad [lindex $buflist 1]]
 				if {$w == -1} { return $src }
-				lappend obuf [lreplace $buflist 1 1 $w]
+				lappend hz $w
 			}
-			8 {
+			17 {
+				# direction in face right
 				set w [Deg2Rad [lindex $buflist 1]]
 				if {$w == -1} { return $src }
-				lappend obuf [lreplace $buflist 1 1 $w]
+				if {$w > $PI} {
+					set w [expr {$w - $PI}]
+				} else {
+					set w [expr {$w + $PI}]
+				}
+				lappend hz [expr {$w}]
+			}
+			8 -
+			25 {
+				# zenith angle in face left
+				set w [Deg2Rad [lindex $buflist 1]]
+				if {$w == -1} { return $src }
+				lappend v $w
+			}
+			18 {
+				# zenith angle inface right
+				set w [Deg2Rad [lindex $buflist 1]]
+				if {$w == -1} { return $src }
+				set w [expr {$PI2 - $w}]
+				lappend v $w
 			}
 			3 {
 				if {[GetVal 2 $obuf] == ""} {	;# not a station record
@@ -107,7 +164,6 @@ proc Geodimeter {fn} {
 					}
 					if {$st_index >= 0} {
 						lappend ${fa}_geo($st_index) $buflist
-					} else {
 					}
 				} else {
 					lappend obuf $buflist
@@ -127,60 +183,6 @@ proc Geodimeter {fn} {
 					lappend obuf $buflist
 				}
 			}
-			17 {
-				# second face horizontal angle
-				set face2 [Deg2Rad [lindex $buflist 1]]
-				if {$face2 == -1} { return $src }
-				lappend obuf [list 17 $face2]
-				set face1 [GetVal 24 $obuf]
-				if {$face1 != "" && [GetVal 7 $obuf] == ""} {
-					# average of two faces
-					if {$face1 > $face2} {
-						set coll [expr {($face2 - $face1 + $PI) / 2.0}]
-						if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
-							GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $obuf] $geoCodes(7)"
-						} else {
-							GeoLog1 [format "%-10s %10s kollimacio" \
-								[string range [GetVal {5 62} $obuf] 0 9] \
-								[DMS $coll]]
-							set face1 [expr {($face1 + $face2 + $PI) / 2.0}]
-						}
-					} else {
-						set coll [expr {($face2 - $face1 - $PI) / 2.0}]
-						if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
-							GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $obuf] $geoCodes(7)"
-						} else {
-							GeoLog1 [format "%-10s %10s kollimacio" \
-								[string range [GetVal {5 62} $obuf] 0 9] \
-								[DMS $coll]]
-							set face1 [expr {($face1 + $face2 - $PI) / 2.0}]
-						}
-					}
-					lappend obuf [list 7 $face1]
-				}
-			}
-			18 {
-				# second face zenith angle
-				set face2 [Deg2Rad [lindex $buflist 1]]
-				if {$face2 == -1} { return $src }
-				lappend obuf [list 18 $face2]
-				set face1 [GetVal 25 $obuf]
-				if {$face1 != "" && [GetVal 8 $obuf] == ""} {
-					set indexError [expr {($PI2 - $face1 - $face2) / 2.0}]
-					if {[expr {abs($indexError)}] > [expr {$maxIndex / $RO}]} {
-						# too large error > 6'
-						GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $obuf] $geoCodes(8)"
-					} else {
-						GeoLog1 [format "%-10s %10s index" \
-							[string range [GetVal {5 62} $obuf] 0 9] \
-							[DMS $indexError]]
-						# average of two faces
-						set face1 [expr \
-							{($face1 - $face2 + $PI2) / 2.0}]
-						lappend obuf [list 8 $face1]
-					}
-				}
-			}
 			23 {
 				if {[string index $val 2] != 1 || \
 					[string index $val 3] != 2} {
@@ -189,64 +191,10 @@ proc Geodimeter {fn} {
 					return $src  ;# error in input
 				}
 			}
-			24 {
-				# first face horizontal angle
-				set face1 [Deg2Rad [lindex $buflist 1]]
-				if {$face1 == -1} { return $src }
-				lappend obuf [list 24 $face1]
-				set face2 [GetVal 17 $obuf]
-				if {$face2 != "" && [GetVal 7 $obuf] == ""} {
-					# average of two faces
-					if {$face1 > $face2} {
-						set coll [expr {($face2 - $face1 + $PI) / 2.0}]
-						if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
-							GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $obuf] $geoCodes(7)"
-						} else {
-							GeoLog1 [format "%-10s %10s kollimacio" \
-								[string range [GetVal {5 62} $obuf] 0 9] \
-								[DMS $coll]]
-							set face1 [expr {($face1 + $face2 + $PI) / 2.0}]
-						}
-					} else {
-						set coll [expr {($face2 - $face1 - $PI) / 2.0}]
-						if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
-							GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $obuf] $geoCodes(7)"
-						} else {
-							GeoLog1 [format "%-10s %10s kollimacio" \
-								[string range [GetVal {5 62} $obuf] 0 9] \
-								[DMS $coll]]
-							set face1 [expr {($face1 + $face2 - $PI) / 2.0}]
-						}
-					}
-					set obuf [DelVal 7 $obuf]	;# delete prev value
-					lappend obuf [list 7 $face1]
-				}
-			}
-			25 {
-				# first face zenith angle
-				set face1 [Deg2Rad [lindex $buflist 1]]
-				if {$face1 == -1} { return $src }
-				lappend obuf [list 25 $face1]
-				set face2 [GetVal 18 $obuf]
-				if {$face2 != "" && [GetVal 8 $obuf] == ""} {
-					set indexError [expr {($PI2 - $face1 - $face2) / 2.0}]
-					if {[expr {abs($indexError)}] > [expr {$maxIndex / $RO}]} {
-						# too large error > 6'
-						GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $obuf] $geoCodes(8)"
-					} else {
-						GeoLog1 [format "%-10s %10s index" \
-							[string range [GetVal {5 62} $obuf] 0 9] \
-							[DMS $indexError]]
-						# average of two faces
-						set face1 [expr \
-							{($face1 - $face2 + $PI2) / 2.0}]
-						lappend obuf [list 8 $face1]
-					}
-				}
-			}
 			37 -
 			38 -
 			39 {
+				# coordinates
 				if {[info exists ${fa}_coo($pno)] == 0} {
 					set ${fa}_coo($pno) [list [list 5 $pno]]
 					incr points
@@ -254,9 +202,7 @@ proc Geodimeter {fn} {
 						lappend ${fa}_coo($pno) [list 4 $pcode]
 					}
 				}
-				#
 				#	store only the first occurance of coord
-				#
 				if {[lsearch -glob [set ${fa}_coo($pno)] "$code *"] == -1} {
 					lappend ${fa}_coo($pno) $buflist
 				} else {
@@ -265,15 +211,50 @@ proc Geodimeter {fn} {
 				}
 			}
 			default {
+				# nop
 			}
 		}
 	}
-	if {[llength $obuf] > 1 || [GetVal 2 $obuf] != ""} {
-		set ${fa}_geo($lines) $obuf
-		if {[info exists ${fa}_ref($pno)] == -1} {
-			set ${fa}_ref($pno) $lines
-		} else {
-			lappend ${fa}_ref($pno) $lines
+	# process last buffer
+	if {[llength $obuf] > 0} {
+		if {[llength $hz]} {
+			# average direction
+			set w [avg $hz]
+			if {[llength $hz] > 1} {
+				foreach h $hz {
+					set coll [expr {$w - $h}]
+					GeoLog1 [format "%-10s %10s kollimacio" \
+						[string range $pno 0 9] [DMS $coll]]
+					if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
+						GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(7)"
+					}
+				}
+			}
+			lappend obuf "7 $w"
+		}
+		if {[llength $v]} {
+			# average zenith
+			set w [avg $v]
+			if {[llength $v] > 1} {
+				foreach h $v {
+					set ind [expr {$w - $h}]
+					GeoLog1 [format "%-10s %10s index" \
+						[string range $pno 0 9] [DMS $ind]]
+					if {[expr {abs($ind)}] > [expr {$maxIndex / $RO}]} {
+						# too large error > 6'
+						GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(8)"
+					}
+				}
+			}
+			lappend obuf "8 $w"
+		}
+		if {[llength $obuf] > 1 || [GetVal 2 $obuf] != ""} {
+			set ${fa}_geo($lines) $obuf
+			if {[info exists ${fa}_ref($pno)] == -1} {
+				set ${fa}_ref($pno) $lines
+			} else {
+				lappend ${fa}_ref($pno) $lines
+			}
 		}
 	}
 	close $f1
