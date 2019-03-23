@@ -17,8 +17,8 @@
 #	Display link to docs
 proc GeoHelp {} {
 	global geoEasyMsg
-	tk_dialog .msg $geoEasyMsg(info) "http://github.com/zsiki/GeoEasy/doc" \
-		info 0 OK
+	global geoDoc
+	tk_dialog .msg $geoEasyMsg(info) $geoDoc info 0 OK
 }
 
 #	Display html document in browser
