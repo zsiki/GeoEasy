@@ -577,8 +577,10 @@ proc GeoEasy {top} {
 						source $name
 						GeoLog "$geoEasyMsg(startup) $name"
 					}
-					default { tk_dialog .msg $geoEasyMsg(warning) \
-						"$geoEasyMsg(filetype) $name"  warning 0 OK}
+					default {
+						MenuLoad $top $name
+						#tk_dialog .msg $geoEasyMsg(warning) \
+						#"$geoEasyMsg(filetype) $name"  warning 0 OK}
 				}
 			}
 		}
