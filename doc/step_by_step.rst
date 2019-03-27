@@ -683,6 +683,69 @@ The result of the adjustment is shown in the Calculation results window.
 During the adjustment statistical tests are calculated to detect blunders
 but blunders are not eliminated automaticly.
 
+Levelling network adjustment
+----------------------------
+
+Levelling data can be loaded from GSI field-books created by digital levelling
+instruments (for example Leica DNA03 or NA3000 instruments). Manual input of height differences is also possible.
+
+Let's start with an ASCII file (field-book) which contains start and endpoint,
+distance, height difference.
+
+.. code:: text
+
+	B H 232 0.44982
+	H I 240 -0.07392
+	I J 416 0.06413
+	I N 186 -0.10494
+	K B 90 -0.26894
+	K N 215 0.00234
+	J K 806 -0.17131
+	N H 408 0.17836
+	N J 634 0.1686
+
+	Field-book (levelling.dmp)
+
+Let's load this field-book into GeoEasy. Select **File/Load** from the menu of
+the main window. Select *Fieldbook (\*.dmp, \*.DMP)* type. The levelling.dmp 
+file is in the demodata subdirectory of GeoEasy intallation folder. Select the
+file and klick on Open button. A dialog will be displayed where fields of the
+input file can be set. Remove the unneccessary fields (*Horizontal angle, Vertical angle, lope distance, signal height,instrument height*) and add *horizontal
+distance* and *Height diff. levelling*. Don't forget to add *space* to the 
+separators.
+
+.. figure:: images/dmp_level.png
+	:align: center
+
+	Loading levelling.dmp
+
+Open the field-book (**Edit/Observations**) and change the mask (
+**Commands/Mask...**) to *levelling*. You can see nine observations.
+
+.. figure:: images/fb_levelling.png
+	:align: center
+
+	Observations inlevelling mask
+
+These observations were made by digital levelling instrument with a standard
+deviation of 0.3 mm/km. Change calculation parameters (**File/Calculation parameters...**), *Decimals in results* should be changed to 4. Check also 
+*Standard deviation for levelling [mm/km]*, it should be 0.3.
+
+We shall adjust this small levelling network.
+There are no elevations in the field-book, so first set the elevation of point
+*B* to 100.000.
+After it let's calculate preliminary elevations 
+(**Calculations/Preliminary coordinates**)
+
+.. figure:: images/pre_elev.png
+	:align: center
+
+	Preliminary elevations
+
+Now we can start levelling network adjustment (**Calculate/Levelling network adjustment**). Select all point as unknown. In the calcultion result window a
+long result list is displayed and the coordinates in the coordinate list are 
+updated.
+
 Digital terrain model
 ---------------------
 
