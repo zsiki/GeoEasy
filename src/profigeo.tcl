@@ -467,7 +467,7 @@ proc TxtCols {codes allCodes fn {ff ""}} {
 				lappend al "$geoCodes($c)"
 			}
 		}
-		set n [GeoListbox $al {0 1 2} "" 1]
+		set n [string trim [GeoListbox $al {0 1 2} "" 1] "\{\}"]
 		.txtcols.1.1.l insert end $n
 		c_state
 	}
