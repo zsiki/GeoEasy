@@ -832,9 +832,11 @@ for contour interval. Finally export contours to an AutoCAD DXF file using
 Regression calculation
 ----------------------
 
-Regression calculation can be used to find best fitting geometrical shape to the 
-calculated coordinates. A least square adjustment is used to find the parameters 
-of the best fitting geometry.
+Regression calculation can be used to find best fitting geometrical shape to
+the calculated coordinates. Least square adjustment is used to find the
+parameters of the best fitting geometry. The *reg.geo* data set in the
+demodata folder will be used in this chapter. Load the data set to try
+regression algorithms.
 
 Regression line
 ~~~~~~~~~~~~~~~
@@ -842,4 +844,47 @@ Regression line
 
 Regression plane
 ~~~~~~~~~~~~~~~~
+
+
+Regression circle
+~~~~~~~~~~~~~~~~~
+
+There are points on five horizontal sections on a chimney.
+Let's fit a regression circle on le lowest section, point ids '1nn'.
+Select **Calculate/Regression calculation/Circle** from the menu of any window.
+A list of point ids is displayed in a new window. Select all points from
+111 to 133 and press OK button. You will be asked for the radius of the 
+circle. Let the *unknown* value in the input box. You can give a radius if it
+is known and you don't want to get an estimated value from the circle 
+regression.
+
+.. figure:: images/plistc.png
+	:align: center
+
+	Points for circle regression
+
+The result of the calculation is displayed in the *Calculation results* 
+window. *E0* and *N0* are the coordinates of the center of the circle,
+*R* is the radius. The tabular data show the coordinates of the used points
+and the differences from the best fitting circle (in east, north and radial 
+direction).
+
+.. code:: text
+
+	2019.03.29 23:10 - Circle
+	E0 = 635.693 N0 = 271.517 R = 2.442
+
+	Point num          E            N            dE           dN           dR
+	111             633.661      270.152        0.005        0.003       -0.005
+	112             635.355      269.096        0.000        0.002       -0.002
+	113             637.586      269.966       -0.004        0.003       -0.005
+	121             633.975      269.779        0.001        0.001       -0.001
+	122             634.477      269.404       -0.002       -0.004        0.005
+	123             634.520      269.378       -0.001       -0.003        0.003
+	124             634.520      269.378       -0.001       -0.003        0.003
+	131             637.898      270.468        0.000       -0.000        0.000
+	132             638.132      271.428        0.001       -0.000        0.001
+	133             638.129      271.655        0.002        0.000        0.002
+
+	RMS=0.003
 
