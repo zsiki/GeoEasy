@@ -4,21 +4,22 @@
 #
 # AUTHOR: zvezdochiot
 
-set terminal png font "Verdana,8" size 950, 490
+set terminal png font "Verdana,8" size 950, 520
 
-set title 'Downloads 2017 October - 2019 January'
+set title 'Downloads 2017 October - 2019 March'
 set xlabel ' '
 set ylabel 'Count'
 
-set key below center horizontal noreverse enhanced autotitle box
+#set key below center horizontal noreverse enhanced autotitle box
+set key at graph 0.25, 0.95 noreverse enhanced autotitle box
 
 set timefmt '%Y-%m'
 set xdata time
 set format x "%b %Y"
 
-set xrange ['2017-10':'2019-02']
-#set xtics '2017-10', 8640000, '2019-02'
-set xtics '2017-10', 2700000, '2019-02'
+set xrange ['2017-10':'2019-03']
+#set xtics '2017-10', 8640000, '2019-03'
+set xtics '2017-10', 2700000, '2019-03'
 set mxtics 1
 set xtic rotate by 45 scale 0 offset character -4,-2.5
 set style data linespoints
