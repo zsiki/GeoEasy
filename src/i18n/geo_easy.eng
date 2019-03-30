@@ -840,7 +840,7 @@ set geoEasyMsg(head2LinReg)		"Point num          E            N            dE   
 set geoEasyMsg(head0PlaneReg)	"z = %s %+.8f * E %+.8f * N"
 set geoEasyMsg(head00PlaneReg)	"Slope direction: %s  Slope angle: %s"
 set geoEasyMsg(head1PlaneReg)	"Point num          E            N            Z           dZ"
-set geoEasyMsg(head0CircleReg)  "Y0 = %s X0 = %s R = %s"
+set geoEasyMsg(head0CircleReg)  "E0 = %s N0 = %s R = %s"
 set geoEasyMsg(head1CircleReg)	"Point num          E            N            dE           dN           dR"
 set geoEasyMsg(head2CircleReg)  "After %d iteration greater than %.4f m change in unknowns"
 set geoEasyMsg(head0HPlaneReg)  "z = %s"
