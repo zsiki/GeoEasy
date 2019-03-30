@@ -841,10 +841,118 @@ regression algorithms.
 Regression line
 ~~~~~~~~~~~~~~~
 
+.. figure:: images/par_line.png
+
+	Crane track points
+
+Observations were made along a crane track. Points from 1 to 7 are on the right
+rail and point from 8 to 14 on the left rail. Let's first fit a 2D line on the 
+the right side rail, **Calculate/Regression calculation/2D Line** from the menu.
+
+.. code:: text
+
+	2019.03.30 13:59 - 2D Line
+	N = +0.71863307 * E -100.619
+	Angle from east:  35-42-08
+	Correlation coefficient: 1.000
+
+	Point num          E            N            dE          dN          dist
+	1               223.563       60.040       -0.001        0.001        0.001
+	2               231.684       65.879        0.001       -0.001        0.001
+	3               239.801       71.714        0.002       -0.002        0.003
+	4               247.926       77.543       -0.003        0.004        0.005
+	5               256.046       83.388        0.002       -0.002        0.003
+	6               264.161       89.211       -0.002        0.003        0.004
+	7               272.285       95.058        0.002       -0.002        0.003
+
+	RMS=0.003
+
+The results are sent to the *Calculation results* window. Beside the equation
+of the line the direction and correlation are also calculated. From the table
+of the point-line distances (*dist*) can be read.
+
+This case we had better to fit two parallel lines using 
+**Calculate/Regression calculation/Parallel 2D lines**. From the first point
+list select the points on right side rail (1-7) and press OK. From the
+second point list select points on left side rails (8-14).
+
+.. code:: text
+
+	2019.03.30 14:05 - Parallel 2D lines
+	N = +0.71870599 * E -100.637
+	N = +0.71870599 * E -90.785
+	Angle from east:  35-42-18
+	Horizontal distance: 8.000
+	Correlation coefficient: 1.000
+
+	Point num          E            N            dE          dN          dist
+	1               223.563       60.040        0.000       -0.000        0.001
+	2               231.684       65.879        0.001       -0.002        0.002
+	3               239.801       71.714        0.002       -0.003        0.003
+	4               247.926       77.543       -0.003        0.004        0.005
+	5               256.046       83.388        0.001       -0.002        0.002
+	6               264.161       89.211       -0.003        0.004        0.005
+	7               272.285       95.058        0.001       -0.001        0.001
+	8               218.896       66.533       -0.002        0.003        0.003
+	9               227.017       72.376        0.001       -0.002        0.002
+	10              235.137       78.206       -0.002        0.002        0.003
+	11              243.254       84.045        0.001       -0.001        0.001
+	12              251.374       89.883        0.002       -0.002        0.003
+	13              259.496       95.715       -0.001        0.001        0.001
+	14              267.611      101.550        0.001       -0.001        0.001
+
+	RMS=0.004
 
 Regression plane
 ~~~~~~~~~~~~~~~~
 
+On a diaphragm wall points were scanned by a robotic total station, points
+from *Scan0676* to *Scan0915*. Let's check if the wall is vertical using
+**Calculate/REgression calculation/Vertical plane**.
+In the point list select all *Scan* points and press OK.
+
+.. code:: text
+
+	2019.03.30 15:25 - Vertical plane
+	N = -0.00119324 * E +0.054
+	Angle from east: -  0-04-06
+	Correlation coefficient: -0.390
+
+	Point num          E            N            dE          dN          dist
+	Scan0676         68.799       -0.004       -0.000       -0.024        0.024
+	Scan0677         67.798       -0.004       -0.000       -0.022        0.022
+	Scan0678         66.789        0.002       -0.000       -0.028        0.028
+	Scan0679         65.790        0.001       -0.000       -0.026        0.026
+	Scan0680         64.789        0.001       -0.000       -0.024        0.024
+	Scan0681         63.788        0.003       -0.000       -0.025        0.025
+	Scan0682         62.786        0.003       -0.000       -0.024        0.024
+	...
+
+	RMS=0.024
+
+We got two points for the planned position of the diaphragm wall, these are
+points *S2* and *S3*. Let's check the distances from the planned position.
+Select **Calculate/Regression calculation/Distance from line** from the menu 
+(vertical plane is the same as 2D line in this situation).
+First select the two points from the plan *S2* and *S3* from the point list.
+From the second point list select *Scan* points. In the *Calculation results*
+list we get the distances of the scanned points from the planned positons.
+
+.. code:: text
+
+	2019.03.30 15:45 - Distance from the S2 - S3 line
+	Point num          E            N        Distance         dE           dN
+	Scan0676         68.799       -0.004       -0.004        0.000        0.004
+	Scan0677         67.798       -0.004       -0.004        0.000        0.004
+	Scan0678         66.789        0.002        0.002        0.000       -0.002
+	Scan0679         65.790        0.001        0.001        0.000       -0.001
+	Scan0680         64.789        0.001        0.001        0.000       -0.001
+	Scan0681         63.788        0.003        0.003        0.000       -0.003
+	Scan0682         62.786        0.003        0.003        0.000       -0.003
+	Scan0683         61.785        0.003        0.003        0.000       -0.003
+	Scan0684         60.784        0.002        0.002        0.000       -0.002
+	Scan0685         59.784        0.003        0.003        0.000       -0.003
+	...
 
 Regression circle
 ~~~~~~~~~~~~~~~~~
@@ -857,6 +965,7 @@ A list of point ids is displayed in a new window. Select all points from
 circle. Let the *unknown* value in the input box. You can give a radius if it
 is known and you don't want to get an estimated value from the circle 
 regression.
+
 
 .. figure:: images/plistc.png
 	:align: center
