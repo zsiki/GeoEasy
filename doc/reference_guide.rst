@@ -91,14 +91,16 @@ memory of the computer limits the number of loaded data sets.
 	:align: center
 
 If the observations were made in face left and face right, from the readings on
-the horizontal and vertical circle and the distances an average is calculated.
-GeoEasy stores and uses these average values.
+the horizontal and vertical circles and the distances an average is calculated.
+GeoEasy stores and uses these average valuesi only.
 Averages are calculated if the collimation and index errors are below the 
 **maxColl** and **maxIndex** values set in the geo_easy.msk file.
 
 .. note::
 	The name of the loaded data sets must be unique even if they were
-	loaded from different folders.
+	loaded from different folders. For technical reasosns an underline 
+	character is inserted at the beginning of the name, if the filename starts
+	with a number.
 
 Close
 .....
@@ -163,8 +165,9 @@ the project.
 Save project
 ............
 
-Save the actual state of GeoEasy. The list of  opened datasets and windows are 
-saved into the project file (.gpr). The project file is a simple text file.
+Save the actual state of GeoEasy. The list of opened datasets (geo and tin) and
+windows are saved into the project file (.gpr). The project file is a simple
+text file.
 
 Close project
 .............
@@ -346,7 +349,7 @@ stations.
 	:align: center
 
 The field-book contains two type of rows, station and obeservation records.
-In the station records the station number is editablei but the target point 
+In the station records the station number is editable but the target point 
 number not. The column headers may contain more labels, for example *target
 height* and *instrument height*. The colour of the value defines the type of 
 data.
@@ -364,13 +367,8 @@ stations.
 .. image:: rg_images/fb.png
 	:align: center
 
-The field-book contains two type of rows, station and obeservation records.
-In the station records the station number is editablei but the target point 
-number not. The column headers may contain more labels, for example *target
-height* and *instrument height*. The colour of the value defines the type of 
-data.
 
-The observations window contains a menu bar and pop up menus.
+The coordinate window contains a menu bar and pop up menus.
 
 Observation parameters
 ......................
@@ -446,6 +444,10 @@ The type of traversing line (closed line, loop, free, ...) is detected by
 the program.
 
 The calculation results are sent to **Calculation results** window.
+
+.. note::
+
+	Travesing points can be selected in the graphic window, too.
 
 Traversing node
 ...............
