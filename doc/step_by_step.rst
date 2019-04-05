@@ -1,8 +1,10 @@
-GeoEasy
-=======
-Step by Step
-============
-Tutorial
+.. header:: GeoEasy Step by Step
+
+GeoEasy 3 Step by Step Tutorial
+===============================
+
+:Authors:
+	Zoltan Siki
 
 .. note:: This training material does not extend to the use of the program in every detail, further information can be found in other documentation files.
 
@@ -36,10 +38,10 @@ In the main window select **File/Load...** from the menu. Navigate to the
 *demodata* folder and select *test1.geo*. A log message appears in the
 *Calculation results* window, that data have been loaded.
 
-View and edit fieldbooks
-------------------------
+View and edit field-books
+-------------------------
 
-The loaded fieldbooks can be opened in a window. Select
+The loaded field-books can be opened in a window. Select
 **Edit/Observation** from the menu of the main window. In a cascading menu
 the name of the loaded datasets popup, in this case only *test1* is visible,
 select it. Fieldbook data are displayed in the default mask type.
@@ -85,8 +87,8 @@ The color of the values in the cells can be different, eastings
 are black, prelimanary eastings are red. Colors can be customized in the
 **File/Colors...** menu from the main window.
 
-Field values can be edited in the same way asi in fieldbooks.
-The default mask for fieldbooks and coordanate lists can be configured in the
+Field values can be edited in the same way asi in field-books.
+The default mask for field-books and coordanate lists can be configured in the
 *geo_easy.msk* file (*geoMaskDefault* and *cooMaskDefault* variables)
 
 Graphic window
@@ -125,7 +127,7 @@ window).
 
 	Graphic window detail points turned out
 
-.. note:: Detail points are selected by the program bythe following rules.  A detail point has a numeric ID and has only one polar observation and was not station.
+.. note:: Detail points are selected by the program using the following rules.  A detail point has a numeric ID and has only one polar observation and was not station.
 
 Calculations
 ------------
@@ -133,11 +135,11 @@ Calculations
 The calculation results are listed in the *Calculation results* window, if
 you have closed it, open it **Window/Log window** from the menu of the main
 window.  Calculation results are stored in a log file (*geo_easy.log* in the
-installation directory), so you can review them later.
+user's home directory), so you can review them later.
 There are calculations for a single point and multiple points. Single point
 calculations are available from the popup menu, right click on the point in
-the graphic window or in the row of the point int the coordinate list window
-or in the fieldbook window.
+the graphic window or in the row of the point in the coordinate list window
+or in the field-book window.
 Multi point calculations are available from the *Calculation** menu of any
 window.
 
@@ -149,7 +151,7 @@ Click on the point *231* with the right mouse button in the graphic window and
 select **Bearing/Distance** from the popup menu. A selection list is displayed
 with the point IDs having coordinates. You can select one or more point to
 calculate bearing and distance. Select *13* from the list. The calculation
-result is visible in the *Calculation results* window and the status bar of
+result is visible in the *Calculation results* window and in the status bar of
 the graphic window.
 
 .. figure:: images/sel_point.png
@@ -168,17 +170,17 @@ the points are known.
 
 .. note::
 
-	You can use the right mouse button in the fieldbook or
+	You can use the right mouse button in the field-book or
 	coordinate list windows, too. Right click on the point
-	ID and select **Calculate**, a cascading menu appear with the
+	ID and select **Calculate**, a cascading menu appears with the
 	possible calculations for the point. If you select the
-	menu item with the point number an info box will be displayed about the
+	menu item with the point ID an info box will be displayed about the
 	point.
 
 Orientation on a station
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Let's calculate orientation for a station *12*. Click on the point *12* with
+Let's calculate orientation for station *12*. Click on the point *12* with
 the right mouse button in the graphic window. Select **Orientation** from the
 popup window. A list with the backsight directions are displayed, orientation
 angle in the first column and point ID in the second.
@@ -201,7 +203,7 @@ window.
 	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
 	231             232-53-54   291-04-11    58-10-17   2243.319    0   16    0.010
 	11              334-20-10    32-30-25    58-10-15   1588.873   -1   19   -0.010
-	Average orientation angle                        58-10-16
+	Average orientation angle                58-10-16
 
 The *e\"* column contains the difference from the mean, *e\"(max)* is the
 allowable maximal difference (depending on distance), *E(m)* is the linear
@@ -209,8 +211,8 @@ difference at the backsight point.
 
 Note that the fill color of the point marker of point *12* became green,
 oriented station. The orientation angles and the mean are stored in the
-fieldbook, too. Select the orientation mask from the **Commands/Mask...**
-in the fieldbook window to see them.
+field-book, too. Select the orientation mask from the **Commands/Mask...**
+in the field-book window to see them.
 
 Orientation for all points
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -218,7 +220,7 @@ Orientation for all points
 You can calculate orientations for all station in a single step, select
 **Calculat/Orientations** from the menu of any window. Results are written to
 the *Calculation results* window. If the difference from the mean is too large
-a warning is displayed. Three other stations are also oriented.
+a warning is displayed. The three other unoriented stations are also oriented.
 
 ::
 
@@ -226,7 +228,7 @@ a warning is displayed. Three other stations are also oriented.
 	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
 	12              295-54-35   212-30-25   276-35-50   1588.873    1   19    0.010
 	14               71-01-11   347-36-58   276-35-47   1637.971   -1   18   -0.010
-	Average orientation angle                       276-35-48
+	Average orientation angle               276-35-48
 
 ::
 
@@ -234,7 +236,7 @@ a warning is displayed. Three other stations are also oriented.
 	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
 	15              341-58-03   222-18-10   240-20-07   2615.063   -1   14   -0.023
 	13               52-48-11   293-08-21   240-20-10   4029.889    1   11    0.023
-	Average orientation angle                       240-20-08
+	Average orientation angle               240-20-08
 
 ::
 
@@ -242,11 +244,11 @@ a warning is displayed. Three other stations are also oriented.
 	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
 	14              290-57-39    51-22-38   120-24-59   1425.779   -2   20   -0.016
 	11              355-25-59   115-51-02   120-25-03   1628.118    2   18    0.016
-	Average orientation angle                       120-25-01
+	Average orientation angle               120-25-01
 
 .. note::
 
-	Orientation angles are stored in the fieldbook, you can see them if
+	Orientation angles are stored in the field-book, you can see them if
 	you select *orientation* template (mask). The calculated orientation angles
 	will overwrite the previous values.
 
@@ -258,9 +260,9 @@ directions were measured from point *11, 12, 231* and *16* to *5004*.
 Stations have to be oriented to be used in intersection.
 Right mouse button click on point *5004* in the graphic window and select
 **Intersection** from the popup menu. A list of possible intersection
-directions are displayed in the selection window. The fieldbook name and the
-point numbers are shown in the list (if more fieldbooks are loaded, stations
-from any fieldbook can be used).
+directions are displayed in the selection window. The field-book name and the
+point numbers are shown in the list (if more field-books are loaded, stations
+from any field-book can be used).
 Select two directions *11* and *12* (best intersection angle).
 
 .. figure:: images/intersection.png
@@ -298,10 +300,11 @@ Resection
 
 Let's calculate the coordinates of point *5003* in demo data set using resection.
 There are six possible directions for resection. Let's find the best
-geometry, 120 degree between directions at 5003, in the graphic window.
+geometry, 120 degree between directions at 5003.
+Point 12, 13 and 14 look optimal.
 Right mouse button click on point *5003* in the graphic window and select
 **Resection** from the popup menu. A list of possible resection
-directions are displayed in the selection window. The fieldbook name and the
+directions are displayed in the selection window. The field-book name and the
 point numbers are shown in the list.
 
 .. figure:: images/resection_menu.png
@@ -309,7 +312,6 @@ point numbers are shown in the list.
 
 	Resection from the popup menu
 
-Point 12, 13 and 14 look optimal.
 
 .. figure:: images/resection.png
 	:align: center
@@ -338,7 +340,7 @@ Let's calculate the coordinates of point *5002* using arcsection.
 There are three measured distances from *5002* to *11*, *12* and *16*.
 Right mouse button click on point *5003* in the graphic window and select
 **Arcsection** from the popup menu. A list of possible arcsection
-directions are displayed in the selection window. The fieldbook name and the
+directions are displayed in the selection window. The field-book name and the
 point numbers are shown in the list.
 
 .. figure:: images/arcsection_menu.png
@@ -413,7 +415,7 @@ There is a traversing line with three internal points (1_sp, 2_sp, 3_sp)
 between point *5001* and *5002*. Let's use the 6th toolbar icon to specify
 the traversing line. Click on the first point (*5001*) and the three
 internal points using the traversing tool and double click on the last point
-(*5002*). A black line is draw asyou click on points.
+(*5002*). A black line is draw as you click on points.
 
 .. figure:: images/traversing.png
 	:align: center
@@ -428,30 +430,30 @@ to calculate elevations.
 ::
 
 	2018.01.20 21:11 - Traversing Open, two orientation
-				bearing    bw dist
+	            bearing    bw dist
 	Point        angle     distance  (dE)     (dN)       dE         dN
-			   correction  fw dist    corrections      Easting    Northing
-				  0-00-00        -
+	           correction  fw dist    corrections      Easting    Northing
+	              0-00-00        -
 	5001        132-34-52
-			   -  0-00-05                             89562.512   3587.544
-				132-34-47        -
+	           -  0-00-05                             89562.512   3587.544
+	            132-34-47        -
 	1_sp        134-23-17  498.890  367.351 -337.557    367.369   -337.521
-			   -  0-00-05        -    0.018    0.035  89929.881   3250.023
-				 86-57-59        -
+	           -  0-00-05        -    0.018    0.035  89929.881   3250.023
+	             86-57-59        -
 	2_sp        228-16-31  330.610  330.147   17.496    330.159     17.520
-			   -  0-00-05        -    0.012    0.023  90260.040   3267.542
-				135-14-25        -
+	           -  0-00-05        -    0.012    0.023  90260.040   3267.542
+	            135-14-25        -
 	3_sp        225-08-37  468.460  329.859 -332.637    329.876   -332.604
-			   -  0-00-06        -    0.017    0.033  90589.916   2934.938
-				180-22-56        -
+	           -  0-00-06        -    0.017    0.033  90589.916   2934.938
+	            180-22-56        -
 	5002        359-37-10  344.860   -2.301 -344.852     -2.288   -344.828
-			   -  0-00-06        -    0.012    0.024  90587.628   2590.110
+	           -  0-00-06        -    0.012    0.024  90587.628   2590.110
 
-				  0-00-00                              1025.116   -997.434
-			   1080-00-27 1642.820 1025.056 -997.550
-				720-00-00
-			   -  0-00-27             0.060    0.116
-										 0.130
+	              0-00-00                              1025.116   -997.434
+	           1080-00-27 1642.820 1025.056 -997.550
+	            720-00-00
+	           -  0-00-27             0.060    0.116
+	                                      0.130
 
 	Error limits                 Angle (sec)   Distance (cm)
 	Main, precise traversing         50        30
@@ -461,22 +463,24 @@ to calculate elevations.
 	Rural main traversing            87        71
 	Rural traversing                105        89
 
+::
+
 	2018.01.20 21:11 - Trigonometrical line
 						   Height differences
 	Point    Distance   Foward Backward    Mean  Correction Elevation
-
+	
 	5001                                                     100.000
-				498.879   23.947        -   23.947   -0.010
+	            498.879   23.947        -   23.947   -0.010
 	1_sp                                                     123.938
-				330.623    0.307        -    0.307   -0.004
+	            330.623    0.307        -    0.307   -0.004
 	2_sp                                                     124.240
-				468.449   12.661        -   12.661   -0.008
+	            468.449   12.661        -   12.661   -0.008
 	3_sp                                                     136.893
-				344.836    1.926        -    1.926   -0.005
+	            344.836    1.926        -    1.926   -0.005
 	5002                                                     138.815
-
-			   1642.787                     38.842   -0.027   38.815
-
+	
+	           1642.787                     38.842   -0.027   38.815
+	
 	Error limit:   0.118
 
 
@@ -521,8 +525,8 @@ Calculation distances and areas
 -------------------------------
 
 The sum of the horizontal distances between points having coordinates can be
-calculated in the graphic window using the rules tool from the toolbar (4th
-icon). Click on the point marker of the first point and the further point.
+calculated in the graphic window using the ruler tool from the toolbar (4th
+icon). Click on the point marker of the first point and the further points.
 Finally double click on the last point. A report is sent to *Calculation
 results* window.
 
@@ -580,14 +584,15 @@ there are common points in the two system. Two GeoEasy data sets have to be
 used. The source dataset is opened and select **Calculation/Coordinate 
 transformation** from the menu. The target dataset have to be selected next.
 Select *test1_trafo.geo* from the *demodata* folder.
+A list of the common points width horrizontal coordintes in the two data sets is shown.
 
 .. figure:: images/coo_tr.png
 	:align: center
 
 	Common points for transformation
 
-Select all point and press OK button. In the next dialog box the transformation
-type is selected.
+Select all points and press OK button. In the next dialog box the transformation
+type can be selected.
 
 .. figure:: images/coo_tr2.png
 	:align: center
@@ -620,10 +625,11 @@ information is displayed.
 	  231      88568.240   2281.760   650252.518   248692.628
 	  232      88619.860   3159.880   650304.141   249570.746
 
-In the first block the formula of the transformation is given. The second blok contains 
-the common points coordinates and the errors. In the third block the transformated
+In the first block the formula of the transformation is given. The second block
+contains the coordinates of common points and the errors. In the third block 
+the transformated
 coordinates are given, those points can be found here which have coodinates in
-thesource dataset but not in the taget dataset.
+the source dataset but not in the taget dataset.
 
 .. note::
 
@@ -652,7 +658,7 @@ loaded.
 Horizontal network adjustment
 -----------------------------
 
-Let's calculate the coordinates of points 5001, 5002, 5003 and 5044 using all
+Let's calculate the coordinates of points 5001, 5002, 5003 and 5004 using all
 available observations from points. GeoEasy uses GNU Gama for the network
 adjustment.
 
@@ -749,8 +755,10 @@ updated.
 Digital terrain model
 ---------------------
 
-GeoEasy is capable to create TIN based Digital Terrain Models from the point
-in the loaded datasets or from a DXF file. There is a small electric field
+GeoEasy is capable to create TIN based Digital Terrain Models from the points
+in the loaded datasets or from a DXF file. *Triangle* open source project is
+used to generate triangles.
+There is a small electric field
 book in the demo data set called *terrain.scr*. Load the *scr* file using
 the **File/Load...** menu of the main window.
 
@@ -833,7 +841,7 @@ Regression calculation
 ----------------------
 
 Regression calculation can be used to find best fitting geometrical shape to
-the calculated coordinates. Least square adjustment is used to find the
+the coordinates of points. Least square adjustment is used to find the
 parameters of the best fitting geometry. The *reg.geo* data set in the
 demodata folder will be used in this chapter. Load the data set to try
 regression algorithms.
@@ -846,7 +854,7 @@ Regression line
 	Crane track points
 
 Observations were made along a crane track. Points from 1 to 7 are on the right
-rail and point from 8 to 14 on the left rail. Let's first fit a 2D line on the 
+rail and pointis from 8 to 14 on the left rail. Let's first fit a 2D line on 
 the right side rail, **Calculate/Regression calculation/2D Line** from the menu.
 
 .. code:: text
@@ -867,7 +875,7 @@ the right side rail, **Calculate/Regression calculation/2D Line** from the menu.
 
 	RMS=0.003
 
-The results are sent to the *Calculation results* window. Beside the equation
+The results are printed in the *Calculation results* window. Beside the equation
 of the line the direction and correlation are also calculated. From the table
 of the point-line distances (*dist*) can be read.
 
@@ -957,12 +965,13 @@ list we get the distances of the scanned points from the planned positons.
 Regression circle
 ~~~~~~~~~~~~~~~~~
 
-There are points on five horizontal sections on a chimney.
-Let's fit a regression circle on le lowest section, point ids '1nn'.
+There are points on five horizontal sections of a chimney.
+Let's fit a regression circle on le lowest section, point ids like '1nn'.
 Select **Calculate/Regression calculation/Circle** from the menu of any window.
 A list of point ids is displayed in a new window. Select all points from
 111 to 133 and press OK button. You will be asked for the radius of the 
-circle. Let the *unknown* value in the input box. You can give a radius if it
+circle. Let the *unknown* value in the input box to calculate radius from the
+data. You can give a radius if it
 is known and you don't want to get an estimated value from the circle 
 regression.
 
