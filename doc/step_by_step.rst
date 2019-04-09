@@ -43,10 +43,10 @@ View and edit field-books
 
 The loaded field-books can be opened in a window. Select
 **Edit/Observation** from the menu of the main window. In a cascading menu
-the name of the loaded datasets popup, in this case only *test1* is visible,
-select it. Fieldbook data are displayed in the default mask type.
+the name of the loaded data sets popup, in this case only *test1* is visible,
+select it. Field-book data are displayed in the default mask type.
 
-.. note:: The mask name is used for dialog boxes containg tabular data. This comes from the display masks which were used on old Leica instruments.
+.. note:: The mask name is used for dialog boxes containing tabular data. This comes from the display masks which were used on old Leica instruments.
 
 .. figure:: images/fieldbook.png
 	:align: center
@@ -72,7 +72,7 @@ View and edit coordinate lists
 
 The loaded coordinate lists can also be opened in a window. Select
 **Edit/Coordinates** from the menu of the main window. In a cascading menu
-the name of the loaded datasets popup, in this case only *test1* is visible,
+the name of the loaded data sets popup, in this case only *test1* is visible,
 select it. Coordinate data are displayed in the default mask type.
 Points are ordered in the table by point IDs.
 
@@ -84,11 +84,11 @@ Points are ordered in the table by point IDs.
 Data are arranged in a table, a row contains coordinates of a point.
 Column header can contain more labels (e.g. Easting and Easting prelim.)
 The color of the values in the cells can be different, eastings
-are black, prelimanary eastings are red. Colors can be customized in the
+are black, preliminary eastings are red. Colors can be customized in the
 **File/Colors...** menu from the main window.
 
-Field values can be edited in the same way asi in field-books.
-The default mask for field-books and coordanate lists can be configured in the
+Field values can be edited in the same way as in field-books.
+The default mask for field-books and coordinate lists can be configured in the
 *geo_easy.msk* file (*geoMaskDefault* and *cooMaskDefault* variables)
 
 Graphic window
@@ -111,14 +111,14 @@ Preliminary coordinates
 -----------------------
 
 Let's calculate preliminary coordinates for those points which have no
-coordinates sofar. Select **Calculate/Preliminary coordinates** from the menu
+coordinates so far. Select **Calculate/Preliminary coordinates** from the menu
 of any window.  You'll get a message, that there are no elevations for
 some points.
 Several points will be added to the graphic window and the
 coordinate list. They have red point IDs to mark  preliminary coordinates.
 Preliminary orientations and elevations are also calculated.
 
-Press F5 button to turn off detail points, having a less crouded view in the
+Press F5 button to turn off detail points, having a less crowded view in the
 graphic window (or **Commands/Detail points** from the menu of the graphic
 window).
 
@@ -182,7 +182,7 @@ Orientation on a station
 
 Let's calculate orientation for station *12*. Click on the point *12* with
 the right mouse button in the graphic window. Select **Orientation** from the
-popup window. A list with the backsight directions are displayed, orientation
+popup window. A list with the back-sight directions are displayed, orientation
 angle in the first column and point ID in the second.
 
 .. figure:: images/ori_list.png
@@ -207,7 +207,7 @@ window.
 
 The *e\"* column contains the difference from the mean, *e\"(max)* is the
 allowable maximal difference (depending on distance), *E(m)* is the linear
-difference at the backsight point.
+difference at the back-sight point.
 
 Note that the fill color of the point marker of point *12* became green,
 oriented station. The orientation angles and the mean are stored in the
@@ -218,7 +218,7 @@ Orientation for all points
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can calculate orientations for all station in a single step, select
-**Calculat/Orientations** from the menu of any window. Results are written to
+**Calculate/Orientations** from the menu of any window. Results are written to
 the *Calculation results* window. If the difference from the mean is too large
 a warning is displayed. The three other unoriented stations are also oriented.
 
@@ -271,7 +271,7 @@ Select two directions *11* and *12* (best intersection angle).
 	Intersection point selection
 
 There are two columns in the list window. The first column refers to the
-dataset name, the secont column contains point numbers.
+data set name, the second column contains point numbers.
 
 .. note::
 
@@ -379,7 +379,7 @@ Let's use the distance from point 11 and 12.
 Elevation calculation
 ~~~~~~~~~~~~~~~~~~~~~
 
-Let's calculate the elvation of point 5003.
+Let's calculate the elevation of point 5003.
 Right mouse button click on point *5003* in the graphic window and select
 **Elevation** from the popup menu. A list of possible elevation
 calculations are displayed in the selection window. The point name, the
@@ -391,7 +391,7 @@ elevation and the distance are shown in the list.
 	Elevation point selection
 
 Let's select both rows. The elevation will be calculated as a weighted
-average. The weight is inverse propotional of the distance square.
+average. The weight is inverse proportional of the distance square.
 
 ::
 
@@ -408,8 +408,8 @@ average. The weight is inverse propotional of the distance square.
 	points. The last calculated elevation is stored only
 	in the coordinate list. Previous elevation will be overwritten.
 
-Travese and trigonometric line
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Traverse and trigonometric line
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There is a traversing line with three internal points (1_sp, 2_sp, 3_sp)
 between point *5001* and *5002*. Let's use the 6th toolbar icon to specify
@@ -420,11 +420,11 @@ internal points using the traversing tool and double click on the last point
 .. figure:: images/traversing.png
 	:align: center
 
-	Travesing line selection
+	Traversing line selection
 
 This is an open traversing with orientation on both known endpoints.
-A small dialog is shown where you can select the calculaton task.
-Travesing to calculate horizontal coordinates and/or Triginometric line
+A small dialog is shown where you can select the calculation task.
+Traversing to calculate horizontal coordinates and/or Trigonometric line
 to calculate elevations.
 
 ::
@@ -467,7 +467,7 @@ to calculate elevations.
 
 	2018.01.20 21:11 - Trigonometrical line
 						   Height differences
-	Point    Distance   Foward Backward    Mean  Correction Elevation
+	Point    Distance    Forward Backward   Mean  Correction Elevation
 	
 	5001                                                     100.000
 	            498.879   23.947        -   23.947   -0.010
@@ -490,7 +490,7 @@ to calculate elevations.
 	Orientation have to be calculated before traversing calculation.
 
 	You can start traversing calculation from the **Calculation/Traversing**
-	menu. That case the tranversing points are selected from lists.
+	menu. That case the traversing points are selected from lists.
 
 Detail points
 ~~~~~~~~~~~~~
@@ -498,7 +498,7 @@ Detail points
 Some polar detail points were measured from the traversing points. Let's
 calculate the coordinates for those points. The fastest way to get the
 coordinates of detail points is to select **Calculation/New detail points** from the menu.
-It will calculate orientation angle automatically if neccessary.
+It will calculate orientation angle automatically if necessary.
 
 ::
 
@@ -581,10 +581,10 @@ Coordinate transformation
 During a GeoEasy session all points have to be in the same coordinate
 reference system (CRS). Coordinates can be converted between two CRSs if
 there are common points in the two system. Two GeoEasy data sets have to be 
-used. The source dataset is opened and select **Calculation/Coordinate 
-transformation** from the menu. The target dataset have to be selected next.
+used. The source data set is opened and select **Calculation/Coordinate 
+transformation** from the menu. The target data set have to be selected next.
 Select *test1_trafo.geo* from the *demodata* folder.
-A list of the common points width horrizontal coordintes in the two data sets is shown.
+A list of the common points width horizontal coordinates in the two data sets is shown.
 
 .. figure:: images/coo_tr.png
 	:align: center
@@ -597,7 +597,7 @@ type can be selected.
 .. figure:: images/coo_tr2.png
 	:align: center
 
-	Transfomation options
+	Transformation options
 
 Pressing the OK button the transformation parameters are calculated using the
 least squares method. In the *Calculation results* window three blocks of
@@ -627,9 +627,9 @@ information is displayed.
 
 In the first block the formula of the transformation is given. The second block
 contains the coordinates of common points and the errors. In the third block 
-the transformated
-coordinates are given, those points can be found here which have coodinates in
-the source dataset but not in the taget dataset.
+the transformed
+coordinates are given, those points can be found here which have coordinates in
+the source data set but not in the target data set.
 
 .. note::
 
@@ -641,7 +641,7 @@ the source dataset but not in the taget dataset.
 Save to DXF file
 ----------------
 
-The points with horizontal coordinates from all loaded datasets can be
+The points with horizontal coordinates from all loaded data sets can be
 exported into a DXF file. Select **Commands/DXF output** from the
 menu of the graphic window. In the displayed dialog box several
 options can be set for the DXF file.
@@ -687,12 +687,12 @@ with final coordinates.
 
 The result of the adjustment is shown in the Calculation results window.
 During the adjustment statistical tests are calculated to detect blunders
-but blunders are not eliminated automaticly.
+but blunders are not eliminated automatically.
 
-Levelling network adjustment
-----------------------------
+Leveling network adjustment
+---------------------------
 
-Levelling data can be loaded from GSI field-books created by digital levelling
+Leveling data can be loaded from GSI field-books created by digital leveling
 instruments (for example Leica DNA03 or NA3000 instruments). Manual input of height differences is also possible.
 
 Let's start with an ASCII file (field-book) which contains start and endpoint,
@@ -710,34 +710,34 @@ distance, height difference.
 	N H 408 0.17836
 	N J 634 0.1686
 
-	Field-book (levelling.dmp)
+	Field-book (leveling.dmp)
 
 Let's load this field-book into GeoEasy. Select **File/Load** from the menu of
-the main window. Select *Fieldbook (\*.dmp, \*.DMP)* type. The levelling.dmp 
-file is in the demodata subdirectory of GeoEasy intallation folder. Select the
-file and klick on Open button. A dialog will be displayed where fields of the
-input file can be set. Remove the unneccessary fields (*Horizontal angle, Vertical angle, lope distance, signal height,instrument height*) and add *horizontal
-distance* and *Height diff. levelling*. Don't forget to add *space* to the 
+the main window. Select *Fieldbook (\*.dmp, \*.DMP)* type. The leveling.dmp 
+file is in the demodata sub-directory of GeoEasy installation folder. Select the
+file and click on Open button. A dialog will be displayed where fields of the
+input file can be set. Remove the unnecessary fields (*Horizontal angle, Vertical angle, lope distance, signal height,instrument height*) and add *horizontal
+distance* and *Height diff. leveling*. Don't forget to add *space* to the 
 separators.
 
 .. figure:: images/dmp_level.png
 	:align: center
 
-	Loading levelling.dmp
+	Loading leveling.dmp
 
 Open the field-book (**Edit/Observations**) and change the mask (
-**Commands/Mask...**) to *levelling*. You can see nine observations.
+**Commands/Mask...**) to *leveling*. You can see nine observations.
 
-.. figure:: images/fb_levelling.png
+.. figure:: images/fb_leveling.png
 	:align: center
 
-	Observations inlevelling mask
+	Observations in leveling mask
 
-These observations were made by digital levelling instrument with a standard
+These observations were made by digital leveling instrument with a standard
 deviation of 0.3 mm/km. Change calculation parameters (**File/Calculation parameters...**), *Decimals in results* should be changed to 4. Check also 
-*Standard deviation for levelling [mm/km]*, it should be 0.3.
+*Standard deviation for leveling [mm/km]*, it should be 0.3.
 
-We shall adjust this small levelling network.
+We shall adjust this small leveling network.
 There are no elevations in the field-book, so first set the elevation of point
 *B* to 100.000.
 After it let's calculate preliminary elevations 
@@ -748,7 +748,7 @@ After it let's calculate preliminary elevations
 
 	Preliminary elevations
 
-Now we can start levelling network adjustment (**Calculate/Levelling network adjustment**). Select all point as unknown. In the calcultion result window a
+Now we can start leveling network adjustment (**Calculate/Leveling network adjustment**). Select all point as unknown. In the calculation result window a
 long result list is displayed and the coordinates in the coordinate list are 
 updated.
 
@@ -756,7 +756,7 @@ Digital terrain model
 ---------------------
 
 GeoEasy is capable to create TIN based Digital Terrain Models from the points
-in the loaded datasets or from a DXF file. *Triangle* open source project is
+in the loaded data sets or from a DXF file. *Triangle* open source project is
 used to generate triangles.
 There is a small electric field
 book in the demo data set called *terrain.scr*. Load the *scr* file using
@@ -784,7 +784,7 @@ from the menu of the graphic window.
 	The colors used in the graphics window can be changed using
 	**File/Colors...** from the menu of the main window.
 
-Let's start to creat a TIN, select **DTM/Create...** from the menu of the 
+Let's start to create a TIN, select **DTM/Create...** from the menu of the 
 graphic window and press OK button in the *Create DTM* dialog and select
 directory and name for the DTM in the *Save as* dialog.
 
@@ -800,7 +800,7 @@ directory and name for the DTM in the *Save as* dialog.
 
 The convex hole of the points is filled by triangles which have  minimal
 sum of perimeters. At the side of the model there are narrow triangles.
-These can be avoided by defining a non-convex boundary for the modell.
+These can be avoided by defining a non-convex boundary for the model.
 Unload the TIN by **DTM/Close** from the menu of graphic window. Using the
 Break line tool from the toolbar draw the boundary of the model.
 
@@ -854,7 +854,7 @@ Regression line
 	Crane track points
 
 Observations were made along a crane track. Points from 1 to 7 are on the right
-rail and pointis from 8 to 14 on the left rail. Let's first fit a 2D line on 
+rail and points from 8 to 14 on the left rail. Let's first fit a 2D line on 
 the right side rail, **Calculate/Regression calculation/2D Line** from the menu.
 
 .. code:: text
@@ -916,7 +916,7 @@ Regression plane
 
 On a diaphragm wall points were scanned by a robotic total station, points
 from *Scan0676* to *Scan0915*. Let's check if the wall is vertical using
-**Calculate/REgression calculation/Vertical plane**.
+**Calculate/Regression calculation/Vertical plane**.
 In the point list select all *Scan* points and press OK.
 
 .. code:: text
@@ -944,7 +944,7 @@ Select **Calculate/Regression calculation/Distance from line** from the menu
 (vertical plane is the same as 2D line in this situation).
 First select the two points from the plan *S2* and *S3* from the point list.
 From the second point list select *Scan* points. In the *Calculation results*
-list we get the distances of the scanned points from the planned positons.
+list we get the distances of the scanned points from the planned positions.
 
 .. code:: text
 
@@ -966,7 +966,7 @@ Regression circle
 ~~~~~~~~~~~~~~~~~
 
 There are points on five horizontal sections of a chimney.
-Let's fit a regression circle on le lowest section, point ids like '1nn'.
+Let's fit a regression circle on lowest section, point ids like '1nn'.
 Select **Calculate/Regression calculation/Circle** from the menu of any window.
 A list of point ids is displayed in a new window. Select all points from
 111 to 133 and press OK button. You will be asked for the radius of the 
