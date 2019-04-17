@@ -1576,7 +1576,8 @@ proc CreateVrml { } {
 
 #
 #	Create KML file and open it optionally
-#	Only HD72/EOV CRS (EPSG=23700) is supported!
+#	proj supported projection are welcome
+#	WARNING elevations are also transformed to height over ellipsoid
 proc CreateKml { } {
 	global tinLoaded
 	global kmlTypes polyStyle
