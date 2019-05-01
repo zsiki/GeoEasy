@@ -17,9 +17,9 @@ set timefmt '%Y-%m'
 set xdata time
 set format x "%b %Y"
 
-set xrange ['2017-10':'2019-03']
+set xrange ['2017-10':'2019-04']
 #set xtics '2017-10', 8640000, '2019-03'
-set xtics '2017-10', 2700000, '2019-03'
+set xtics '2017-10', 2700000, '2019-04'
 set mxtics 1
 set xtic rotate by 45 scale 0 offset character -4,-2.5
 set style data linespoints
