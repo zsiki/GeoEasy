@@ -419,7 +419,7 @@ proc Txt2Coo {str {d 1}} {
 #	_+pointnumber   _ xxcoord_ yycoord_ zzcoord
 #
 #	Data sent in records record start is marked by ^B, record end is marked
-#	by ^C, end of file marked ^D
+#	by ^C, end of file marked ^D, record length is 135 bytes
 #	There is a checksum (4 digit) before end of record (^C)
 #	@param fn name of TopCon210 file
 proc TopCon210 {fn} {
@@ -442,12 +442,15 @@ proc TopCon210 {fn} {
 
 	set buf ""
 	while {![eof $f1]} {
-		gets $f1 rbuf			;# get whole file (1 row)
+		gets $f1 rbuf			;# get 1 row
 		if {[string range $rbuf 0 0] == "\x02"} {
 			# remove control chars and checksum
 			set rbuf [string range $rbuf 1 128]
+			append buf $rbuf
+		} elseif {[string range $rbuf 0 0] == "_"} {
+			# store only data lines
+			append buf $rbuf
 		}
-		append buf $rbuf
 	}
 	close $f1
 	set buf [string trimright $buf "\x04 "]
