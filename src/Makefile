@@ -1,6 +1,6 @@
 # add path to tcl_cruncher if installed
 TCL_CRUNCHER = tcl_cruncher
-FREE_WRAP = ../../freewrap
+FREE_WRAP = ../../freewrap664
 TCL_DOC = ../../tcldoc-0.87/tcldoc.tcl
 # uncomment next line if no tcl_cruncher installed
 #TCL_CRUNCHER = cat
