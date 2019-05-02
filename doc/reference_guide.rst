@@ -102,6 +102,43 @@ Averages are calculated if the collimation and index errors are below the
 	character is inserted at the beginning of the name, if the filename starts
 	with a number.
 
+Loading flexible format files
+.............................
+
+There are two file types which internal structure is flexible. These are the 
+.dmp and .csv types. In case of these input files the data structure is not 
+defined, the user can set contents of the columns int he file while loading.
+When you select .dmp or .csv file another dialog is opened.
+
+.. image:: rg_images/csv_load.png
+	:align: center
+
+In the upper part of the dialog you can set the meaning and order of columns.
+In case of csv the available columns are: *Point number, Easting, Northing,
+Elevation, Point code, Point order, Easting prelim., Northin prelim.,
+Height prelim* and the special *Skip*. When you open the dialog the first 
+columns are in the list. Press **Add** button to add new column and select
+from the opened list. This column will be at the end of the list. If you 
+would like to change the order of columns, click on a column and the **Up**,
+**Down** and **Delete** buttons became active. The special *Skip* column can
+be used to skip a column in the input file.
+
+Multiple separators can be defined, defaults are tab and semicolon.
+The *Skip repeated separators* option can be useful for example if you have
+space tabed file (different number of spaces among the columns).
+
+The *Number of header lines* allows to skip the first few lines in the input
+(e.g. header lines).
+
+A *Filter expression* can be defiend to filter rows. A regular expression can
+used.
+
+At the bottom part of the dialog the first five rows of the input file are shown.
+
+The **Save** and **Load** button can be used to save or load setting to/from
+a Txt/csv file definition (\*.txp). Be careful, the saved file definitions for 
+.dmp and .csv files are not compatible (available column sets are different).
+
 Close
 .....
 
@@ -749,11 +786,24 @@ the log and user can review them later.
 File menu
 ~~~~~~~~~
 
-GeoEasy consol window
----------------------
+GeoEasy consolie window
+-----------------------
+
+The console window is useful to execute Tcl commands or load and execute 
+any tcl scripts. The console window is divided into three parts, the menu bar
+at the top,
+the input field below the menu bar and the history (list of previous commands)
+in the main body.
+
+Enter any tcl command into the input field and press Enter key. The result of 
+the command is sent to the Caculation Results window and the command to the 
+history list.
 
 File menu
 ~~~~~~~~~
+
+The first option of the menu (**Load tcl file**) allows to load external tcl
+scripts. 
 
 Appendices
 ==========
@@ -1053,6 +1103,10 @@ codes used
 	| 139 | Height prelim.                     |
 	+-----+------------------------------------+
 	| 140 | EPSG code                          |
+	+-----+------------------------------------+
+	| 200 | Traverse axis inclination          |
+	+-----+------------------------------------+
+	| 201 | Longitudinal axis inclination      |
 	+-----+------------------------------------+
 	| 237 | Northing stdev                     |
 	+-----+------------------------------------+
