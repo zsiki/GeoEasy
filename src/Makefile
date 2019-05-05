@@ -87,6 +87,9 @@ linux: GeoEasy ./i18n/geo_easy.* ./i18n/com_easy.* geo_easy.msk
 		./i18n/geo_easy.* ./i18n/com_easy.* \
 		com_set bitmaps demodata
 doc: ${DOC_SOURCES}
+	# update version
+	VVV=${VERSION}
+	sed '1,100s/_VERSION_/${VVV}/g' overview.html.template > overview.html
 	# generate doc
 	$(TCL_DOC) --overview overview.html --force ../tcldoc \
 		${DOC_SOURCES}
