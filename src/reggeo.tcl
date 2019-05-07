@@ -522,9 +522,9 @@ proc CircleReg {plist} {
 	set a(2,0) $sx
 	set a(2,1) $sy
 	set a(2,2) $n
-	set b(0) -$l0
-	set b(1) -$l1
-	set b(2) -$l2
+	set b(0) [expr {-$l0}]
+	set b(1) [expr {-$l1}]
+	set b(2) [expr {-$l2}]
 	GaussElimination a b 3
 	set x0e [expr {-0.5 * $b(0)}]
 	set y0e [expr {-0.5 * $b(1)}]
@@ -773,10 +773,10 @@ proc SphereReg {plist} {
 	set a(3,1) $sy
 	set a(3,2) $sz
 	set a(3,3) $n
-	set b(0) -$l0
-	set b(1) -$l1
-	set b(2) -$l2
-	set b(3) -$l3
+	set b(0) [expr {-$l0}]
+	set b(1) [expr {-$l1}]
+	set b(2) [expr {-$l2}]
+	set b(3) [expr {-$l3}]
 	GaussElimination a b 4
 	set x0e [expr {-0.5 * $b(0)}]
 	set y0e [expr {-0.5 * $b(1)}]
