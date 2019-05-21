@@ -428,7 +428,7 @@ proc SaveSdr {fn rn} {
 	set dt [clock format [clock seconds] -format "%d-%b-%y %H:%M"]
 	puts $f "00NMSDR33               $dt 113121"
 	
-	puts $f "10NMGeoEasy export  121111"
+	puts $f [format "10NM%-16s121111" [string range [file rootname [file tail $rn]] 0 15]]
 	# go through coordinates
 	foreach pn [array names ${fn}_coo] {
 		incr line
