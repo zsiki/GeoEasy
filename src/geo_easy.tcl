@@ -52,13 +52,11 @@ proc GeoEasy {top} {
 	global geoMustHave geoTogether geoNotTogether
 	global cooMustHave cooTogether cooNotTogether
 	global fn
-	global version
 	global saveType comSaveType
 	global geoLangs langCodes
 
-	set version 311 ;# update for new release!
-	set version_str [join [split $version {}] .]
-	#set version_str "[join [split $version {}] .] dev"
+	set version 312 ;# update for new release!
+	set version_str "[join [split $version {}] .] dev"
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
