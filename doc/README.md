@@ -2,6 +2,6 @@
 
 - [A1 format poster about GeoEasy 3.0](./GeoEasy3poster.pdf)
 - [Installation guide for GeoEasy](./install.pdf)  (Linux and Windows)
-- [Step by step tutorial for GeoEasy](./step_by_step.pdf)  (not finished)
+- [Step by step tutorial for GeoEasy](./step_by_step.pdf)
 - [Reference Guide for GeoEasy](./reference_guide.rst)  (under construction)
 - [Guide to build GeoEasy debian package](debian/README.md )
