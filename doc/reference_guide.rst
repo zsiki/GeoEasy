@@ -107,11 +107,11 @@ Loading flexible format files
 
 There are two file types which internal structure is flexible. These are the 
 .dmp and .csv types. In case of these input files the data structure is not 
-defined, the user can set contents of the columns int he file while loading.
+defined, the user can set contents of the columns in the file while loading.
 When you select .dmp or .csv file another dialog is opened.
 
 .. image:: rg_images/csv_load.png
-	:align: center
+	:align: center 
 
 In the upper part of the dialog you can set the meaning and order of columns.
 In case of csv the available columns are: *Point number, Easting, Northing,
@@ -159,7 +159,7 @@ files is the same as the loaded data set.
 Save all
 ........
 
-Save all changed data sets to GeoEasy format.
+Save all changed data sets to GeoEasy format.?
 
 Save as
 .......
@@ -196,8 +196,8 @@ If no fixed points are selected a free network adjustment is solved.
 Load project
 ............
 
-Load a previously saved project. Data set and windows are opened as saved to
-the project.
+Load a previously saved project. Data sets and windows are opened as saved to
+the project.g
 
 Save project
 ............
@@ -243,20 +243,22 @@ number of oriented stations.
 Calculation parameters
 ......................
 
-.. image:: rg_images/calcpar.png
+.. image:: rg_images/calcpar.png,
 	:align: center
 
 Reduction for projection [mm/km]:
 	the change of the distances caused by the projection
 
 Average height above MSL [m]:
-	used to reduce distances to MSL
+	used to reduce distances to MSL, set to zero to turn of correction
 
 Standard deviation for directions ["]:
-	mean error for directions and zenith angles in arc seconds
+	mean error for directions and zenith angles in arc seconds, 
+	used by network adjusment
 
 Standard deviation for distances [mm]:
-	additive item for the mean error of distances
+	additive item for the mean error of distances, used by
+	
 
 Standard deviation for distances [mm/km]:
 	multiplier item for the mean error of distances
