@@ -6,7 +6,7 @@
 
 set terminal png font "Verdana,8" size 950, 520
 
-set title 'Downloads 2017 October - 2019 April'
+set title 'Downloads 2017 October - 2019 May'
 set xlabel ' '
 set ylabel 'Count'
 
@@ -17,9 +17,9 @@ set timefmt '%Y-%m'
 set xdata time
 set format x "%b %Y"
 
-set xrange ['2017-10':'2019-04']
+set xrange ['2017-10':'2019-05']
 #set xtics '2017-10', 8640000, '2019-03'
-set xtics '2017-10', 2700000, '2019-04'
+set xtics '2017-10', 2700000, '2019-05'
 set mxtics 1
 set xtic rotate by 45 scale 0 offset character -4,-2.5
 set style data linespoints
