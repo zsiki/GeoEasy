@@ -106,7 +106,8 @@ Loading flexible format files
 .............................
 
 There are two file types which internal structure is flexible. These are the 
-.dmp and .csv types. In case of these input files the data structure is not 
+.dmp (for observations) and .csv (for coordinates) types. 
+In case of these input files the data structure is not 
 defined, the user can set contents of the columns in the file while loading.
 When you select .dmp or .csv file another dialog is opened.
 
@@ -116,10 +117,26 @@ When you select .dmp or .csv file another dialog is opened.
 In the upper part of the dialog you can set the meaning and order of columns.
 In case of csv the available columns are: *Point number, Easting, Northing,
 Elevation, Point code, Point order, Easting prelim., Northin prelim.,
-Height prelim* and the special *Skip*. When you open the dialog the first 
+Height prelim* and the special *Skip*. In the dmp (dump) file the following 
+columns are allowed: *Station number, Point number, Horizontal angle, 
+Vertical angle, Slope distance, Signal height, Instrument height, 
+Horizontal distance, Point code, Height diff, Height diff leveling* and the 
+special *Skip*. Angles can be in radians or DMS (ddd-mm-ss format).
+A sample dmp file (station number can be empty if it is not changed.
+
+.. code:: text
+	Station;Target;Hz;V;SD
+	12;23;23-45-12;87-51-10;234.201
+	;32;123-23-35;91-03-21
+	;54;200-12-34;85-40-12;85.342
+	48;57;32-01-06;90-10-31;121.308
+	48;59;79-23-56;88-44-22;242.159
+
+When you open the dialog the default
 columns are in the list. Press **Add** button to add new column and select
-from the opened list. This column will be at the end of the list. If you 
-would like to change the order of columns, click on a column and the **Up**,
+from the opened list. The new column will be added to the end of the list. 
+If you would like to change the order of columns, click on a column and the 
+**Up**,
 **Down** and **Delete** buttons became active. The special *Skip* column can
 be used to skip a column in the input file.
 
@@ -131,7 +148,7 @@ The *Number of header lines* allows to skip the first few lines in the input
 (e.g. header lines).
 
 A *Filter expression* can be defiend to filter rows. A regular expression can
-used.
+also be used.
 
 At the bottom part of the dialog the first five rows of the input file are shown.
 
@@ -243,7 +260,7 @@ number of oriented stations.
 Calculation parameters
 ......................
 
-.. image:: rg_images/calcpar.png,
+.. image:: rg_images/calcpar.png
 	:align: center
 
 Reduction for projection [mm/km]:
@@ -621,7 +638,7 @@ errors use this option to recalculate preliminary coordinates.
 3D network adjustment, Horizontal network adjustment, Levelling network adjustment
 ..................................................................................
 
-..note::
+.. note::
 
 	Before adjustment you have the set/check the mean errors of observations and
 	adjustment parameters.
@@ -788,8 +805,8 @@ the log and user can review them later.
 File menu
 ~~~~~~~~~
 
-GeoEasy consolie window
------------------------
+GeoEasy console window
+----------------------
 
 The console window is useful to execute Tcl commands or load and execute 
 any tcl scripts. The console window is divided into three parts, the menu bar
@@ -804,8 +821,14 @@ history list.
 File menu
 ~~~~~~~~~
 
-The first option of the menu (**Load tcl file**) allows to load external tcl
-scripts. 
+The first option of the menu (**Find**) useful to find text in the console 
+window.
+
+The **Load tcl file** allows to load and excute external tcl scripts. 
+
+Use the **Save as...** option from the menu to save the tcl commands
+from the history list into a file or **Save selection...** to save the 
+selected commands only.
 
 Appendices
 ==========
