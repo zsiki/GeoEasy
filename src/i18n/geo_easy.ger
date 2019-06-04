@@ -526,9 +526,12 @@ set geoEasyMsg(gamastdhead3) "% Interval"
 set geoEasyMsg(gamastdhead4) "beinhaltet den Wert m0'/m0"
 set geoEasyMsg(gamastdhead5) "beinhaltet nicht den m0'/m0 Wert"
 set geoEasyMsg(gamacoohead0) "Koordinaten"
-set geoEasyMsg(gamacoohead1) "Punkt Id       E        N       H"
+set geoEasyMsg(gamacoohead1) "Punkt Id        E          N          H"
 set geoEasyMsg(gamaobshead0) "Beobachtungen"
-set geoEasyMsg(gamaobshead1) "Station  Observed Adj.obs. Residual Stdev"
+set geoEasyMsg(gamaobshead1) "Station    Observed    Adj.obs.  Residual    Stdev"	;# TODO
+set geoEasyMsg(gamaorihead0) "Orientations"	;# TODO
+set geoEasyMsg(gamaorihead1) "Station  Preliminary  Adjusted" ;# TODO
+
 #
 #	tooltip uzenetek
 #
