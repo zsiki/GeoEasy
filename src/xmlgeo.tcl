@@ -68,7 +68,7 @@ proc GeoNet3D {{pns ""}} {
 			GeoLog1 $geoEasyMsg(gamanull)
 		}
 	}
-	# read back coordinates and orientations from tmp.g3d.xml
+	# read back coordinates and orientations from tmp.g[123]d.xml
 	if {[file exists "${tmpname}.xml"]} {
 		if {$gamaXmlOut} {
 			set filen [string trim [tk_getSaveFile -filetypes \
@@ -1755,7 +1755,7 @@ proc StoreOri {pn oa aoa} {
 proc GamaParams {} {
     global geoEasyMsg
 	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
-	global lgamaConf lgamaAngles lgamaTol ldirLimit lgamaSvgOut lgamaXmlOut
+	global lgamaConf lgamaAngles lgamaTol ldirLimit lgamaShortOut lgamaSvgOut lgamaXmlOut
 	global buttonid
 
     set w [focus]
@@ -1777,6 +1777,7 @@ proc GamaParams {} {
 	set lgamaAngles $gamaAngles
 	set lgamaTol $gamaTol
 	set ldirLimit $dirLimit
+	set lgamaShortOut $gamaShortOut
 	set lgamaSvgOut $gamaSvgOut
 	set lgamaXmlOut $gamaXmlOut
 
@@ -1788,7 +1789,8 @@ proc GamaParams {} {
 	entry $this.tol -textvariable lgamaTol -width 10
 	label $this.ldirlimit -text $geoEasyMsg(gamadirlimit)
 	entry $this.dirlimit -textvariable ldirLimit -width 10
-	#label $this.lshort -text $geoEasyMsg(gamashortout)
+	checkbutton $this.short -text $geoEasyMsg(gamashortout) \
+	        -variable lgamaShortOut
 	checkbutton $this.svg -text $geoEasyMsg(gamasvgout) \
 	        -variable lgamaSvgOut
 	checkbutton $this.xml -text $geoEasyMsg(gamaxmlout) \
@@ -1807,10 +1809,11 @@ proc GamaParams {} {
 	grid $this.tol -row 2 -column 1 -sticky w
 	grid $this.ldirlimit -row 3 -column 0 -sticky w
 	grid $this.dirlimit -row 3 -column 1 -sticky w
-	grid $this.svg -row 4 -column 0 -columnspan 2 -sticky e
-	grid $this.xml -row 5 -column 0 -columnspan 2 -sticky e
-	grid $this.exit -row 6 -column 0
-	grid $this.cancel -row 6 -column 1
+	grid $this.short -row 4 -column 0 -columnspan 2 -sticky e
+	grid $this.svg -row 5 -column 0 -columnspan 2 -sticky e
+	grid $this.xml -row 6 -column 0 -columnspan 2 -sticky e
+	grid $this.exit -row 7 -column 0
+	grid $this.cancel -row 7 -column 1
 	tkwait visibility $this
 	CenterWnd $this
 	grab set $this
@@ -1821,6 +1824,7 @@ proc GamaParams {} {
 		set gamaAngles $lgamaAngles
 		if {[catch {format %f $lgamaTol}] == 0} { set gamaTol $lgamaTol }
 		if {[catch {format %f $ldirLimit}] == 0} { set dirLimit $ldirLimit }
+		set gamaShortOut $lgamaShortOut
 		set gamaSvgOut $lgamaSvgOut
 		set gamaXmlOut $lgamaXmlOut
 	}
@@ -1901,9 +1905,9 @@ proc GamaShortOutput {l} {
 						if {$y != "" && $x != "" && $z != ""} {
 							GeoLog1 [format "%-10s %10.${decimals}f %10.${decimals}f %10.${decimals}f" $pn $y $x $z]
 						} elseif {$y != "" && $x != ""} {
-							GeoLog1 [format "%-10s %10.${decimals}f %10.${decimals}f" $pn $y $x]
+							GeoLog1 [format "%-10s %10.${decimals}f %10.${decimals}f %10s" $pn $y $x ""]
 						} else {
-							GeoLog1 [format "%-10s %10.${decimals}f" $pn $z]
+							GeoLog1 [format "%-10s %10s %10s %10.${decimals}f" $pn "" "" $z]
 						}
 					}
 				}
@@ -1929,7 +1933,8 @@ proc GamaShortOutput {l} {
 						if {$pn != "" && $oa != "" && $aoa != ""} {
 							if {$firstori} {
 								GeoLog1
-								GeoLog1 "Tajekozasi allandok"
+								GeoLog1 $geoEasyMsg(gamaorihead0)
+								GeoLog1 $geoEasyMsg(gamaorihead1)
 								set firstori 0
 							}
 							if {$gamaAngles == 360} {
