@@ -527,9 +527,11 @@ set geoEasyMsg(gamastdhead3)    "% interval"
 set geoEasyMsg(gamastdhead4)    "contains the m0'/m0 value"
 set geoEasyMsg(gamastdhead5)    "doesn't contain the m0'/m0 value"
 set geoEasyMsg(gamacoohead0)    "Координаты"
-set geoEasyMsg(gamacoohead1)    "Point id       E        N       Z"
+set geoEasyMsg(gamacoohead1)    "Point id        E          N          Z"	;# TODO
 set geoEasyMsg(gamaobshead0)    "Наблюдения"
-set geoEasyMsg(gamaobshead1)    "Station  Observed Adj.obs. Residual Stdev"
+set geoEasyMsg(gamaobshead1)    "Station    Observed    Adj.obs.  Residual    Stdev"	;# TODO
+set geoEasyMsg(gamaorihead0) "Orientations"	;# TODO
+set geoEasyMsg(gamaorihead1) "Station  Preliminary  Adjusted"	;# TODO
 #
 # tooltips
 #

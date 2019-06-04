@@ -527,9 +527,12 @@ set geoEasyMsg(gamastdhead3)    "% interval"
 set geoEasyMsg(gamastdhead4)    "Obsahuje hodnotu m0'/m0"
 set geoEasyMsg(gamastdhead5)    "Neobsahuje hodnotu m0'/m0"
 set geoEasyMsg(gamacoohead0)    "Souøadnice"
-set geoEasyMsg(gamacoohead1)    "Bod id       Y        X       Z"
+set geoEasyMsg(gamacoohead1)    "Bod id          Y          X          Z"
 set geoEasyMsg(gamaobshead0)    "Mìøení"
-set geoEasyMsg(gamaobshead1)    "Stanovisko  Cíl  Vyrovnané mìøení  Oprava  Smìrodatná odchylka"
+set geoEasyMsg(gamaobshead1)    "Stanovisko Cíl  Vyrovnané mìøení  Oprava  Smìrodatná odchylka"
+set geoEasyMsg(gamaorihead0) "Orientations"	;# TODO
+set geoEasyMsg(gamaorihead1) "Station  Preliminary  Adjusted"	;# TODO
+
 #
 # tooltips
 #
