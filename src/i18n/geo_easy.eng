@@ -527,10 +527,12 @@ set geoEasyMsg(gamastdhead2) "  m0' aposteriori:"
 set geoEasyMsg(gamastdhead3) "% interval"
 set geoEasyMsg(gamastdhead4) "contains the m0'/m0 value"
 set geoEasyMsg(gamastdhead5) "doesn't contain the m0'/m0 value"
-set geoEasyMsg(gamacoohead0) "Coordinates"
-set geoEasyMsg(gamacoohead1) "Point id       E        N       Z"
+set geoEasyMsg(gamacoohead0) "Adjusted coordinates"
+set geoEasyMsg(gamacoohead1) "Point id        E          N          Z"
 set geoEasyMsg(gamaobshead0) "Observations"
-set geoEasyMsg(gamaobshead1) "Station  Observed Adj.obs. Residual Stdev"
+set geoEasyMsg(gamaobshead1) "Station    Observed    Adj.obs.  Residual    Stdev"
+set geoEasyMsg(gamaorihead0) "Orientations"
+set geoEasyMsg(gamaorihead1) "Station  Preliminary  Adjusted"
 #
 # tooltips
 #
