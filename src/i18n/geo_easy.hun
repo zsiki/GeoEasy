@@ -529,10 +529,13 @@ set geoEasyMsg(gamastdhead2)	"  m0' aposteriori:"
 set geoEasyMsg(gamastdhead3)	"% intervallum"
 set geoEasyMsg(gamastdhead4)	"tartalmazza az m0'/m0 értéket"
 set geoEasyMsg(gamastdhead5)	"nem tartalmazza az m0'/m0 értéket"
-set geoEasyMsg(gamacoohead0)	"Koordináták"
-set geoEasyMsg(gamacoohead1)	"Pontszám       Y        X       M"
+set geoEasyMsg(gamacoohead0)	"Kiegyenlített koordináták"
+set geoEasyMsg(gamacoohead1)	"Pontszám        Y          X          M"
+
 set geoEasyMsg(gamaobshead0)	"Mérések"
-set geoEasyMsg(gamaobshead1)	"Álláspont  Irányzott    Kiegy. m  Javítás   Szórás"
+set geoEasyMsg(gamaobshead1)	"Álláspont  Irányzott   Kiegy.m    Javítás   Szórás"
+set geoEasyMsg(gamaorihead0) "Tájékozások"
+set geoEasyMsg(gamaorihead1) "Álláspont   Elõzetes  Kiegyenlített"
 #
 #	tooltip uzenetek
 #
