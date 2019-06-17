@@ -4,7 +4,7 @@ GeoEasy 3 Step by Step Tutorial
 ===============================
 
 :Authors:
-	Zoltan Siki
+	Zoltan Siki siki1958 (at) gmail (dot) com
 
 .. note:: This training material does not extend to the use of the program in every detail, further information can be found in other documentation files.
 
