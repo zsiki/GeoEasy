@@ -644,6 +644,7 @@ proc ComUpload {} {
 					return
 				}
 				puts $com $buf
+				after 50	;# delay for some slow instruments
 				ShowMsg $buf
 #update
 			}
