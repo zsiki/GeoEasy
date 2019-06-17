@@ -1875,6 +1875,7 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 	global triangleProg
 	global cs2csProg
+	global geoDoc
 
 	# backup original params
 	set oldfn "${fn}.bak"
