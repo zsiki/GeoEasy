@@ -12,7 +12,7 @@ GeoEasy is a complex tool for land surveyors
 * to calculate parameters of regression shape over points
 
 The program supports several input and
-output formats, so it can easily be inserted into user’s work-flow.
+output formats, so it can easily be inserted into user's work-flow.
 
 Starting the program
 --------------------
@@ -176,7 +176,7 @@ files is the same as the loaded data set.
 Save all
 ........
 
-Save all changed data sets to GeoEasy format.?
+Save all changed data sets to GeoEasy format.
 
 Save as
 .......
@@ -214,14 +214,14 @@ Load project
 ............
 
 Load a previously saved project. Data sets and windows are opened as saved to
-the project.g
+the project.
 
 Save project
 ............
 
 Save the actual state of GeoEasy. The list of opened datasets (geo and tin) and
 windows are saved into the project file (.gpr). The project file is a simple
-text file.
+text file (see detailed description of project file in appendix).
 
 Close project
 .............
@@ -678,8 +678,68 @@ after adjustent.
 Coordinate transformation
 .........................
 
+The horizontal coordinates of loaded data sets are transformed to the selected 
+target data set. The transformation parameters are calculated from the 
+common points. Do not open the target data set before the calculation.
+
+Selecting the coordinate transformation from the menu, you are asked for the
+target data set. It must be in GeoEasy .geo format. The program pop up a list
+of the common points, select as many point as you would like, but please
+consider that, the available transformation types depends on the number of
+points you selected. The available transformation are:
+
+#. 4 parameters orthogonal transformation (minimum 2 common points)
+#. 3 parameters orthogonal transformation (minimum 2 common points, no scale change)
+#. Affine transformation (minimum 3 common points)
+#. 2nd order polynom transformation (minimum 6 common points)
+#. 3rd order polynom transformation (minimum 10 common points)
+
+The parameters are estimated using the least squares method (LSM).
+
+.. image:: rg_images/trafo.png
+	:align: center
+
+The transformation parameters and the transformed coordinates are list in the 
+*Calculation resutls* window and optionally the coordinates are written to the 
+target data set if the *Savetransformed coordinates to file* option is
+selected. The transformation parameters are also written to a text file, if
+*Save transformation parameters to file*  option is selected (check the *prm*
+and *all* file format in the appendix).
+
+In the result list the *dE* and *dN* columns contains the residuals of the
+transformation.
+
+.. code:: text
+
+    2018.02.24 12:09 - 4 parameters orthogonal transformation test1 -> test_trafo
+    E = 561684.477 + e * 0.999997669 - n * -0.000003434
+    N = 246411.178 + e * -0.000003434 + n * 0.999997669
+
+      Scale = 0.99999767 Rotation = -  0-00-01
+
+      Point num     e          n            E            N        dE      dN      dist
+      11       91515.440   2815.220   653199.720   249226.070   -0.007   0.007   0.010
+      12       90661.580   1475.280   652345.850   247886.150    0.001  -0.007   0.007
+      13       84862.540   3865.360   646546.830   250276.240    0.002  -0.003   0.004
+      14       91164.160   4415.080   652848.440   250825.940   -0.001  -0.006   0.006
+      15       86808.180    347.660   648492.460   246758.540   -0.004  -0.001   0.005
+      16       90050.240   3525.120   651734.510   249935.970    0.009   0.010   0.014
+
+      RMS= 0.008
+
+      Point num     e          n            E            N
+      231      88568.240   2281.760   650252.518   248692.628
+      232      88619.860   3159.880   650304.141   249570.746
+
+
 Elevation transformation
 ........................
+
+Vertical offset is calculated between the loaded data sets and a target data
+set. It is very similar to the coordinate transformation, but a single vertical
+offset is calculated between the two vertical system. The offset parameter
+can be saved to a *vhs* text file (see appendix for file format).
+
 
 New detail points
 .................
@@ -697,24 +757,27 @@ already calculated.
 ................
 
 This calculation calculates 3D positions from directions and
-zenith angles measured from the endpoints of a base line.
+zenith angles measured from the end points of one or more base lines.
 
 Windows menu
 ~~~~~~~~~~~~
 
-From the window menu new windows can be opened and the user can switch 
+From the windows menu new windows can be opened and the user can switch 
 among opened windows.
 
 New graphic window
 ..................
 
 Open a new graphic window. The number of open graphic windows is limited to ten.
-Each graphic window has menu and toolbar.
+Each graphic window has menu and toolbar. You can set different zoom level and
+display options in graphic windows.
 
 Log window
 ..........
 
 Only one log window can be opened. It shows the resuts of calculations.
+The content of the log vindow is mirrored in the log file (even if the log 
+window is closed).
 
 Console window
 ..............
@@ -730,20 +793,30 @@ opened windows. The selected window is raised and become the active window.
 Refresh all window
 ..................
 
-Help menu
-~~~~~~~~~
-
 After some actions the content of the windows are not refeshed, user can use
 this option to force a refresh all opened windows.
 
+Help menu
+~~~~~~~~~
+
 GeoEasy field-book window
 -------------------------
+
+In the field-book window you can view and edit field-books. Each loaded 
+field-book is opened in a separate window.
+The actually displayed values from the field-book depend on the actual 
+mask (format). There are some predefined masks and the user can add 
+new masks.
 
 Commands menu
 ~~~~~~~~~~~~~
 
 Calculate menu
 ~~~~~~~~~~~~~~
+
+This *Calculate* menu is identical to the *Calculate* menu of the main window.
+It is repeated in the *GeoEasy coordinates window* and in the *Graphic windows*
+for the convenience of the user.
 
 Help menu
 ~~~~~~~~~
@@ -759,6 +832,10 @@ Commands menu
 
 Calculate menu
 ~~~~~~~~~~~~~~
+
+This *Calculate* menu is identical to the *Calculate* menu of the main window.
+It is repeated in the *GeoEasy fieldbook window* and in the *Graphic windows*
+for the convenience of the user.
 
 Help menu
 ~~~~~~~~~
@@ -797,10 +874,9 @@ to other application (e.g. into doc files).
 	the clipboard. On Linux use middle mouse button click to paste
 	selected part into another application.
 
-All strings written to the Calculation results windoware also sent to the log
+All strings written to the Calculation results window are also sent to the log
 file. So if this windows is closed the calculation results are preserved in
 the log and user can review them later.
-
 
 File menu
 ~~~~~~~~~
@@ -982,6 +1058,67 @@ Sample project file:
 	.g0 421x366+10+402 1 1 1 0 0 0.059952038369304558 88053.720000000001 2493.6599999999999
 	.test1_coo prelim_fix 0 +867+245
 	.log  +10+215
+
+prm file
+~~~~~~~~
+
+GeoEasy transformation parameter file for orthogonal or affine transformation.
+It contains six parameters/rows of the affine transformation formula::
+
+	E' = E0 + C * E + D * N
+	N' = N0 + F * E + G * N
+
+#. E0 offset in east direction
+#. N0 offset in north direction
+#. C 
+#. D
+#. F
+#. G
+
+In case of an orthogonal transformation C = G and D = -F.
+
+.. code:: text
+
+	560032.91585048265
+	244546.91579782782
+	1.0222713626287825
+	-0.023853508511480249
+	0.023853508511480249
+	1.0222713626287825
+
+all file
+~~~~~~~~
+
+GeoEasy transformation file for 2nd or 3rd order polynomial transformation.
+The first row is comment, the second row is empty. The third contains the weight
+point. The following six (2nd order) or ten (third order) lines contain the 
+parameters.
+
+.. code:: text
+
+	Transformation : EOV ---> HKR
+
+				  sy =  449469.4136363635     sx =  161830.2909090909
+	 1             200550.8615237467           38514.93742925581
+	 2            -1.000122733896473           1.735872541033159D-05
+	 3            -1.840504934101979D-05      -1.000121876406499
+	 4            -7.34221214972938D-10       -1.969135480457063D-09
+	 5             3.705739246267271D-10       1.000540874640674D-09
+	 6            -3.005468920382225D-10       1.070525242452348D-09
+	 7             9.418160403333944D-14      -1.685830720443047D-13
+	 8             9.125027478755775D-14       3.999963490297443D-14
+	 9             3.689152511019043D-13       2.73626969052168D-13
+	 10            9.082483205235565D-14       2.163669774719613D-13
+
+vsh file
+~~~~~~~~
+
+GeoEasy vertical transformation file. It contains a single number, the offset
+between the two mean see level.
+
+.. code:: text
+
+	50.001499999999993
 
 msk file
 ~~~~~~~~
