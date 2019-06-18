@@ -268,7 +268,7 @@ global geoEasyMsg
 proc TransitionArc {corner first last r p pre step {num 0}} {
 global PI2 PI
 global geoEasyMsg
-	# calculate angels beta and alpha
+	# calculate angles beta and alpha
 	set back [Bearing [GetVal 38 $corner] [GetVal 37 $corner] \
 		[GetVal 38 $first] [GetVal 37 $first]]
 	set forth [Bearing [GetVal 38 $corner] [GetVal 37 $corner] \
@@ -290,7 +290,7 @@ global geoEasyMsg
 	}
 	set alpha [expr {$PI - $beta}]
 	# length of transition curve
-	set l [expr {$p * $p / $r}]
+	set l [expr {$p * $p / double($r)}]
 	# data of transition curve
 	set tau [expr {$l / 2.0 / $r}]
 # fi formulas ???
