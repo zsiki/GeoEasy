@@ -43,7 +43,7 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 * Proj.4 cs2cs (http://proj4.org/) for KML and GPX export
 * Nullsoft Scriptable Install System (http://nsis.sourceforge.net/Main_Page) to create the Windows installer
 * Freewrap (http://freewrap.sourceforge.net/) to convert Tcl/Tk scripts to Linux/Windows executables
-* bash-deb-build (https://github.com/BASH-Auto-Tools/bash-deb-build)to build debian package
+* bash-deb-build (https://github.com/BASH-Auto-Tools/bash-deb-build) to build debian package
 
 ## Download statistics
 
