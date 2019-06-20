@@ -567,7 +567,7 @@ endobj
 endobj
 65 0 obj
 <<
-/Author (Zoltan Siki) /CreationDate (D:20190405184318+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20190405184318+00'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
+/Author (Zoltan Siki siki1958 \(at\) gmail \(dot\) com) /CreationDate (D:20190610095408+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20190610095408+00'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
   /Subject (\(unspecified\)) /Title (GeoEasy 3 Step by Step Tutorial) /Trapped /False
 >>
 endobj
@@ -644,7 +644,7 @@ endobj
 endobj
 80 0 obj
 <<
-/Dest [ 30 0 R /XYZ 62.69291 652.0236 0 ] /Next 81 0 R /Parent 72 0 R /Prev 79 0 R /Title (Travese and trigonometric line)
+/Dest [ 30 0 R /XYZ 62.69291 652.0236 0 ] /Next 81 0 R /Parent 72 0 R /Prev 79 0 R /Title (Traverse and trigonometric line)
 >>
 endobj
 81 0 obj
@@ -674,7 +674,7 @@ endobj
 endobj
 86 0 obj
 <<
-/Dest [ 43 0 R /XYZ 62.69291 613.8236 0 ] /Next 87 0 R /Parent 66 0 R /Prev 85 0 R /Title (Levelling network adjustment)
+/Dest [ 43 0 R /XYZ 62.69291 613.8236 0 ] /Next 87 0 R /Parent 66 0 R /Prev 85 0 R /Title (Leveling network adjustment)
 >>
 endobj
 87 0 obj
@@ -711,7 +711,7 @@ endobj
 endobj
 93 0 obj
 <<
-/Length 4328
+/Length 4364
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -737,7 +737,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Zoltan Siki) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Zoltan Siki siki1958 \(at\) gmail \(dot\) com) Tj T* ET
 Q
 Q
 q
@@ -883,7 +883,7 @@ Q
 q
 1 0 0 1 62.69291 112.2236 cm
 q
-BT 1 0 0 1 0 26 Tm .569985 Tw 12 TL /F1 10 Tf 0 0 0 rg (The loaded field-books can be opened in a window. Select ) Tj /F2 10 Tf (Edit/Observation) Tj /F1 10 Tf ( from the menu of the main) Tj T* 0 Tw .999431 Tw (window. In a cascading menu the name of the loaded datasets popup, in this case only ) Tj /F4 10 Tf (test1) Tj /F1 10 Tf ( is visible,) Tj T* 0 Tw (select it. Fieldbook data are displayed in the default mask type.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .569985 Tw 12 TL /F1 10 Tf 0 0 0 rg (The loaded field-books can be opened in a window. Select ) Tj /F2 10 Tf (Edit/Observation) Tj /F1 10 Tf ( from the menu of the main) Tj T* 0 Tw .800514 Tw (window. In a cascading menu the name of the loaded data sets popup, in this case only ) Tj /F4 10 Tf (test1) Tj /F1 10 Tf ( is visible,) Tj T* 0 Tw (select it. Field-book data are displayed in the default mask type.) Tj T* ET
 Q
 Q
 q
@@ -900,7 +900,7 @@ endstream
 endobj
 94 0 obj
 <<
-/Length 3954
+/Length 3961
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -922,7 +922,7 @@ q
 1 0 0 1 16 16 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .03061 Tw (The mask name is used for dialog boxes containg tabular data. This comes from the display masks) Tj T* 0 Tw (which were used on old Leica instruments.) Tj T* ET
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.625318 Tw (The mask name is used for dialog boxes containing tabular data. This comes from the display) Tj T* 0 Tw (masks which were used on old Leica instruments.) Tj T* ET
 Q
 Q
 q
@@ -988,7 +988,7 @@ Q
 q
 1 0 0 1 62.69291 304.3836 cm
 q
-BT 1 0 0 1 0 38 Tm .674985 Tw 12 TL /F1 10 Tf 0 0 0 rg (The loaded coordinate lists can also be opened in a window. Select ) Tj /F2 10 Tf (Edit/Coordinates) Tj /F1 10 Tf ( from the menu of) Tj T* 0 Tw .53683 Tw (the main window. In a cascading menu the name of the loaded datasets popup, in this case only ) Tj /F4 10 Tf (test1) Tj /F1 10 Tf ( is) Tj T* 0 Tw .135542 Tw (visible, select it. Coordinate data are displayed in the default mask type. Points are ordered in the table by) Tj T* 0 Tw (point IDs.) Tj T* ET
+BT 1 0 0 1 0 38 Tm .674985 Tw 12 TL /F1 10 Tf 0 0 0 rg (The loaded coordinate lists can also be opened in a window. Select ) Tj /F2 10 Tf (Edit/Coordinates) Tj /F1 10 Tf ( from the menu of) Tj T* 0 Tw .370988 Tw (the main window. In a cascading menu the name of the loaded data sets popup, in this case only ) Tj /F4 10 Tf (test1) Tj /F1 10 Tf ( is) Tj T* 0 Tw .135542 Tw (visible, select it. Coordinate data are displayed in the default mask type. Points are ordered in the table by) Tj T* 0 Tw (point IDs.) Tj T* ET
 Q
 Q
 q
@@ -1021,7 +1021,7 @@ Q
 q
 1 0 0 1 62.69291 97.74362 cm
 q
-BT 1 0 0 1 0 38 Tm 1.385868 Tw 12 TL /F1 10 Tf 0 0 0 rg (Data are arranged in a table, a row contains coordinates of a point. Column header can contain more) Tj T* 0 Tw .413876 Tw (labels \(e.g. Easting and Easting prelim.\) The color of the values in the cells can be different, eastings are) Tj T* 0 Tw .795984 Tw (black, prelimanary eastings are red. Colors can be customized in the ) Tj /F2 10 Tf (File/Colors...) Tj /F1 10 Tf ( menu from the main) Tj T* 0 Tw (window.) Tj T* ET
+BT 1 0 0 1 0 38 Tm 1.385868 Tw 12 TL /F1 10 Tf 0 0 0 rg (Data are arranged in a table, a row contains coordinates of a point. Column header can contain more) Tj T* 0 Tw .413876 Tw (labels \(e.g. Easting and Easting prelim.\) The color of the values in the cells can be different, eastings are) Tj T* 0 Tw 1.018651 Tw (black, preliminary eastings are red. Colors can be customized in the ) Tj /F2 10 Tf (File/Colors...) Tj /F1 10 Tf ( menu from the main) Tj T* 0 Tw (window.) Tj T* ET
 Q
 Q
 q
@@ -1035,14 +1035,14 @@ endstream
 endobj
 95 0 obj
 <<
-/Length 3987
+/Length 3984
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
 1 0 0 1 62.69291 717.0236 cm
 q
-BT 1 0 0 1 0 26 Tm 2.008221 Tw 12 TL /F1 10 Tf 0 0 0 rg (Field values can be edited in the same way asi in field-books. The default mask for field-books and) Tj T* 0 Tw 3.204524 Tw (coordanate lists can be configured in the ) Tj /F4 10 Tf (geo_easy.msk) Tj /F1 10 Tf ( file \() Tj /F4 10 Tf (geoMaskDefault) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (cooMaskDefault) Tj /F1 10 Tf  T* 0 Tw (variables\)) Tj T* ET
+BT 1 0 0 1 0 26 Tm 2.13881 Tw 12 TL /F1 10 Tf 0 0 0 rg (Field values can be edited in the same way as in field-books. The default mask for field-books and) Tj T* 0 Tw 3.50816 Tw (coordinate lists can be configured in the ) Tj /F4 10 Tf (geo_easy.msk) Tj /F1 10 Tf ( file \() Tj /F4 10 Tf (geoMaskDefault) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (cooMaskDefault) Tj /F1 10 Tf  T* 0 Tw (variables\)) Tj T* ET
 Q
 Q
 q
@@ -1100,13 +1100,13 @@ Q
 q
 1 0 0 1 62.69291 356.7836 cm
 q
-BT 1 0 0 1 0 50 Tm 4.168314 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's calculate preliminary coordinates for those points which have no coordinates sofar. Select) Tj T* 0 Tw -0.112016 Tw /F2 10 Tf (Calculate/Preliminary coordinates) Tj /F1 10 Tf ( from the menu of any window. You'll get a message, that there are no) Tj T* 0 Tw 1.29936 Tw (elevations for some points. Several points will be added to the graphic window and the coordinate list.) Tj T* 0 Tw .416412 Tw (They have red point IDs to mark preliminary coordinates. Preliminary orientations and elevations are also) Tj T* 0 Tw (calculated.) Tj T* ET
+BT 1 0 0 1 0 50 Tm 3.633828 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's calculate preliminary coordinates for those points which have no coordinates so far. Select) Tj T* 0 Tw -0.112016 Tw /F2 10 Tf (Calculate/Preliminary coordinates) Tj /F1 10 Tf ( from the menu of any window. You'll get a message, that there are no) Tj T* 0 Tw 1.29936 Tw (elevations for some points. Several points will be added to the graphic window and the coordinate list.) Tj T* 0 Tw .416412 Tw (They have red point IDs to mark preliminary coordinates. Preliminary orientations and elevations are also) Tj T* 0 Tw (calculated.) Tj T* ET
 Q
 Q
 q
 1 0 0 1 62.69291 326.7836 cm
 q
-BT 1 0 0 1 0 14 Tm 3.446457 Tw 12 TL /F1 10 Tf 0 0 0 rg (Press F5 button to turn off detail points, having a less crouded view in the graphic window \(or) Tj T* 0 Tw /F2 10 Tf (Commands/Detail points) Tj /F1 10 Tf ( from the menu of the graphic window\).) Tj T* ET
+BT 1 0 0 1 0 14 Tm 3.34881 Tw 12 TL /F1 10 Tf 0 0 0 rg (Press F5 button to turn off detail points, having a less crowded view in the graphic window \(or) Tj T* 0 Tw /F2 10 Tf (Commands/Detail points) Tj /F1 10 Tf ( from the menu of the graphic window\).) Tj T* ET
 Q
 Q
 q
@@ -1185,7 +1185,7 @@ endstream
 endobj
 96 0 obj
 <<
-/Length 5580
+/Length 5582
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -1314,7 +1314,7 @@ Q
 q
 1 0 0 1 62.69291 215.4236 cm
 q
-BT 1 0 0 1 0 26 Tm .831654 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's calculate orientation for station ) Tj /F4 10 Tf (12) Tj /F1 10 Tf (. Click on the point ) Tj /F4 10 Tf (12) Tj /F1 10 Tf ( with the right mouse button in the graphic) Tj T* 0 Tw 1.48784 Tw (window. Select ) Tj /F2 10 Tf (Orientation) Tj /F1 10 Tf ( from the popup window. A list with the backsight directions are displayed,) Tj T* 0 Tw (orientation angle in the first column and point ID in the second.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .831654 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's calculate orientation for station ) Tj /F4 10 Tf (12) Tj /F1 10 Tf (. Click on the point ) Tj /F4 10 Tf (12) Tj /F1 10 Tf ( with the right mouse button in the graphic) Tj T* 0 Tw 1.249983 Tw (window. Select ) Tj /F2 10 Tf (Orientation) Tj /F1 10 Tf ( from the popup window. A list with the back-sight directions are displayed,) Tj T* 0 Tw (orientation angle in the first column and point ID in the second.) Tj T* ET
 Q
 Q
 q
@@ -1367,7 +1367,7 @@ endstream
 endobj
 97 0 obj
 <<
-/Length 4732
+/Length 4736
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -1395,7 +1395,7 @@ Q
 q
 1 0 0 1 62.69291 647.8236 cm
 q
-BT 1 0 0 1 0 14 Tm 2.64784 Tw 12 TL /F1 10 Tf 0 0 0 rg (The ) Tj /F4 10 Tf (e") Tj /F1 10 Tf ( column contains the difference from the mean, ) Tj /F4 10 Tf (e"\(max\)) Tj /F1 10 Tf ( is the allowable maximal difference) Tj T* 0 Tw (\(depending on distance\), ) Tj /F4 10 Tf (E\(m\)) Tj /F1 10 Tf ( is the linear difference at the backsight point.) Tj T* ET
+BT 1 0 0 1 0 14 Tm 2.64784 Tw 12 TL /F1 10 Tf 0 0 0 rg (The ) Tj /F4 10 Tf (e") Tj /F1 10 Tf ( column contains the difference from the mean, ) Tj /F4 10 Tf (e"\(max\)) Tj /F1 10 Tf ( is the allowable maximal difference) Tj T* 0 Tw (\(depending on distance\), ) Tj /F4 10 Tf (E\(m\)) Tj /F1 10 Tf ( is the linear difference at the back-sight point.) Tj T* ET
 Q
 Q
 q
@@ -1413,7 +1413,7 @@ Q
 q
 1 0 0 1 62.69291 533.8236 cm
 q
-BT 1 0 0 1 0 26 Tm .349984 Tw 12 TL /F1 10 Tf 0 0 0 rg (You can calculate orientations for all station in a single step, select ) Tj /F2 10 Tf (Calculat/Orientations) Tj /F1 10 Tf ( from the menu) Tj T* 0 Tw .075542 Tw (of any window. Results are written to the ) Tj /F4 10 Tf (Calculation results) Tj /F1 10 Tf ( window. If the difference from the mean is too) Tj T* 0 Tw (large a warning is displayed. The three other unoriented stations are also oriented.) Tj T* ET
+BT 1 0 0 1 0 26 Tm -0.020682 Tw 12 TL /F1 10 Tf 0 0 0 rg (You can calculate orientations for all station in a single step, select ) Tj /F2 10 Tf (Calculate/Orientations) Tj /F1 10 Tf ( from the menu) Tj T* 0 Tw .075542 Tw (of any window. Results are written to the ) Tj /F4 10 Tf (Calculation results) Tj /F1 10 Tf ( window. If the difference from the mean is too) Tj T* 0 Tw (large a warning is displayed. The three other unoriented stations are also oriented.) Tj T* ET
 Q
 Q
 q
@@ -1527,7 +1527,7 @@ endstream
 endobj
 98 0 obj
 <<
-/Length 4973
+/Length 4974
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -1574,7 +1574,7 @@ q
 1 0 0 1 62.69291 564.6236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .384431 Tw (There are two columns in the list window. The first column refers to the dataset name, the secont column) Tj T* 0 Tw (contains point numbers.) Tj T* ET
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .071567 Tw (There are two columns in the list window. The first column refers to the data set name, the second column) Tj T* 0 Tw (contains point numbers.) Tj T* ET
 Q
 Q
 q
@@ -1881,7 +1881,7 @@ endstream
 endobj
 100 0 obj
 <<
-/Length 4343
+/Length 4345
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -2015,7 +2015,7 @@ Q
 q
 1 0 0 1 62.69291 328.6236 cm
 q
-BT 1 0 0 1 0 26 Tm .912927 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's calculate the elvation of point 5003. Right mouse button click on point ) Tj /F4 10 Tf (5003) Tj /F1 10 Tf ( in the graphic window) Tj T* 0 Tw .882485 Tw (and select ) Tj /F2 10 Tf (Elevation) Tj /F1 10 Tf ( from the popup menu. A list of possible elevation calculations are displayed in the) Tj T* 0 Tw (selection window. The point name, the elevation and the distance are shown in the list.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .585868 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's calculate the elevation of point 5003. Right mouse button click on point ) Tj /F4 10 Tf (5003) Tj /F1 10 Tf ( in the graphic window) Tj T* 0 Tw .882485 Tw (and select ) Tj /F2 10 Tf (Elevation) Tj /F1 10 Tf ( from the popup menu. A list of possible elevation calculations are displayed in the) Tj T* 0 Tw (selection window. The point name, the elevation and the distance are shown in the list.) Tj T* ET
 Q
 Q
 q
@@ -2049,7 +2049,7 @@ q
 1 0 0 1 62.69291 243.4236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.70186 Tw (Let's select both rows. The elevation will be calculated as a weighted average. The weight is inverse) Tj T* 0 Tw (propotional of the distance square.) Tj T* ET
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.70186 Tw (Let's select both rows. The elevation will be calculated as a weighted average. The weight is inverse) Tj T* 0 Tw (proportional of the distance square.) Tj T* ET
 Q
 Q
 q
@@ -2087,7 +2087,7 @@ endstream
 endobj
 101 0 obj
 <<
-/Length 4010
+/Length 4013
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -2129,7 +2129,7 @@ Q
 q
 1 0 0 1 62.69291 634.0236 cm
 q
-BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Travese and trigonometric line) Tj T* ET
+BT 1 0 0 1 0 3 Tm 18 TL /F2 15 Tf 0 0 0 rg (Traverse and trigonometric line) Tj T* ET
 Q
 Q
 q
@@ -2156,7 +2156,7 @@ q
 1 0 0 1 6 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 176.7049 0 Td (Travesing line selection) Tj T* -176.7049 0 Td ET
+BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 175.0399 0 Td (Traversing line selection) Tj T* -175.0399 0 Td ET
 Q
 Q
 q
@@ -2169,7 +2169,7 @@ q
 1 0 0 1 62.69291 389.9436 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL .765868 Tw (This is an open traversing with orientation on both known endpoints. A small dialog is shown where you) Tj T* 0 Tw 1.130751 Tw (can select the calculaton task. Travesing to calculate horizontal coordinates and/or Triginometric line to) Tj T* 0 Tw (calculate elevations.) Tj T* ET
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL .765868 Tw (This is an open traversing with orientation on both known endpoints. A small dialog is shown where you) Tj T* 0 Tw .446905 Tw (can select the calculation task. Traversing to calculate horizontal coordinates and/or Trigonometric line to) Tj T* 0 Tw (calculate elevations.) Tj T* ET
 Q
 Q
 q
@@ -2204,7 +2204,7 @@ endstream
 endobj
 102 0 obj
 <<
-/Length 4358
+/Length 4357
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -2244,7 +2244,7 @@ n -6 -6 468.6898 216 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 194 Tm /F5 10 Tf 12 TL (2018.01.20 21:11 - Trigonometrical line) Tj T* (                                           Height differences) Tj T* (Point    Distance   Foward Backward    Mean  Correction Elevation) Tj T*  T* (5001                                                     100.000) Tj T* (            498.879   23.947        -   23.947   -0.010) Tj T* (1_sp                                                     123.938) Tj T* (            330.623    0.307        -    0.307   -0.004) Tj T* (2_sp                                                     124.240) Tj T* (            468.449   12.661        -   12.661   -0.008) Tj T* (3_sp                                                     136.893) Tj T* (            344.836    1.926        -    1.926   -0.005) Tj T* (5002                                                     138.815) Tj T*  T* (           1642.787                     38.842   -0.027   38.815) Tj T*  T* (Error limit:   0.118) Tj T* ET
+BT 1 0 0 1 0 194 Tm /F5 10 Tf 12 TL (2018.01.20 21:11 - Trigonometrical line) Tj T* (                                           Height differences) Tj T* (Point    Distance    Forward Backward   Mean  Correction Elevation) Tj T*  T* (5001                                                     100.000) Tj T* (            498.879   23.947        -   23.947   -0.010) Tj T* (1_sp                                                     123.938) Tj T* (            330.623    0.307        -    0.307   -0.004) Tj T* (2_sp                                                     124.240) Tj T* (            468.449   12.661        -   12.661   -0.008) Tj T* (3_sp                                                     136.893) Tj T* (            344.836    1.926        -    1.926   -0.005) Tj T* (5002                                                     138.815) Tj T*  T* (           1642.787                     38.842   -0.027   38.815) Tj T*  T* (Error limit:   0.118) Tj T* ET
 Q
 Q
 Q
@@ -2277,7 +2277,7 @@ Q
 q
 1 0 0 1 16 16 cm
 q
-BT 1 0 0 1 0 14 Tm 3.479979 Tw 12 TL /F1 10 Tf 0 0 0 rg (You can start traversing calculation from the ) Tj /F2 10 Tf (Calculation/Traversing) Tj /F1 10 Tf ( menu. That case the) Tj T* 0 Tw (tranversing points are selected from lists.) Tj T* ET
+BT 1 0 0 1 0 14 Tm 3.479979 Tw 12 TL /F1 10 Tf 0 0 0 rg (You can start traversing calculation from the ) Tj /F2 10 Tf (Calculation/Traversing) Tj /F1 10 Tf ( menu. That case the) Tj T* 0 Tw (traversing points are selected from lists.) Tj T* ET
 Q
 Q
 q
@@ -2303,7 +2303,7 @@ Q
 q
 1 0 0 1 62.69291 195.6236 cm
 q
-BT 1 0 0 1 0 26 Tm 1.508555 Tw 12 TL /F1 10 Tf 0 0 0 rg (Some polar detail points were measured from the traversing points. Let's calculate the coordinates for) Tj T* 0 Tw .95186 Tw (those points. The fastest way to get the coordinates of detail points is to select ) Tj /F2 10 Tf (Calculation/New detail) Tj T* 0 Tw (points) Tj /F1 10 Tf ( from the menu. It will calculate orientation angle automatically if neccessary.) Tj T* ET
+BT 1 0 0 1 0 26 Tm 1.508555 Tw 12 TL /F1 10 Tf 0 0 0 rg (Some polar detail points were measured from the traversing points. Let's calculate the coordinates for) Tj T* 0 Tw .95186 Tw (those points. The fastest way to get the coordinates of detail points is to select ) Tj /F2 10 Tf (Calculation/New detail) Tj T* 0 Tw (points) Tj /F1 10 Tf ( from the menu. It will calculate orientation angle automatically if necessary.) Tj T* ET
 Q
 Q
 q
@@ -2505,7 +2505,7 @@ endstream
 endobj
 104 0 obj
 <<
-/Length 4651
+/Length 4654
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -2576,7 +2576,7 @@ Q
 q
 1 0 0 1 62.69291 459.8236 cm
 q
-BT 1 0 0 1 0 62 Tm 2.869984 Tw 12 TL /F1 10 Tf 0 0 0 rg (During a GeoEasy session all points have to be in the same coordinate reference system \(CRS\).) Tj T* 0 Tw 1.439985 Tw (Coordinates can be converted between two CRSs if there are common points in the two system. Two) Tj T* 0 Tw .968555 Tw (GeoEasy data sets have to be used. The source dataset is opened and select ) Tj /F2 10 Tf (Calculation/Coordinate) Tj T* 0 Tw .611412 Tw (transformation) Tj /F1 10 Tf ( from the menu. The target dataset have to be selected next. Select ) Tj /F4 10 Tf (test1_trafo.geo) Tj /F1 10 Tf ( from) Tj T* 0 Tw 1.877045 Tw (the ) Tj /F4 10 Tf (demodata) Tj /F1 10 Tf ( folder. A list of the common points width horrizontal coordintes in the two data sets is) Tj T* 0 Tw (shown.) Tj T* ET
+BT 1 0 0 1 0 62 Tm 2.869984 Tw 12 TL /F1 10 Tf 0 0 0 rg (During a GeoEasy session all points have to be in the same coordinate reference system \(CRS\).) Tj T* 0 Tw 1.439985 Tw (Coordinates can be converted between two CRSs if there are common points in the two system. Two) Tj T* 0 Tw .718651 Tw (GeoEasy data sets have to be used. The source data set is opened and select ) Tj /F2 10 Tf (Calculation/Coordinate) Tj T* 0 Tw .385318 Tw (transformation) Tj /F1 10 Tf ( from the menu. The target data set have to be selected next. Select ) Tj /F4 10 Tf (test1_trafo.geo) Tj /F1 10 Tf ( from) Tj T* 0 Tw 1.745868 Tw (the ) Tj /F4 10 Tf (demodata) Tj /F1 10 Tf ( folder. A list of the common points width horizontal coordinates in the two data sets is) Tj T* 0 Tw (shown.) Tj T* ET
 Q
 Q
 q
@@ -2631,7 +2631,7 @@ q
 1 0 0 1 6 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 179.4799 0 Td (Transfomation options) Tj T* -179.4799 0 Td ET
+BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 177.8149 0 Td (Transformation options) Tj T* -177.8149 0 Td ET
 Q
 Q
 q
@@ -2677,7 +2677,7 @@ endstream
 endobj
 105 0 obj
 <<
-/Length 4499
+/Length 4501
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -2705,7 +2705,7 @@ q
 1 0 0 1 62.69291 635.8236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL .56881 Tw (In the first block the formula of the transformation is given. The second block contains the coordinates of) Tj T* 0 Tw .013735 Tw (common points and the errors. In the third block the transformated coordinates are given, those points can) Tj T* 0 Tw (be found here which have coodinates in the source dataset but not in the taget dataset.) Tj T* ET
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL .56881 Tw (In the first block the formula of the transformation is given. The second block contains the coordinates of) Tj T* 0 Tw .534985 Tw (common points and the errors. In the third block the transformed coordinates are given, those points can) Tj T* 0 Tw (be found here which have coordinates in the source data set but not in the target data set.) Tj T* ET
 Q
 Q
 q
@@ -2754,7 +2754,7 @@ Q
 q
 1 0 0 1 62.69291 459.8236 cm
 q
-BT 1 0 0 1 0 26 Tm 1.229985 Tw 12 TL /F1 10 Tf 0 0 0 rg (The points with horizontal coordinates from all loaded datasets can be exported into a DXF file. Select) Tj T* 0 Tw 2.362126 Tw /F2 10 Tf (Commands/DXF output) Tj /F1 10 Tf ( from the menu of the graphic window. In the displayed dialog box several) Tj T* 0 Tw (options can be set for the DXF file.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .994104 Tw 12 TL /F1 10 Tf 0 0 0 rg (The points with horizontal coordinates from all loaded data sets can be exported into a DXF file. Select) Tj T* 0 Tw 2.362126 Tw /F2 10 Tf (Commands/DXF output) Tj /F1 10 Tf ( from the menu of the graphic window. In the displayed dialog box several) Tj T* 0 Tw (options can be set for the DXF file.) Tj T* ET
 Q
 Q
 q
@@ -2854,7 +2854,7 @@ endstream
 endobj
 106 0 obj
 <<
-/Length 3924
+/Length 3919
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -2896,20 +2896,20 @@ q
 1 0 0 1 62.69291 625.8236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .609984 Tw (The result of the adjustment is shown in the Calculation results window. During the adjustment statistical) Tj T* 0 Tw (tests are calculated to detect blunders but blunders are not eliminated automaticly.) Tj T* ET
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .609984 Tw (The result of the adjustment is shown in the Calculation results window. During the adjustment statistical) Tj T* 0 Tw (tests are calculated to detect blunders but blunders are not eliminated automatically.) Tj T* ET
 Q
 Q
 q
 1 0 0 1 62.69291 592.8236 cm
 q
-BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Levelling network adjustment) Tj T* ET
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Leveling network adjustment) Tj T* ET
 Q
 Q
 q
 1 0 0 1 62.69291 562.8236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.32784 Tw (Levelling data can be loaded from GSI field-books created by digital levelling instruments \(for example) Tj T* 0 Tw (Leica DNA03 or NA3000 instruments\). Manual input of height differences is also possible.) Tj T* ET
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.644983 Tw (Leveling data can be loaded from GSI field-books created by digital leveling instruments \(for example) Tj T* 0 Tw (Leica DNA03 or NA3000 instruments\). Manual input of height differences is also possible.) Tj T* ET
 Q
 Q
 q
@@ -2934,7 +2934,7 @@ n -6 -6 468.6898 144 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 122 Tm /F5 10 Tf 12 TL (B H 232 0.44982) Tj T* (H I 240 -0.07392) Tj T* (I J 416 0.06413) Tj T* (I N 186 -0.10494) Tj T* (K B 90 -0.26894) Tj T* (K N 215 0.00234) Tj T* (J K 806 -0.17131) Tj T* (N H 408 0.17836) Tj T* (N J 634 0.1686) Tj T*  T* (Field-book \(levelling.dmp\)) Tj T* ET
+BT 1 0 0 1 0 122 Tm /F5 10 Tf 12 TL (B H 232 0.44982) Tj T* (H I 240 -0.07392) Tj T* (I J 416 0.06413) Tj T* (I N 186 -0.10494) Tj T* (K B 90 -0.26894) Tj T* (K N 215 0.00234) Tj T* (J K 806 -0.17131) Tj T* (N H 408 0.17836) Tj T* (N J 634 0.1686) Tj T*  T* (Field-book \(leveling.dmp\)) Tj T* ET
 Q
 Q
 Q
@@ -2943,7 +2943,7 @@ Q
 q
 1 0 0 1 62.69291 311.6236 cm
 q
-BT 1 0 0 1 0 62 Tm 2.074651 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's load this field-book into GeoEasy. Select ) Tj /F2 10 Tf (File/Load) Tj /F1 10 Tf ( from the menu of the main window. Select) Tj T* 0 Tw 2.969982 Tw /F4 10 Tf (Fieldbook \(*.dmp, *.DMP\)) Tj /F1 10 Tf ( type. The levelling.dmp file is in the demodata subdirectory of GeoEasy) Tj T* 0 Tw 1.092765 Tw (intallation folder. Select the file and klick on Open button. A dialog will be displayed where fields of the) Tj T* 0 Tw 1.564983 Tw (input file can be set. Remove the unneccessary fields \() Tj /F4 10 Tf (Horizontal angle, Vertical angle, lope distance,) Tj T* 0 Tw .672126 Tw (signal height,instrument height) Tj /F1 10 Tf (\) and add ) Tj /F4 10 Tf (horizontal distance) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (Height diff. levelling) Tj /F1 10 Tf (. Don't forget to add) Tj T* 0 Tw /F4 10 Tf (space) Tj /F1 10 Tf ( to the separators.) Tj T* ET
+BT 1 0 0 1 0 62 Tm 2.074651 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's load this field-book into GeoEasy. Select ) Tj /F2 10 Tf (File/Load) Tj /F1 10 Tf ( from the menu of the main window. Select) Tj T* 0 Tw 2.884597 Tw /F4 10 Tf (Fieldbook \(*.dmp, *.DMP\)) Tj /F1 10 Tf ( type. The leveling.dmp file is in the demodata sub-directory of GeoEasy) Tj T* 0 Tw .814987 Tw (installation folder. Select the file and click on Open button. A dialog will be displayed where fields of the) Tj T* 0 Tw 1.922126 Tw (input file can be set. Remove the unnecessary fields \() Tj /F4 10 Tf (Horizontal angle, Vertical angle, lope distance,) Tj T* 0 Tw .830697 Tw (signal height,instrument height) Tj /F1 10 Tf (\) and add ) Tj /F4 10 Tf (horizontal distance) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (Height diff. leveling) Tj /F1 10 Tf (. Don't forget to add) Tj T* 0 Tw /F4 10 Tf (space) Tj /F1 10 Tf ( to the separators.) Tj T* ET
 Q
 Q
 q
@@ -2964,7 +2964,7 @@ q
 1 0 0 1 6 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 180.5899 0 Td (Loading levelling.dmp) Tj T* -180.5899 0 Td ET
+BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 181.6999 0 Td (Loading leveling.dmp) Tj T* -181.6999 0 Td ET
 Q
 Q
 q
@@ -2976,7 +2976,7 @@ Q
 q
 1 0 0 1 62.69291 168.8236 cm
 q
-BT 1 0 0 1 0 14 Tm 1.086647 Tw 12 TL /F1 10 Tf 0 0 0 rg (Open the field-book \() Tj /F2 10 Tf (Edit/Observations) Tj /F1 10 Tf (\) and change the mask \( ) Tj /F2 10 Tf (Commands/Mask...) Tj /F1 10 Tf (\) to ) Tj /F4 10 Tf (levelling) Tj /F1 10 Tf (. You) Tj T* 0 Tw (can see nine observations.) Tj T* ET
+BT 1 0 0 1 0 14 Tm 1.271647 Tw 12 TL /F1 10 Tf 0 0 0 rg (Open the field-book \() Tj /F2 10 Tf (Edit/Observations) Tj /F1 10 Tf (\) and change the mask \( ) Tj /F2 10 Tf (Commands/Mask...) Tj /F1 10 Tf (\) to ) Tj /F4 10 Tf (leveling) Tj /F1 10 Tf (. You) Tj T* 0 Tw (can see nine observations.) Tj T* ET
 Q
 Q
 q
@@ -2993,7 +2993,7 @@ endstream
 endobj
 107 0 obj
 <<
-/Length 3827
+/Length 3825
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -3012,7 +3012,7 @@ q
 1 0 0 1 6 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 162.8149 0 Td (Observations inlevelling mask) Tj T* -162.8149 0 Td ET
+BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL 162.5349 0 Td (Observations in leveling mask) Tj T* -162.5349 0 Td ET
 Q
 Q
 q
@@ -3024,13 +3024,13 @@ Q
 q
 1 0 0 1 62.69291 574.2236 cm
 q
-BT 1 0 0 1 0 26 Tm 1.44784 Tw 12 TL /F1 10 Tf 0 0 0 rg (These observations were made by digital levelling instrument with a standard deviation of 0.3 mm/km.) Tj T* 0 Tw .637976 Tw (Change calculation parameters \() Tj /F2 10 Tf (File/Calculation parameters...) Tj /F1 10 Tf (\), ) Tj /F4 10 Tf (Decimals in results) Tj /F1 10 Tf ( should be changed) Tj T* 0 Tw (to 4. Check also ) Tj /F4 10 Tf (Standard deviation for levelling [mm/km]) Tj /F1 10 Tf (, it should be 0.3.) Tj T* ET
+BT 1 0 0 1 0 26 Tm 1.606412 Tw 12 TL /F1 10 Tf 0 0 0 rg (These observations were made by digital leveling instrument with a standard deviation of 0.3 mm/km.) Tj T* 0 Tw .637976 Tw (Change calculation parameters \() Tj /F2 10 Tf (File/Calculation parameters...) Tj /F1 10 Tf (\), ) Tj /F4 10 Tf (Decimals in results) Tj /F1 10 Tf ( should be changed) Tj T* 0 Tw (to 4. Check also ) Tj /F4 10 Tf (Standard deviation for leveling [mm/km]) Tj /F1 10 Tf (, it should be 0.3.) Tj T* ET
 Q
 Q
 q
 1 0 0 1 62.69291 532.2236 cm
 q
-BT 1 0 0 1 0 26 Tm 1.71528 Tw 12 TL /F1 10 Tf 0 0 0 rg (We shall adjust this small levelling network. There are no elevations in the field-book, so first set the) Tj T* 0 Tw 1.296647 Tw (elevation of point ) Tj /F4 10 Tf (B) Tj /F1 10 Tf ( to 100.000. After it let's calculate preliminary elevations \() Tj /F2 10 Tf (Calculations/Preliminary) Tj T* 0 Tw (coordinates) Tj /F1 10 Tf (\)) Tj T* ET
+BT 1 0 0 1 0 26 Tm 1.845868 Tw 12 TL /F1 10 Tf 0 0 0 rg (We shall adjust this small leveling network. There are no elevations in the field-book, so first set the) Tj T* 0 Tw 1.296647 Tw (elevation of point ) Tj /F4 10 Tf (B) Tj /F1 10 Tf ( to 100.000. After it let's calculate preliminary elevations \() Tj /F2 10 Tf (Calculations/Preliminary) Tj T* 0 Tw (coordinates) Tj /F1 10 Tf (\)) Tj T* ET
 Q
 Q
 q
@@ -3063,7 +3063,7 @@ Q
 q
 1 0 0 1 62.69291 397.1036 cm
 q
-BT 1 0 0 1 0 26 Tm 1.947251 Tw 12 TL /F1 10 Tf 0 0 0 rg (Now we can start levelling network adjustment \() Tj /F2 10 Tf (Calculate/Levelling network adjustment) Tj /F1 10 Tf (\). Select all) Tj T* 0 Tw .475542 Tw (point as unknown. In the calcultion result window a long result list is displayed and the coordinates in the) Tj T* 0 Tw (coordinate list are updated.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .163314 Tw 12 TL /F1 10 Tf 0 0 0 rg (Now we can start leveling network adjustment \() Tj /F2 10 Tf (Calculate/Leveling network adjustment) Tj /F1 10 Tf (\). Select all point) Tj T* 0 Tw 1.61528 Tw (as unknown. In the calculation result window a long result list is displayed and the coordinates in the) Tj T* 0 Tw (coordinate list are updated.) Tj T* ET
 Q
 Q
 q
@@ -3075,7 +3075,7 @@ Q
 q
 1 0 0 1 62.69291 310.1036 cm
 q
-BT 1 0 0 1 0 38 Tm .537045 Tw 12 TL /F1 10 Tf 0 0 0 rg (GeoEasy is capable to create TIN based Digital Terrain Models from the points in the loaded datasets or) Tj T* 0 Tw .601654 Tw (from a DXF file. ) Tj /F4 10 Tf (Triangle) Tj /F1 10 Tf ( open source project is used to generate triangles. There is a small electric field) Tj T* 0 Tw 1.339987 Tw (book in the demo data set called ) Tj /F4 10 Tf (terrain.scr) Tj /F1 10 Tf (. Load the ) Tj /F4 10 Tf (scr) Tj /F1 10 Tf ( file using the ) Tj /F2 10 Tf (File/Load...) Tj /F1 10 Tf ( menu of the main) Tj T* 0 Tw (window.) Tj T* ET
+BT 1 0 0 1 0 38 Tm .352765 Tw 12 TL /F1 10 Tf 0 0 0 rg (GeoEasy is capable to create TIN based Digital Terrain Models from the points in the loaded data sets or) Tj T* 0 Tw .601654 Tw (from a DXF file. ) Tj /F4 10 Tf (Triangle) Tj /F1 10 Tf ( open source project is used to generate triangles. There is a small electric field) Tj T* 0 Tw 1.339987 Tw (book in the demo data set called ) Tj /F4 10 Tf (terrain.scr) Tj /F1 10 Tf (. Load the ) Tj /F4 10 Tf (scr) Tj /F1 10 Tf ( file using the ) Tj /F2 10 Tf (File/Load...) Tj /F1 10 Tf ( menu of the main) Tj T* 0 Tw (window.) Tj T* ET
 Q
 Q
 q
@@ -3125,7 +3125,7 @@ endstream
 endobj
 108 0 obj
 <<
-/Length 3963
+/Length 3968
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -3204,7 +3204,7 @@ Q
 q
 1 0 0 1 62.69291 521.0236 cm
 q
-BT 1 0 0 1 0 14 Tm .216098 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's start to creat a TIN, select ) Tj /F2 10 Tf (DTM/Create...) Tj /F1 10 Tf ( from the menu of the graphic window and press OK button) Tj T* 0 Tw (in the ) Tj /F4 10 Tf (Create DTM) Tj /F1 10 Tf ( dialog and select directory and name for the DTM in the ) Tj /F4 10 Tf (Save as) Tj /F1 10 Tf ( dialog.) Tj T* ET
+BT 1 0 0 1 0 14 Tm -0.092791 Tw 12 TL /F1 10 Tf 0 0 0 rg (Let's start to create a TIN, select ) Tj /F2 10 Tf (DTM/Create...) Tj /F1 10 Tf ( from the menu of the graphic window and press OK button) Tj T* 0 Tw (in the ) Tj /F4 10 Tf (Create DTM) Tj /F1 10 Tf ( dialog and select directory and name for the DTM in the ) Tj /F4 10 Tf (Save as) Tj /F1 10 Tf ( dialog.) Tj T* ET
 Q
 Q
 q
@@ -3264,7 +3264,7 @@ Q
 q
 1 0 0 1 62.69291 253.4236 cm
 q
-BT 1 0 0 1 0 38 Tm -0.071012 Tw 12 TL /F1 10 Tf 0 0 0 rg (The convex hole of the points is filled by triangles which have minimal sum of perimeters. At the side of the) Tj T* 0 Tw 2.163318 Tw (model there are narrow triangles. These can be avoided by defining a non-convex boundary for the) Tj T* 0 Tw .768221 Tw (modell. Unload the TIN by ) Tj /F2 10 Tf (DTM/Close) Tj /F1 10 Tf ( from the menu of graphic window. Using the Break line tool from) Tj T* 0 Tw (the toolbar draw the boundary of the model.) Tj T* ET
+BT 1 0 0 1 0 38 Tm -0.071012 Tw 12 TL /F1 10 Tf 0 0 0 rg (The convex hole of the points is filled by triangles which have minimal sum of perimeters. At the side of the) Tj T* 0 Tw -0.021265 Tw (model there are narrow triangles. These can be avoided by defining a non-convex boundary for the model.) Tj T* 0 Tw -0.108902 Tw (Unload the TIN by ) Tj /F2 10 Tf (DTM/Close) Tj /F1 10 Tf ( from the menu of graphic window. Using the Break line tool from the toolbar) Tj T* 0 Tw (draw the boundary of the model.) Tj T* ET
 Q
 Q
 q
@@ -3483,7 +3483,7 @@ endstream
 endobj
 110 0 obj
 <<
-/Length 4087
+/Length 4086
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -3514,7 +3514,7 @@ Q
 q
 1 0 0 1 62.69291 584.3036 cm
 q
-BT 1 0 0 1 0 26 Tm .355227 Tw 12 TL /F1 10 Tf 0 0 0 rg (Observations were made along a crane track. Points from 1 to 7 are on the right rail and pointis from 8 to) Tj T* 0 Tw .371098 Tw (14 on the left rail. Let's first fit a 2D line on the right side rail, ) Tj /F2 10 Tf (Calculate/Regression calculation/2D Line) Tj /F1 10 Tf  T* 0 Tw (from the menu.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .460941 Tw 12 TL /F1 10 Tf 0 0 0 rg (Observations were made along a crane track. Points from 1 to 7 are on the right rail and points from 8 to) Tj T* 0 Tw .371098 Tw (14 on the left rail. Let's first fit a 2D line on the right side rail, ) Tj /F2 10 Tf (Calculate/Regression calculation/2D Line) Tj /F1 10 Tf  T* 0 Tw (from the menu.) Tj T* ET
 Q
 Q
 q
@@ -3582,7 +3582,7 @@ endstream
 endobj
 111 0 obj
 <<
-/Length 4667
+/Length 4669
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -3616,7 +3616,7 @@ Q
 q
 1 0 0 1 62.69291 583.8236 cm
 q
-BT 1 0 0 1 0 26 Tm .67311 Tw 12 TL /F1 10 Tf 0 0 0 rg (On a diaphragm wall points were scanned by a robotic total station, points from ) Tj /F4 10 Tf (Scan0676) Tj /F1 10 Tf ( to ) Tj /F4 10 Tf (Scan0915) Tj /F1 10 Tf (.) Tj T* 0 Tw .43784 Tw (Let's check if the wall is vertical using ) Tj /F2 10 Tf (Calculate/REgression calculation/Vertical plane) Tj /F1 10 Tf (. In the point list) Tj T* 0 Tw (select all ) Tj /F4 10 Tf (Scan) Tj /F1 10 Tf ( points and press OK.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .67311 Tw 12 TL /F1 10 Tf 0 0 0 rg (On a diaphragm wall points were scanned by a robotic total station, points from ) Tj /F4 10 Tf (Scan0676) Tj /F1 10 Tf ( to ) Tj /F4 10 Tf (Scan0915) Tj /F1 10 Tf (.) Tj T* 0 Tw .517126 Tw (Let's check if the wall is vertical using ) Tj /F2 10 Tf (Calculate/Regression calculation/Vertical plane) Tj /F1 10 Tf (. In the point list) Tj T* 0 Tw (select all ) Tj /F4 10 Tf (Scan) Tj /F1 10 Tf ( points and press OK.) Tj T* ET
 Q
 Q
 q
@@ -3643,7 +3643,7 @@ Q
 q
 1 0 0 1 62.69291 302.6236 cm
 q
-BT 1 0 0 1 0 50 Tm .231567 Tw 12 TL /F1 10 Tf 0 0 0 rg (We got two points for the planned position of the diaphragm wall, these are points ) Tj /F4 10 Tf (S2) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (S3) Tj /F1 10 Tf (. Let's check) Tj T* 0 Tw 1.358976 Tw (the distances from the planned position. Select ) Tj /F2 10 Tf (Calculate/Regression calculation/Distance from line) Tj /F1 10 Tf  T* 0 Tw .457988 Tw (from the menu \(vertical plane is the same as 2D line in this situation\). First select the two points from the) Tj T* 0 Tw .187356 Tw (plan ) Tj /F4 10 Tf (S2) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (S3) Tj /F1 10 Tf ( from the point list. From the second point list select ) Tj /F4 10 Tf (Scan) Tj /F1 10 Tf ( points. In the ) Tj /F4 10 Tf (Calculation results) Tj /F1 10 Tf  T* 0 Tw (list we get the distances of the scanned points from the planned positons.) Tj T* ET
+BT 1 0 0 1 0 50 Tm .231567 Tw 12 TL /F1 10 Tf 0 0 0 rg (We got two points for the planned position of the diaphragm wall, these are points ) Tj /F4 10 Tf (S2) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (S3) Tj /F1 10 Tf (. Let's check) Tj T* 0 Tw 1.358976 Tw (the distances from the planned position. Select ) Tj /F2 10 Tf (Calculate/Regression calculation/Distance from line) Tj /F1 10 Tf  T* 0 Tw .457988 Tw (from the menu \(vertical plane is the same as 2D line in this situation\). First select the two points from the) Tj T* 0 Tw .187356 Tw (plan ) Tj /F4 10 Tf (S2) Tj /F1 10 Tf ( and ) Tj /F4 10 Tf (S3) Tj /F1 10 Tf ( from the point list. From the second point list select ) Tj /F4 10 Tf (Scan) Tj /F1 10 Tf ( points. In the ) Tj /F4 10 Tf (Calculation results) Tj /F1 10 Tf  T* 0 Tw (list we get the distances of the scanned points from the planned positions.) Tj T* ET
 Q
 Q
 q
@@ -3678,7 +3678,7 @@ endstream
 endobj
 112 0 obj
 <<
-/Length 3301
+/Length 3298
 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
@@ -3691,7 +3691,7 @@ Q
 q
 1 0 0 1 62.69291 657.0236 cm
 q
-BT 1 0 0 1 0 62 Tm .339987 Tw 12 TL /F1 10 Tf 0 0 0 rg (There are points on five horizontal sections of a chimney. Let's fit a regression circle on le lowest section,) Tj T* 0 Tw .539269 Tw (point ids like '1nn'. Select ) Tj /F2 10 Tf (Calculate/Regression calculation/Circle) Tj /F1 10 Tf ( from the menu of any window. A list) Tj T* 0 Tw .354751 Tw (of point ids is displayed in a new window. Select all points from 111 to 133 and press OK button. You will) Tj T* 0 Tw .760488 Tw (be asked for the radius of the circle. Let the ) Tj /F4 10 Tf (unknown) Tj /F1 10 Tf ( value in the input box to calculate radius from the) Tj T* 0 Tw 1.189513 Tw (data. You can give a radius if it is known and you don't want to get an estimated value from the circle) Tj T* 0 Tw (regression.) Tj T* ET
+BT 1 0 0 1 0 62 Tm .981163 Tw 12 TL /F1 10 Tf 0 0 0 rg (There are points on five horizontal sections of a chimney. Let's fit a regression circle on lowest section,) Tj T* 0 Tw .539269 Tw (point ids like '1nn'. Select ) Tj /F2 10 Tf (Calculate/Regression calculation/Circle) Tj /F1 10 Tf ( from the menu of any window. A list) Tj T* 0 Tw .354751 Tw (of point ids is displayed in a new window. Select all points from 111 to 133 and press OK button. You will) Tj T* 0 Tw .760488 Tw (be asked for the radius of the circle. Let the ) Tj /F4 10 Tf (unknown) Tj /F1 10 Tf ( value in the input box to calculate radius from the) Tj T* 0 Tw 1.189513 Tw (data. You can give a radius if it is known and you don't want to get an estimated value from the circle) Tj T* 0 Tw (regression.) Tj T* ET
 Q
 Q
 q
@@ -3933,78 +3933,78 @@ xref
 0000502533 00000 n 
 0000502804 00000 n 
 0000502911 00000 n 
-0000503211 00000 n 
-0000503286 00000 n 
-0000503410 00000 n 
-0000503549 00000 n 
-0000503694 00000 n 
-0000503823 00000 n 
-0000503961 00000 n 
-0000504127 00000 n 
-0000504262 00000 n 
-0000504401 00000 n 
-0000504542 00000 n 
-0000504669 00000 n 
-0000504793 00000 n 
-0000504918 00000 n 
-0000505054 00000 n 
-0000505199 00000 n 
-0000505314 00000 n 
-0000505460 00000 n 
-0000505600 00000 n 
-0000505731 00000 n 
-0000505875 00000 n 
-0000506018 00000 n 
-0000506154 00000 n 
-0000506317 00000 n 
-0000506434 00000 n 
-0000506565 00000 n 
-0000506684 00000 n 
-0000506881 00000 n 
-0000511261 00000 n 
-0000515267 00000 n 
-0000519306 00000 n 
-0000524938 00000 n 
-0000529722 00000 n 
-0000534747 00000 n 
-0000538419 00000 n 
-0000542815 00000 n 
-0000546878 00000 n 
-0000551289 00000 n 
-0000555807 00000 n 
-0000560511 00000 n 
-0000565063 00000 n 
-0000569040 00000 n 
-0000572920 00000 n 
-0000576936 00000 n 
-0000580271 00000 n 
-0000584411 00000 n 
-0000589131 00000 n 
-0000592485 00000 n 
-0000592737 00000 n 
-0000592772 00000 n 
-0000592807 00000 n 
-0000592842 00000 n 
-0000592877 00000 n 
-0000592912 00000 n 
-0000592947 00000 n 
-0000592982 00000 n 
-0000593017 00000 n 
-0000593052 00000 n 
-0000593088 00000 n 
-0000593124 00000 n 
-0000593160 00000 n 
-0000593196 00000 n 
-0000593232 00000 n 
-0000593268 00000 n 
-0000593304 00000 n 
-0000593340 00000 n 
-0000593376 00000 n 
-0000593412 00000 n 
+0000503245 00000 n 
+0000503320 00000 n 
+0000503444 00000 n 
+0000503583 00000 n 
+0000503728 00000 n 
+0000503857 00000 n 
+0000503995 00000 n 
+0000504161 00000 n 
+0000504296 00000 n 
+0000504435 00000 n 
+0000504576 00000 n 
+0000504703 00000 n 
+0000504827 00000 n 
+0000504952 00000 n 
+0000505088 00000 n 
+0000505234 00000 n 
+0000505349 00000 n 
+0000505495 00000 n 
+0000505635 00000 n 
+0000505766 00000 n 
+0000505910 00000 n 
+0000506052 00000 n 
+0000506188 00000 n 
+0000506351 00000 n 
+0000506468 00000 n 
+0000506599 00000 n 
+0000506718 00000 n 
+0000506915 00000 n 
+0000511331 00000 n 
+0000515344 00000 n 
+0000519380 00000 n 
+0000525014 00000 n 
+0000529802 00000 n 
+0000534828 00000 n 
+0000538500 00000 n 
+0000542898 00000 n 
+0000546964 00000 n 
+0000551374 00000 n 
+0000555892 00000 n 
+0000560599 00000 n 
+0000565153 00000 n 
+0000569125 00000 n 
+0000573003 00000 n 
+0000577024 00000 n 
+0000580359 00000 n 
+0000584498 00000 n 
+0000589220 00000 n 
+0000592571 00000 n 
+0000592823 00000 n 
+0000592858 00000 n 
+0000592893 00000 n 
+0000592928 00000 n 
+0000592963 00000 n 
+0000592998 00000 n 
+0000593033 00000 n 
+0000593068 00000 n 
+0000593103 00000 n 
+0000593138 00000 n 
+0000593174 00000 n 
+0000593210 00000 n 
+0000593246 00000 n 
+0000593282 00000 n 
+0000593318 00000 n 
+0000593354 00000 n 
+0000593390 00000 n 
+0000593426 00000 n 
+0000593462 00000 n 
+0000593498 00000 n 
 trailer
 <<
 /ID 
-[<9f1802be4110be290168cf631f2c6141><9f1802be4110be290168cf631f2c6141>]
+[<bf20aa656a78a42cbe7f39a23faa5114><bf20aa656a78a42cbe7f39a23faa5114>]
 % ReportLab generated PDF document -- digest (http://www.reportlab.com)
 
 /Info 65 0 R
@@ -4012,5 +4012,5 @@ trailer
 /Size 134
 >>
 startxref
-593448
+593534
 %%EOF
