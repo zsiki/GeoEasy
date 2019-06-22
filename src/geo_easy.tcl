@@ -238,6 +238,7 @@ proc GeoEasy {top} {
 			puts "graphgeo.tcl"
 			puts "grid.tcl"
 			puts "helpgeo.tcl"
+			puts "idex.tcl"
 			puts "lbgeo.tcl"
 			puts "leica.tcl"
 			puts "loadgeo.tcl"
@@ -258,9 +259,9 @@ proc GeoEasy {top} {
 			puts "zsenigeo.tcl"
 		} elseif {$help == "version"} {
 			puts "Changes:"
-			puts "Update i18n and deb"
-			puts "Circle regression"
-			puts "Command line params"
+			puts "missing global geoDoc added"
+			puts "fix short adjustment output"
+			puts "changing name inside sdr file to the name of output file"
 		} else {
 			puts "Usage: geoeasy \[options\]"
 			puts " options:"
