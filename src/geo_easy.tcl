@@ -962,8 +962,8 @@ proc MenuLoad {w {def ""}} {
 					set res [n4ce $fn]
 				}
 				default {
-					tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(filetype) \
-						warning 0 OK
+					tk_dialog .msg $geoEasyMsg(warning) \
+						"$geoEasyMsg(filetype) $fn" warning 0 OK
 					continue
 				}
 			}
@@ -973,11 +973,11 @@ proc MenuLoad {w {def ""}} {
 				if {$res == -999} {
 					# cancelled, no error
 				} elseif {$res < 0} {
-					tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) \
-						warning 0 OK
+					tk_dialog .msg $geoEasyMsg(warning) \
+					"$geoEasyMsg($res) $fn" warning 0 OK
 				} else {
-					tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
-						warning 0 OK
+					tk_dialog .msg $geoEasyMsg(warning) \
+						"$geoEasyMsg(-5) $res $fn" warning 0 OK
 					
 				}
 				continue
@@ -988,7 +988,7 @@ proc MenuLoad {w {def ""}} {
 			if {[regexp -nocase "\.geo$" $fn] || [regexp -nocase "\.coo$" $fn]} {
 				set geoChanged($f) 0
 			} else {
-				set geoChanged($f) 1	;# imported data set sould be saved
+				set geoChanged($f) 1	;# imported data set should be saved
 			}
 			GeoLog "$fn $geoEasyMsg(load)"
 	#
