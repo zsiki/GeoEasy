@@ -1,5 +1,5 @@
 # add path to tcl_cruncher if installed
-TCL_CRUNCHER = tcl_cruncher
+TCL_CRUNCHER = ./tcl_cruncher
 FREE_WRAP = ../../freewrap664
 TCL_DOC = ../../tcldoc-0.87/tcldoc.tcl
 # uncomment next line if no tcl_cruncher installed
@@ -78,7 +78,7 @@ ComEasy.exe: ComEasy.tcl
 ComEasy64.exe: ComEasy.tcl
 	$(FREE_WRAP)/linux64/freewrap ComEasy.tcl -w $(FREE_WRAP)/win64/freewrap.exe -i gizi.ico -forcewrap -o ComEasy64.exe
 ComEasy.tcl: ${CE_SOURCES}
-	tcl_cruncher ${CE_SOURCES} > ComEasy.tcl
+	$(TCL_CRUNCHER) ${CE_SOURCES} > ComEasy.tcl
 	chmod +x ComEasy.tcl
 
 linux: GeoEasy ./i18n/geo_easy.* ./i18n/com_easy.* geo_easy.msk
