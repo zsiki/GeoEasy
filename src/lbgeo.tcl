@@ -510,6 +510,7 @@ proc GeoOParam {} {
 	global geoLang
 	global geoMasks cooMasks
 	global maskRows geoMaskDefault cooMaskDefault
+	global geoLangs
 
 	set locCooSep $cooSep
 	set locTxtSep $txtSep
@@ -549,7 +550,13 @@ proc GeoOParam {} {
 		-variable locMultiSep
 	checkbutton .oparams.autoR -text $geoEasyMsg(lautor) \
 		-variable locAutoRefresh
-	tk_optionMenu .oparams.lang locLang hun eng ger
+	set lname [tk_optionMenu .oparams.lang locLang default]
+	set i 1
+	foreach l [lsort [array names geoLangs]] {
+		$lname insert $i radiobutton -label $l -variable v -command \
+            {global v; set locLang $v}
+		incr i
+	}
 	checkbutton .oparams.ori -text $geoEasyMsg(loridetail) \
 		-variable locOriDetail
 	set gm [tk_optionMenu .oparams.geomask locGeoMaskDefault dummy]
