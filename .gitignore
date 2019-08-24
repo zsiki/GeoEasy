@@ -5,6 +5,7 @@ gama-local
 triangle
 triangle1.3
 cs2cs
+tcl_cruncher
 src/build_date.tcl
 src/GeoEasy.tcl
 GeoEasy
