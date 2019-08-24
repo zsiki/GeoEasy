@@ -40,10 +40,13 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 * Tcl/Tk (https://www.tcl.tk/) the programming language for the project
 * GNU Gama (https://www.gnu.org/software/gama/) for network adjustment
 * Triangle (https://github.com/MrPhil/Triangle) for DTM
-* Proj.4 cs2cs (http://proj4.org/) for KML and GPX export
-* Nullsoft Scriptable Install System (http://nsis.sourceforge.net/Main_Page) to create the Windows installer
+* Proj cs2cs (http://proj.org/) for KML and GPX export
+* Nullsoft Scriptable Install System (http://nsis.sourceforge.net/Main\_Page) to create the Windows installer
 * Freewrap (http://freewrap.sourceforge.net/) to convert Tcl/Tk scripts to Linux/Windows executables
 * bash-deb-build (https://github.com/BASH-Auto-Tools/bash-deb-build) to build debian package
+* rst2pdf (https://rst2pdf.org) to generate pdf docs from rst
+* pngquant (https://pngquant.org) to reduce the size of png images in the docs
+* TclDoc (https://wiki.tcl-lang.org/page/tcldoc) to generate developer documentation from sources
 
 ## Download statistics
 
