@@ -17,16 +17,25 @@ output formats, so it can easily be inserted into user's work-flow.
 Starting the program
 --------------------
 
+The Windows setup place az icon on the desktop and add an item to the programs menu. On Linux the program should be started from the command line.
 GeoEasy accepts command line parameters. The language of the user interface
 can be selected and input data set can be given.
 
+.. note:: for Windows users
+
+	You can start GeoEasy from the command line on Windows, too. 
+	Open a cmd window, change 
+	directory to the GeoEasy installation folder (c:\GeoEasy is the default),
+	finally enter *GeoEasy* to start the program.
+
 GeoEasy by default uses the language of the operating system if it is
-available. Five languages are supported when writing this documentation:
+available (GEoEasy has been localized to that language).
+Five languages are supported when writing this documentation:
 English, German, Russian, Czeh and Hungarian.
 
 You can switch to a different language from the default by the *--lang* 
 command line switch. The ISO 639-1 two or ISO 639-2/B three letters codes 
-are accepted. For example:
+are accepted. For example to start with Hungarian language:
 
 .. code:: bash
 
@@ -36,7 +45,8 @@ Log messages and calculation results are written to a log beside the
 calculation results window. The default location of the log file is the
 user's home directory and the name is *geo_easy.log*. Using the *--log*
 command line parameter the name and the location of the log file can be
-given in the command line. For example:
+given in the command line. The actual user must have write access to the given 
+lg file. For example:
 
 .. code:: bash
 
@@ -92,7 +102,7 @@ memory of the computer limits the number of loaded data sets.
 
 If the observations were made in face left and face right, from the readings on
 the horizontal and vertical circles and the distances an average is calculated.
-GeoEasy stores and uses these average valuesi only.
+GeoEasy stores and uses these average values only.
 Averages are calculated if the collimation and index errors are below the 
 **maxColl** and **maxIndex** values set in the geo_easy.msk file.
 
@@ -142,13 +152,13 @@ be used to skip a column in the input file.
 
 Multiple separators can be defined, defaults are tab and semicolon.
 The *Skip repeated separators* option can be useful for example if you have
-space tabed file (different number of spaces among the columns).
+space tabbed file (different number of spaces among the columns).
 
 The *Number of header lines* allows to skip the first few lines in the input
 (e.g. header lines).
 
 A *Filter expression* can be defiend to filter rows. A regular expression can
-also be used.
+also be used. It works as the Linux *grep* command.
 
 At the bottom part of the dialog the first five rows of the input file are shown.
 
@@ -162,14 +172,14 @@ Close
 Close a loaded data set. Beside this menu option a cascading list of the
 loaded data sets pops up. The user can select a data set name from the list.
 If the data set to be closed have been changed, the user has an option to save 
-it.
+it after a question.
 
 Save
 ....
 
 Save a changed data set. Beside this menu option a cascading list of the
 loaded data sets pops up. The user can select a data set name from the list.
-The data set is saved to GeoEasy geo format even if the type of opened data
+The data set is saved to GeoEasy *geo* format even if the type of opened data
 set is different. The name and the folder of the
 files is the same as the loaded data set.
 
@@ -192,7 +202,7 @@ Merge
 
 Merge all loaded data sets into a single GeoEasy data set.
 After merging the original data sets left opened and the merged data set is not
-loaded. If the same point has coordinates in more than one data set the first
+loaded. If the same point has coordinates in more than one data sets the first
 coordinates found are saved to the merged data set.
 
 GNU Gama export
@@ -207,8 +217,8 @@ If no fixed points are selected a free network adjustment is solved.
 
 .. note::
 
-	GNU Gama export is only necessary if you would like edit the 
-	xml file before adjustment.
+	GNU Gama export is only necessary if you would like manually fine tune
+	the parameters in the xml file before adjustment.
 
 Load project
 ............
@@ -227,7 +237,7 @@ Close project
 .............
 
 Close all opened data sets and windows except **Calculation results** and 
-main window.
+main window. It can be used even if you haven't opened a project.
 
 ComEasy
 .......
@@ -314,7 +324,7 @@ Distance limit [m]:
 	200 / 50 * 3" = 12".
 
 SVG error ellipses:
-	An SVG will be generated with the network and error ellipses.
+	An SVG file will be generated with the network and error ellipses.
 
 Colors
 ......
@@ -323,7 +333,7 @@ Colors
 	:align: center
 
 The colours used by the program can be set here. Click on the coloured
-button toselect another colour.
+buttons to select another colour.
 
 Other parameters
 ................
@@ -333,7 +343,8 @@ Other parameters
 
 Language:
 	Language of the user interface. You have to save parameters and restart
-	the program to take affect.
+	the program to take affect. Setting this disables the automatic language 
+	selection 
 
 Separator in exported lists:
 	Separator character used in CSV export.
@@ -799,14 +810,25 @@ this option to force a refresh all opened windows.
 Help menu
 ~~~~~~~~~
 
+The Help menu contains two options, Help and About. Both of them display a
+small dialog box. The Help box contains only a link to documentation folder 
+on the Github page of the program. The About box shows version,
+modules and copyright info. The date in the About box is importan for 
+development (nightly build) versions. The version number is not changed for
+development versions but the date.
+
 GeoEasy field-book window
 -------------------------
 
+You can open a field-book window from the main window Edit/Observations menu.
 In the field-book window you can view and edit field-books. Each loaded 
 field-book is opened in a separate window.
 The actually displayed values from the field-book depend on the actual 
 mask (format). There are some predefined masks and the user can add 
-new masks.
+new masks. The field-book window has its own menu and popup menu.
+
+.. image:: rg_images/observations.png
+	:align: center
 
 Commands menu
 ~~~~~~~~~~~~~
