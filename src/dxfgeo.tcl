@@ -66,7 +66,7 @@ proc DXFout {fn} {
 	global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d zdec \
 		pcodelayer xzplane useblock addlines
     global contourInterval contourDxf contourLayer contour3Dface
-	global regLineStart regLineCont regLineEnd regLine
+	global regLineStart regLineCont regLineEnd regLine regLineClose
 
 	if {[catch {set fd [open $fn w]} msg]} {
 		tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
@@ -203,6 +203,10 @@ proc DXFout {fn} {
 								if {[string length $codeName]} {
 									set lastp_x($codeName) $p_x
 									set lastp_y($codeName) $p_y
+									set lastp_z($codeName) $p_z
+									set first_x($codeName) $p_x
+									set first_y($codeName) $p_y
+									set first_z($codeName) $p_z
 								}
 							} elseif {[regexp $regLineCont $code]} {
 								set pat "(.*)$regLineCont"
@@ -220,6 +224,7 @@ proc DXFout {fn} {
 									}
 									set lastp_x($codeName) $p_x
 									set lastp_y($codeName) $p_y
+									set lastp_z($codeName) $p_z
 								}
 							} elseif {[regexp $regLineEnd $code]} {
 								set pat "(.*)$regLineEnd"
@@ -236,6 +241,43 @@ proc DXFout {fn} {
 										}
 										unset lastp_x($codeName)
 										unset lastp_y($codeName)
+										unset lastp_z($codeName)
+									}
+									if {[info exists first_x($codeName)] && [info exists first_y($codeName)]} {
+										unset first_x($codeName)
+										unset first_y($codeName)
+										unset first_z($codeName)
+									}
+								}
+							} elseif {[regexp $regLineClose $code]} {
+								set pat "(.*)$regLineClose"
+								regsub -- $pat $code \\1 codeName
+								if {[string length $codeName]} {
+									if {[info exists lastp_x($codeName)] && [info exists lastp_y($codeName)]} {
+										puts $fd "  0\nLINE\n  8\n$codeName"
+										if {$p3d} {
+											puts $fd " 10\n$lastp_x($codeName)\n 20\n$lastp_y($codeName)\n 30\n$last_z($codeName)"
+											puts $fd " 11\n$p_x\n 21\n$p_y\n\ 31\n$p_z"
+										} else {
+											puts $fd " 10\n$lastp_x($codeName)\n 20\n$lastp_y($codeName)"
+											puts $fd " 11\n$p_x\n 21\n$p_y"
+										}
+										unset lastp_x($codeName)
+										unset lastp_y($codeName)
+										unset lastp_z($codeName)
+									}
+									if {[info exists first_x($codeName)] && [info exists first_y($codeName)]} {
+										puts $fd "  0\nLINE\n  8\n$codeName"
+										if {$p3d} {
+											puts $fd " 10\n$p_x\n 20\n$p_y\n\ 30\n$p_z"
+											puts $fd " 11\n$first_x($codeName)\n 20\n$first_y($codeName)\n 30\n$firstz($codeName)"
+										} else {
+											puts $fd " 10\n$p_x\n 20\n$p_y"
+											puts $fd " 11\n$first_x($codeName)\n 21\n$first_y($codeName)"
+										}
+										unset first_x($codeName)
+										unset first_y($codeName)
+										unset first_z($codeName)
 									}
 								}
 							}
