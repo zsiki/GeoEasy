@@ -439,7 +439,7 @@ proc GeoDraw {this} {
 	global newtin_poly newtin_hole
 	global contourInterval contourDxf dxfFile contourLayer contour3Dface
 	global observations details pointNumbers usedPointsOnly codedLines
-	global regLineStart regLineCont regLineEnd regLine
+	global regLineStart regLineCont regLineEnd regLine regLineClose
 	global geoLineColor geoFinalColor geoApprColor geoStationColor geoOrientationColor
 	global geoLineColor geoObsColor geoFinalColor geoApprColor geoStationColor \
 		geoOrientationColor geoNostationColor
@@ -531,6 +531,8 @@ proc GeoDraw {this} {
 										if {[string length $codeName]} {
 											set lastp_x($codeName) $p_x
 											set lastp_y($codeName) $p_y
+											set firstp_x($codeName) $p_x
+											set firstp_y($codeName) $p_y
 										}
 									} elseif {[regexp $regLineCont $code]} {
 										set pat "(.*)$regLineCont"
@@ -554,6 +556,29 @@ proc GeoDraw {this} {
 													-tags obs -fill $geoLineColor
 												unset lastp_x($codeName)
 												unset lastp_y($codeName)
+											}
+											if {[info exists firstp_x($codeName)] && [info exists firstp_y($codeName)]} {
+												unset firstp_x($codeName)
+												unset firstp_y($codeName)
+											}
+										}
+									} elseif {[regexp $regLineClose $code]} {
+										set pat "(.*)$regLineClose"
+										regsub -- $pat $code \\1 codeName
+										if {[string length $codeName]} {
+											if {[info exists lastp_x($codeName)] && [info exists lastp_y($codeName)]} {
+												$can create line \
+													$lastp_x($codeName) $lastp_y($codeName) $p_x $p_y \
+													-tags obs -fill $geoLineColor
+												unset lastp_x($codeName)
+												unset lastp_y($codeName)
+											}
+											if {[info exists firstp_x($codeName)] && [info exists firstp_y($codeName)]} {
+												$can create line \
+													$p_x $p_y $firstp_x($codeName) $firstp_y($codeName) \
+													-tags obs -fill $geoLineColor
+												unset firstp_x($codeName)
+												unset firstp_y($codeName)
 											}
 										}
 									}
