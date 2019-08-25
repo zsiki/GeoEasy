@@ -1,9 +1,18 @@
-# GUI language uncomment next two lines to set GUI language other than OS lang
+# supported languages
+global geoLangs
+array set geoLangs {hun hu eng {en us} ger {ge de} rus ru cze cz}
+# language codes for windows
+global langCodes
+array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus "0405" cze}
+# GUI language change default to hun/eng/ger/... to set GUI language other than OS lang
 global geoLang
 set geoLang {default}
 # code page
 global geoCp
 # set geoCp {cp-1250}
+# link to help/docs
+global geoDoc
+set geoDoc "http://github.com/zsiki/GeoEasy/doc"
 # automatic window refresh
 global autoRefresh
 set autoRefresh {1}
@@ -59,7 +68,7 @@ set maxIteration {5000}
 # tolerance to stop iteration
 set epsReg {0.00005}
 # gama-local parameters (network adjustment)
-global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut
+global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 # relative path to executable from GeoEasy home directory or absolute path
 set gamaProg {./gama-local}
 # confidence level
@@ -69,10 +78,12 @@ set gamaAngles {360}
 set gamaTol {1000}
 # distance limit for direction weighting
 set dirLimit {200}
-# long/short result list 0/1
+# long/short result list 0/1 NOT IMPLEMENTED YET
 set gamaShortOut {0}
 # svg error ellipses 0/1
 set gamaSvgOut {0}
+# preserve gama xml output 0/1
+set gamaXmlOut {0}
 #
 # triangle parameters
 #
@@ -152,11 +163,13 @@ set defaultPointNumbers {1}
 set defaultUsedPointsOnly {0}
 set defaultCodedLines {0}
 # linework set regLineStart to empty string to use simple line mode
-global regLineStart regLineCont regLineEnd regLine
+# the linework tag must be at the end of the code
+global regLineStart regLineCont regLineEnd regLine regLineClose
 set regLine {_l$}
 set regLineStart {_st$}
 set regLineCont {_co$}
 set regLineEnd {_en$}
+set regLineClose {_cl$}
 #
 #	masks for observation display
 #	=============================
@@ -263,6 +276,9 @@ set cooMaskWidths(prelim_fix) {10 10 10 10 10}
 set cooMasks(fix) {table 20 5 4 38 37 39}
 set cooMaskParams(fix) {"" "" FLOAT FLOAT FLOAT}
 set cooMaskWidths(fix) {10 10 10 10 10}
+set cooMasks(fix_stdev) {table 20 5 4 38 238 37 237 39 239}
+set cooMaskParams(fix_stdev) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
+set cooMaskWidths(fix_stdev) {10 10 10 10 10 10 10 10}
 #
 # mask parameters
 #
