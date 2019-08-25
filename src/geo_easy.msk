@@ -4,11 +4,12 @@ array set geoLangs {hun hu eng {en us} ger {ge de} rus ru cze cz}
 # language codes for windows
 global langCodes
 array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus "0405" cze}
-# GUI language change default to hun/eng/ger to set GUI language other than OS lang
+# GUI language change default to hun/eng/ger/... to set GUI language other than OS lang
 global geoLang
 set geoLang {default}
 # code page
 global geoCp
+# set geoCp {cp-1250}
 # link to help/docs
 global geoDoc
 set geoDoc "http://github.com/zsiki/GeoEasy/doc"
@@ -162,11 +163,13 @@ set defaultPointNumbers {1}
 set defaultUsedPointsOnly {0}
 set defaultCodedLines {0}
 # linework set regLineStart to empty string to use simple line mode
-global regLineStart regLineCont regLineEnd regLine
+# the linework tag must be at the end of the code
+global regLineStart regLineCont regLineEnd regLine regLineClose
 set regLine {_l$}
 set regLineStart {_st$}
 set regLineCont {_co$}
 set regLineEnd {_en$}
+set regLineClose {_cl$}
 #
 #	masks for observation display
 #	=============================
