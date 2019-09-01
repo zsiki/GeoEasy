@@ -6,7 +6,7 @@
 
 set terminal svg size 950,520 fname 'Verdana' fsize 12
 
-set title 'Downloads 2017 October - 2019 July'
+set title 'Downloads 2017 October - 2019 August'
 set xlabel ' '
 set ylabel 'Count'
 
