@@ -14,7 +14,7 @@ has been changed to open source.
 
 ## Documentation
 
-See the [doc](./doc) folder for various reStructuredText files, the [wiki](https://github.com/zsiki/GeoEasy/wiki) and the a paper in [Geoinformatics FCE CTU](https://ojs.cvut.cz/ojs/index.php/gi/article/view/gi.17.2.1/4642).
+See the [doc](./doc) folder for various reStructuredText files, the [wiki](https://github.com/zsiki/GeoEasy/wiki) and a paper in [Geoinformatics FCE CTU](https://ojs.cvut.cz/ojs/index.php/gi/article/view/gi.17.2.1/4642).
 
 [Developer documentation](http://digikom.hu/tcldoc/)
 
@@ -48,6 +48,6 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 * pngquant (https://pngquant.org) to reduce the size of png images in the docs
 * TclDoc (https://wiki.tcl-lang.org/page/tcldoc) to generate developer documentation from sources
 
-## Download statistics
+## Download statistics of binary releases
 
 ![Download statistics](doc/downloads.png "Download statistics from October 2017 to November 2018")
