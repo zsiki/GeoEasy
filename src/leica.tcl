@@ -18,6 +18,8 @@
 #       Read in leica (gsi) data files into memory
 #		station start marked with code block
 # 41....+00000002 42....+00000100 43....+00001500 44....+target height 45....+date/time
+# or
+# 41....+00000021 42....+00000100 43....+00001500 (MS60)
 # station start   station number  instrument height
 # change in target heigth are marked code block to
 # 41....+00000003 42....+00001546 - target height
@@ -180,9 +182,9 @@ proc Leica {fn {fo ""}} {
 						lappend obuf [list 120 $dm]
 					}
 				}
-				"41" {	;# station code == 2
-					set st_code $val
-					if {$st_code == 2} {
+				"41" {	;# station code == 2 or 21 (MS60)
+					if {$val == 2 || $val == 21} {
+						set st_code 2
 						set codeblock 1
 						if {[info exists defH]} { unset defH }
 					} elseif {[regexp "^\\?\.*\[1-4\]$" $val]} {
