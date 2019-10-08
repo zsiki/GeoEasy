@@ -415,6 +415,7 @@ proc GetHdW {st st_buf tg tg_buf w1} {
 #	@param fixed list of known points (names)
 #	@flag do not show messages if 1 
 proc Gama1dXmlOut {fn pns fixed {flag 0}} {
+	global tcl_platform
 	global geoLoaded
 	global geoEasyMsg
 	global decimals
@@ -553,7 +554,16 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "<description>"
 	puts $xml "GeoEasy 1D network"
 	puts $xml "</description>"
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" cov-band = \"0\" />"
+	if {$tcl_platform(platform) != "unix"} {
+		if {[string match -nocase "*64.exe" $gamaProg]} {
+			set cov_band "cov-band = \"0\""
+		} else {
+			set cov_band ""		;# neccessary till no new 32bit gama-local with cov-band support
+		}
+	} else {
+		set cov_band "cov-band = \"0\""
+	}
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" $cov_band />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjz "Z"
@@ -608,6 +618,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 #	@param fixed list of fixed points (names)
 #	@flag do not show messages if 1 
 proc Gama2dXmlOut {fn pns fixed {flag 0}} {
+	global tcl_platform
 	global projRed avgH refr
 	global geoLoaded
 	global geoEasyMsg
@@ -975,7 +986,16 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "GeoEasy 2D network"
 	puts $xml "</description>"
 #TBD valodi parameterek
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" cov-band = \"0\" />"
+	if {$tcl_platform(platform) != "unix"} {
+		if {[string match -nocase "*64.exe" $gamaProg]} {
+			set cov_band "cov-band = \"0\""
+		} else {
+			set cov_band ""		;# neccessary till no new 32bit gama-local with cov-band support
+		}
+	} else {
+		set cov_band "cov-band = \"0\""
+	}
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" $cov_band />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjxy "XY"
@@ -1048,6 +1068,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 #	@param fixed list of fixed points (names)
 #	@param flag do not display messages if 1
 proc Gama3dXmlOut {fn pns fixed {flag 0}} {
+	global tcl_platform
 	global projRed avgH refr
 	global geoLoaded
 	global geoEasyMsg
@@ -1473,7 +1494,16 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	puts $xml "GeoEasy 3D network"
 	puts $xml "</description>"
 #TBD valodi parameterek
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" cov-band = \"0\" />"
+	if {$tcl_platform(platform) != "unix"} {
+		if {[string match -nocase "*64.exe" $gamaProg]} {
+			set cov_band "cov-band = \"0\""
+		} else {
+			set cov_band ""		;# neccessary till no new 32bit gama-local with cov-band support
+		}
+	} else {
+		set cov_band "cov-band = \"0\""
+	}
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" $cov_band />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjxyz "XYZ"
