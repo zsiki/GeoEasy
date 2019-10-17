@@ -359,29 +359,29 @@ proc CreateTinDia {win} {
 							}
 						}
 						10 {
-							set x [format "%.4f" $buf]
+							set x $buf ;#[format "%.4f" $buf]
 						}
 						20 {
-							set y [format "%.4f" $buf]
+							set y $buf ;#[format "%.4f" $buf]
 							if {[string compare $entity "LWPOLYLINE"] == 0} {
 								lappend verteces [list $x $y $z]
 							}
 						}
 						30 {
-							set z [format "%.4f" $buf]
+							set z $buf ;#[format "%.4f" $buf]
 						}
 						11 {
-							set x1 [format "%.4f" $buf]
+							set x1 $buf ;#[format "%.4f" $buf]
 						}
 						21 {
-							set y1 [format "%.4f" $buf]
+							set y1 $buf ;#[format "%.4f" $buf]
 						}
 						31 {
-							set z1 [format "%.4f" $buf]
+							set z1 $buf ;#[format "%.4f" $buf]
 						}
 						38 {
 							# LWPOLYLINE elevation
-							set z [format "%.4f" $buf]
+							set z $buf ;#[format "%.4f" $buf]
 						}
 						70 {
 							# POLYLINE FLAGS
