@@ -274,7 +274,7 @@ proc TxtCoo {fn {ff ""}} {
 							close $f1
 							return $src
 						}
-						set val [format "%.4f" $val]
+						#set val [format "%.4f" $val]
 					}
 					lappend obuf [list $code $val]
 				}
