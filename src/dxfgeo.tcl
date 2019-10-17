@@ -1042,19 +1042,19 @@ proc DXFin {fn} {
 			10 { if {($entity == "TEXT" || $entity == "INSERT" || \
 						$entity == "POINT") && \
 						[string length $subentity] == 0} {
-					set x [format "%.4f" $value]
+					set x $value ;#[format "%.4f" $value]
 				}
 			}
 			20 { if {($entity == "TEXT" || $entity == "INSERT" || \
 						$entity == "POINT") && \
 						[string length $subentity] == 0} {
-					set y [format "%.4f" $value]
+					set y $value ;#[format "%.4f" $value]
 				}
 			}
 			30 { if {($entity == "TEXT" || $entity == "INSERT" || \
 						$entity == "POINT") && \
 						[string length $subentity] == 0} {
-					set z [format "%.4f" $value]
+					set z $value ;#[format "%.4f" $value]
 				}
 			}
 		}
