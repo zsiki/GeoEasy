@@ -546,7 +546,7 @@ proc StoreCoord {pn x y {flag 0} {force 0}} {
 				set coo_rec [list [list 5 $pn]]
 			}
 			if {$x != ""} {
-				set x [format "%.4f" $x]
+				#set x [format "%.4f" $x]
 				if {$flag} {
 					lappend coo_rec [list 138 $x]
 				} else {
@@ -554,7 +554,7 @@ proc StoreCoord {pn x y {flag 0} {force 0}} {
 				}
 			}
 			if {$y != ""} {
-				set y [format "%.4f" $y]
+				#set y [format "%.4f" $y]
 				if {$flag} {
 					lappend coo_rec [list 137 $y]
 				} else {
