@@ -16,7 +16,7 @@ has been changed to open source.
 
 See the [doc](./doc) folder for various reStructuredText files, the [wiki](https://github.com/zsiki/GeoEasy/wiki) and a paper in [Geoinformatics FCE CTU](https://ojs.cvut.cz/ojs/index.php/gi/article/view/gi.17.2.1/4642).
 
-[Presentation](https://www.slideshare.net/ZoltanSiki/geoeasy-foss4g) at FOSS4G 2019 Bucharest
+[Presentation](https://www.slideshare.net/ZoltanSiki/geoeasy-foss4g) at FOSS4G 2019 Bucharest and [video](https://media.ccc.de/v/bucharest-413-geoeasy-free-surveying-calculations)
 
 [Developer documentation](http://digikom.hu/tcldoc/)
 
