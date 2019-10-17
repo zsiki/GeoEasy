@@ -2853,15 +2853,15 @@ proc CooTrDia {c} {
 				set yt [expr {$tr_dy + $tr_scale * sin($angle) * $x + \
 					$tr_scale * cos($angle) * $y}]
 				set buf [DelVal {37 38 137 138} $buf]
-				lappend buf [list 38 [format "%.4f" $xt]]
-				lappend buf [list 37 [format "%.4f" $yt]]
+				lappend buf [list 38 $xt] ;#[format "%.4f" $xt]]
+				lappend buf [list 37 $yt] ;#[format "%.4f" $yt]]
 				GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" [GetVal 5 $buf] $x $y $xt $yt]
 			}
 			set z [GetVal 39 $buf]
 			if {$z != "" && ($tr_dz != 0 || $tr_scalez != 1)} {
 				set zt [expr {$tr_dz + $tr_scalez * $z}]
 				set buf [DelVal {39 139} $buf]
-				lappend buf [list 39 [format "%.4f" $zt]]
+				lappend buf [list 39 $zt] ;#[format "%.4f" $zt]]
 				GeoLog1 [format "%-10s                                                      %12.${decimals}f %12.${decimals}f" [GetVal 5 $buf] $z $zt]
 			}
 			set x [GetVal 138 $buf]
@@ -2872,15 +2872,15 @@ proc CooTrDia {c} {
 				set yt [expr {$tr_dy - $tr_scale * sin($angle) * $x + \
 					$tr_scale * cos($angle) * $y}]
 				set buf [DelVal {37 38 137 138} $buf]
-				lappend buf [list 138 [format "%.4f" $xt]]
-				lappend buf [list 137 [format "%.4f" $yt]]
+				lappend buf [list 138 $xt] ;#[format "%.4f" $xt]]
+				lappend buf [list 137 $yt] ;#[format "%.4f" $yt]]
 				GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" [GetVal 5 $buf] $x $y $xt $yt]
 			}
 			set z [GetVal 139 $buf]
 			if {$z != ""} {
 				set zt [expr {$tr_dz + $tr_scalez * $z}]
 				set buf [DelVal {39 139} $buf]
-				lappend buf [list 139 [format "%.4f" $zt]]
+				lappend buf [list 139 $zt] ;#[format "%.4f" $zt]]
 				GeoLog1 [format "%-10s                                                      %12.${decimals}f %12.${decimals}f" [GetVal 5 $buf] $z $zt]
 			}
 		}
@@ -2990,15 +2990,15 @@ proc CooTrFile {c} {
 						set xt [expr {$par(0) + $par(2) * $x + $par(3) * $y}]
 						set yt [expr {$par(1) + $par(4) * $x + $par(5) * $y}]
 						set buf [DelVal {37 38 137 138} $buf]
-						lappend buf [list 38 [format "%.4f" $xt]]
-						lappend buf [list 37 [format "%.4f" $yt]]
+						lappend buf [list 38 $xt] ;#[format "%.4f" $xt]]
+						lappend buf [list 37 $yt] ;#[format "%.4f" $yt]]
 						GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" [GetVal 5 $buf] $x $y $xt $yt]
 					} elseif {$xe != "" && $ye != ""} {
 						set xt [expr {$par(0) + $par(2) * $xe + $par(3) * $ye}]
 						set yt [expr {$par(1) + $par(4) * $xe + $par(5) * $ye}]
 						set buf [DelVal {37 38 137 138} $buf]
-						lappend buf [list 138 [format "%.4f" $xt]]
-						lappend buf [list 137 [format "%.4f" $yt]]
+						lappend buf [list 138 $xt] ;#[format "%.4f" $xt]]
+						lappend buf [list 137 $yt] ;#[format "%.4f" $yt]]
 						GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f *" [GetVal 5 $buf] $xe $ye $xt $yt]
 					}	
 				}
@@ -3068,15 +3068,15 @@ proc CooTrFile {c} {
 						set xt [PolyTr $x $y a]
 						set yt [PolyTr $x $y b]
 						set buf [DelVal {37 38 137 138} $buf]
-						lappend buf [list 38 [format "%.4f" $xt]]
-						lappend buf [list 37 [format "%.4f" $yt]]
+						lappend buf [list 38 $xt] ;#[format "%.4f" $xt]]
+						lappend buf [list 37 $yt] ;#[format "%.4f" $yt]]
 						GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" [GetVal 5 $buf] $xx $yy $xt $yt]
 					} elseif {$xe != "" && $ye != ""} {
 						set xt [PolyTr $xe $ye a]
 						set yt [PolyTr $xe $ye b]
 						set buf [DelVal {37 38 137 138} $buf]
-						lappend buf [list 138 [format "%.4f" $xt]]
-						lappend buf [list 137 [format "%.4f" $yt]]
+						lappend buf [list 138 $xt] ;#[format "%.4f" $xt]]
+						lappend buf [list 137 $yt] ;#[format "%.4f" $yt]]
 						GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f ***" [GetVal 5 $buf] $xxe $yye $xt $yt]
 					}
 				}
