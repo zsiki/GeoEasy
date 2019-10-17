@@ -498,8 +498,13 @@ proc CircleReg {plist} {
 #	coords of points
 	foreach pn $plist {
 		set coords [GetCoord $pn {37 38}]
-		set x($i) [GetVal 37 $coords]
-		set y($i) [GetVal 38 $coords]
+		if { $i == 0} {
+			# first point use as offset
+			set x_offs [GetVal 37 $coords]
+			set y_offs [GetVal 38 $coords]
+		}
+		set x($i) [expr {[GetVal 37 $coords] - $x_offs}]
+		set y($i) [expr {[GetVal 38 $coords] - $y_offs}]
 		set x2 [expr {$x($i) * $x($i)}]
 		set y2 [expr {$y($i) * $y($i)}]
 		set sx [expr {$sx + $x($i)}]
@@ -528,10 +533,12 @@ proc CircleReg {plist} {
 	GaussElimination a b 3
 	set x0e [expr {-0.5 * $b(0)}]
 	set y0e [expr {-0.5 * $b(1)}]
+	set x0e_offs [expr {$x0e + $x_offs}]
+	set y0e_offs [expr {$y0e + $y_offs}]
 	set re [expr {sqrt(($b(0) * $b(0) + $b(1) * $b(1)) / 4.0 - $b(2))}]
 	GeoLog1
 	GeoLog [lindex $reglist 2]
-	GeoLog1 [format $geoEasyMsg(head0CircleReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $re]]
+	GeoLog1 [format $geoEasyMsg(head0CircleReg) [format %.${decimals}f $y0e_offs] [format %.${decimals}f $x0e_offs] [format %.${decimals}f $re]]
 	GeoLog1
 	GeoLog1 $geoEasyMsg(head1CircleReg)
 	set sdr2 0
@@ -540,7 +547,8 @@ proc CircleReg {plist} {
 		set dr [expr {$re - [Distance $y0e $x0e $y($i) $x($i)]}]
 		set sdr2 [expr {$sdr2 + $dr * $dr}]
 		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
-			[lindex $plist $i] $y($i) $x($i) \
+			[lindex $plist $i] \
+			[expr {$y($i) + $y_offs}] [expr {$x($i) + $x_offs}] \
 			[expr {$y0e + $re * sin($delta) - $y($i)}] \
 			[expr {$x0e + $re * cos($delta) - $x($i)}] $dr]
 	}
