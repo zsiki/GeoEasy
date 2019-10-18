@@ -495,14 +495,14 @@ proc CircleReg {plist} {
 	set l0 0
 	set l1 0
 	set l2 0
-#	coords of points
+	# set offset to first point to avoid rounding errors
+	set pn [lindex $plist 0]
+	set coords [GetCoord $pn {37 38}]
+	set x_offs [GetVal 37 $coords]
+	set y_offs [GetVal 38 $coords]
+	#	coords of points
 	foreach pn $plist {
 		set coords [GetCoord $pn {37 38}]
-		if { $i == 0} {
-			# first point use as offset
-			set x_offs [GetVal 37 $coords]
-			set y_offs [GetVal 38 $coords]
-		}
 		set x($i) [expr {[GetVal 37 $coords] - $x_offs}]
 		set y($i) [expr {[GetVal 38 $coords] - $y_offs}]
 		set x2 [expr {$x($i) * $x($i)}]
