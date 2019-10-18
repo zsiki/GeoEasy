@@ -18,6 +18,7 @@ src/defaultmask.tcl
 *.g[123]d
 src/*.txp
 tcldoc
+data
 eng_[a-z][a-z][a-z].txt
 eng_[a-z][a-z][a-z]_code.txt
 ceng_[a-z][a-z][a-z].txt
