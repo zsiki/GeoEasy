@@ -29,7 +29,7 @@ can be selected and input data set can be given.
 	finally enter *GeoEasy* to start the program.
 
 GeoEasy by default uses the language of the operating system if it is
-available (GEoEasy has been localized to that language).
+available (GeoEasy has been localized to that language).
 Five languages are supported when writing this documentation:
 English, German, Russian, Czeh and Hungarian.
 
@@ -41,7 +41,7 @@ are accepted. For example to start with Hungarian language:
 
 	geoeasy --lang hun
 
-Log messages and calculation results are written to a log beside the
+Log messages and calculation results are written to a log file beside the
 calculation results window. The default location of the log file is the
 user's home directory and the name is *geo_easy.log*. Using the *--log*
 command line parameter the name and the location of the log file can be
@@ -132,7 +132,7 @@ columns are allowed: *Station number, Point number, Horizontal angle,
 Vertical angle, Slope distance, Signal height, Instrument height, 
 Horizontal distance, Point code, Height diff, Height diff leveling* and the 
 special *Skip*. Angles can be in radians or DMS (ddd-mm-ss format).
-A sample dmp file (station number can be empty if it is not changed.
+A sample dmp file (station number can be empty if it is not changed).
 
 .. code:: text
 	Station;Target;Hz;V;SD
@@ -833,6 +833,87 @@ new masks. The field-book window has its own menu and popup menu.
 Commands menu
 ~~~~~~~~~~~~~
 
+Mask
+....
+
+Select layout of field-book from loaded formats. There are nine different 
+field-book formats in the default configuration file (*geo_easy.msk*):
+
+- *horiz* (Station number, Point number, Horizontal angle, Vertical angle, Distance)
+- *levelling* (Station number, Point number, Heigh diff, Distance)
+- *orientation* (Station number, Point number, Horizontal angle, Orientation angle)
+- *tahimeter* (Station number, Point number, Signal height, Horizontal angle, Vertical angle, Distance)
+- *tahimeter1* (same as tahimeter but angles precision is 0.1 seconds)
+- *tahimeter_code* (Station number, Point number, Point code, Signal height, Horizontal angle, Vertical angle, Distance)
+- *tahimeter_deg* (sme as tahimeter but angles are in degrees with four decimals)
+- *tahimeter_dm* (Station number, Point number, Signal height, Horizontal angle, Height diff, Distance)
+- *tahimeter_feet* (same as tahimeter_code but distances are in feet)
+- *tahimeter_gon* (same as tahimeter but angles are in gradians/gons)
+
+The default mask is *tahimeter*. The user can customise existing masks and can
+add new masks editing *geo_easy.msk* file or can create new files for mask 
+definitions. The masks in *geo_easy.msk* file are loaded when GeoEasy starts.
+Mask definitions in external files can be loaded manualy using 
+*Edit/Load mask definitions* from the menu of the main window.
+
+Number of rows
+..............
+
+You can set the number of rows displayed in this window. The default is 20.
+
+Refresh all window
+..................
+
+Refresh the content of all opened window.
+
+Refresh
+.......
+
+Refresh the content of actual window.
+
+New station
+...........
+
+This adds a new station to the end of the field-book. Enter the station ID in 
+the small dialog box.
+
+Coordinate list
+...............
+
+This opens a new coordinate list windows belonging to this field-book.
+
+Check field-book
+................
+
+Search for errors in the field book. The list of the found errors is written to
+the *Calculation results* window.
+
+Save
+....
+
+Save the field-book and the releated coordinate list to the disk in nativ 
+GeoEasy format.
+
+Save as CSV
+...........
+
+Save field-book data into a given file in coma separated values format.
+
+Save as RTF
+...........
+
+Save field-book data into a given file in rich text format.
+
+Save as HTML
+............
+
+Save field-book data into a given file in hyper text markup language format.
+
+Close
+.....
+
+This closes the field-book window.
+
 Calculate menu
 ~~~~~~~~~~~~~~
 
@@ -868,11 +949,107 @@ Popup menu
 GeoEasy graphic window
 ----------------------
 
+User can open more graphic windows, maximum 10 windows are allowed.
+Points from all loaded data set with horizontal coordinates are displayed
+in the graphics window. 
+
 Commands menu
 ~~~~~~~~~~~~~
 
+Refresh all window
+..................
+
+Refresh all opened window, not only the graphic windows.
+
+Refresh
+.......
+
+Refresh actual graphic window
+
+Zoom all
+........
+
+Zoom to the extent of the loaded data sets.
+
+Find point
+..........
+
+Search for a point in the graphic window. The user cn input the point name 
+in the displayed small window. If the point name is found the graphics
+window is centered on that point.
+
+Point names
+...........
+
+Turn on or off point names in the graphic window.
+
+Observations
+............
+
+Turn on or off observations in the graphic window. Point pairs are connected
+by straight lines if there are observations among them.
+
+Detail points
+.............
+
+Show or hide detail points in graphic window. 
+A point is detail point if only one polar observations were measured to it.
+
+Observed points only
+....................
+
+Show or hide points which were not used in observations.
+
+Lines
+.....
+
+Draw lines among points based on point codes.
+
+DXF output
+..........
+
+Export graphical data to Drawing eXchange File.
+First select the output file and a dialog window is displayed with several 
+options to set.
+
+.. image:: rg_images/dxf_export.png
+	:align: center
+
+- *Name of point layer*: the name of the layer for point symbols in the DXF file
+- *Symbol size*: size of point symbols in the unit of coordinates
+- *Point code to layer*: create more layers for point symbols combining point names and point codes
+- *Draw in yz plane*: useful to draw frontage
+- *Detail points only*: include only the detail points in the DXF output
+- *Linework*: draw lines among points based on point codes
+- *Blocks*: place blocks for points into the DXF file
+- *3D*: create 3D DXF file
+- *Point name labels*: add point names to DXF file as text entities
+- *Layer name*: name for the layer with point names
+- *X shift*: offset of the text from the point symbol in east direction
+- *y shift*: offset of the text from the point symbol in north direction
+- *Text size*: size of point names in the unit of coordinates
+- *Elevation labels*: add elevations to the DXF file as text entities
+- *Layer name*: name for the layer with point elevations
+- *X shift*: offset of the text from the point symbol in east direction
+- *y shift*: offset of the text from the point symbol in north direction
+- *Text size*: size of point elevations in the unit of coordinates
+- *Decimals*: number of decimals in the elevation labels
+- *Contour lines*: add contour lines to DXF file (available if a DTM is open)
+- *Contour interval*: vertical distance between neighbour contours in the unit of coordinates
+- *Layer name from elevation*: the height of the contour line is added to the layer name
+- *3DFaces to DXF*: add 3DFace entities to the DXF file from TIN
+
+Close
+.....
+
+Close the graphic window.
+
 Calculate menu
 ~~~~~~~~~~~~~~
+
+This *Calculate* menu is identical to the *Calculate* menu of the main window.
+It is repeated in the *GeoEasy coordinates window* and in the *Graphic windows*
+for the convenience of the user.
 
 DTM menu
 ~~~~~~~~
@@ -907,7 +1084,7 @@ GeoEasy console window
 ----------------------
 
 The console window is useful to execute Tcl commands or load and execute 
-any tcl scripts. The console window is divided into three parts, the menu bar
+tcl scripts. The console window is divided into three parts, the menu bar
 at the top,
 the input field below the menu bar and the history (list of previous commands)
 in the main body.
