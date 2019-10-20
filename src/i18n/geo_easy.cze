@@ -676,11 +676,11 @@ set geoEasyMsg(pointno)     "Èíslo bodu"
 set geoEasyMsg(pointrect)   "Obdélník"
 set geoEasyMsg(pointcode)   "Kód bodu"
 # proj params
-set geoEasyMsg(projpar)     "Projection parameters"
-set geoEasyMsg(fromEpsg)    "Source EPSG code:"
-set geoEasyMsg(preservz)    "Keep source elevations"
-set geoEasyMsg(zfaclabel)   "Z factor:"
-set geoEasyMsg(zoffslabel)  "Z offset:"
+set geoEasyMsg(projpar)     "Projection parameters"	;# TODO
+set geoEasyMsg(fromEpsg)    "Source EPSG code:"	;# TODO
+set geoEasyMsg(preservz)    "Keep source elevations"	;# TODO
+set geoEasyMsg(zfaclabel)   "Z factor:"	;# TODO
+set geoEasyMsg(zoffslabel)  "Z offset:"	;# TODO
 
 # observation parameters
 set geoEasyMsg(parmask)		"Parametry"
