@@ -23,6 +23,9 @@ proc TrackmakerOut {fn rn} {
 	global geoLoaded
 	global ${fn}_coo ${fn}_par
 	global tcl_platform
+	global epsg proj_zfac proj_zoffs proj_preserv
+	global buttonid
+	global reg
 
 	if {[info exists geoLoaded]} {
 		set pos [lsearch -exact $geoLoaded $fn]
@@ -32,9 +35,16 @@ proc TrackmakerOut {fn rn} {
 	} else {
 		return 0
 	}
-	# get source epsg code
-	set from_epsg [GeoEntry $geoCodes(140) $geoEasyMsg(fromEpsg)]
-	if {$from_epsg == ""} { return }
+	# get source params
+	ProjPar
+	tkwait window .projparams
+	if {$buttonid} { return }
+	if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
+		[regexp $reg(2) $proj_zoffs] == 0} {
+		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			error 0 OK
+		return
+	}
 	set t [clock seconds]
 	set d [clock format $t -format "%m/%d/%Y"]
 	set t [clock format $t -format "%H:%M:%S"]
@@ -60,14 +70,19 @@ proc TrackmakerOut {fn rn} {
 			lappend coords [list $pn $pc $x $y $z]
 		}
 	}
-	set tr_coords [cs2cs $from_epsg 4326 $coords]
-	foreach tr_coord $tr_coords {
-		incr line
+	set tr_coords [cs2cs $epsg 4326 $coords]
+	for {set i 0} {$i < [llength $tr_coords]} { incr i} {
+		set tr_coord [lindex $tr_coords $i]
 		set pn [lindex $tr_coord 0]
 		set pc [lindex $tr_coord 1]
 		set lambda [lindex $tr_coord 2]
 		set fi [lindex $tr_coord 3]
-		set z [lindex $tr_coord 4]
+		if {$proj_preserv} {
+			set coord [lindex $coords $i]
+			set z [lindex $coord 4]
+		} else {
+			set z [expr {[lindex $tr_coord 4] * $proj_zfac + $proj_zoffs}]
+		}
 		puts $f "w,d,$pn,$fi,$lambda,$pc,$d,$t,$z,0,0"
 	}
 	close $f
@@ -84,6 +99,9 @@ proc GpxOut {fn rn} {
 	global geoLoaded
 	global ${fn}_coo
 	global tcl_platform
+	global epsg proj_zfac proj_zoffs proj_preserv
+	global buttonid
+	global reg
 
 	if {[info exists geoLoaded]} {
 		set pos [lsearch -exact $geoLoaded $fn]
@@ -93,9 +111,16 @@ proc GpxOut {fn rn} {
 	} else {
 		return 0
 	}
-	# get source epsg code
-	set from_epsg [GeoEntry $geoCodes(140) $geoEasyMsg(fromEpsg)]
-	if {$from_epsg == ""} { return }
+	# get source params
+	ProjPar
+	tkwait window .projparams
+	if {$buttonid} { return }
+	if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
+		[regexp $reg(2) $proj_zoffs] == 0} {
+		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			error 0 OK
+		return
+	}
 
 	set coords ""
 	# go through coordinates
@@ -111,7 +136,7 @@ proc GpxOut {fn rn} {
 			lappend coords [list $pn $pc $x $y $z]
 		}
 	}
-	set tr_coords [cs2cs $from_epsg 4326 $coords]
+	set tr_coords [cs2cs $epsg 4326 $coords]
 	set t [clock seconds]
 	set d [clock format $t -format "%Y-%m-%d"]T[clock format $t -format "%H:%M:%S"]Z
 	set f [open $rn w]
@@ -119,20 +144,24 @@ proc GpxOut {fn rn} {
 	puts $f "<gpx xmlns=\"http://www.topografix.com/GPX/1/1\" creator=\"GeoEasy\" version=\"1.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">"
 	puts $f "<metadata><link href=\"digikom.hu\"><text>DigiKom Ltd</text></link><time>$d</time>"
 	set wpt "</metadata>"
-	set line 0
 	set minlat 90
 	set maxlat -90
 	set minlon 180
 	set maxlon -180
 	# go through coordinates
-	foreach tr_coord $tr_coords {
-		incr line
+	for {set i 0} {$i < [llength $tr_coords]} { incr i} {
+		set tr_coord [lindex $tr_coords $i]
 		set pn [lindex $tr_coord 0]
 		set pc [lindex $tr_coord 1]
 		if {[string length $pc] == 0} { set pc $pn }
 		set lambda [lindex $tr_coord 2]
 		set fi [lindex $tr_coord 3]
-		set z [lindex $tr_coord 4]
+		if {$proj_preserv} {
+			set coord [lindex $coords $i]
+			set z [lindex $coord 4]
+		} else {
+			set z [expr {[lindex $tr_coord 4] * $proj_zfac + $proj_zoffs}]
+		}
 		if {[string length $z] == 0} { set z 0 }
 		if {$fi < $minlat} { set minlat $fi }
 		if {$fi > $maxlat} { set maxlat $fi }
@@ -158,6 +187,9 @@ proc KmlOut {fn rn} {
 	global geoLoaded
 	global ${fn}_coo
 	global tcl_platform
+	global epsg proj_zfac proj_zoffs proj_preserv
+	global buttonid
+	global reg
 
 	if {[info exists geoLoaded]} {
 		set pos [lsearch -exact $geoLoaded $fn]
@@ -167,9 +199,17 @@ proc KmlOut {fn rn} {
 	} else {
 		return 0
 	}
-	# get source epsg code
-	set from_epsg [GeoEntry $geoCodes(140) $geoEasyMsg(fromEpsg)]
-	if {$from_epsg == ""} { return }
+	# get source params
+	ProjPar
+	tkwait window .projparams
+	if {$buttonid} { return }
+	if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
+		[regexp $reg(2) $proj_zoffs] == 0} {
+		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			error 0 OK
+		return
+	}
+	set t [clock seconds]
 
 	set coords ""
 	# go through coordinates
@@ -185,7 +225,7 @@ proc KmlOut {fn rn} {
 			lappend coords [list $pn $pc $x $y $z]
 		}
 	}
-	set tr_coords [cs2cs $from_epsg 4326 $coords]
+	set tr_coords [cs2cs $epsg 4326 $coords]
 	set t [clock seconds]
 	set d [clock format $t -format "%Y-%m-%d"]T[clock format $t -format "%H:%M:%S"]Z
 	set f [open $rn w]
@@ -199,15 +239,20 @@ proc KmlOut {fn rn} {
 	puts $f "  <SimpleField name=\"sym\" type=\"string\"></SimpleField>"
 	puts $f "</Schema>"
 	puts $f "<Folder><name>$name</name>"
-	set line 0
 	# go through coordinates
-	foreach tr_coord $tr_coords {
-		incr line
+	for {set i 0} {$i < [llength $tr_coords]} { incr i} {
+		set tr_coord [lindex $tr_coords $i]
 		set pn [lindex $tr_coord 0]
 		set pc [lindex $tr_coord 1]
 		if {[string length $pc] == 0} { set pc $pn }
 		set lambda [lindex $tr_coord 2]
 		set fi [lindex $tr_coord 3]
+		if {$proj_preserv} {
+			set coord [lindex $coords $i]
+			set z [lindex $coord 4]
+		} else {
+			set z [expr {[lindex $tr_coord 4] * $proj_zfac + $proj_zoffs}]
+		}
 		puts $f "<Placemark>"
 		puts $f "  <name>$pn</name>"
 		puts $f "  <ExtendedData><SchemaData schemaUrl=\"#$name\">"
@@ -215,11 +260,89 @@ proc KmlOut {fn rn} {
 		puts $f "    <SimpleData name=\"cmt\">$pc</SimpleData>"
 		puts $f "    <SimpleData name=\"sym\">Waypoint</SimpleData>"
 		puts $f "  </SchemaData></ExtendedData>"
-		puts $f "  <Point><coordinates>$lambda,$fi</coordinates></Point>"
+		puts $f "  <Point><coordinates>$lambda,$fi,$z</coordinates></Point>"
 		puts $f "</Placemark>"
 	}
 	puts $f "</Folder>"
 	puts $f "</Document></kml>"
 	close $f
 	return 0
+}
+
+#
+#	Set proj params
+proc ProjPar {} {
+	global geoEasyMsg
+	global epsg proj_zfac proj_zoffs proj_preserv
+	global buttonid
+
+	set w [focus]
+	if {$w == ""} { set w "." }
+	set this .projparams
+	set buttonid 0
+	if {[winfo exists $this] == 1} {
+		raise $this
+		Beep
+		return
+	}
+
+	toplevel $this -class Dialog
+	wm title $this $geoEasyMsg(projpar)
+	wm resizable $this 0 0
+	wm transient $this [winfo toplevel $w]
+	catch {wm attribute $this -topmost}
+
+	label $this.lepsg -text $geoEasyMsg(fromEpsg)
+	checkbutton $this.preserv -text $geoEasyMsg(preservz) \
+		-variable proj_preserv -command "preserv $this \$proj_preserv"
+	label $this.lzfac -text $geoEasyMsg(zfaclabel)
+	label $this.lzoffs -text $geoEasyMsg(zoffslabel)
+	entry $this.epsg -textvariable epsg -width 10
+	entry $this.zfac -textvariable proj_zfac -width 10
+	entry $this.zoffs -textvariable proj_zoffs -width 10
+
+	grid $this.lepsg -row 0 -column 0 -sticky w
+	grid $this.epsg -row 0 -column 1 -sticky w
+	grid $this.preserv -row 1 -column 0 -sticky w -columnspan 2
+	grid $this.lzfac -row 2 -column 0 -sticky w
+	grid $this.zfac -row 2 -column 1 -sticky w
+	grid $this.lzoffs -row 3 -column 0 -sticky w
+	grid $this.zoffs -row 3 -column 1 -sticky w
+
+	button $this.exit -text $geoEasyMsg(ok) \
+		-command "destroy $this; set buttonid 0"
+	button $this.cancel -text $geoEasyMsg(cancel) \
+		-command "destroy $this; set buttonid 1"
+	grid $this.exit -row 4 -column 0
+	grid $this.cancel -row 4 -column 1
+	tkwait visibility $this
+	CenterWnd $this
+	grab set $this
+
+	preserv $this $proj_preserv
+}
+
+#
+#	set enable/disable in proj dialog
+#	@param this
+#	@param flag
+proc preserv {this flag} {
+	if {$flag} {
+		$this.zfac configure -state disabled -foreground grey
+		$this.zoffs configure -state disabled -foreground grey
+	} else {
+		$this.zfac configure -state normal -foreground black
+		$this.zoffs configure -state normal -foreground black
+	}
+}
+
+#
+#	Setup default values for proj parameters
+proc ProjSet {} {
+	global epsg proj_zfac proj_zoffs proj_preserv
+
+	set epsg ""
+	set proj_zfac 1
+	set proj_zoffs 0
+	set proj_preserv 1
 }
