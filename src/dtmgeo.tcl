@@ -1585,23 +1585,25 @@ proc CreateKml { } {
 	global geoEasyMsg geoCodes
 	global tcl_platform
 	global reg
+	global epsg proj_zfac proj_zoffs proj_preserv
+	global buttonid
+	global reg
 
 	if {[string length $tinLoaded]} {
 		# select tin to export
 		set tin $tinLoaded
 		global ${tin}_ele ${tin}_node
-		set from_epsg [GeoEntry $geoCodes(140) $geoEasyMsg(fromEpsg)]
-		if {$from_epsg == ""} {
+		# get source params
+		ProjPar
+		tkwait window .projparams
+		if {$buttonid} { return }
+		if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
+			[regexp $reg(2) $proj_zoffs] == 0} {
+			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+				error 0 OK
 			return
 		}
-		set zfac [GeoEntry $geoEasyMsg(zfaclabel) $geoEasyMsg(menuDtmKml) "1"]
-		if {$zfac == ""} {
-			return
-		}
-		if {[regexp $reg(2) $zfac] == 0 || $zfac <= 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) error 0 OK
-			return
-		}
+
 		# get output name
 		set target [string trim [tk_getSaveFile -defaultextension ".kml" \
 			-filetypes $kmlTypes -initialdir $lastDir]]
@@ -1623,13 +1625,22 @@ proc CreateKml { } {
 			set node [set ${tin}_node($i)]
 			lappend coords [linsert $node 0 $i $i]
 		}
-		set tr_coords [cs2cs $from_epsg 4326 $coords]
+		set tr_coords [cs2cs $epsg 4326 $coords]
 		if {[llength $tr_coords] == 0} {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cs2cs) error 0 OK
 			return
 		}
-		foreach tr_coord $tr_coords {
-			set tr_node([lindex $tr_coord 0]) [lrange $tr_coord 2 end]
+		for {set i 0} {$i < [llength $tr_coords]} { incr i} {
+			set tr_coord [lindex $tr_coords $i]
+			if {$proj_preserv} {
+				set coord [lindex $coords $i]
+				set z [lindex $coord 4]
+			} else {
+				set z [expr {[lindex $tr_coord 4] * $proj_zfac + $proj_zoffs}]
+			}
+			set c [lrange $tr_coord 2 3]
+			lappend c $z
+			set tr_node([lindex $tr_coord 0]) $c
 		}
 		# create kml file
 		foreach i [array names ${tin}_ele] {
@@ -1637,7 +1648,7 @@ proc CreateKml { } {
 			puts $f "<name>$i</name>"
 			puts $f "<styleUrl>#polyStyle</styleUrl>"
 			puts $f "<Polygon>"
-			puts $f "<extrude>$zfac</extrude>"
+			puts $f "<extrude>1</extrude>"
 			puts $f "<altituteMode>absolute</altituteMode>"
 			puts $f "<outerBoundaryIs>"
 			puts $f "<LinearRing>"
