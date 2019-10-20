@@ -122,6 +122,7 @@ proc GeoEasy {top} {
 	# central european code page
 #	catch {encoding system cp1250}
 	DXFset    ;# set dxf params, msk may rewrite
+	ProjSet   ;# set proj params
 	TrSet     ;# set transformation params, msk may rewrite
 	if {[catch {source [file join $home "geo_easy.msk"]} msg] == 1} {
 		tk_dialog .msg "Error" \
