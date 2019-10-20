@@ -679,9 +679,15 @@ set geoEasyMsg(allpoints)	"Minden pont"
 set geoEasyMsg(pointno)		"Pontszámra"
 set geoEasyMsg(pointrect)	"Téglalapra"
 set geoEasyMsg(pointcode)	"Pontkódra"
+# proj params
+set geoEasyMsg(projpar)     "Vetületi paraméterek"
+set geoEasyMsg(fromEpsg)    "Forrás EPSG kód:"
+set geoEasyMsg(preservz)    "Eredeti magasság megõrzése"
+set geoEasyMsg(zfaclabel)   "Z szorzó:"
+set geoEasyMsg(zoffslabel)  "Z eltolás:"
 
 # observation parameters
-set geoEasyMsg(parmask)		"paraméterek"
+set geoEasyMsg(parmask)		"Paraméterek"
 
 set geoEasyMsg(horizDia)	"Új pontok, új tájékozások:"
 set geoEasyMsg(oriDia)		"Új tájékozások:"
