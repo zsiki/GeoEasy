@@ -740,12 +740,18 @@ proc SphereReg {plist} {
 	set l1 0
 	set l2 0
 	set l3 0
+	# set offset to first point to avoid rounding errors
+	set pn [lindex $plist 0]
+	set coords [GetCoord $pn {37 38 39}]
+	set x_offs [GetVal 37 $coords]
+	set y_offs [GetVal 38 $coords]
+	set z_offs [GetVal 39 $coords]
 #	coords of points
 	foreach pn $plist {
 		set coords [GetCoord $pn {37 38}]
-		set x($i) [GetVal 37 $coords]
-		set y($i) [GetVal 38 $coords]
-		set z($i) [GetVal 39 $coords]
+		set x($i) [expr {[GetVal 37 $coords] - $x_offs}]
+		set y($i) [expr {[GetVal 38 $coords] - $y_offs}]
+		set z($i) [expr {[GetVal 39 $coords] - $z_offs}]
 		set x2 [expr {$x($i) * $x($i)}]
 		set y2 [expr {$y($i) * $y($i)}]
 		set z2 [expr {$z($i) * $z($i)}]
@@ -789,7 +795,13 @@ proc SphereReg {plist} {
 	set x0e [expr {-0.5 * $b(0)}]
 	set y0e [expr {-0.5 * $b(1)}]
 	set z0e [expr {-0.5 * $b(2)}]
+	set x0e_offs [expr {$x0e + $x_offs}]
+	set y0e_offs [expr {$y0e + $y_offs}]
+	set z0e_offs [expr {$z0e + $z_offs}]
 	set re [expr {sqrt(($b(0) * $b(0) + $b(1) * $b(1) + $b(2) * $b(2)) / 4.0 - $b(3))}]
+	GeoLog1
+	GeoLog [lindex $reglist 6]
+	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e_offs] [format %.${decimals}f $x0e_offs] [format %.${decimals}f $z0e_offs] [format %.${decimals}f $re]]
 	GeoLog1
 	GeoLog1 $geoEasyMsg(head1SphereReg)
 	set sdr2 0
@@ -802,7 +814,8 @@ proc SphereReg {plist} {
 		set dr [expr {$re - [Distance3d $y0e $x0e $z0e $y($i) $x($i) $z($i)]}]
 		set sdr2 [expr {$sdr2 + $dr * $dr}]
 		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
-			[lindex $plist $i] $y($i) $x($i) $z($i) \
+			[lindex $plist $i] [expr {$y($i) + $y_offs}] \
+			[expr {$x($i) + $x_offs}] [expr {$z($i) + $z_offs}] \
 			[expr {$y0e + $re * cos($alfa) * sin($delta) - $y($i)}] \
 			[expr {$x0e + $re * cos($alfa) * cos($delta) - $x($i)}] \
 			[expr {$z0e + $re * sin($alfa) - $z($i)}] $dr]
@@ -813,6 +826,7 @@ proc SphereReg {plist} {
 
 #
 #	Calculatate best fit sphere, iteration is used
+#	OBSOLATE
 #		y = y0 + r * cos(alfa) * sin(delta)
 #		x = x0 + r * cos(alfa) * cos(delta)
 #		z = z0 + r * sin(alfa)
