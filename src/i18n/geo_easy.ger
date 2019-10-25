@@ -907,6 +907,5 @@ set geoEasyMsg(arcT) "Tangentenlänge"
 set geoEasyMsg(arcP) "Übergangsbogen-parameter"
 set geoEasyMsg(arcAlpha) "Alpha: %s  Beta: %s"
 set geoEasyMsg(arcHeader) "  Punkt-ID          E              N"
-set geoEasyMsg(fromEpsg) "Source-Projektion"
 #01234567890123456789012345678901234567890123456789012345678901234567890
 #          1         2         3         4         5         6         7
