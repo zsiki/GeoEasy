@@ -6,7 +6,7 @@
 
 set terminal svg size 950,520 font "Verdana,12"
 
-set title 'Downloads 2017 October - 2019 August'
+set title 'Downloads 2017 October - 2019 October'
 set xlabel ' '
 set ylabel 'Count'
 
@@ -22,7 +22,7 @@ set style fill solid border -1
 set boxwidth 0.75
 
 set output 'downloads.svg'
-plot for [i=2:8] 'downloads.txt' using i:xtic(1)
+plot for [i=2:7] 'downloads.txt' using i:xtic(1)
 
 # set terminal xterm
 # replot
