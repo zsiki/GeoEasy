@@ -86,8 +86,10 @@ A new geo data set is created, in the **Save As** dialog of the operating system
 the user can set the location and the name of the new file.
 The type of the new file will be the nativ GeoEasy *geo* format.
 
-.. image:: rg_images/new.png
+.. figure:: rg_images/new.png
 	:align: center
+
+	File name and folder selection for new data set
 
 Load
 ....
@@ -97,8 +99,10 @@ Open one or more data sets. There are several data types you can select from
 Ctrl key to select more files. Only the 
 memory of the computer limits the number of loaded data sets.
 
-.. image:: rg_images/load.png
+.. figure:: rg_images/load.png
 	:align: center
+
+	Input data set selection
 
 If the observations were made in face left and face right, from the readings on
 the horizontal and vertical circles and the distances an average is calculated.
@@ -121,8 +125,10 @@ In case of these input files the data structure is not
 defined, the user can set contents of the columns in the file while loading.
 When you select .dmp or .csv file another dialog is opened.
 
-.. image:: rg_images/csv_load.png
+.. figure:: rg_images/csv_load.png
 	:align: center 
+
+	Text file input dialog
 
 In the upper part of the dialog you can set the meaning and order of columns.
 In case of csv the available columns are: *Point number, Easting, Northing,
@@ -245,15 +251,19 @@ ComEasy
 ComEasy is the communication module which can communicate with the instruments
 through serial (RS-232) line.
 
-.. image:: rg_images/comeasy.png
+.. figure:: rg_images/comeasy.png
 	:align: center
+
+	ComEasy window
 
 Before starting download or upload to/from the instrument, the parameters of
 the serial line have to be set (e.g. speed, data bits, parity, stop bits) using
 **Commands/Settings** from the menu.
 
-.. image:: rg_images/compars.png
+.. figure:: rg_images/compars.png
 	:align: center
+
+	Communication parameters
 
 Select **Commands/Download** from the menu to start downloading data from the
 instrument. Set the output file in the displayed dialog box and start
@@ -270,8 +280,10 @@ number of oriented stations.
 Calculation parameters
 ......................
 
-.. image:: rg_images/calcpar.png
+.. figure:: rg_images/calcpar.png
 	:align: center
+
+	Calculation parameters
 
 Reduction for projection [mm/km]:
 	the change of the distances caused by the projection
@@ -286,7 +298,6 @@ Standard deviation for directions ["]:
 Standard deviation for distances [mm]:
 	additive item for the mean error of distances, used by
 	
-
 Standard deviation for distances [mm/km]:
 	multiplier item for the mean error of distances
 
@@ -304,8 +315,10 @@ Decimals in results:
 Adjustment parameters
 .....................
 
-.. image:: rg_images/adjpar.png
+.. figure:: rg_images/adjpar.png
 	:align: center
+
+	Adjustment parameters
 
 Confidence level (0-1):
 	Confidence level for detecting blunder, usual value 0.95 or 0.99.
@@ -329,8 +342,10 @@ SVG error ellipses:
 Colors
 ......
 
-.. image:: rg_images/colpar.png
+.. figure:: rg_images/colpar.png
 	:align: center
+
+	Colour settings
 
 The colours used by the program can be set here. Click on the coloured
 buttons to select another colour.
@@ -338,8 +353,10 @@ buttons to select another colour.
 Other parameters
 ................
 
-.. image:: rg_images/otherpar.png
+.. figure:: rg_images/otherpar.png
 	:align: center
+
+	Other parameters
 
 Language:
 	Language of the user interface. You have to save parameters and restart
@@ -412,8 +429,10 @@ sets. After selecting a data set it is opened in the default mask. A mask is a
 windows with tabular data, the *mask* name comes from the old Leica total 
 stations.
 
-.. image:: rg_images/fb.png
+.. figure:: rg_images/fb.png
 	:align: center
+
+	Observations
 
 The field-book contains two type of rows, station and obeservation records.
 In the station records the station number is editable but the target point 
@@ -431,9 +450,10 @@ sets. After selecting a data set it is opened in the default mask. A mask is a
 windows with tabular data, the *mask* name comes from the old Leica total 
 stations.
 
-.. image:: rg_images/fb.png
+.. figure:: rg_images/fb.png
 	:align: center
 
+	Coordinate list
 
 The coordinate window contains a menu bar and pop up menus.
 
@@ -445,8 +465,10 @@ coordinates, id/name of observer, date, instrument type and standard
 deviations. All fields are optional. If no standard deviations are given, the
 values defined in the  **Calculation parameters** are used.
 
-.. image:: rg_images/obsparam.png
+.. figure:: rg_images/obsparam.png
 	:align: center
+
+	Observation parameters
 
 Load mask definitions
 .....................
@@ -608,8 +630,10 @@ specified, first the intersection of tangents, an arbitrary point on the
 incoming and outgoing tangent. Finally the otherr parameters of the arc
 have to be given in a dialog box.
 
-.. image:: rg_images/arc.png
+.. figure:: rg_images/arc.png
 	:align: center
+
+	Arc parameters
 
 Leave the *Transition parameter* empty if pure arc is planed.
 Optionally detail points can be calculated giving a distance or a number of 
@@ -668,15 +692,19 @@ having preliminary or final coordinates considering the dimension of the
 adjusted network (e.g. incase of 3D adjustment points having 3D coordinates
 are listed). At least one point have to be selected.
 
-.. image:: rg_images/adj1_3d.png
+.. figure:: rg_images/adj1_3d.png
 	:align: center
+
+	Unknown points selection
 
 In the second list the fixed points can be selected. Here the points having 
 final coordinates are only listed.  If none of the points are selected a 
 free network adjusment is calculated.
 
-.. image:: rg_images/adj2_3d.png
+.. figure:: rg_images/adj2_3d.png
 	:align: center
+
+	Fixed points selection
 
 GeoEasy will prepare an xml file for GNU Gama with the coordinats of the 
 selected points and observations among the selected unknown and fixes points.
@@ -707,8 +735,10 @@ points you selected. The available transformation are:
 
 The parameters are estimated using the least squares method (LSM).
 
-.. image:: rg_images/trafo.png
+.. figure:: rg_images/trafo.png
 	:align: center
+
+	Transformation type selection
 
 The transformation parameters and the transformed coordinates are list in the 
 *Calculation resutls* window and optionally the coordinates are written to the 
@@ -827,8 +857,10 @@ The actually displayed values from the field-book depend on the actual
 mask (format). There are some predefined masks and the user can add 
 new masks. The field-book window has its own menu and popup menu.
 
-.. image:: rg_images/observations.png
+.. figure:: rg_images/observations.png
 	:align: center
+
+	Field-book in default mask
 
 Commands menu
 ~~~~~~~~~~~~~
@@ -1012,8 +1044,10 @@ Export graphical data to Drawing eXchange File.
 First select the output file and a dialog window is displayed with several 
 options to set.
 
-.. image:: rg_images/dxf_export.png
+.. figure:: rg_images/dxf_export.png
 	:align: center
+
+	DXF export parameters
 
 - *Name of point layer*: the name of the layer for point symbols in the DXF file
 - *Symbol size*: size of point symbols in the unit of coordinates
@@ -1053,6 +1087,36 @@ for the convenience of the user.
 
 DTM menu
 ~~~~~~~~
+
+The commands to create and handle Digeital Terrain Modules are here.
+Only one DTM can be opened in GeoEasy.
+
+Create
+......
+
+Create a new TIN (Triangulated Irregular Network) from the loaded data sets or
+a DXF file. In the dialog box displayed, the user can set parameters.
+
+.. figure:: rg_images/createdtm.png
+	:align: center
+
+	DTM creation
+
+If the *From points in coordinate lists* is selected, the border and break lines
+must be draw before by the *Break line* tool. If no break lines given the
+*Convex boundary* option have to be checked, otherwise empty TIN created.
+Hole markers can be added by the *Hole marker* tool to supress triangle
+generation in a closed area.
+
+TIN can be created from a DXF file where 3D points and 3D lines/polylines are
+given. Select one of the *Layer list* buttons first to select the input file
+and select one or more layers for mass point, break lines and hole markers.
+
+
+.. figure:: rg_images/tin.png
+	:align: center
+
+	Non-konvex border and hole marker
 
 Help menu
 ~~~~~~~~~
@@ -1337,7 +1401,7 @@ geoMask definition:
    +------+-------------------------------------------------+
    | item | description                                     |
    +======+=================================================+
-   |  1   | must be "table"                                 |
+   |  1   | mask type "table" is the only available option  |
    +------+-------------------------------------------------+
    |  2   | number of rows in the table                     |
    +------+-------------------------------------------------+
@@ -1358,7 +1422,7 @@ format definitions
    +--------------+-------------------------------------------+
    | definition   | description                               |
    +==============+===========================================+
-   | -            | show the previous vele of the same code   |
+   | -            | show the previous value of the same code  |
    |              | used for station ID                       |
    +--------------+-------------------------------------------+
    | ""           | left aligned string                       |
