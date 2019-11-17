@@ -237,3 +237,27 @@ directory.
 
 The preparation should be repeated (make source).
 
+Android Installation
+--------------------
+
+Prerequisites
+.............
+
+AndroWish installation. Download Android package signed with debug key:
+http://www.androwish.org/download/AndroWish-6e2085e6e4-debug.apk
+
+In your Android setting allow packages from unknown sources (in Setting/Security) before installing AndroWish.
+
+Installation
+............
+
+Create on your Android device a new folder called GeoEasy. Copy the following
+files/folders from the source tree:
+
+* GeoEasy.tcl (this file is created during make)
+* geo_easy.msk
+* i18n (folder)
+* bitmaps (folder)
+* demodata (folder, optional)
+
+Open the GeoEasy.tcl file with AndroWish. You get warnings about DTM and Network adjustment modules. These modules are not available.
