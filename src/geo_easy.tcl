@@ -55,8 +55,8 @@ proc GeoEasy {top} {
 	global saveType comSaveType
 	global geoLangs langCodes
 
-	set version 312 ;# update for new release!
-	set version_str "[join [split $version {}] .] dev"
+	set version 313 ;# update for new release!
+	set version_str "[join [split $version {}] .]dev"
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
@@ -113,6 +113,9 @@ proc GeoEasy {top} {
 	} elseif {[regexp "^wish" $myName]} {
 		# for debian package
 		set home [file dirname [file normalize [info script]]]
+	} elseif {$myName == ""} {
+		# android
+		set home [file dirname [file normalize [info script]]]
 	} else {
 		# for debugging
 		set home .
@@ -129,7 +132,7 @@ proc GeoEasy {top} {
 			"Error in mask file:\n$msg\nDefault settings will be used" error 0 OK
 		if {[catch {source [file join $home "default.msk"]} msg] == 1} {
 			tk_dialog .msg "Error" \
-				"Error in default mask file:\n$msg" error 0 OK
+				"Error in default mask file:\n$msg [info script] [info nameofexecutable]" error 0 OK
 			exit
 		}
 	}
