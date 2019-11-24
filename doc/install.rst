@@ -264,7 +264,7 @@ Open the GeoEasy.tcl file with AndroWish. You can use the menu in the tcl consol
 
 .. code:: tcl
 
-	cd sdcard\GeoEasy
+	cd /sdcard/GeoEasy
 	source GeoEasy.tcl
 
 You'll get warnings about DTM and Network adjustment modules. These modules are not available on Android yet .
