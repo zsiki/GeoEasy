@@ -260,4 +260,11 @@ files/folders from the source tree:
 * bitmaps (folder)
 * demodata (folder, optional)
 
-Open the GeoEasy.tcl file with AndroWish. You get warnings about DTM and Network adjustment modules. These modules are not available.
+Open the GeoEasy.tcl file with AndroWish. You can use the menu in the tcl console window or write the following commands into the console window:
+
+.. code:: tcl
+
+	cd sdcard\GeoEasy
+	source GeoEasy.tcl
+
+You'll get warnings about DTM and Network adjustment modules. These modules are not available on Android yet .
