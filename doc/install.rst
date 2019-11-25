@@ -268,3 +268,8 @@ Open the GeoEasy.tcl file with AndroWish. You can use the menu in the tcl consol
 	source GeoEasy.tcl
 
 You'll get warnings about DTM and Network adjustment modules. These modules are not available on Android yet .
+
+.. note::
+
+	The log file is written to the *env(HOME)* folder. Use "global env; puts $env(HOME)" command to print the path to
+	*geo_easy.log* file. Use "global env; cat $env(HOME)/geo_easy.log" to list the content of the log in the wish console.
