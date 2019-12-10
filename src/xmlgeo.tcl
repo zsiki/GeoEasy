@@ -720,7 +720,6 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 							break		;# next station reached
 						}
 						set p [GetVal {5 62} $pbuf]	;# point number of other end
-#puts $dbg "iranyzott pont $p"
 						set pcoo ""
 						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
@@ -825,6 +824,14 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 								} else {
 									incr refdir
 								}
+							}
+						}
+						if {[GetVal {21 7} $pbuf] != ""} {
+						# horizontal angle & coords are available
+							if {$newst || $newp} {
+								incr othdir
+							} else {
+								incr refdir
 							}
 						}
 						incr lineno
@@ -962,6 +969,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 		}
 	}
 	update
+
 	if {$nmeasure == 0 || $nmeasure < $n} {
 		if {$flag == 0} {
 			GeoLog1 $geoEasyMsg(noAdj)
