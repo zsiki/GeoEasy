@@ -479,6 +479,8 @@ set geoEasyMsg(area)		"Flächenberechnung"
 set geoEasyMsg(sum)			"Summe"
 set geoEasyMsg(sum1)		"Fläche"
 set geoEasyMsg(sum2)		"Perimeter"
+set geoEasyMsg(meanp)       "Mean centre"	;# TODO
+set geoEasyMsg(centroid)    "Centre of gravity"	;# TODO
 set geoEasyMsg(endp)		"Endpunkt?"
 set geoEasyMsg(maxGr)		"Maximal 10 gleichzeitig geöffnete graphische Fenster sind erlaubt."
 set geoEasyMsg(orist)		"Die Anzahl bekannter (y, x, z) Orientierungen ist ungenügend."
