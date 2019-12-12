@@ -481,6 +481,8 @@ set geoEasyMsg(area)		"Расчет площади"
 set geoEasyMsg(sum)			"Сумма"
 set geoEasyMsg(sum1)		"Площадь"
 set geoEasyMsg(sum2)		"Периметр"
+set geoEasyMsg(meanp)       "Weight point"	;# TODO
+set geoEasyMsg(centroid)    "Centre of gravity"	;# TODO
 set geoEasyMsg(endp)		"Endpoint?"
 set geoEasyMsg(maxGr)		"Можно открыть только 10 графических окон"
 set geoEasyMsg(orist)		"Недостаточно известных (N,E,Z) ориентиров станции"
