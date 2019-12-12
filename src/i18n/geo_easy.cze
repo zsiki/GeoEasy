@@ -481,6 +481,8 @@ set geoEasyMsg(area)		"Výpoèet výmìry"
 set geoEasyMsg(sum)			"Souèet"
 set geoEasyMsg(sum1)		"Výmìra"
 set geoEasyMsg(sum2)		"Obvod"
+set geoEasyMsg(meanp)		"Mean centre"	;# TODO
+set geoEasyMsg(centroid)    "Centre of gravity"	;# TODO
 set geoEasyMsg(endp)		"Koncový bod?"
 set geoEasyMsg(maxGr)		"Mùže být otevøeno max. 10 grafických oken"
 set geoEasyMsg(orist)		"Nedostatek známých (y,x,z) orientovaných stanovisek"
