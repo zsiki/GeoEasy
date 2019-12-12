@@ -1880,6 +1880,10 @@ proc CalcArea {points} {
 	}
 	set n 0
 	set sumd 0
+	set sumx 0
+	set sumy 0
+	set sumxa 0
+	set sumya 0
 	GeoLog1
 	GeoLog $geoEasyMsg(area)
 	GeoLog1 $geoEasyMsg(headDist)
@@ -1891,6 +1895,9 @@ proc CalcArea {points} {
 		}
 		set x [GetVal {38 138} $xy]
 		set y [GetVal {37 137} $xy]
+		# for weight point
+		set sumx [expr {$sumx + $x}]
+		set sumy [expr {$sumy + $y}]
 		if {$n > 0} {
 			set d [Distance $prevx $prevy $x $y]
 			set sumd [expr {$sumd + $d}]
@@ -1923,6 +1930,9 @@ proc CalcArea {points} {
 			set i1 0
 		} else {
 			set i1 [expr {$i + 1}]
+			# for area weght point
+			set sumxa [expr {$sumxa + ($xx($i) + $xx($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
+			set sumya [expr {$sumya + ($yy($i) + $yy($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
 		}
 		set sum [expr {$sum + $xx($i) * ($yy($i1) - $yy($i_1))}]
 	}
@@ -1930,6 +1940,8 @@ proc CalcArea {points} {
 	GeoLog1
 	GeoLog1 [format "%-10s                        %17.5f" $geoEasyMsg(sum1) $area]
 	GeoLog1 [format "%-10s                      %17.${decimals}f" $geoEasyMsg(sum2) $sumd]
+	GeoLog1 [format "%-17s                      %11.${decimals}f, %11.${decimals}f" $geoEasyMsg(meanp) [expr {$sumx / $n}] [expr {$sumy / $n}]]
+	GeoLog1 [format "%-17s                      %11.${decimals}f, %11.${decimals}f" $geoEasyMsg(centroid) [expr {$sumxa / (3 * $sum)}] [expr {$sumya / (3 * $sum)}]]
 	return $area
 }
 
