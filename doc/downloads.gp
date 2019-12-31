@@ -6,7 +6,7 @@
 
 set terminal png font "Verdana,8" size 950, 520
 
-set title 'Downloads 2017 October - 2019 November'
+set title 'Downloads 2017 October - 2019 December'
 set xlabel ' '
 set ylabel 'Count'
 
@@ -23,7 +23,7 @@ set boxwidth 0.75
 
 set terminal png enhanced
 set output 'downloads.png'
-plot for [i=2:7] 'downloads.txt' using i:xtic(1)
+plot for [i=2:8] 'downloads.txt' using i:xtic(1)
 
 # set terminal xterm
 # replot
