@@ -1930,11 +1930,11 @@ proc CalcArea {points} {
 			set i1 0
 		} else {
 			set i1 [expr {$i + 1}]
-			# for area weght point
-			set sumxa [expr {$sumxa + ($xx($i) + $xx($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
-			set sumya [expr {$sumya + ($yy($i) + $yy($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
 		}
 		set sum [expr {$sum + $xx($i) * ($yy($i1) - $yy($i_1))}]
+		# for area weght point
+		set sumxa [expr {$sumxa + ($xx($i) + $xx($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
+		set sumya [expr {$sumya + ($yy($i) + $yy($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
 	}
 	set area [format "%.5f" [expr {abs($sum / 2.0)}]]
 	GeoLog1
