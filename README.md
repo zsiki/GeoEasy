@@ -1,14 +1,14 @@
 # GeoEasy
 surveying calculation, network adjustment, digital terrain models, regression calculation
 
-Volunteers are wellcome! Send us error reports, feature requests through the issue tracker. 
+Volunteers are wellcome! Send us bug reports, feature requests through the issue tracker. 
 Clone the repository, change the code and send us back a pull request to include your
 enchacement in the core system.
 
 ## History
 
 The beginning of GeoEasy goes back to the late nineties (1997). Before the 3.0 
-version it was a propriarety software marketed in Hungary. After twenty
+version it was a proprietary software marketed in Hungary. After twenty
 year long development (with active and less active periods) in 2017 the license
 has been changed to open source.
 
