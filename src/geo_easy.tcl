@@ -570,8 +570,8 @@ proc GeoEasy {top} {
 					continue
 				}
 				regsub -all {\\} $name "/" name
-				regsub "^{" $name "" name
-				regsub "}$" $name "" name
+				regsub "^\{" $name "" name
+				regsub "\}$" $name "" name
 				switch -glob -- $name {
 					*.geo {
 						MenuLoad $top $name
@@ -583,8 +583,7 @@ proc GeoEasy {top} {
 					}
 					default {
 						MenuLoad $top $name
-						#tk_dialog .msg $geoEasyMsg(warning) \
-						#"$geoEasyMsg(filetype) $name"  warning 0 OK}
+					}
 				}
 			}
 		}
