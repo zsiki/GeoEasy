@@ -15,6 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #	Load trimble data set
+#	Note: Free station observation blocks are skipped
 # Trimble M5 format
 #	Record length 119 byte + CR LF
 #	Positional fields with separator (|), spaces are significant
@@ -88,6 +89,7 @@ proc TrimbleM5 {fn} {
 	set instr ""			;# instrument name
 	set ih ""				;# instrument height
 	set th ""				;# target height
+	set blk ""				;# last block KN STAT/UN STAT/INPUT
 	set orientation 0
 	set ${fa}_par [list [list 0 "Trimble M5"]]
 
@@ -130,8 +132,10 @@ proc TrimbleM5 {fn} {
 			set info [string trim [string range $buf 21 47]]
 			if {[regexp "^\[KU\]N STAT$" $info]} {
 				set orientation 1
+				set blk $info
 			} elseif {[string length $info]} {
 				set orientation 0
+				if {$info == "POLAR"} { set blk $info}
 			}
 		}
 		# process block 3-5
@@ -295,7 +299,8 @@ proc TrimbleM5 {fn} {
 			}
 			incr pos 23
 		}
-		if {$obs && [string length $pn] && ! [regexp "^\[ABCDEFGHIJ\]$" $code]} {
+		if {$obs && [string length $pn] && \
+			(! [regexp "^\[ABCDEFGHIJ\]$" $code] || $blk == "POLAR")} {
 			if {[string length $th]} {
 				lappend obuf [list 6 $th]	;# add last target height
 			}
