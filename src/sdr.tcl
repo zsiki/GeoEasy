@@ -65,17 +65,27 @@ proc Sdr {fn} {
 				if {[string range $buf 4 8] == "SDR33"} {
 					set pnLength 16
 				}
-				set ${fa}_par [list [list 0 [string range $buf 4 8]] \
-					[list 51 [string range $buf 24 32]] \
-					[list 52 [string range $buf 34 38]]]
+				set un [string length $buf]
+				if {$un < 47} {
+					set ${fa}_par [list [list 0 [string range $buf 4 8]] \
+						[list 51 [string range $buf 24 32]] \
+						[list 52 [string range $buf 34 38]]]
+				} else {	;# patch for ruide
+					set ${fa}_par [list [list 0 [string range $buf 4 8]] \
+						[list 51 [string range $buf 24 33]] \
+						[list 52 [string range $buf 35 39]]]
+				}
+				# take the last 6 digit for units (RUIDE)
+				set units [string range $buf [expr {$un - 6}] $un]
+puts "units: $units"
 				# angle unit 1 DEG 2 GON 3 MILL
-				set angleUnit [string range $buf 40 40]
+				set angleUnit [string range $units 0 0]
 				# distance unit 1 meter 2 feet
-				set distanceUnit [string range $buf 41 41]
+				set distanceUnit [string range $units 1 1]
 				# co-ordinate order 1 NE 2 EN
-				set coordOrder [string range $buf 44 44]
+				set coordOrder [string range $units 4 4]
 				# clockwise, counter clockwise
-				set angleDirection [string range $buf 45 45]
+				set angleDirection [string range $units 5 5]
 			}
 			"01" {	;# instrument record
 			}
