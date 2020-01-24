@@ -77,7 +77,6 @@ proc Sdr {fn} {
 				}
 				# take the last 6 digit for units (RUIDE)
 				set units [string range $buf [expr {$un - 6}] $un]
-puts "units: $units"
 				# angle unit 1 DEG 2 GON 3 MILL
 				set angleUnit [string range $units 0 0]
 				# distance unit 1 meter 2 feet
