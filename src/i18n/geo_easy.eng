@@ -856,6 +856,7 @@ set geoEasyMsg(head2CircleReg)	"After %d iteration greater than %.4f m change in
 set geoEasyMsg(head0HPlaneReg)	"z = %s"
 set geoEasyMsg(head0LDistReg)	"Distance from the %s - %s line"
 set geoEasyMsg(head1LDistReg)	"Point num          E            N        Distance         dE           dN"
+set geoEasyMsg(maxLDistReg)		"                      Max distance:  %s"
 set geoEasyMsg(head0PDistReg)	"Distance from the %s - %s - %s plane"
 set geoEasyMsg(head1PDistReg)	"Point num          E            N            Z        Distance         dE            dN            dZ"
 set geoEasyMsg(head0SphereReg)	"E0 = %s N0 = %s Z0 = %s R = %s"

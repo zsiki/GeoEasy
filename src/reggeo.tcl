@@ -1558,12 +1558,17 @@ proc GeoRegDist {index} {
 					[lindex $eplist 0] [lindex $eplist 1]]
 				GeoLog1 $geoEasyMsg(head1LDistReg)
 				# distance from line
+				set maxd 0
 				foreach pn $rplist {
 					set r [LinePointDist $l $pn]
+					set d [lindex $r 0]
 					GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
-						$pn [lindex $r 3] [lindex $r 4] [lindex $r 0] \
+						$pn [lindex $r 3] [lindex $r 4] $d \
 						[lindex $r 1] [lindex $r 2]]
+					if {[expr {abs($d)}] > $maxd} {set maxd [expr {abs($d)}]}
 				}
+				set md [format "%12.${decimals}f" $maxd]
+				GeoLog1 [format $geoEasyMsg(maxLDistReg) $md]
 			}
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
@@ -1587,12 +1592,18 @@ proc GeoRegDist {index} {
 				GeoLog [format $geoEasyMsg(head0PDistReg) \
 					[lindex $pplist 0] [lindex $pplist 1] [lindex $pplist 2]]
 				GeoLog1 $geoEasyMsg(head1PDistReg)
+				# distance from plane
+				set maxd 0
 				foreach pn $rplist {
 					set r [PlanePointDist $p $pn]
+					set d [lindex $r 0]
 					GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
 						$pn [lindex $r 4] [lindex $r 5] [lindex $r 6] \
 						[lindex $r 0] [lindex $r 1] [lindex $r 2] [lindex $r 3]]
+					if {[expr {abs($d)}] > $maxd} {set maxd [expr {abs($d)}]}
 				}
+				set md [format "%12.${decimals}f" $maxd]
+				GeoLog1 [format $geoEasyMsg(maxLDistReg) $md]
 			}
 		} else {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK

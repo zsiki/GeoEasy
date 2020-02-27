@@ -869,6 +869,7 @@ set geoEasyMsg(head2CircleReg)  "%d iteráció után még %.4f m-nél nagyobb változá
 set geoEasyMsg(head0HPlaneReg)	"z = %s"
 set geoEasyMsg(head0LDistReg)	"Távolságok a %s - %s egyenestõl"
 set geoEasyMsg(head1LDistReg)	"Pontszám           y            x        távolság         dy           dx"
+set geoEasyMsg(maxLDistReg)     "                      Max távolság:  %s"
 set geoEasyMsg(head0PDistReg)	"Távolságok a %s - %s - %s síktól"
 set geoEasyMsg(head1PDistReg)	"Pontszám           y            x            z        távolság         dy           dx            dz"
 set geoEasyMsg(head0SphereReg)	"Y0 = %s X0 = %s Z0 = %s R = %s"
