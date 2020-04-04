@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+	cadTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
 global geoCodes
 global geoEasyMsg
 
@@ -99,6 +99,9 @@ set txpTypes {{"Txt/csv fájl definíció .txp" {.txp}}
 }
 
 set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set pngTypes {{"PNG kép" {.png}}
 }
 
 set mskTypes {{"GeoEasy maszk" {.msk}}
@@ -337,6 +340,7 @@ set geoEasyMsg(menuGraUsed)		"Csak a mért pontok"
 set geoEasyMsg(menuGraLines)	"Vonalak"
 set geoEasyMsg(menuGraZoomAll)	"Mindent megmutat"
 set geoEasyMsg(menuGraDXF)		"DXF output ..."
+set geoEasyMsg(menuGraPng)      "PNG export ..."
 set geoEasyMsg(menuGraClose)	"Lezár"
 set geoEasyMsg(menuGraCal)		"Számítások"
 set geoEasyMsg(menuCalTra)		"Sokszögelés"
@@ -488,6 +492,7 @@ set geoEasyMsg(meanp)       "Középpont"
 set geoEasyMsg(centroid)    "Súlypont"
 set geoEasyMsg(endp)		"Végpont?"
 set geoEasyMsg(maxGr)		"Csak 10 grafikus ablak lehet nyitva!"
+set geoEasyMsg(nopng)       "Png export nem nem érhetõ el"
 set geoEasyMsg(orist)		"Nincs elég ismert (y, x, z), tájékozott álláspont"
 
 set geoEasyMsg(linreg)		"Nem számítható a pontokra kiegyenlítõ egyenes"

@@ -146,6 +146,8 @@ proc GeoNewWindow {{win_name ""}} {
 	$this.menu.command add separator
 	$this.menu.command add command -label $geoEasyMsg(menuGraDXF) \
 		-command "GeoDXF"
+	$this.menu.command add command -label $geoEasyMsg(menuGraPng) \
+		-command "GeoPng $this"
 	$this.menu.command add separator
 	$this.menu.command add command -label $geoEasyMsg(menuGraClose) \
 		-command "GeoWindowExit $this"
@@ -1492,4 +1494,22 @@ proc GeoGraphFind {w} {
 
 	$can xview moveto $x_fraction
 	$can yview moveto $y_fraction
+}
+
+#
+#	Export canvas to png file
+proc GeoPng {this} {
+	global pngTypes geoEasyMsg lastDir
+
+	if {[catch {package require img::window} msg]} {
+        tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(nopng)" \
+            error 0 OK
+		return
+	}
+    set filen [string trim [tk_getSaveFile -filetypes $pngTypes \
+        -defaultextension ".png" -initialdir $lastDir]]
+	if {[string length $filen]} {
+		set im [image create photo -format window -data $this.map.c]
+		catch {$im write $filen}
+	}
 }

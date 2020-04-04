@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+	cadTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
 global geoCodes
 global geoEasyMsg
 
@@ -98,6 +98,9 @@ set txpTypes {{"Txt/csv file definition .txp" {.txp}}
 }
 
 set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set pngTypes {{"PNG image" {.png}}			;# TODO
 }
 
 set mskTypes {{"GeoEasy mascara" {.msk}}
@@ -338,6 +341,7 @@ set geoEasyMsg(menuGraLines)	"Lineas"
 set geoEasyMsg(menuGraUsed)		"S\u00F3lo puntos observados"
 set geoEasyMsg(menuGraZoomAll)	"Ampliar todo"
 set geoEasyMsg(menuGraDXF)		"Salida DXF ..."
+set geoEasyMsg(menuGraPng)      "PNG export ..."		;# TODO
 set geoEasyMsg(menuGraClose)	"Cerrar"
 set geoEasyMsg(menuGraCal)		"Calcular"
 set geoEasyMsg(menuCalTra)		"Medici\u00F3n de pol\u00EDgonos"
@@ -486,6 +490,7 @@ set geoEasyMsg(meanp)		"Centro promedio"
 set geoEasyMsg(centroid)	"Centro de gravedad"
 set geoEasyMsg(endp)		"Punto final?"
 set geoEasyMsg(maxGr)		"S\u00F3lo se pueden abrir 10 ventanas gr\u00E1ficas"
+set geoEasyMsg(nopng)       "Png export not available"		;# TODO
 set geoEasyMsg(orist)		"No se conoce lo suficiente (N,E,Z) de las estaciones orientadas"
 
 set geoEasyMsg(linreg)		"No se puede calcular la l\u00EDnea de regresi\u00F3n"

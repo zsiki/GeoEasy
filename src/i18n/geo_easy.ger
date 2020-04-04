@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+	cadTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
 global geoCodes
 global geoEasyMsg
 
@@ -96,6 +96,9 @@ set txpTypes {{"txt/csv Datei Definition .txp" {.txp}}
 }
 
 set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set pngTypes {{"PNG image" {.png}}				;# TODO
 }
 
 set mskTypes {{"GeoEasy Eingabemaske" {.msk}}
@@ -334,6 +337,7 @@ set geoEasyMsg(menuGraLines)	"Linien"
 set geoEasyMsg(menuGraUsed)		"Nur gemessene Punkte"
 set geoEasyMsg(menuGraZoomAll)	"Zeige alles"
 set geoEasyMsg(menuGraDXF)		"DXF output ..."
+set geoEasyMsg(menuGraPng)      "PNG export ..."			;# TODO
 set geoEasyMsg(menuGraClose)	"Abschliessen"	;# "Fenster schliessen"
 set geoEasyMsg(menuGraCal)		"Berechnungen"
 set geoEasyMsg(menuCalTra)		"Polygonzug in der Lage"
@@ -483,6 +487,7 @@ set geoEasyMsg(meanp)       "Mean centre"	;# TODO
 set geoEasyMsg(centroid)    "Centre of gravity"	;# TODO
 set geoEasyMsg(endp)		"Endpunkt?"
 set geoEasyMsg(maxGr)		"Maximal 10 gleichzeitig geöffnete graphische Fenster sind erlaubt."
+set geoEasyMsg(nopng)       "Png export not available"		;# TODO
 set geoEasyMsg(orist)		"Die Anzahl bekannter (y, x, z) Orientierungen ist ungenügend."
 
 set geoEasyMsg(linreg)		"Die Berechnung einer ausgleichenden Gerade ist durch diese Punkte nicht möglich."

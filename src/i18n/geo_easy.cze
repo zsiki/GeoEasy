@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+	cadTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
 global geoCodes
 global geoEasyMsg
 
@@ -98,6 +98,9 @@ set txpTypes {{"Definice souboru txt/csv .txp" {.txp}}
 }
 
 set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set pngTypes {{"PNG image" {.png}}			;# TODO
 }
 
 set mskTypes {{"GeoEasy maska" {.msk}}
@@ -337,6 +340,7 @@ set geoEasyMsg(menuGraLines)	"Linie"
 set geoEasyMsg(menuGraUsed)     "Pouze zamìøené body"
 set geoEasyMsg(menuGraZoomAll)	"Pøiblížit vše"
 set geoEasyMsg(menuGraDXF)		"DXF výstup ..."
+set geoEasyMsg(menuGraPng)      "PNG export ..."		;# TODO
 set geoEasyMsg(menuGraClose)	"Zavøít"
 set geoEasyMsg(menuGraCal)		"Vypoèítat"
 set geoEasyMsg(menuCalTra)		"Polygonový poøad"
@@ -485,6 +489,7 @@ set geoEasyMsg(meanp)		"Mean centre"	;# TODO
 set geoEasyMsg(centroid)    "Centre of gravity"	;# TODO
 set geoEasyMsg(endp)		"Koncový bod?"
 set geoEasyMsg(maxGr)		"Mùže být otevøeno max. 10 grafických oken"
+set geoEasyMsg(nopng)       "Png export not available"		;# TODO
 set geoEasyMsg(orist)		"Nedostatek známých (y,x,z) orientovaných stanovisek"
 
 set geoEasyMsg(linreg)		"Regresní pøímku nelze vypoèítat"

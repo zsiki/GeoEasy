@@ -40,6 +40,34 @@ proc pcmp {a b} {
 }
 
 #
+#	set widget states in dtm create dialog
+proc d_check {this} {
+	global dtmsource
+	switch -exact $dtmsource {
+		gepoints {
+			$this.detail configure -state normal
+			$this.play configure -state disabled
+			$this.pntlayerlist configure -state disabled
+			$this.blay configure -state disabled
+			$this.polylayerlist configure -state disabled
+			$this.hlay configure -state disabled
+			$this.holelayerlist configure -state disabled
+		}
+		dxffile {
+			$this.detail configure -state disabled
+			$this.play configure -state normal
+			$this.pntlayerlist configure -state normal
+			$this.blay configure -state normal
+			$this.polylayerlist configure -state normal
+			$this.hlay configure -state normal
+			$this.holelayerlist configure -state normal
+		}
+		asciifile {
+		}
+	}
+}
+
+#
 #	Set tin parameters throught dialog box
 proc CreateTinDia {win} {
 	global geoEasyMsg
@@ -82,24 +110,24 @@ proc CreateTinDia {win} {
 	set dtmhoriz 0
 	set dtmconvex 1
 	radiobutton $this.gepoints -text $geoEasyMsg(gepoints) \
-		-variable dtmsource -value gepoints
+		-variable dtmsource -value gepoints -command "d_check $this"
 	checkbutton $this.detail -text $geoEasyMsg(pd) -variable dtmdetail
 	radiobutton $this.dxffile -text $geoEasyMsg(dxffile) \
-		-variable dtmsource -value dxffile
+		-variable dtmsource -value dxffile -command "d_check $this"
 	label $this.lplay -text $geoEasyMsg(dxfpoint)
-	entry $this.play -textvariable dtm_pointlayer -width 30
-	button $this.pntlayerlist -text $geoEasyMsg(layerlist) \
+	entry $this.play -textvariable dtm_pointlayer -width 30 -state disabled
+	button $this.pntlayerlist -text $geoEasyMsg(layerlist) -state disabled \
 		-command "sellayer {$geoEasyMsg(layerlist)} dtm_pointlayer"
 	label $this.lblay -text $geoEasyMsg(dxfbreak)
-	entry $this.blay -textvariable dtm_polylayer -width 30
-	button $this.polylayerlist -text $geoEasyMsg(layerlist) \
+	entry $this.blay -textvariable dtm_polylayer -width 30 -state disabled
+	button $this.polylayerlist -text $geoEasyMsg(layerlist) -state disabled \
 		-command "sellayer {$geoEasyMsg(layerlist)} dtm_polylayer"
 	label $this.lhlay -text $geoEasyMsg(dxfhole)
-	entry $this.hlay -textvariable dtm_holelayer -width 30
-	button $this.holelayerlist -text $geoEasyMsg(layerlist) \
+	entry $this.hlay -textvariable dtm_holelayer -width 30 -state disabled
+	button $this.holelayerlist -text $geoEasyMsg(layerlist) -state disabled \
 		-command "sellayer {$geoEasyMsg(layerlist)} dtm_holelayer"
-	radiobutton $this.asciifile -text $geoEasyMsg(asciifile) \
-		-variable dtmsource -value asciifile
+	radiobutton $this.asciifile -text $geoEasyMsg(asciifile) -state disabled \
+		-variable dtmsource -value asciifile -command "d_check $this"
 	#checkbutton $this.horiz -text $geoEasyMsg(horiz) -variable dtmhoriz
 	checkbutton $this.convex -text $geoEasyMsg(convex) -variable dtmconvex
 	button $this.exit -text $geoEasyMsg(ok) \
@@ -259,7 +287,7 @@ proc CreateTinDia {win} {
 						0 {
 							if {[string compare $entity "POINT"] == 0 && \
 								[lsearch -exact $dtm_pointlayer $layer] != -1} {
-								lappend points [list $x $y $z]	
+								lappend points [list $x $y $z]
 							} elseif {[string compare $entity "POINT"] == 0 && \
 								[lsearch -exact $dtm_holelayer $layer] != -1} {
 								lappend holes [list $x $y]	
@@ -354,12 +382,13 @@ proc CreateTinDia {win} {
 						8 {
 							# do not overwrite layer after SEQEND & VERTEX in polyline
 							if {[string compare $entity "SEQEND"] != 0 && \
-								[string compare $entity "VERTEX"]} {
+								[string compare $entity "VERTEX"] != 0} {
 								set layer $buf
 							}
 						}
 						10 {
 							set x $buf ;#[format "%.4f" $buf]
+puts "$entity $x"
 						}
 						20 {
 							set y $buf ;#[format "%.4f" $buf]
@@ -393,6 +422,7 @@ proc CreateTinDia {win} {
 					}
 				}
 				close $f
+
 				if {[llength $points] < 3 && [string length $tinLoaded] == 0} {
 					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewmassp) \
 						error 0 OK
