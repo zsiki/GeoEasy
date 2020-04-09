@@ -5,7 +5,8 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+	cadTypes svgTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes \
+	webTypes
 global geoCodes
 global geoEasyMsg
 
@@ -98,6 +99,9 @@ set txpTypes {{"Definice souboru txt/csv .txp" {.txp}}
 }
 
 set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set svgTypes {{"Scalable Vector Graphics" {.svg}}
 }
 
 set pngTypes {{"PNG image" {.png}}			;# TODO
@@ -340,6 +344,7 @@ set geoEasyMsg(menuGraLines)	"Linie"
 set geoEasyMsg(menuGraUsed)     "Pouze zamìøené body"
 set geoEasyMsg(menuGraZoomAll)	"Pøiblížit vše"
 set geoEasyMsg(menuGraDXF)		"DXF výstup ..."
+set geoEasyMsg(menuGraSVG)      "SVG output ..."		;# TODO
 set geoEasyMsg(menuGraPng)      "PNG export ..."		;# TODO
 set geoEasyMsg(menuGraClose)	"Zavøít"
 set geoEasyMsg(menuGraCal)		"Vypoèítat"

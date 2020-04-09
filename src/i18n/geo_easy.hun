@@ -5,7 +5,8 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+	cadTypes svgTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes \
+	webTypes
 global geoCodes
 global geoEasyMsg
 
@@ -99,6 +100,9 @@ set txpTypes {{"Txt/csv fájl definíció .txp" {.txp}}
 }
 
 set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set svgTypes {{"Scalable Vector Graphics" {.svg}}
 }
 
 set pngTypes {{"PNG kép" {.png}}
@@ -340,6 +344,7 @@ set geoEasyMsg(menuGraUsed)		"Csak a mért pontok"
 set geoEasyMsg(menuGraLines)	"Vonalak"
 set geoEasyMsg(menuGraZoomAll)	"Mindent megmutat"
 set geoEasyMsg(menuGraDXF)		"DXF output ..."
+set geoEasyMsg(menuGraSVG)      "SVG output ..."
 set geoEasyMsg(menuGraPng)      "PNG export ..."
 set geoEasyMsg(menuGraClose)	"Lezár"
 set geoEasyMsg(menuGraCal)		"Számítások"

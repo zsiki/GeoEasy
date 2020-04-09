@@ -146,6 +146,8 @@ proc GeoNewWindow {{win_name ""}} {
 	$this.menu.command add separator
 	$this.menu.command add command -label $geoEasyMsg(menuGraDXF) \
 		-command "GeoDXF"
+	$this.menu.command add command -label $geoEasyMsg(menuGraSVG) \
+		-command "GeoSVG"
 	$this.menu.command add command -label $geoEasyMsg(menuGraPng) \
 		-command "GeoPng $this"
 	$this.menu.command add separator

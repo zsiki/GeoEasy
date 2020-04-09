@@ -1062,3 +1062,95 @@ proc DXFin {fn} {
 	close $f
 	return 0
 }
+
+#
+#	Create SVG file
+#	@param fn file name
+proc SVGout {fn} {
+	global geoLoaded geoEasyMsg tinLoaded
+    global contourInterval contourDxf contourLayer contour3Dface
+	global regLineStart regLineCont regLineEnd regLine regLineClose
+
+	if {[catch {set fd [open $fn w]} msg]} {
+		tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
+			error 0 OK
+		return
+	}
+	set p_list [GetAll]						;# all point names
+	# generate MBR
+	set xmin ""; set ymin ""; set xmax ""; set ymax ""
+	if {[string length $tinLoaded]} {
+		set minmax [DtmStat 0]
+		set xmin [lindex $minmax 0]
+		set ymin [lindex $minmax 1]
+		set xmax [lindex $minmax 3]
+		set ymax [lindex $minmax 4]
+	}
+	foreach p $p_list {
+		set c [GetCoord $p {37 38}]
+		set x [GetVal 37 $c]
+		set y [GetVal 38 $c]
+		if {$x != "" && ($x < $xmin || $xmin == "")} {
+			set xmin $x
+		}
+		if {$y != "" && ($y < $ymin || $ymin == "")} {
+			set ymin $y
+		}
+		if {$x != "" && ($x > $xmax || $xmax == "")} {
+			set xmax $x
+		}
+		if {$y != "" && ($y > $ymax || $ymax == "")} {
+			set ymax $y
+		}
+	}
+	set dx [expr {$xmax - $xmin}]
+	set dy [expr {$ymax - $ymin}]
+	set xmin [expr {$xmin - $dx / 10}]
+	set ymin [expr {$ymin - $dy / 10}]
+	set xmax [expr {$xmax + $dx / 10}]
+	set ymax [expr {$ymax + $dy / 10}]
+	set dx [expr {$xmax - $xmin}]
+	set dy [expr {$ymax - $ymin}]
+	set svgmax 1000
+	set scax [expr {$svgmax / $dx}]
+	set scay [expr {$svgmax / $dy}]
+	if {$scax < $scay} {
+		set sca $scax
+	} else {
+		set sca $scay
+	}
+	set svg_x [expr {int(ceil($sca * $dx))}]
+	set svg_y [expr {int(ceil($sca * $dy))}]
+	puts $fd "<?xml version='1.0' encoding='utf-8' standalone='no'?>"
+	puts $fd "<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>"
+
+	puts $fd "<svg width=\"$svg_y\" height=\"$svg_x\">"
+	set lineno 0
+	foreach pn $p_list {
+		set buf [GetCoord $pn {38 37}]
+		if {[string length $buf]} {
+			set x [expr {int(floor(($xmax - [GetVal 37 $buf]) * $sca + 0.5))}]
+			set y [expr {int(floor(([GetVal 38 $buf] - $ymin) * $sca + 0.5))}]
+			puts $fd "<circle cx='$y' cy='$x' r='1' stroke='black' stroke-width='1' fill='red' />"
+			puts $fd "<text font-family='sans-serif' x='$y' y='$x' font-size='10'>$pn</text>"
+			incr lineno
+		}
+	}
+	# draw contours
+	#TContour "" 1 $fd
+	puts $fd "</svg>"
+	close $fd
+}
+
+
+#
+#	very-very simple SVG output points & ids
+proc GeoSVG {} {
+	global svgTypes lastDir
+	set filen [string trim [tk_getSaveFile -filetypes $svgTypes \
+		-defaultextension ".svg" -initialdir $lastDir]]
+	if {[string length $filen] && [string match "after#*" $filen] == 0} {
+		set lastDir [file dirname $filen]
+		SVGout $filen
+	}
+}

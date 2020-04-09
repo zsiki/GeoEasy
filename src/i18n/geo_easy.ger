@@ -5,7 +5,8 @@
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
 	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
-	cadTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes webTypes
+	cadTypes svgTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes \
+	webTypes
 global geoCodes
 global geoEasyMsg
 
@@ -96,6 +97,9 @@ set txpTypes {{"txt/csv Datei Definition .txp" {.txp}}
 }
 
 set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set svgTypes {{"Scalable Vector Graphics" {.svg}}
 }
 
 set pngTypes {{"PNG image" {.png}}				;# TODO
@@ -337,6 +341,7 @@ set geoEasyMsg(menuGraLines)	"Linien"
 set geoEasyMsg(menuGraUsed)		"Nur gemessene Punkte"
 set geoEasyMsg(menuGraZoomAll)	"Zeige alles"
 set geoEasyMsg(menuGraDXF)		"DXF output ..."
+set geoEasyMsg(menuGraSVG)      "SVG output ..."			;# TODO
 set geoEasyMsg(menuGraPng)      "PNG export ..."			;# TODO
 set geoEasyMsg(menuGraClose)	"Abschliessen"	;# "Fenster schliessen"
 set geoEasyMsg(menuGraCal)		"Berechnungen"
