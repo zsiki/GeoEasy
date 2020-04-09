@@ -63,6 +63,13 @@ proc d_check {this} {
 			$this.holelayerlist configure -state normal
 		}
 		asciifile {
+			$this.detail configure -state disabled
+			$this.play configure -state disabled
+			$this.pntlayerlist configure -state disabled
+			$this.blay configure -state disabled
+			$this.polylayerlist configure -state disabled
+			$this.hlay configure -state disabled
+			$this.holelayerlist configure -state disabled
 		}
 	}
 }
@@ -75,7 +82,7 @@ proc CreateTinDia {win} {
 	global polyTypes tinTypes
 	global lastDir
 	global dtmsource dtmdetail
-	global dtmhoriz dtmconvex
+	global dtmconvex
 	global dtm_pointlayer dtm_polylayer dtm_holelayer
 	global autoRefresh
 	global newtin_poly newtin_hole
@@ -107,7 +114,6 @@ proc CreateTinDia {win} {
 	
 	set dtmsource gepoints
 	set dtmdetail 0
-	set dtmhoriz 0
 	set dtmconvex 1
 	radiobutton $this.gepoints -text $geoEasyMsg(gepoints) \
 		-variable dtmsource -value gepoints -command "d_check $this"
@@ -126,9 +132,8 @@ proc CreateTinDia {win} {
 	entry $this.hlay -textvariable dtm_holelayer -width 30 -state disabled
 	button $this.holelayerlist -text $geoEasyMsg(layerlist) -state disabled \
 		-command "sellayer {$geoEasyMsg(layerlist)} dtm_holelayer"
-	radiobutton $this.asciifile -text $geoEasyMsg(asciifile) -state disabled \
+	radiobutton $this.asciifile -text $geoEasyMsg(asciifile) \
 		-variable dtmsource -value asciifile -command "d_check $this"
-	#checkbutton $this.horiz -text $geoEasyMsg(horiz) -variable dtmhoriz
 	checkbutton $this.convex -text $geoEasyMsg(convex) -variable dtmconvex
 	button $this.exit -text $geoEasyMsg(ok) \
 		-command "destroy $this; set buttonid 0"
@@ -147,8 +152,7 @@ proc CreateTinDia {win} {
 	grid $this.lhlay -row 5 -column 1 -sticky w
 	grid $this.hlay -row 5 -column 2 -sticky w
 	grid $this.holelayerlist -row 5 -column 3 -sticky w
-#	grid $this.asciifile -row 6 -column 0 -columnspan 3 -sticky w
-#	grid $this.horiz -row 7 -column 0 -columnspan 3 -sticky w
+	grid $this.asciifile -row 6 -column 0 -columnspan 3 -sticky w
 	grid $this.convex -row 8 -column 0 -columnspan 3 -sticky w
 	grid $this.exit -row 9 -column 0
 	grid $this.cancel -row 9 -column 1
@@ -388,7 +392,6 @@ proc CreateTinDia {win} {
 						}
 						10 {
 							set x $buf ;#[format "%.4f" $buf]
-puts "$entity $x"
 						}
 						20 {
 							set y $buf ;#[format "%.4f" $buf]
@@ -505,7 +508,7 @@ puts "$entity $x"
 				set poly [string trim [tk_getOpenFile \
 					-defaultextension ".poly" \
 					-filetypes $polyTypes -initialdir $lastDir]]
-				if {[string length $poly] == 0 || [string match "after#*"]} {
+				if {[string length $poly] == 0 || [string match "after#*" $poly]} {
 					return
 				}
 				set lastDir [file dirname $poly]
@@ -521,7 +524,7 @@ puts "$entity $x"
 			}
 		}
 		# remove temperary file
-		catch {file  delete [file join [file dirname $target] tmp.poly]}
+		#catch {file  delete [file join [file dirname $target] tmp.poly]}
 	}
 }
 
@@ -533,12 +536,11 @@ puts "$entity $x"
 proc CreateTin {polyFile targetFile} {
 	global tcl_platform
 	global geoEasyMsg
-	global dtmhoriz dtmconvex
+	global dtmconvex
 	global home
 	global triangleProg
 
 	set flags "-Q"
-	if {$dtmhoriz} {append flags " -H"}
 	if {$dtmconvex} {append flags " -c"}
 	if {$tcl_platform(platform) != "unix"} {
 		if {[catch {eval [concat exec "{${triangleProg}.exe} $flags \"$polyFile\""]} msg]} {
@@ -1994,7 +1996,7 @@ proc DtmPolyInit {can} {
 #	@param this handle to top level widget
 #	@param x,y  position
 proc DtmHole {this x y} {
-	global newtin_hole
+	global newtin_hole tinChanged
 	global geoWindowScale
 
 	set can $this.map.c
@@ -2007,6 +2009,7 @@ proc DtmHole {this x y} {
 	set cx [expr {[$can canvasx $x] / double($geoWindowScale($this))}]
 	set cy [expr {-[$can canvasy $y] / double($geoWindowScale($this))}]
 	lappend newtin_hole [list $cx $cy]
+	incr tinChanged
 }
 
 #
@@ -2019,7 +2022,7 @@ proc DtmPolyPoint {this x y} {
 	global dtmPolyPoints				;# store/collect breakline points
 	global dtmPrevPoint
 	global geoEasyMsg
-	global tinLoaded
+	global tinLoaded tinChanged
 	global newtin_poly
 
 	set can $this.map.c
@@ -2085,6 +2088,7 @@ proc DtmPolyPoint {this x y} {
 		set pe [lindex $dtmPolyPoints [expr {[llength $dtmPolyPoints] - 2}]]
 		if {[expr {hypot([lindex $pe 0]-[lindex $p 0], [lindex $pe 1]-[lindex $p 1])}] > 0.01} {
 			lappend newtin_poly [list $pe $p]
+			incr tinChanged
 		}
 	}
 	set dtmPrevPoint $pn
@@ -2112,6 +2116,7 @@ proc DtmPolyEnd {this} {
 			# remove zero length lines
 			if {[expr {hypot([lindex $pe 0]-[lindex $p 0], [lindex $pe 1]-[lindex $p 1])}] > 0.01} {
 				lappend newtin_poly [list $pe $p]
+				incr tinChanged
 			}
 			set pe $p
 		}
@@ -2202,7 +2207,7 @@ proc DtmMenuState {} {
 #	Delete a new break line
 #	@param x,y - point on line to delete
 proc DeleteBreak {x y} {
-	global newtin_poly
+	global newtin_poly tinChanged
 
 	# find nearest line
 	set i 0
@@ -2245,6 +2250,7 @@ proc DeleteBreak {x y} {
 	}
 	if {$mini != -1} {
 		set newtin_poly [lreplace $newtin_poly $mini $mini]	;# remove line
+		incr tinChanged
 	}
 }
 
@@ -2252,7 +2258,7 @@ proc DeleteBreak {x y} {
 #	Delete a new hole marker
 #	@param x,y - point on line to delete
 proc DeleteHole {x y} {
-	global newtin_hole
+	global newtin_hole tinChanged
 	# find nearest marker
 	set index -1
 	set dist 10
@@ -2267,6 +2273,7 @@ proc DeleteHole {x y} {
 	}
 	if {$index != -1} {
 		set newtin_hole [lreplace $newtin_hole $index $index]
+		incr tinChanged
 	}
 }
 
@@ -2274,10 +2281,11 @@ proc DeleteHole {x y} {
 #	Delete a DTM point
 #	@param id point id to delete
 proc DeletePnt {id} {
-	global tinLoaded
+	global tinLoaded tinChanged
 	global ${tinLoaded}_node
 	if {[info exists ${tinLoaded}_node($id)]} {
 		unset ${tinLoaded}_node($id)
+		incr tinChanged
 	} else { Beep }
 }
 
@@ -2923,8 +2931,7 @@ proc AppendTin {tn} {
 	catch {unset node poly hole}
 	catch {unset ${tName}_node ${tName}_poly ${tName}_hole}
 	UnloadTin	;# unload first TIN
-	global dtmhoriz dtmconvex
-	set dtmhoriz 0
+	global dtmconvex
 	set dtmconvex 0
 	CreateTin $polyname $savePath
 }

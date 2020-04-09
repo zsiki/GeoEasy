@@ -1109,8 +1109,7 @@ proc GeoPopup {can x y rootx rooty} {
 					DeleteTri $pid
 					# refresh ???
 					GeoDraw $this
-
-			}
+				}
 			} else {Beep}
 		} else {Beep}
 		return
