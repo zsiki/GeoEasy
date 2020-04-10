@@ -524,7 +524,7 @@ proc CreateTinDia {win} {
 			}
 		}
 		# remove temperary file
-		#catch {file  delete [file join [file dirname $target] tmp.poly]}
+		catch {file  delete [file join [file dirname $target] tmp.poly]}
 	}
 }
 
@@ -1573,14 +1573,14 @@ proc CreateVrml { } {
 		puts $f "Shape \{"
 		puts $f "appearance Appearance \{ material Material \{ \}\}"
 		puts $f "geometry IndexedFaceSet \{ coord Coordinate \{ point \["
-		foreach i [array names ${tin}_node] {
+		foreach i [lsort -integer [array names ${tin}_node]] {
 			set pnt [set ${tin}_node($i)]
 			puts $f "[lindex $pnt 0] [lindex $pnt 1] [expr {$zfac * [lindex $pnt 2]}]"
 		}
 		puts $f "\]\}"
 		puts $f "coordIndex \["
 		set nt [array size ${tin}_ele]
-		foreach i [array names ${tin}_ele] {
+		foreach i [lsort -integer [array names ${tin}_ele]] {
 			set triang [set ${tin}_ele($i)]
 			puts $f "[lindex $triang 0]  [lindex $triang 1] \
 				[lindex $triang 2] -1"
