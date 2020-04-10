@@ -563,9 +563,10 @@ set geoEasyMsg(toolBreak)	"Törésvonal/idomvonal bevitele"
 set geoEasyMsg(toolHole)	"Zárt idom kihagyása a modellbõl"
 set geoEasyMsg(toolXchgtri)	"Háromszögek cseréje"
 #
-# dxf output/input
+# dxf/svg output/input
 #
 set geoEasyMsg(dxfpar)		"DXF export paraméterek"
+set geoEasyMsg(svgpar)      "SVG export paraméterek"
 set geoEasyMsg(dxfinpar)	"DXF import paraméterek"
 set geoEasyMsg(layer1)		"Pont réteg neve"
 set geoEasyMsg(block)		"Blokkokból"

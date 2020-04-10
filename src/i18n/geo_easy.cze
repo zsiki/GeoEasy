@@ -560,9 +560,10 @@ set geoEasyMsg(toolBreak)	"Lomová hrana"
 set geoEasyMsg(toolHole)	"Mezera DMT"
 set geoEasyMsg(toolXchgtri)	"Zmìna trojúhelníkù"
 #
-# dxf výstup
+# dxf/svg výstup
 #
 set geoEasyMsg(dxfpar)		"DXF export parametrù"
+set geoEasyMsg(svgpar)      "SVG export parameters"		;# TODO
 set geoEasyMsg(dxfinpar)	"DXF import parametrù"
 set geoEasyMsg(layer1)		"Název bodové vrstvy"
 set geoEasyMsg(block)		"Použít blok"

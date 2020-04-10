@@ -385,6 +385,7 @@ proc DXFout1 {fd pn} {
 	}
 }
 
+#
 #	User interface to get parameters for dxf output
 proc DXFparams {} {
 	global geoEasyMsg
@@ -547,18 +548,18 @@ proc DXFset {} {
 
 #
 #	Change enabled/disables state based on point number on/off
-#	Used by DXF export
+#	Used by DXF/SVG export
 #	@param this
 #	@param flag
 proc p_check {this flag} {
 
 	if {$flag} {
-		$this.pnlay configure -state normal -foreground black
+		catch {$this.pnlay configure -state normal -foreground black}
 		$this.dxpn configure -state normal -foreground black
 		$this.dypn configure -state normal -foreground black
 		$this.spn configure -state normal -foreground black
 	} else {
-		$this.pnlay configure -state disabled -foreground grey
+		catch {$this.pnlay configure -state disabled -foreground grey}
 		$this.dxpn configure -state disabled -foreground grey
 		$this.dypn configure -state disabled -foreground grey
 		$this.spn configure -state disabled -foreground grey
@@ -567,19 +568,19 @@ proc p_check {this flag} {
 
 #
 #	Change enabled/disables state based on elevation on/off
-#	Used by DXF export
+#	Used by DXF/SVG export
 #	@param this
 #	@param flag
 proc z_check {this flag} {
 
 	if {$flag} {
-		$this.zlay configure -state normal -foreground black
+		catch {$this.zlay configure -state normal -foreground black}
 		$this.dxz configure -state normal -foreground black
 		$this.dyz configure -state normal -foreground black
 		$this.sz configure -state normal -foreground black
 		$this.zdec configure -state normal -foreground black
 	} else {
-		$this.zlay configure -state disabled -foreground grey
+		catch {$this.zlay configure -state disabled -foreground grey}
 		$this.dxz configure -state disabled -foreground grey
 		$this.dyz configure -state disabled -foreground grey
 		$this.sz configure -state disabled -foreground grey
@@ -589,7 +590,7 @@ proc z_check {this flag} {
 
 #
 #	Change enabled/disables state based on contour on/off
-#	Used by DXF export
+#	Used by DXF/SVG export
 #	@param this
 #	@param flag
 proc c_check {this flag} {
@@ -600,18 +601,18 @@ proc c_check {this flag} {
 	}
 	if {$flag} {
 		$this.contourentry configure -state normal -foreground black
-		$this.llay configure -state normal -foreground black
-		$this.l3d configure -state normal -foreground black
+		catch {$this.llay configure -state normal -foreground black}
+		catch {$this.l3d configure -state normal -foreground black}
 	} else {
 		$this.contourentry configure -state disabled -foreground grey
-		$this.llay configure -state disabled -foreground grey
-		$this.l3d configure -state disabled -foreground grey
+		catch {$this.llay configure -state disabled -foreground grey}
+		catch {$this.l3d configure -state disabled -foreground grey}
 	}
 }
 
 #
 #	Change enabled/disables state based on block on/off
-#	Used by DXF export
+#	Used by DXF/SVG export
 #	@param this
 #	@param flag
 proc bl_check {this flag} {
@@ -1068,7 +1069,9 @@ proc DXFin {fn} {
 #	@param fn file name
 proc SVGout {fn} {
 	global geoLoaded geoEasyMsg tinLoaded
-    global contourInterval contourDxf contourLayer contour3Dface
+	global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
+		pcodelayer xzplane useblock addlines
+	global contourInterval contourDxf contourLayer contour3Dface
 	global regLineStart regLineCont regLineEnd regLine regLineClose
 
 	if {[catch {set fd [open $fn w]} msg]} {
@@ -1077,6 +1080,9 @@ proc SVGout {fn} {
 		return
 	}
 	set p_list [GetAll]						;# all point names
+	if {$pd} {
+		set p_list [GetDetail]				;# names of detail points
+	}
 	# generate MBR
 	set xmin ""; set ymin ""; set xmax ""; set ymax ""
 	if {[string length $tinLoaded]} {
@@ -1090,6 +1096,7 @@ proc SVGout {fn} {
 		set c [GetCoord $p {37 38}]
 		set x [GetVal 37 $c]
 		set y [GetVal 38 $c]
+		set z [GetVal 39 $c]
 		if {$x != "" && ($x < $xmin || $xmin == "")} {
 			set xmin $x
 		}
@@ -1124,15 +1131,24 @@ proc SVGout {fn} {
 	puts $fd "<?xml version='1.0' encoding='utf-8' standalone='no'?>"
 	puts $fd "<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>"
 
-	puts $fd "<svg width=\"$svg_y\" height=\"$svg_x\">"
+	puts $fd "<svg width=\"$svg_y\" height=\"$svg_x\" viewBox=\"$ymin $xmin $dy $dx\">"
 	set lineno 0
 	foreach pn $p_list {
 		set buf [GetCoord $pn {38 37}]
 		if {[string length $buf]} {
-			set x [expr {int(floor(($xmax - [GetVal 37 $buf]) * $sca + 0.5))}]
-			set y [expr {int(floor(([GetVal 38 $buf] - $ymin) * $sca + 0.5))}]
-			puts $fd "<circle cx='$y' cy='$x' r='1' stroke='black' stroke-width='1' fill='red' />"
-			puts $fd "<text font-family='sans-serif' x='$y' y='$x' font-size='10'>$pn</text>"
+#			set x [expr {int(floor(($xmax - [GetVal 37 $buf]) * $sca + 0.5))}]
+#			set y [expr {int(floor(([GetVal 38 $buf] - $ymin) * $sca + 0.5))}]
+			set x [GetVal 37 $buf]
+			set y [GetVal 38 $buf]
+			set z [GetVal 39 $buf]
+			puts $fd "<circle cx='$y' cy='$x' r='[expr {$rp / 2.0}]' stroke='black' stroke-width='[expr {$rp / 10}]' fill='yellow' />"
+			if {$pon} {
+				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxpn}]' y='[expr {$x - $dypn}]' font-size='$spn' fill='black'>$pn</text>"
+			}
+			if {$zon && [string length $z]} {
+				set z [format "%.${zdec}f" $z]
+				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxz}]' y='[expr {$x - $dyz}]' font-size='$sz' fill='blue'>$z</text>"
+			}
 			incr lineno
 		}
 	}
@@ -1142,15 +1158,129 @@ proc SVGout {fn} {
 	close $fd
 }
 
+#
+#	User interface to get parameters for dxf output
+proc SVGparams {} {
+	global geoEasyMsg
+	global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
+		pcodelayer xzplane useblock addlines
+	global contourInterval contourDxf contourLayer contour3Dface
+	global buttonid
+
+	set w [focus]
+	if {$w == ""} { set w "." }
+	set this .svgparams
+	set buttonid 0
+	if {[winfo exists $this] == 1} {
+		raise $this
+		Beep
+		return
+	}
+
+	toplevel $this -class Dialog
+	wm title $this $geoEasyMsg(svgpar)
+	wm resizable $this 0 0
+	wm transient $this [winfo toplevel $w]
+	catch {wm attribute $this -topmost}
+
+	label $this.lr -text $geoEasyMsg(ssize)
+	checkbutton $this.xz -text $geoEasyMsg(xzplane) -variable xzplane -state disabled
+	checkbutton $this.pd -text $geoEasyMsg(pd) -variable pd
+	checkbutton $this.lines -text $geoEasyMsg(addlines) -variable addlines -state disabled
+	checkbutton $this.pon -text $geoEasyMsg(pnon) -variable pon \
+		-command "p_check $this \$pon"
+	label $this.ldxpn -text $geoEasyMsg(dxpn)
+	label $this.ldypn -text $geoEasyMsg(dypn)
+	label $this.lspn -text $geoEasyMsg(spn)
+	checkbutton $this.zon -text $geoEasyMsg(pzon) -variable zon \
+		-command "z_check $this \$zon"
+	label $this.ldxz -text $geoEasyMsg(dxz)
+	label $this.ldyz -text $geoEasyMsg(dyz)
+	label $this.lsz -text $geoEasyMsg(sz)
+	label $this.lzdec -text $geoEasyMsg(zdec)
+
+	grid $this.lr -row 0 -column 0 -sticky w
+	grid $this.xz -row 1 -column 0 -sticky w
+	grid $this.pd -row 2 -column 0 -sticky w
+	grid $this.lines -row 2 -column 1 -sticky w
+	grid $this.pon -row 5 -column 0 -sticky w -columnspan 2
+	grid $this.ldxpn -row 7 -column 0 -sticky w
+	grid $this.ldypn -row 8 -column 0 -sticky w
+	grid $this.lspn -row 9 -column 0 -sticky w
+	grid $this.zon -row 10 -column 0 -sticky w
+	grid $this.ldxz -row 12 -column 0 -sticky w
+	grid $this.ldyz -row 13 -column 0 -sticky w
+	grid $this.lsz -row 14 -column 0 -sticky w
+	grid $this.lzdec -row 15 -column 0 -sticky w
+
+	entry $this.r -textvariable rp -width 10
+	entry $this.dxpn -textvariable dxpn -width 10
+	entry $this.dypn -textvariable dypn -width 10
+	entry $this.spn -textvariable spn -width 10
+	entry $this.dxz -textvariable dxz -width 10
+	entry $this.dyz -textvariable dyz -width 10
+	entry $this.sz -textvariable sz -width 10
+	entry $this.zdec -textvariable zdec -width 10
+
+	grid $this.r -row 0 -column 1 -sticky w
+	grid $this.dxpn -row 7 -column 1 -sticky w
+	grid $this.dypn -row 8 -column 1 -sticky w
+	grid $this.spn -row 9 -column 1 -sticky w
+	grid $this.dxz -row 12 -column 1 -sticky w
+	grid $this.dyz -row 13 -column 1 -sticky w
+	grid $this.sz -row 14 -column 1 -sticky w
+	grid $this.zdec -row 15 -column 1 -sticky w
+
+	# add contour options
+	checkbutton $this.ldxf -text $geoEasyMsg(contourpar) -variable contourDxf \
+		-command "c_check $this \$contourDxf"
+	label $this.lcontourinterval -text $geoEasyMsg(contourInterval)
+	entry $this.contourentry -textvariable contourInterval -width 10
+	grid $this.ldxf -row 16 -column 0 -sticky w -columnspan 2
+	grid $this.lcontourinterval -row 17 -column 0 -sticky w
+	grid $this.contourentry -row 17 -column 1 -sticky w
+
+	button $this.exit -text $geoEasyMsg(ok) \
+		-command "destroy $this; set buttonid 0"
+	button $this.cancel -text $geoEasyMsg(cancel) \
+		-command "destroy $this; set buttonid 1"
+	grid $this.exit -row 20 -column 0
+	grid $this.cancel -row 20 -column 1
+	tkwait visibility $this
+	CenterWnd $this
+	grab set $this
+
+	p_check $this $pon
+	z_check $this $zon
+	c_check $this $contourDxf
+}
 
 #
 #	very-very simple SVG output points & ids
 proc GeoSVG {} {
 	global svgTypes lastDir
+	global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
+		pcodelayer xzplane useblock addlines
+	global contourInterval contourDxf contourLayer contour3Dface
+	global buttonid
+	global reg
 	set filen [string trim [tk_getSaveFile -filetypes $svgTypes \
 		-defaultextension ".svg" -initialdir $lastDir]]
 	if {[string length $filen] && [string match "after#*" $filen] == 0} {
 		set lastDir [file dirname $filen]
+		SVGparams
+		tkwait window .svgparams
+		if {$buttonid} { return }
+		if {[regexp $reg(2) $rp] == 0 || [regexp $reg(2) $spn] == 0 || \
+			[regexp $reg(2) $dxpn] == 0 || [regexp $reg(2) $dypn] == 0 || \
+			[regexp $reg(2) $dxz] == 0 || [regexp $reg(2) $dyz] == 0 || \
+			[regexp $reg(2) $sz] == 0 || [regexp $reg(1) $zdec] == 0 || \
+			[regexp $reg(2) $contourInterval] == 0} {
+
+			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+				error 0 OK
+			return
+		}
 		SVGout $filen
 	}
 }

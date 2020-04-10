@@ -559,9 +559,10 @@ set geoEasyMsg(toolBreak)	"Break line"
 set geoEasyMsg(toolHole)	"Hole in DTM"
 set geoEasyMsg(toolXchgtri)	"Exchange triangles"
 #
-# dxf output
+# dxf/svg output
 #
 set geoEasyMsg(dxfpar)		"Параметры экспорта DXF"
+set geoEasyMsg(svgpar)      "SVG export parameters"		;# TODO
 set geoEasyMsg(dxfinpar)	"Параметры импорта DXF"
 set geoEasyMsg(layer1)		"Название точечного слоя"
 set geoEasyMsg(block)		"Использовать блоки"

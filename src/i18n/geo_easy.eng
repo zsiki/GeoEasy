@@ -560,9 +560,10 @@ set geoEasyMsg(toolBreak)	"Break line"
 set geoEasyMsg(toolHole)	"Hole in DTM"
 set geoEasyMsg(toolXchgtri)	"Exchange triangles"
 #
-# dxf output
+# dxf/svg output
 #
 set geoEasyMsg(dxfpar)		"DXF export parameters"
+set geoEasyMsg(svgpar)		"SVG export parameters"
 set geoEasyMsg(dxfinpar)	"DXF import parameters"
 set geoEasyMsg(layer1)		"Name of point layer"
 set geoEasyMsg(block)		"Use blocks"

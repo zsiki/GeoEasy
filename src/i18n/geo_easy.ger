@@ -559,9 +559,10 @@ set geoEasyMsg(toolBreak)	"Bruchkantenangabe"
 set geoEasyMsg(toolHole)	"Eine DTM-Aussparung angeben"
 set geoEasyMsg(toolXchgtri)	"Dreiecke tauschen"
 #
-# dxf output/input
+# dxf/svg output/input
 #
 set geoEasyMsg(dxfpar)		"Einstellungen für DXF-Export"
+set geoEasyMsg(svgpar)      "SVG export parameters"			;# TODO
 set geoEasyMsg(dxfinpar)	"Einstellungen für DXF-Import"
 set geoEasyMsg(layer1)		"Bezeichnung des Punktlayers"
 set geoEasyMsg(block)		"Aus Blöcke"

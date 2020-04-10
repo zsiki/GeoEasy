@@ -560,9 +560,10 @@ set geoEasyMsg(toolBreak)	"L\u00EDnea de corte"
 set geoEasyMsg(toolHole)	"Agujero en DTM"
 set geoEasyMsg(toolXchgtri)	"Tri\u00E1ngulos de intercambio"
 #
-# dxf output
+# dxf/svg output
 #
 set geoEasyMsg(dxfpar)		"Par\u00E1metros para exportar en DXF"
+set geoEasyMsg(svgpar)      "SVG export parameters"					;# TODO
 set geoEasyMsg(dxfinpar)	"Par\u00E1metros para importar en DXF"
 set geoEasyMsg(layer1)		"Nombre de la capa de puntos"
 set geoEasyMsg(block)		"Use blocks"
