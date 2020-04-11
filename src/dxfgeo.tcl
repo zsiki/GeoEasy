@@ -1142,13 +1142,13 @@ proc SVGout {fn} {
 			set x [GetVal 37 $buf]
 			set y [GetVal 38 $buf]
 			set z [GetVal 39 $buf]
-			puts $fd "<circle cx='$y' cy='$x' r='[expr {$rp / 2.0}]' stroke='black' stroke-width='[expr {$rp / 10}]' fill='yellow' />"
+			puts $fd "<circle cx='$y' cy='$x' r='[expr {$rp / 2.0 / $sca}]' stroke='black' stroke-width='[expr {$rp / 10 / $sca}]' fill='yellow' />"
 			if {$pon} {
-				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxpn}]' y='[expr {$x - $dypn}]' font-size='$spn' fill='black'>$pn</text>"
+				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxpn}]' y='[expr {$x - $dypn}]' font-size='[expr {$spn / $sca}]' fill='black'>$pn</text>"
 			}
 			if {$zon && [string length $z]} {
 				set z [format "%.${zdec}f" $z]
-				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxz}]' y='[expr {$x - $dyz}]' font-size='$sz' fill='blue'>$z</text>"
+				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxz}]' y='[expr {$x - $dyz}]' font-size='[expr {$sz / $sca}]' fill='blue'>$z</text>"
 			}
 			incr lineno
 		}
