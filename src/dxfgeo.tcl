@@ -1112,10 +1112,11 @@ proc SVGout {fn} {
 	}
 	set dx [expr {$xmax - $xmin}]
 	set dy [expr {$ymax - $ymin}]
-	set xmin [expr {$xmin - $dx / 10}]
-	set ymin [expr {$ymin - $dy / 10}]
-	set xmax [expr {$xmax + $dx / 10}]
-	set ymax [expr {$ymax + $dy / 10}]
+	# recalculation of min/max to add 10% border or at least 0.5 if dx or dy is zero
+	set xmin [expr {$xmin - max($dx / 10, 0.5)}]
+	set ymin [expr {$ymin - max($dy / 10, 0.5)}]
+	set xmax [expr {$xmax + max($dx / 10, 0.5)}]
+	set ymax [expr {$ymax + max($dy / 10, 0.5)}]
 	set dx [expr {$xmax - $xmin}]
 	set dy [expr {$ymax - $ymin}]
 	set svgmax 1000
