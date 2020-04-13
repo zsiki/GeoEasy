@@ -1511,7 +1511,7 @@ proc GeoContour {this} {
 }
 
 #
-#	Create VRML 2 file and open it optionally
+#	Create VRML 2 or X3D file and open it optionally
 proc CreateVrml { } {
 	global tinLoaded
 	global vrmlTypes
@@ -1533,16 +1533,14 @@ proc CreateVrml { } {
 			return
 		}
 		# get output name
-		set target [string trim [tk_getSaveFile -defaultextension ".wrl" \
+		set target [string trim [tk_getSaveFile -defaultextension ".x3d" \
 			-filetypes $vrmlTypes -initialdir $lastDir]]
 		if {[string length $target] == 0 || [string match "after#*" $target]} {
 			return
 		}
 		set lastDir [file dirname $target]
+		set ext [string tolower [file extension $target]]
 		set f [open $target w]
-		puts $f "\#VRML V2.0 utf8"
-		puts $f "\# Created by GeoEasy DTM extension"
-		puts $f "\# www.digikom.hu"
 		# create viewpoints
 		set pnt [set ${tin}_node(0)]
 		set minx [lindex $pnt 0]
@@ -1560,39 +1558,72 @@ proc CreateVrml { } {
 			if {$minz > [lindex $pnt 2]} { set minz [lindex $pnt 2] }
 			if {$maxz < [lindex $pnt 2]} { set maxz [lindex $pnt 2] }
 		}
-		puts $f "Viewpoint \{"
-		puts $f "fieldOfView 0.785398"
-		puts $f "position [expr {($maxx - $minx) / 2.0}] [expr {($maxy - $miny) / 2.0}] [expr {($maxz + $maxz - $minz) * $zfac}]"
-#		puts $f "orientation 0 0 1 0"
-		puts $f "jump TRUE"
-		puts $f "description \"v1\""
-		puts $f "\}"
-		puts $f "Background \{"
-		puts $f "skyColor \[0.0 0.0 0.9\]"
-		puts $f "\}"
-		puts $f "Shape \{"
-		puts $f "appearance Appearance \{ material Material \{ \}\}"
-		puts $f "geometry IndexedFaceSet \{ coord Coordinate \{ point \["
-		foreach i [lsort -integer [array names ${tin}_node]] {
-			set pnt [set ${tin}_node($i)]
-			puts $f "[lindex $pnt 0] [lindex $pnt 1] [expr {$zfac * [lindex $pnt 2]}]"
+		if {$ext == ".wrl"} {
+			puts $f "\#VRML V2.0 utf8"
+			puts $f "\# Created by GeoEasy DTM extension"
+			puts $f "\# www.digikom.hu"
+			puts $f "Viewpoint \{"
+			puts $f "fieldOfView 0.785398"
+			puts $f "position [expr {($maxx - $minx) / 2.0}] [expr {($maxy - $miny) / 2.0}] [expr {($maxz + $maxz - $minz) * $zfac}]"
+	#		puts $f "orientation 0 0 1 0"
+			puts $f "jump TRUE"
+			puts $f "description \"v1\""
+			puts $f "\}"
+			puts $f "Background \{"
+			puts $f "skyColor \[0.0 0.0 0.9\]"
+			puts $f "\}"
+			puts $f "Shape \{"
+			puts $f "appearance Appearance \{ material Material \{ \}\}"
+			puts $f "geometry IndexedFaceSet \{ coord Coordinate \{ point \["
+			foreach i [lsort -integer [array names ${tin}_node]] {
+				set pnt [set ${tin}_node($i)]
+				puts $f "[lindex $pnt 0] [lindex $pnt 1] [expr {$zfac * [lindex $pnt 2]}]"
+			}
+			puts $f "\]\}"
+			puts $f "coordIndex \["
+			set nt [array size ${tin}_ele]
+			foreach i [lsort -integer [array names ${tin}_ele]] {
+				set triang [set ${tin}_ele($i)]
+				puts $f "[lindex $triang 0]  [lindex $triang 1] \
+					[lindex $triang 2] -1"
+			}
+			puts $f "\]"	;# close coordIndex
+			puts $f "colorPerVertex FALSE"
+			puts $f "creaseAngle 0"
+			puts $f "solid FALSE"
+			puts $f "ccw TRUE"
+			puts $f "convex TRUE"
+			puts $f "\}"	;# close geometry
+			puts $f "\}"	;# close Shape
+		} else {
+			puts $f "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+			puts $f "<!DOCTYPE X3D PUBLIC \"ISO//Web3D//DTD X3D 3.0//EN\" \"http://www.web3d.org/specifications/x3d-3.0.dtd\">"
+			puts $f "<X3D profile='Interchange' version='3.0' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation ='http://www.web3d.org/specifications/x3d-3.0.xsd'>"
+			puts $f "<head>"
+			puts $f "<meta name='generator' content='GeoEasy' />"
+			puts $f "</head>"
+			puts $f "<Scene>"
+			puts $f "<WorldInfo title='$target'/>"
+			puts $f "<NavigationInfo type='\"EXAMINE\" \"WALK\" \"FLY\" \"ANY\"'/>"
+			puts $f "<Shape>"
+			puts $f "<Appearance><Material diffuseColor='0.7 0.7 0.7' /></Appearance>"
+			puts -nonewline $f "<IndexedFaceSet coordIndex='"
+			foreach i [lsort -integer [array names ${tin}_ele]] {
+				set triang [set ${tin}_ele($i)]
+				puts -nonewline $f "[lindex $triang 0] [lindex $triang 1] [lindex $triang 2] -1 "
+			}
+			puts $f "'>"	;# close coordindex
+			puts -nonewline $f "<Coordinate point='"
+			foreach i [lsort -integer [array names ${tin}_node]] {
+				set pnt [set ${tin}_node($i)]
+				puts -nonewline $f "[lindex $pnt 0] [lindex $pnt 1] [expr {$zfac * [lindex $pnt 2]}] "
+			}
+			puts $f "'/>"
+			puts $f "</IndexedFaceSet>"
+			puts $f "</Shape>"
+			puts $f "</Scene>"
+			puts $f "</X3D>"
 		}
-		puts $f "\]\}"
-		puts $f "coordIndex \["
-		set nt [array size ${tin}_ele]
-		foreach i [lsort -integer [array names ${tin}_ele]] {
-			set triang [set ${tin}_ele($i)]
-			puts $f "[lindex $triang 0]  [lindex $triang 1] \
-				[lindex $triang 2] -1"
-		}
-		puts $f "\]"	;# close coordIndex
-		puts $f "colorPerVertex FALSE"
-		puts $f "creaseAngle 0"
-		puts $f "solid FALSE"
-		puts $f "ccw TRUE"
-		puts $f "convex TRUE"
-		puts $f "\}"	;# close geometry
-		puts $f "\}"	;# close Shape
 		close $f
 		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {

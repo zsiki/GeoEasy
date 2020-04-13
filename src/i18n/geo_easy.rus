@@ -85,7 +85,8 @@ set tinTypes {{"GeoEasy dtm" {.dtm}}
 set polyTypes {{"GeoEasy dtm исходный файл" {.poly}}
 }
 
-set vrmlTypes {{"Файл виртуальной реальности" {.wrl}}
+set vrmlTypes {{"Файл виртуальной реальности X3D" {.x3d}}
+	{"Файл виртуальной реальности WRL" {.wrl}}
 }
 
 set kmlTypes {{"Keyhole Markup файл разметки" {.kml}}

@@ -85,7 +85,8 @@ set tinTypes {{"GeoEasy DMT" {.dtm}}
 set polyTypes {{"GeoEasy DMT zdrojový soubor" {.poly}}
 }
 
-set vrmlTypes {{"Soubor virtuální reality" {.wrl}}
+set vrmlTypes {{"Soubor virtuální reality X3D" {.x3d}}
+    {"Soubor virtuální reality WRL" {.wrl}}
 }
 
 set kmlTypes {{"Keyhole Markup Language soubor" {.kml}}

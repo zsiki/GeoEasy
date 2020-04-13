@@ -86,7 +86,8 @@ set tinTypes {{"GeoEasy dtm" {.dtm}}
 set polyTypes {{"GeoEasy dtm forrás fájl" {.poly}}
 }
 
-set vrmlTypes {{"Virtuális valóság fájl" {.wrl}}
+set vrmlTypes {{"Virtuális valóság X3D fájl" {.x3d}}
+    {"Virtuális valóság WRL fájl" {.wrl}}
 }
 
 set kmlTypes {{"Keyhole Markup Language fájl" {.kml}}
