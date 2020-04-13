@@ -129,7 +129,7 @@ global dxfview
 set dxfview {}
 # kml fill color
 global polyStyle
-set polyStyle {}
+set polyStyle {32d2d2d2}
 #	mask colors
 global geoMaskColors
 set geoMaskColors {black red blue green cyan}
