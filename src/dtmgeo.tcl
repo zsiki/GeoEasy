@@ -1516,6 +1516,7 @@ proc CreateVrml { } {
 	global tinLoaded
 	global vrmlTypes
 	global lastDir
+	global saveType
 	global geoEasyMsg
 	global tcl_platform
 	global reg
@@ -1534,11 +1535,19 @@ proc CreateVrml { } {
 			return
 		}
 		# get output name
-		set target [string trim [tk_getSaveFile -defaultextension ".x3d" \
-			-filetypes $vrmlTypes -initialdir $lastDir]]
+		set target [string trim [tk_getSaveFile -filetypes $vrmlTypes \
+			-initialdir $lastDir -typevariable saveType]]
 		if {[string length $target] == 0 || [string match "after#*" $target]} {
 			return
 		}
+        # some extra work to get extension for windows
+        regsub "\\(.*\\)$" $saveType "" saveType
+        set saveType [string trim $saveType]
+        set typ [lindex [lindex $vrmlTypes [lsearch -regexp $vrmlTypes $saveType]] 1]
+        if {[string match -nocase "*$typ" $target] == 0} {
+            set target "$target$typ"
+        }
+
 		set lastDir [file dirname $target]
 		set ext [string tolower [file extension $target]]
 		set f [open $target w]
