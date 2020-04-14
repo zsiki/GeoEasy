@@ -1519,6 +1519,7 @@ proc CreateVrml { } {
 	global geoEasyMsg
 	global tcl_platform
 	global reg
+	global x3dColor
 
 	if {[string length $tinLoaded]} {
 		# select tin to export
@@ -1573,7 +1574,7 @@ proc CreateVrml { } {
 			puts $f "skyColor \[0.0 0.0 0.9\]"
 			puts $f "\}"
 			puts $f "Shape \{"
-			puts $f "appearance Appearance \{ material Material \{ \}\}"
+			puts $f "appearance Appearance \{ material Material \{ diffuseColor $x3dColor \}\}"
 			puts $f "geometry IndexedFaceSet \{ coord Coordinate \{ point \["
 			foreach i [lsort -integer [array names ${tin}_node]] {
 				set pnt [set ${tin}_node($i)]
@@ -1603,10 +1604,10 @@ proc CreateVrml { } {
 			puts $f "<meta name='generator' content='GeoEasy' />"
 			puts $f "</head>"
 			puts $f "<Scene>"
-			puts $f "<WorldInfo title='$target'/>"
+			puts $f "<WorldInfo title='[file tail $target]'/>"
 			puts $f "<NavigationInfo type='\"EXAMINE\" \"WALK\" \"FLY\" \"ANY\"'/>"
 			puts $f "<Shape>"
-			puts $f "<Appearance><Material diffuseColor='0.7 0.7 0.7' /></Appearance>"
+			puts $f "<Appearance><Material diffuseColor='$x3dColor' /></Appearance>"
 			puts -nonewline $f "<IndexedFaceSet coordIndex='"
 			foreach i [lsort -integer [array names ${tin}_ele]] {
 				set triang [set ${tin}_ele($i)]
