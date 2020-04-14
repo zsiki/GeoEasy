@@ -577,9 +577,14 @@ proc GeoEasy {top} {
 						MenuLoad $top $name
 					}
 					*.gpr { GeoProjLoad $top $name }
+					*.msk -
 					*.tcl {
-						source $name
-						GeoLog "$geoEasyMsg(startup) $name"
+						if {[catch {source $name} msg] != 0} {
+							GeoLog "$geoEasyMsg(nostartup) $name"
+							GeoLog1 $msg
+						} else {
+							GeoLog "$geoEasyMsg(startup) $name"
+						}
 					}
 					default {
 						MenuLoad $top $name

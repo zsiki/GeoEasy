@@ -788,6 +788,7 @@ set geoEasyMsg(modules)		"Modulok:"
 set geoEasyMsg(logWin)      "Számítási eredmények"
 set geoEasyMsg(consoleWin)  "Tcl konzol"
 set geoEasyMsg(startup)     "Tcl indító szkriptet végrehajtottam: "
+set geoEasyMsg(nostartup)   "Hiba a Tcl indító szkriptben: "
 #
 #	headers for fixed forms (traversing, adjustment etc)
 #

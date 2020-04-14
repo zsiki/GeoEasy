@@ -786,7 +786,8 @@ set geoEasyMsg(modules)		"Modulos:"
 #
 set geoEasyMsg(logWin)		"Resultados de los c\u00E1lculos"
 set geoEasyMsg(consoleWin)	"Consola Tcl"
-set geoEasyMsg(startup)		"Tcl startup script executed: "
+set geoEasyMsg(startup)		"Tcl startup script executed: "		;# TODO
+set geoEasyMsg(nostartup)   "Tcl startup script failed: "		;# TODO
 #
 # resize mask
 #
