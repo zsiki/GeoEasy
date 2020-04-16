@@ -335,7 +335,7 @@ proc GeoGridIn {fn} {
 				if {! [info exists cellsize]} {
 					set cellsize [expr {($west - $xllcorner) / $ncols}]
 				}
-				set x [expr {$yllcorner + $row * $cellsize}]
+				set x [expr {$yllcorner + $cellsize * ($nrows - $row - 1)}]
 				for {set col 0} {$col < $ncols} {incr col} {
 					set y [expr {$xllcorner + $col * $cellsize}]
 					set z [lindex $buflist $col]
