@@ -7,6 +7,7 @@ triangle1.3
 cs2cs
 tcl_cruncher
 src/build_date.tcl
+src/sources.tcl
 src/GeoEasy.tcl
 GeoEasy
 src/ComEasy.tcl
@@ -16,10 +17,11 @@ src/defaultmask.tcl
 *.svg
 *.exe
 *.g[123]d
+tmp*
 src/*.txp
 tcldoc
 data
-eng_[a-z][a-z][a-z].txt
-eng_[a-z][a-z][a-z]_code.txt
-ceng_[a-z][a-z][a-z].txt
-deb/data/usr/share/geoeasy/*
+src/i18n/eng_[a-z][a-z]*.txt
+src/i18n/eng_[a-z][a-z]*_code.txt
+src/i18n/ceng_[a-z][a-z]*.txt
+winsetup

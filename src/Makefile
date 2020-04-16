@@ -26,7 +26,7 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 # files for debian package
 DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
 	./bitmaps ./com_set geo_easy.msk default.msk build_date.tcl ./demodata \
-	./i18n ./tsdata
+	./i18n ./tsdata sources.tcl
 
 DEBBASE_PATH = "../deb"
 DEB_PATH = "${DEBBASE_PATH}/geoeasy"
@@ -52,7 +52,7 @@ GeoEasy64.exe: GeoEasy.tcl
 
 GeoEasy.tcl: source
 	rm -f GeoEasy.tcl
-	$(TCL_CRUNCHER) build_date.tcl defaultmask.tcl ${GE_SOURCES} > GeoEasy.tcl
+	$(TCL_CRUNCHER) build_date.tcl sources.tcl defaultmask.tcl ${GE_SOURCES} > GeoEasy.tcl
 	chmod +x GeoEasy.tcl
 
 source: ${GE_SOURCES} index.tcl
@@ -66,6 +66,8 @@ source: ${GE_SOURCES} index.tcl
 	echo "}" >> defaultmask.tcl
 	echo global build_date > build_date.tcl
 	echo set build_date `date +%Y.%m.%d.` >> build_date.tcl
+	echo "global ge_sources" > sources.tcl
+	echo "set ge_sources {${GE_SOURCES}}" >> sources.tcl
 	./index.tcl ${GE_SOURCES}
 #
 #	serial communication
@@ -128,7 +130,7 @@ deb-exec:
 	@cp -fv ../doc/debian/geoeasy.menu ${DEB_PATH}/data/usr/share/menu/geoeasy
 	@cp -fv ../doc/debian/geoeasy.png ../doc/debian/geoeasy.xpm ${DEB_PATH}/data/usr/share/pixmaps
 deb-doc:
-	@cp -frv ../doc/*.odp ../doc/*.pdf ${DEBDOC_PATH}/data/usr/share/doc/geoeasy
+#	@cp -frv ../doc/*.odp ../doc/*.pdf ${DEBDOC_PATH}/data/usr/share/doc/geoeasy
 deb-doc-config:
 	echo "Package: geoeasy-doc" > ${DEBDOC_PATH}/config/control
 	echo -n "Version: " >> ${DEBDOC_PATH}/config/control
