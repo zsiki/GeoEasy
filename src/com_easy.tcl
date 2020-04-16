@@ -712,7 +712,9 @@ proc ComAbout {} {
 
 	set w [focus]
 	if {$w == ""} { set w "." }
-	set bmdir bitmaps
+	if {! [info exists icon_status]} {
+		source icons.tcl
+	}
 	catch {destroy .about}
 	toplevel .about -class Dialog
 	wm title .about $comEasyMsg(mComAbout)
@@ -720,7 +722,7 @@ proc ComAbout {} {
 	wm transient .about $w
 	catch {wm attribute $this -topmost}
 	if {[lsearch -exact [image names] about] == -1} {
-		image create photo about -file [file join $bmdir about.gif]
+		image create photo about -data $about_icon
 	}
 	label .about.l -image about
 	label .about.t1 -text $comEasyMsg(comTitle)

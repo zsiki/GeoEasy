@@ -278,22 +278,24 @@ proc GeoEasy {top} {
 
 	set w ""
 #	toolbar images for graph window
-	image create bitmap zoom_in -file [file join $home bitmaps bar zoom_in.xbm]
-	image create bitmap zoom_out -file [file join $home bitmaps bar zoom_out.xbm]
-	image create bitmap zoom_prev -file [file join $home bitmaps bar zoom_prev.xbm]
-	image create bitmap pan -file [file join $home bitmaps bar pan.xbm]
-	image create bitmap area -file [file join $home bitmaps bar area.xbm]
-#	image create bitmap newp -file [file join $home bitmaps bar newp.xbm]
-	image create bitmap ruler -file [file join $home bitmaps bar ruler.xbm]
-	image create bitmap sp1 -file [file join $home bitmaps bar sp1.xbm]
+	if {! [info exists icon_status]} {
+		source $home/icons.tcl
+	}
+	image create bitmap zoom_in -data $zoom_in_icon
+	image create bitmap zoom_out -data $zoom_out_icon
+	image create bitmap zoom_prev -data $zoom_prev_icon
+	image create bitmap pan -data $pan_icon
+	image create bitmap area -data $area_icon
+	image create bitmap ruler -data $ruler_icon
+	image create bitmap sp1 -data $sp1_icon
 	if {[lsearch -exact $geoModules "reg"] != -1} {
-		image create bitmap reg -file [file join $home bitmaps bar reg.xbm]
+		image create bitmap reg -data $reg_icon
 	}
 	if {[lsearch -exact $geoModules "dtm"] != -1} {
-		image create bitmap zdtm -file [file join $home bitmaps bar zdtm.xbm]
-		image create bitmap breakline -file [file join $home bitmaps bar breakline.xbm]
-		image create bitmap hole -file [file join $home bitmaps bar hole.xbm]
-		image create bitmap xchgtri -file [file join $home bitmaps bar xchgtri.xbm]
+		image create bitmap zdtm -data $zdtm_icon
+		image create bitmap breakline -data $breakline_icon
+		image create bitmap hole -data $hole_icon
+		image create bitmap xchgtri -data $xchgtri_icon
 	}
 
 #

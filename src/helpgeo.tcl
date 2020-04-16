@@ -70,6 +70,9 @@ proc GeoAbout {} {
 	global build_date
 	global home
 
+	if {! [info exists icon_status]} {
+		source $home/icons.tcl
+	}
 	if {! [info exists build_date]} {
 		source $home/build_date.tcl
 	}
@@ -85,7 +88,7 @@ proc GeoAbout {} {
 	wm resizable .about 0 0
 	wm transient .about $w
 	if {[lsearch -exact [image names] about] == -1} {
-		image create photo about -file [file join $bmdir about.gif]
+		image create photo about -data $about_icon
 	}
 	label .about.l -image about
 	label .about.t1 -text $geoEasyMsg(mainTitle)

@@ -7,7 +7,7 @@ TCL_DOC = ../../tcldoc-0.85/tcldoc.tcl
 #-----------------------------------------------------------------------
 GE_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gamaxml.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
-	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
+	grid.tcl helpgeo.tcl icons.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
 	maskgeo.tcl nikon.tcl profigeo.tcl proj.tcl reggeo.tcl sdr.tcl sokkia.tcl \
 	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
 	xmlgeo.tcl zsenigeo.tcl \
@@ -17,7 +17,7 @@ CE_SOURCES = com_easy.tcl helpgeo.tcl maincom_easy.tcl
 # tcldoc cannot process gamaxml.tcl, it is removed from doc sources :(
 DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
-	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
+	grid.tcl helpgeo.tcl icons.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
 	maskgeo.tcl nikon.tcl profigeo.tcl proj.tcl reggeo.tcl sdr.tcl sokkia.tcl \
 	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
 	xmlgeo.tcl zsenigeo.tcl \
@@ -25,7 +25,7 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 #
 # files for debian package
 DEB_FILES = ${GE_SOURCES} ${CE_SOURCES} tclIndex \
-	./bitmaps ./com_set geo_easy.msk default.msk build_date.tcl ./demodata \
+	./com_set geo_easy.msk default.msk build_date.tcl ./demodata \
 	./i18n ./tsdata sources.tcl
 
 DEBBASE_PATH = "../deb"

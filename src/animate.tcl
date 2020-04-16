@@ -7,33 +7,15 @@ proc init_animate {rw} {
 	global tcl_platform
 	global home
 
-	set bmdir [file join $home bitmaps]
-	set globedir [file join $bmdir globe]
-	set fn1 [file join $bmdir logo.gif]
-	if {[file exists $fn1] == 0} {
-		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn1" \
-			warning 0 OK
-		return
-	}
-	set fn2 [file join $bmdir pwrdLogo.gif]
-	if {[file exists $fn2] == 0} {
-		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn2" \
-			warning 0 OK
-		return
+	if {! [info exists icon_status]} {
+		source $home/icons.tcl
 	}
 
 	# check existance of image files
 	for {set i 0} {$i < 30} {incr i} {
-		set fn [file join $globedir globe_]
-		append fn [format %02d $i] .xbm
-		if {[file exists $fn] == 0} {
-			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn" \
-				warning 0 OK
-			return
-		}
 		set imgName [format "globe_%02d" $i]
-		image create bitmap $imgName -file $fn \
-			-maskfile [file join $globedir gmask.xbm] \
+		image create bitmap $imgName -data $globe_icon($i) \
+			-maskdata $globe_icon(mask) \
 			-foreground green -background blue
 	}
 
@@ -46,8 +28,8 @@ proc init_animate {rw} {
 		set t ""
 	}
 	label $t.b -image globe_00
-	image create photo f1 -file $fn1
-	image create photo f2 -file $fn2
+	image create photo f1 -data $f1_icon
+	image create photo f2 -data $f2_icon
 	label $t.l -image f1 -relief sunken -borderwidth 2
 	label $t.tk -image f2
 	if {$tcl_platform(platform) != "unix"} {

@@ -1064,6 +1064,29 @@ proc DXFin {fn} {
 	return 0
 }
 
+proc rounddigit {x d} {
+	if { $d > 0 } {
+		set n 0
+		if { $x != 0 } {
+			set n [expr {$d - ceil(log10(abs($x)))}]
+		}
+		set p [expr {ceil(10**$n)}]
+		set x [expr {round($x * $p) / $p}]
+	}
+	return $x
+}
+proc rounddigit2 {x d} {
+	if { $d > 0 } {
+		set n 0
+		if { $x != 0 } {
+			set n [expr {ceil(($d - ceil(log(abs($x))/log(2) * 3 / 10)) * 10 / 3)}]
+		}
+		set p [expr {2**$n}]
+		set x [expr {round($x * $p)}]
+		set x [expr {$x / $p}]
+	}
+	return $x
+}
 #
 #	Create SVG file
 #	@param fn file name
@@ -1132,23 +1155,27 @@ proc SVGout {fn} {
 	puts $fd "<?xml version='1.0' encoding='utf-8' standalone='no'?>"
 	puts $fd "<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>"
 
-	puts $fd "<svg width=\"$svg_y\" height=\"$svg_x\" viewBox=\"$ymin $xmin $dy $dx\">"
+	set rp_s [expr {$rp / $sca}]
+	set rp_s [rounddigit2 $rp_s 2]
+	set spn_s [expr {$spn * 5 / $sca}]
+	set spn_s [rounddigit2 $spn_s 2]
+	set sz_s [expr {$sz * 5 / $sca}]	
+	set sz_s [rounddigit2 $sz_s 2]
+	puts $fd "<svg width=\"$svg_y\" height=\"$svg_x\" viewBox=\"$ymin $xmin $dy $dx\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
 	set lineno 0
 	foreach pn $p_list {
 		set buf [GetCoord $pn {38 37}]
 		if {[string length $buf]} {
-#			set x [expr {int(floor(($xmax - [GetVal 37 $buf]) * $sca + 0.5))}]
-#			set y [expr {int(floor(([GetVal 38 $buf] - $ymin) * $sca + 0.5))}]
 			set x [GetVal 37 $buf]
 			set y [GetVal 38 $buf]
 			set z [GetVal 39 $buf]
-			puts $fd "<circle cx='$y' cy='$x' r='[expr {$rp / 2.0 / $sca}]' stroke='black' stroke-width='[expr {$rp / 10 / $sca}]' fill='yellow' />"
+			puts $fd "<circle cx='$y' cy='$x' r='$rp_s' stroke='black' stroke-width='$rp_s' fill='yellow' />"
 			if {$pon} {
-				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxpn}]' y='[expr {$x - $dypn}]' font-size='[expr {$spn / $sca}]' fill='black'>$pn</text>"
+				puts $fd "<text font-family='sans-serif' x='[expr {$y + $spn_s * $dxpn}]' y='[expr {$x - $spn_s * $dypn}]' font-size='$spn_s' fill='black'>$pn</text>"
 			}
 			if {$zon && [string length $z]} {
 				set z [format "%.${zdec}f" $z]
-				puts $fd "<text font-family='sans-serif' x='[expr {$y + $dxz}]' y='[expr {$x - $dyz}]' font-size='[expr {$sz / $sca}]' fill='blue'>$z</text>"
+				puts $fd "<text font-family='sans-serif' x='[expr {$y + $sz_s * $dxz}]' y='[expr {$x - $sz_s * $dyz}]' font-size='$sz_s' fill='blue'>$z</text>"
 			}
 			incr lineno
 		}
