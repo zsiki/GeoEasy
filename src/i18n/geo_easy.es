@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------------------------------------
 global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
-	tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
+	tr12Types tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
 	cadTypes svgTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes \
 	webTypes
 global geoCodes
@@ -77,6 +77,10 @@ set tr1Types {{"Transformaci\u00F3n ortogonal/af\u00EDn" {.prm}}
 }
 
 set tr2Types {{"TRAFO transformaci\u00F3n" {.all}}
+}
+
+set tr12Types {{"Orthogonal/Affin transformation" {.prm}}		;# TODO
+    {"TRAFO transformation" {.all}}
 }
 
 set tinTypes {{"GeoEasy dtm" {.dtm}}

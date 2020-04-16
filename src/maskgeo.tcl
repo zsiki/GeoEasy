@@ -2949,11 +2949,11 @@ proc CooTrFile {c} {
 	global autoRefresh
 	global geoEasyMsg
 	global lastDir
-	global tr1Types
+	global tr12Types
 	global decimals
 
 	set fn [string trim \
-		[tk_getOpenFile -filetypes $tr1Types -initialdir $lastDir]]
+		[tk_getOpenFile -filetypes $tr12Types -initialdir $lastDir]]
 	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		set lastDir [file dirname $fn]
 		switch -glob [string tolower $fn] {
