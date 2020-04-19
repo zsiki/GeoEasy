@@ -2515,8 +2515,8 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 			".asc" {
 				puts $f "ncols $m"
 				puts $f "nrows $n"
-				puts $f "xllcorner $x0"
-				puts $f "yllcorner $y0"
+				puts $f "xllcorner [expr {$x0 - 0.5 * $dx}]"
+				puts $f "yllcorner [expr {$y0 - 0.5 * $dy}]"
 				puts $f "cellsize $dx"
 				puts $f "nodata_value -9999"
 			}

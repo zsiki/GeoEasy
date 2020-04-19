@@ -57,6 +57,12 @@ proc LoadGrid {fname} {
 			[yY][lL][lL][cC][oO][rR][nN][eE][rR] {
 				set ${name}(yllcorner) [lindex $buflist 1]
 			}
+			[xX][lL][lL][cC][eE][nN][tT][eE][rR] {
+				set ${name}(xllcenter) [lindex $buflist 1]
+			}
+			[yY][lL][lL][cC][eE][nN][tT][eE][rR] {
+				set ${name}(yllcenter) [lindex $buflist 1]
+			}
 			[cC][eE][lL][lL][sS][iI][zZ][eE] {
 				set ${name}(cellsize) [lindex $buflist 1]
 			}
@@ -77,6 +83,15 @@ proc LoadGrid {fname} {
 				set ${name}(west) [lindex $buflist 1]
 			}
 			default {
+				if {! [info exists ${name}(xllcorner)] && [info exists ${name}(xllcenter)]} {
+					set ${name}(xllcorner) [expr {[set ${name}(xllcenter)] - 0.5 * [set $name(cellsize)]}]
+				}
+				if {! [info exists ${name}(yllcorner)] && [info exists ${name}(yllcenter)]} {
+					set ${name}(yllcorner) [expr {[set ${name}(yllcenter)] - 0.5 * [set $name(cellsize)]}]
+				}
+				if {! [info exists ${name}(cellsize)]} {
+					set cellsize [expr {([set ${name}(west)] - [set ${name}(xllcorner)]) / [set ${name}(ncols)]}]
+				}
 				if {[llength $buflist] != $ncols} {
 					puts "Few columns in row [expr {$i + 1}]"
 					close $f
@@ -216,10 +231,10 @@ proc GridInit {name ncols nrows xllcorner yllcorner cellsize nodata} {
 	set $name(cellsize) $cellsize
 	set $name(nodata) $nodata
 
-	set buf ""
-	for {set i 0} {$i < $nrows} {incr i} { lappend buf $nodata }
-
-	for {set i 0} {$i < $ncols} {incr i} {
+	#set buf ""
+	#for {set i 0} {$i < $nrows} {incr i} { lappend buf $nodata }
+	set buf [lrepeat $ncols $nodata]
+	for {set i 0} {$i < $nrows} {incr i} {
 		set ${name}($i) $buf
 	}
 }
@@ -308,6 +323,12 @@ proc GeoGridIn {fn} {
 			[yY][lL][lL][cC][oO][rR][nN][eE][rR] {
 				set yllcorner [lindex $buflist 1]
 			}
+			[xX][lL][lL][cC][eE][nN][tT][eE][rR] {
+				set xllcenter [lindex $buflist 1]
+			}
+			[yY][lL][lL][cC][eE][nN][tT][eE][rR] {
+				set yllcenter [lindex $buflist 1]
+			}
 			[cC][eE][lL][lL][sS][iI][zZ][eE] {
 				set cellsize [lindex $buflist 1]
 			}
@@ -332,12 +353,18 @@ proc GeoGridIn {fn} {
 					close $f
 					return $src
 				}
+				if {! [info exists xllcorner] && [info exists xllcenter]} {
+					set xllcorner [expr {$xllcenter - 0.5 * $cellsize}]
+				}
+				if {! [info exists yllcorner] && [info exists yllcenter]} {
+					set yllcorner [expr {$yllcenter - 0.5 * $cellsize}]
+				}
 				if {! [info exists cellsize]} {
 					set cellsize [expr {($west - $xllcorner) / $ncols}]
 				}
-				set x [expr {$yllcorner + $cellsize * ($nrows - $row - 1)}]
+				set x [expr {$yllcorner + $cellsize * ($nrows - $row - 0.5)}]
 				for {set col 0} {$col < $ncols} {incr col} {
-					set y [expr {$xllcorner + $col * $cellsize}]
+					set y [expr {$xllcorner + ($col + 0.5) * $cellsize}]
 					set z [lindex $buflist $col]
 					if {$z != $nodata} {
 						incr k
