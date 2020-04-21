@@ -11,13 +11,13 @@ make deb
 cd ../deb
 cd geoeasy
 du -s
-nano config/control
-sudo bash-deb-build lzma
+nano DEBIAN/control
+sudo bash-deb-build -c lzma
 mv *.deb ..
 cd ../geoeasy-doc
 du -s
-nano config/control
-sudo bash-deb-build lzma
+nano DEBIAN/control
+sudo bash-deb-build -c lzma
 mv *.deb ..
 ```
 

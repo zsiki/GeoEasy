@@ -96,56 +96,56 @@ doc: ${DOC_SOURCES}
 	$(TCL_DOC) --overview overview.html --force ../tcldoc \
 		${DOC_SOURCES}
 deb-init:
-	@mkdir -pv ${DEB_PATH}/config ${DEB_PATH}/data/usr/bin ${DEB_PATH}/data/usr/share/doc/geoeasy ${DEB_PATH}/data/usr/share/geoeasy ${DEB_PATH}/data/usr/share/applications ${DEB_PATH}/data/usr/share/menu ${DEB_PATH}/data/usr/share/pixmaps ${DEB_PATH}/data/usr/share/man/man1
-	@mkdir -pv ${DEBDOC_PATH}/config ${DEBDOC_PATH}/data/usr/share/doc/geoeasy
+	@mkdir -pv ${DEB_PATH}/DEBIAN ${DEB_PATH}/CONTENTS/usr/bin ${DEB_PATH}/CONTENTS/usr/share/doc/geoeasy ${DEB_PATH}/CONTENTS/usr/share/geoeasy ${DEB_PATH}/CONTENTS/usr/share/applications ${DEB_PATH}/CONTENTS/usr/share/menu ${DEB_PATH}/CONTENTS/usr/share/pixmaps ${DEB_PATH}/CONTENTS/usr/share/man/man1
+	@mkdir -pv ${DEBDOC_PATH}/DEBIAN ${DEBDOC_PATH}/CONTENTS/usr/share/doc/geoeasy
 deb-share: source ${CE_SOURCES}
-	@cp -frv ${DEB_FILES} ${DEB_PATH}/data//usr/share/geoeasy
-	@cp -frv ../README.md ../LICENSE ${DEB_PATH}/data/usr/share/doc/geoeasy
-	@cp -fv ../doc/man/man1/geoeasy.1 ${DEB_PATH}/data/usr/share/man/man1
+	@cp -frv ${DEB_FILES} ${DEB_PATH}/CONTENTS/usr/share/geoeasy
+	@cp -frv ../README.md ../LICENSE ${DEB_PATH}/CONTENTS/usr/share/doc/geoeasy
+	@cp -fv ../doc/man/man1/geoeasy.1 ${DEB_PATH}/CONTENTS/usr/share/man/man1
 deb-external:
-	@ln -svf ${EXTERNAL_CS2CS} ${DEB_PATH}/data/usr/share/geoeasy/cs2cs
-	@ln -svf ${EXTERNAL_GAMMALOCAL} ${DEB_PATH}/data/usr/share/geoeasy/gama-local
-	@ln -svf ${EXTERNAL_TRIANGLE} ${DEB_PATH}/data/usr/share/geoeasy/triangle
+	@ln -svf ${EXTERNAL_CS2CS} ${DEB_PATH}/CONTENTS/usr/share/geoeasy/cs2cs
+	@ln -svf ${EXTERNAL_GAMMALOCAL} ${DEB_PATH}/CONTENTS/usr/share/geoeasy/gama-local
+	@ln -svf ${EXTERNAL_TRIANGLE} ${DEB_PATH}/CONTENTS/usr/share/geoeasy/triangle
 deb-config:
-	echo "Package: geoeasy" > ${DEB_PATH}/config/control
-	echo -n "Version: " >> ${DEB_PATH}/config/control
-	echo ${VERSION}-${OSDISTNAME} >> ${DEB_PATH}/config/control
-	echo "Architecture: all" >> ${DEB_PATH}/config/control
-	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ${DEB_PATH}/config/control
-	echo "Section: science" >> ${DEB_PATH}/config/control
-	echo "Priority: optional" >> ${DEB_PATH}/config/control
-	echo "Depends: tk (>= 8.5.0-1) | wish" >> ${DEB_PATH}/config/control
-	echo "Recommends: gama, triangle-bin, proj-bin" >> ${DEB_PATH}/config/control
-	echo -n "Installed-Size: " >> ${DEB_PATH}/config/control
-	du -s ${DEB_PATH} | grep -o [0-9]* >> ${DEB_PATH}/config/control
-	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ${DEB_PATH}/config/control
-	echo "Description: GeoEasy - surveying calculation, network adjustment" >> ${DEB_PATH}/config/control
-	echo " GeoEasy - surveying calculation, network adjustment," >> ${DEB_PATH}/config/control
-	echo " digital terrain models, regression calculation." >> ${DEB_PATH}/config/control
-	@cp -fv ../doc/debian/postinst.sh ${DEB_PATH}/config/postinst
-	@cp -fv ../doc/debian/postrm.sh ${DEB_PATH}/config/postrm
+	echo "Package: geoeasy" > ${DEB_PATH}/DEBIAN/control
+	echo -n "Version: " >> ${DEB_PATH}/DEBIAN/control
+	echo ${VERSION}-${OSDISTNAME} >> ${DEB_PATH}/DEBIAN/control
+	echo "Architecture: all" >> ${DEB_PATH}/DEBIAN/control
+	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ${DEB_PATH}/DEBIAN/control
+	echo "Section: science" >> ${DEB_PATH}/DEBIAN/control
+	echo "Priority: optional" >> ${DEB_PATH}/DEBIAN/control
+	echo "Depends: tk (>= 8.5.0-1) | wish" >> ${DEB_PATH}/DEBIAN/control
+	echo "Recommends: gama, triangle-bin, proj-bin" >> ${DEB_PATH}/DEBIAN/control
+	echo -n "Installed-Size: " >> ${DEB_PATH}/DEBIAN/control
+	du -s ${DEB_PATH} | grep -o [0-9]* >> ${DEB_PATH}/DEBIAN/control
+	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ${DEB_PATH}/DEBIAN/control
+	echo "Description: GeoEasy - surveying calculation, network adjustment" >> ${DEB_PATH}/DEBIAN/control
+	echo " GeoEasy - surveying calculation, network adjustment," >> ${DEB_PATH}/DEBIAN/control
+	echo " digital terrain models, regression calculation." >> ${DEB_PATH}/DEBIAN/control
+	@cp -fv ../doc/debian/postinst.sh ${DEB_PATH}/DEBIAN/postinst
+	@cp -fv ../doc/debian/postrm.sh ${DEB_PATH}/DEBIAN/postrm
 deb-exec:
-	@cp -fv ../doc/debian/geoeasy.sh ${DEB_PATH}/data/usr/bin/geoeasy
-	@cp -fv ../doc/debian/geoeasy.desktop ${DEB_PATH}/data/usr/share/applications
-	@cp -fv ../doc/debian/geoeasy.menu ${DEB_PATH}/data/usr/share/menu/geoeasy
-	@cp -fv ../doc/debian/geoeasy.png ../doc/debian/geoeasy.xpm ${DEB_PATH}/data/usr/share/pixmaps
+	@cp -fv ../doc/debian/geoeasy.sh ${DEB_PATH}/CONTENTS/usr/bin/geoeasy
+	@cp -fv ../doc/debian/geoeasy.desktop ${DEB_PATH}/CONTENTS/usr/share/applications
+	@cp -fv ../doc/debian/geoeasy.menu ${DEB_PATH}/CONTENTS/usr/share/menu/geoeasy
+	@cp -fv ../doc/debian/geoeasy.png ../doc/debian/geoeasy.xpm ${DEB_PATH}/CONTENTS/usr/share/pixmaps
 deb-doc:
-#	@cp -frv ../doc/*.odp ../doc/*.pdf ${DEBDOC_PATH}/data/usr/share/doc/geoeasy
+	@cp -frv ../doc/*.odp ../doc/*.rst ${DEBDOC_PATH}/CONTENTS/usr/share/doc/geoeasy
 deb-doc-config:
-	echo "Package: geoeasy-doc" > ${DEBDOC_PATH}/config/control
-	echo -n "Version: " >> ${DEBDOC_PATH}/config/control
-	echo ${VERSION}-${OSDISTNAME} >> ${DEBDOC_PATH}/config/control
-	echo "Architecture: all" >> ${DEBDOC_PATH}/config/control
-	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ${DEBDOC_PATH}/config/control
-	echo "Section: doc" >> ${DEBDOC_PATH}/config/control
-	echo "Priority: optional" >> ${DEBDOC_PATH}/config/control
-	echo -n "Installed-Size: " >> ${DEBDOC_PATH}/config/control
-	du -s ${DEBDOC_PATH} | grep -o [0-9]* >> ${DEBDOC_PATH}/config/control
-	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ${DEBDOC_PATH}/config/control
-	echo "Description: Documentation for Geoeasy" >> ${DEBDOC_PATH}/config/control
-	echo " GeoEasy - surveying calculation, network adjustment," >> ${DEBDOC_PATH}/config/control
-	echo " digital terrain models, regression calculation." >> ${DEBDOC_PATH}/config/control
-	echo " Documentation." >> ${DEBDOC_PATH}/config/control
+	echo "Package: geoeasy-doc" > ${DEBDOC_PATH}/DEBIAN/control
+	echo -n "Version: " >> ${DEBDOC_PATH}/DEBIAN/control
+	echo ${VERSION}-${OSDISTNAME} >> ${DEBDOC_PATH}/DEBIAN/control
+	echo "Architecture: all" >> ${DEBDOC_PATH}/DEBIAN/control
+	echo "Maintainer: Zoltan Siki <zsiki@github.com>" >> ${DEBDOC_PATH}/DEBIAN/control
+	echo "Section: doc" >> ${DEBDOC_PATH}/DEBIAN/control
+	echo "Priority: optional" >> ${DEBDOC_PATH}/DEBIAN/control
+	echo -n "Installed-Size: " >> ${DEBDOC_PATH}/DEBIAN/control
+	du -s ${DEBDOC_PATH} | grep -o [0-9]* >> ${DEBDOC_PATH}/DEBIAN/control
+	echo "Homepage: https://github.com/zsiki/GeoEasy" >> ${DEBDOC_PATH}/DEBIAN/control
+	echo "Description: Documentation for Geoeasy" >> ${DEBDOC_PATH}/DEBIAN/control
+	echo " GeoEasy - surveying calculation, network adjustment," >> ${DEBDOC_PATH}/DEBIAN/control
+	echo " digital terrain models, regression calculation." >> ${DEBDOC_PATH}/DEBIAN/control
+	echo " Documentation." >> ${DEBDOC_PATH}/DEBIAN/control
 deb: deb-init deb-share deb-external deb-config deb-exec deb-doc deb-doc-config
 	@cp -fv ../doc/debian/README.md ${DEBBASE_PATH}
 	@echo "-----------------------------------------------------"
