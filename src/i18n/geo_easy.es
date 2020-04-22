@@ -14,7 +14,7 @@ global geoEasyMsg
 global reglist
 set reglist { "L\u00EDnea 2D" "L\u00EDneas 2D paralelas" "C\u00EDrculo" \
 	"Plano" "Plano horizontal" "Plano vertical" \
-	"Esfera" "L\u00EDnea 3D"} ;# "Vertical paraboloid" 
+	"Esfera" "L\u00EDnea 3D" "Angle of planes" } ;# "Vertical paraboloid" ;# TODO
 
 set fileTypes {
 	{"Formato GeoEasy" {.geo .GEO}}
@@ -870,6 +870,8 @@ set geoEasyMsg(head1PlaneReg)	"Punto n\u00FAm          E            N           
 set geoEasyMsg(head0CircleReg)	"E0 = %s N0 = %s R = %s"
 set geoEasyMsg(head1CircleReg)	"Punto n\u00FAm          E            N            dE           dN           dR"
 set geoEasyMsg(head2CircleReg)	"After %d iteration greater than %.4f m change in unknowns"
+set geoEasyMsg(head1PlaneAngle) "Angle of normals: "		;# TODO
+set geoEasyMsg(head2PlaneAngle) "Intersection line of the two planes\nHorizontal direction: %s   Slope angle: %s "		;# TODO
 set geoEasyMsg(head0HPlaneReg)	"z = %s"
 set geoEasyMsg(head0LDistReg)	"Distancia de la l\u00EDnea %s - %s"
 set geoEasyMsg(head1LDistReg)	"Punto n\u00FAm          E            N        Distancia         dE           dN"

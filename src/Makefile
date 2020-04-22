@@ -1,9 +1,9 @@
 # add path to tcl_cruncher if installed
-TCL_CRUNCHER = ./tcl_cruncher
+#TCL_CRUNCHER = ./tcl_cruncher
 FREE_WRAP = ../../freewrap664
 TCL_DOC = ../../tcldoc-0.85/tcldoc.tcl
 # uncomment next line if no tcl_cruncher installed
-#TCL_CRUNCHER = cat
+TCL_CRUNCHER = cat
 #-----------------------------------------------------------------------
 GE_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gamaxml.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
@@ -156,6 +156,6 @@ deb: deb-init deb-share deb-external deb-config deb-exec deb-doc deb-doc-config
 clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
 		ComEasy.tcl ComEasy ComEasy.exe ComEasy64.exe \
-		build_date.tcl defaultmask.tcl Gizi*.tgz\
-		i18n/eng_[a-z][a-z][a-z].txt i18n/ceng_[a-z][a-z][a-z].txt \
-		i18n/eng.txt i18n/eng_code.txt
+		build_date.tcl sources.tcl defaultmask.tcl Gizi*.tgz\
+		i18n/eng_[a-z][a-z]*.txt i18n/ceng_[a-z][a-z]*.txt \
+		i18n/eng.txt

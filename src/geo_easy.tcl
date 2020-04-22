@@ -241,12 +241,14 @@ proc GeoEasy {top} {
 			puts "  --help \[string\] - print help info and exit {authors, modules, version}"
 			puts "  --lang \[string\] - switch to a different language {[lsort [array names geoLangs]]}, default=auto"
 			puts "  --log \[string\] - select log {path/to/file.log | stdout | stderr}, default=$logName"
+			puts "  --nogui - process command line files and exit"
 			puts " files:"
 			puts "  optional list of files of four types"
 			puts "    geo_easy data files (.geo, .gsi, etc.) to load"
 			puts "    geo_easy project file (.gpr) to load"
 			puts "    tcl script files (.tcl) to execute/load"
 			puts "    mask definition files (.msk) to load"
+			puts " the order of the files in the command line is the order of processing"
 		}
 		exit 0
 	}  
@@ -276,7 +278,47 @@ proc GeoEasy {top} {
 
 	set geoModules [GeoModules 0xFFFF]	;# enable all modules
 
-	set w ""
+	global nogui
+	set nogui 0		;# GUI enabled 
+	if {[getopt "--nogui" "not"] != "not"} { set nogui 1 }	;# turn of gui
+	# process command line file arguments
+	if {[llength $argv] > 0} {
+		foreach arg $argv {
+			set name [string trim $arg]
+			if {[string length $name]} {
+				# skip switches
+				if {[string match "-*" $name] || \
+					[lsearch -exact [array names geoLangs] $name] >= 0} {
+					continue
+				}
+				regsub -all {\\} $name "/" name
+				regsub "^\{" $name "" name
+				regsub "\}$" $name "" name
+				switch -glob -- $name {
+					*.geo {
+						MenuLoad $top $name
+					}
+					*.gpr { GeoProjLoad $top $name }
+					*.msk -
+					*.tcl {
+						if {[catch {source $name} msg] != 0} {
+							GeoLog "$geoEasyMsg(nostartup) $name"
+							GeoLog1 $msg
+						} else {
+							GeoLog "$geoEasyMsg(startup) $name"
+						}
+					}
+					default {
+						MenuLoad $top $name
+					}
+				}
+			}
+		}
+	}
+	if {[getopt "--nogui" "not"] != "not"} {
+		exit 0
+	}
+
 #	toolbar images for graph window
 	image create bitmap zoom_in -file [file join $home bitmaps bar zoom_in.xbm]
 	image create bitmap zoom_out -file [file join $home bitmaps bar zoom_out.xbm]
@@ -534,40 +576,6 @@ proc GeoEasy {top} {
 
 #	catch {raise $top .log}
 #	catch {raise $top}
-	# process command line file arguments
-	if {[llength $argv] > 0} {
-		foreach arg $argv {
-			set name [string trim $arg]
-			if {[string length $name]} {
-				# skip switches
-				if {[string match "-*" $name] || \
-					[lsearch -exact [array names geoLangs] $name] >= 0} {
-					continue
-				}
-				regsub -all {\\} $name "/" name
-				regsub "^\{" $name "" name
-				regsub "\}$" $name "" name
-				switch -glob -- $name {
-					*.geo {
-						MenuLoad $top $name
-					}
-					*.gpr { GeoProjLoad $top $name }
-					*.msk -
-					*.tcl {
-						if {[catch {source $name} msg] != 0} {
-							GeoLog "$geoEasyMsg(nostartup) $name"
-							GeoLog1 $msg
-						} else {
-							GeoLog "$geoEasyMsg(startup) $name"
-						}
-					}
-					default {
-						MenuLoad $top $name
-					}
-				}
-			}
-		}
-	}
 }
 
 #
@@ -1404,6 +1412,18 @@ proc GeoLog1 {{msg ""}} {
 	}
 }
 
+#
+#	send GeoEasy msg to tk_dialog or log depending on nogui global variable
+proc GeoMsg {wnd title msg bitmap def args} {
+	global nogui
+	if {$nogui == 0} {	# tk_dialog if gui on
+		set res [tk_dialog $wnd $title $msg $bitmap $def {*}$args]
+	} else {
+		GeoLog "$title: $msg"
+		set res $def
+	}
+	return $res
+}
 #
 #	Open log window if it is not opened before or rise it
 #	@param none

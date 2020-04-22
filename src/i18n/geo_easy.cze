@@ -14,7 +14,7 @@ global geoEasyMsg
 global reglist
 set reglist { "2D linie" "Rovnobìžné 2D linie" "Kružnice" \
 	"Rovina" "Horizontální rovina" "Vertikální rovina" \
-	"Koule" "3D linie"} ;# "Vertikální paraboloid"
+	"Koule" "3D linie" "Angle of planes" } ;# "Vertikální paraboloid"	;# TODO
 
 set fileTypes {
 	{"GeoEasy" {.geo .GEO}}
@@ -868,6 +868,8 @@ set geoEasyMsg(head1PlaneReg)	"Èíslo bodu          Y            X            Z  
 set geoEasyMsg(head0CircleReg)  "Y0 = %s X0 = %s R = %s"
 set geoEasyMsg(head1CircleReg)	"Èíslo bodu          Y            X            dY           dX           dR"
 set geoEasyMsg(head2CircleReg)  "Po %d iteracích s pøesností na %.4f m zmìò v neznámé"
+set geoEasyMsg(head1PlaneAngle) "Angle of normals: "	;# TODO
+set geoEasyMsg(head2PlaneAngle) "Intersection line of the two planes\nHorizontal direction: %s   Slope angle: %s "		;# TODO
 set geoEasyMsg(head0HPlaneReg)  "z = %s"
 set geoEasyMsg(head0LDistReg)   "Vzdálenost z %s - %s linii"
 set geoEasyMsg(head1LDistReg)	"Èíslo bodu          Y            X        vzdálenost         dY           dX"

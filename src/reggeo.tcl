@@ -69,7 +69,7 @@ proc GeoReg {regindex} {
 			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 
-	} elseif {$regindex >= 3 && $regindex <= 8} {
+	} elseif {$regindex >= 3 && $regindex <= 9} {
 		# regression plane
 		set plist [lsort -dictionary [GetGiven {37 38 39}]]
 		if {[llength $plist] >= 3} {
@@ -93,7 +93,14 @@ proc GeoReg {regindex} {
 						}
 					}
 					7 { Line3DReg $rplist }
-					8 { ParabReg $rplist }
+					8 { set pplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
+						if {[llength $pplist] >= 3} {
+							set n1 [PlaneRegYXZ $rplist]
+							set n2 [PlaneRegYXZ $pplist]
+							PlaneAngle $n1 $n2
+						}
+					}
+					9 { ParabReg $rplist }
 				}
 			}
 		} else {
@@ -1381,6 +1388,7 @@ proc PlaneRegYXZ { plist } {
 	}
 	GeoLog1
 	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sr2 / $n)}]]
+	return [list $a $b $c $d]
 }
 
 #
@@ -1907,4 +1915,58 @@ proc ParLin {alist blist} {
 	}
 	GeoLog1
 	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdt2 / $n)}]]
+}
+
+#
+# Calculate angle between two plane
+# @n1 first plane parameters
+# @n2 second plane parameters
+proc PlaneAngle {n1 n2} {
+	global geoEasyMsg
+	global reglist
+
+	set a1 [lindex $n1 0]
+	set b1 [lindex $n1 1]
+	set c1 [lindex $n1 2]
+	set d1 [lindex $n1 3]
+	set a2 [lindex $n2 0]
+	set b2 [lindex $n2 1]
+	set c2 [lindex $n2 2]
+	set d2 [lindex $n2 3]
+	# angle of two normals from scalar product
+	set l1 [expr {sqrt($a1 * $a1 + $b1 * $b1 + $c1 * $c1)}] 
+	set l2 [expr {sqrt($a2 * $a2 + $b2 * $b2 + $c2 * $c2)}] 
+	set s [expr {$a1 * $a2 + $b1 * $b2 + $c1 * $c2}]
+	set gamma [expr {acos($s / $l1 / $l2)}]
+	# direction of intersection line from vector product
+	# perpendicular direction to the normals of planes
+	set a3 [expr {($b1 * $c2) - ($b2 * $c1)}]
+	set b3 [expr {($a2 * $c1) - ($a1 * $c2)}]
+	set c3 [expr {($a1 * $b2) - ($a2 * $b1)}]
+	set d3 0	;# plane goes through the origin
+	# intersection point of three planes to find a point on intersection line
+	# TODO the point coordinates not used (may be very far)
+	set a(0,0) $a1
+	set a(0,1) $b1
+	set a(0,2) $c1
+	set a(1,0) $a2
+	set a(1,1) $b2
+	set a(1,2) $c2
+	set a(2,0) $a3
+	set a(2,1) $b3
+	set a(2,2) $c3
+	set b(0) $d1
+	set b(1) $d2
+	set b(2) $d3
+	if {[catch {GaussElimination a b 3}]} {
+		# some error parallel planes
+		# TOD
+		return
+	}
+	set dir [Bearing $a3 $b3 0 0]
+	set ang [expr {atan(sqrt($a3*$a3+$b3*$b3)/sqrt($a3*$a3+$b3*$b3+$c3*$c3))}]
+    GeoLog1
+    GeoLog [lindex $reglist 8]
+	GeoLog1 "$geoEasyMsg(head1PlaneAngle) [DMS $gamma]"
+	GeoLog1 [format $geoEasyMsg(head2PlaneAngle) [DMS $dir] [DMS $ang]]
 }
