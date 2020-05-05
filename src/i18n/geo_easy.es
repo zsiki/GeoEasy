@@ -78,8 +78,8 @@ set tr1Types {{"Transformaci\u00F3n ortogonal/af\u00EDn" {.prm}}
 
 set tr2Types {{"TRAFO transformaci\u00F3n" {.all}}
 }
-
-set tr12Types {{"Orthogonal/Affin transformation" {.prm}}		;# TODO
+# TODO
+set tr12Types {{"Orthogonal/Affin transformation" {.prm}}
     {"TRAFO transformation" {.all}}
 }
 

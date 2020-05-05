@@ -78,8 +78,8 @@ set tr1Types {{"Ortogonální/Afinní transformace" {.prm}}
 
 set tr2Types {{"TRAFO transformace" {.all}}
 }
-
-set tr12Types {{"Orthogonal/Affin transformation" {.prm}}		;# TODO
+# TODO
+set tr12Types {{"Orthogonal/Affin transformation" {.prm}}
     {"TRAFO transformation" {.all}}
 }
 

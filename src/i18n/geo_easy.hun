@@ -79,7 +79,7 @@ set tr2Types {{"TRAFO transzformáció" {.all}}
 set tr1Types {{"ITR Helmert/affin transzformáció" {.prm}}
 }
 
-set tr12Types {{"ITR Helmert/affin transzformáció" {.prm}}	;# TODO
+set tr12Types {{"ITR Helmert/affin transzformáció" {.prm}}
     {"TRAFO transzformáció" {.all}}
 }
 

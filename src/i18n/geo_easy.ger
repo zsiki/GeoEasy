@@ -76,8 +76,8 @@ set trHTypes {{"Höhenverschiebung" {.vsh}}
 set tr1Types {{"Affintransformation" {.prm}}}
 
 set tr2Types {{"TRAFO Transformation dritten Grades" {.all}}}
-
-set tr12Types {{"Orthogonal/Affin transformation" {.prm}}		;# TODO
+# TODO
+set tr12Types {{"Orthogonal/Affin transformation" {.prm}}
     {"TRAFO transformation" {.all}}
 }
 
