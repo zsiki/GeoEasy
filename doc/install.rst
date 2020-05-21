@@ -84,11 +84,12 @@ Install tcl/tk on your platform (https://www.tcl.tk/software/tcltk/)
 
 	sudo apt-get install tcl tk
 
-Install tcllib on your platform
+Install tcllib and libtk-img on your platform (libtk-img is optional used to
+png export in graphic window.
 
 .. code:: bash
 
-	sudo apt-get install tcllib
+	sudo apt-get install tcllib libtk-img
 
 Install proj (https://proj4.org)
 
