@@ -1088,7 +1088,7 @@ for the convenience of the user.
 DTM menu
 ~~~~~~~~
 
-The commands to create and handle Digeital Terrain Modules are here.
+The commands to create and handle Digital Terrain Models are here.
 Only one DTM can be opened in GeoEasy.
 
 Create
@@ -1117,6 +1117,45 @@ and select one or more layers for mass point, break lines and hole markers.
 	:align: center
 
 	Non-konvex border and hole marker
+
+Load
+....
+
+Add
+...
+
+Close
+.....
+
+Save
+....
+
+Profile
+.......
+
+Contours
+........
+
+Volume
+......
+
+Volume difference
+.................
+
+VRML/X3D export
+...............
+
+KML export
+..........
+
+ASCII grid export
+.................
+
+LandXML export
+..............
+
+Statistics
+..........
 
 Help menu
 ~~~~~~~~~
