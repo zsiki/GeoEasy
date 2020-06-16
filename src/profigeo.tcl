@@ -621,6 +621,7 @@ proc TxtGeo {fn {ff ""}} {
 	global geoEasyMsg geoCodes
 	global reg
 	global txtSep multiSep header txtFilter
+	global PI2
 
 	if {! [info exists txtSep] } { set txtSep "\t;" }
 	if {! [info exists multiSep] } { set multiSep 0 }
@@ -682,10 +683,14 @@ proc TxtGeo {fn {ff ""}} {
 			foreach code $codes val $buflist {
 				if {[string length $code] > 0 && $code >= 0 && \
 						[string length $val] > 0} {
-					if {[lsearch -exact {7 8} $code] != -1 && \
-						[regexp $reg(3) $val]} {
-						# angle in DMS
-						set val [DMS2Rad $val]
+					if {[lsearch -exact {7 8} $code] != -1} {	;# Hz or V
+						if {[regexp $reg(3) $val]} {
+							# angle in DMS
+							set val [DMS2Rad $val]
+						} elseif {$val > $PI2} {	;# TODO under 6.28 will be RAD!!!
+							# angle in gon
+							set val [Gon2Rad $val]
+						}
 					}
 					# if "," is not separator and no "." in coord
 					# replace "," width "."
