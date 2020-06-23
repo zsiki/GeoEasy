@@ -385,6 +385,9 @@ set geoEasyMsg(menuSaveRtf)		"Guardar como archivo RTF"
 set geoEasyMsg(menuCooTr)		"Transformaci\u00F3n ..."
 set geoEasyMsg(menuCooTrFile)	"Par\u00E1metros de transformaci\u00F3n desde un archivo"
 set geoEasyMsg(menuCooDif)		"Diferencias de coordenadas"
+set geoEasyMsg(menuCooSwapEN)   "Swap East-North"		;# TODO
+set geoEasyMsg(menuCooSwapEZ)   "Swap East-Elev"		;# TODO
+set geoEasyMsg(menuCooSwapNZ)   "Swap North-Elev"		;# TODO
 set geoEasyMsg(menuCooDelAppr)	"Borrar coordenadas preliminares"
 set geoEasyMsg(menuCooDel)		"Borrar todas las coordenadas"
 set geoEasyMsg(menuPntDel)		"Borrar todos los puntos"

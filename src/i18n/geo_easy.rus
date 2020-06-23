@@ -384,6 +384,9 @@ set geoEasyMsg(menuSaveRtf)     "Сохранить как RTF"
 set geoEasyMsg(menuCooTr)       "Преобразование ..."
 set geoEasyMsg(menuCooTrFile)	"Преобразование, параметры из файла"
 set geoEasyMsg(menuCooDif)		"Расхождение координат"
+set geoEasyMsg(menuCooSwapEN)   "Swap East-North"		;# TODO
+set geoEasyMsg(menuCooSwapEZ)   "Swap East-Elev"		;# TODO
+set geoEasyMsg(menuCooSwapNZ)   "Swap North-Elev"		;# TODO
 set geoEasyMsg(menuCooDelAppr)  "Удалить предварительные координаты"
 set geoEasyMsg(menuCooDel)		"Удалить все координаты"
 set geoEasyMsg(menuPntDel)		"Удалить все точки"

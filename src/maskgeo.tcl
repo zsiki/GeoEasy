@@ -128,6 +128,13 @@ proc GeoMask {maskn fn {type "_geo"}} {
 		$mnu.command add command -label $geoEasyMsg(menuCooDif) \
 			-command "CooDif ${fn}"
 		$mnu.command add separator
+		$mnu.command add command -label $geoEasyMsg(menuCooSwapEN) \
+			-command "Swap2 ${fn} EN; CooFillMask $fn \$maskPos($w) $w"
+		$mnu.command add command -label $geoEasyMsg(menuCooSwapEZ) \
+			-command "Swap2 ${fn} EZ; CooFillMask $fn \$maskPos($w) $w"
+		$mnu.command add command -label $geoEasyMsg(menuCooSwapNZ) \
+			-command "Swap2 ${fn} NZ; CooFillMask $fn \$maskPos($w) $w"
+		$mnu.command add separator
 		$mnu.command add command -label $geoEasyMsg(finalCoo) \
 			-command "CooFinal $w.grd.e"
 		$mnu.command add command -label $geoEasyMsg(menuCooDelAppr) \
@@ -3421,4 +3428,70 @@ proc GeoFormExit {w} {
 
     catch {destroy "$w.find"}
     destroy $w
+}
+
+#
+# swap two coordinates in a loaded data set
+# @param dataset a loaded data set
+# @param cc code for coords to swap EN/EZ/NZ
+proc Swap2 {dataset cc} {
+    global geoChanged
+    upvar #0 ${dataset}_coo coo
+
+    if {! [info exists coo]} {
+        GeoLog "Dataset not loaded $dataset"
+        return
+    }
+	switch $cc {
+		EN -
+		NE -
+		en -
+		ne {
+				set code1 38
+				set code2 37
+		}
+		NZ -
+		ZN -
+		nz -
+		zn {
+				set code1 37
+				set code2 39
+		}
+		EZ -
+		ZE -
+		ez -
+		ze {
+				set code1 38
+				set code2 39
+		}
+		default { 
+			GeoLog "invalid parameter"
+			return
+		}
+	}
+	set code3 [expr {$code1 + 100}]
+	set code4 [expr {$code2 + 100}]
+    foreach pn [array names coo] {
+        upvar #0 ${dataset}_coo($pn) coo_rec
+        set prelim1 0
+		set prelim2 0
+        set c1 [GetVal $code1 $coo_rec]
+        if {$c1 == ""} {
+            # try preliminary coords
+            set c1 [GetVal $code3 $coo_rec]
+            set prelim1 1
+        }
+        set c2 [GetVal $code2 $coo_rec]
+        if {$c2 == ""} {
+            set c2 [GetVal $code4 $coo_rec]
+            set prelim2 1
+		}
+        if {$c1 != "" && $c2 != ""} {
+            set coo_rec [DelVal [list $code1 $code3] $coo_rec]
+            set coo_rec [DelVal [list $code2 $code4] $coo_rec]
+            lappend coo_rec [list [expr {$prelim2 * 100 + $code1}] $c2]
+            lappend coo_rec [list [expr {$prelim1 * 100 + $code2}] $c1]
+            set geoChanged($dataset) 1
+        }
+    }
 }
