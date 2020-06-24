@@ -1868,10 +1868,11 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 	global geoFormHeaders geoForms geoFormParams geoFormPat
 	global cooFormHeaders cooForms cooFormParams cooFormPat
 	global maskRows
-	global regLineStart regLineCont regLineEnd regLine
+	global regLineStart regLineCont regLineEnd regLine regLineClose
     global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
 	        pcodelayer bname battr block ptext xzplane
 	global polyStyle
+	global x3dColor
 	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 	global triangleProg
 	global cs2csProg
