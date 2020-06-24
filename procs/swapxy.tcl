@@ -1,5 +1,10 @@
-#
+# GeoEasy external script
 # GeoEasy utility to swap horizontal coordinates in a loaded data set
+# use it from the GeoEasy console window
+# 1. Load the script (swapxy.tcl) using the File/Load tcl file from the menu
+# 2. Run it entering "SwapXY dataset", where dataset is the name of a loaded
+#    GeoEasy dataset
+
 proc SwapXY {dataset} {
     global geoChanged
     upvar #0 ${dataset}_coo coo
