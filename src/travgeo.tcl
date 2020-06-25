@@ -36,7 +36,7 @@ proc GeoTraverse {{mode 0}} {
 				0 $geoEasyMsg(no) $geoEasyMsg(yes)]
 		}
 		if {$mode == 1} {
-			CalcTrigLine $slist
+			CalcTrigLine $slist $node
 		}
 		if {$autoRefresh} {
 			RefreshAll
@@ -74,11 +74,12 @@ proc GeoTraverseNode {{mode 0}} {
 		if {[llength $slist] > 1} {
 			set slists($n) $slist		;# save traverse
 			if {$mode == 0} {
-				set t($n) [CalcTraverse $slist 1]	;# force free tarverse
+				set t($n) [CalcTraverse $slist 1]	;# force free traverse
 				set c($n) [GetCoord $node {38 37}]
 			} else {
-				set t($n) [CalcTrigLine $slist]
-				set c($n) [GetCoord $node {39}]
+				set w [CalcTrigLine $slist 1]
+				set t($n) [lindex $w 0]
+				set c($n) [lindex $w 1]
 			}
 			incr n
 		} else {
@@ -109,10 +110,10 @@ proc GeoTraverseNode {{mode 0}} {
 				[lindex [lindex $slists($i) 0] 2] $t($i) \
 				[GetVal 38 $c($i)] [GetVal 37 $c($i)]]
 		} else {
-			set sz [expr {$sz + [GetVal 39 $c($i)] / $t($i) / $t($i)}]
+			set sz [expr {$sz + $c($i) / $t($i) / $t($i)}]
 			GeoLog1 [format \
 				"%-10s %8.${decimals}f %12.${decimals}f" \
-				[lindex [lindex $slists($i) 0] 2] $t($i) [GetVal 39 $c($i)]]
+				[lindex [lindex $slists($i) 0] 2] $t($i) $c($i)]
 		}
 	}
 	set w [focus]
@@ -244,9 +245,9 @@ proc GetTraverse {{codes {37 38}} {stopAt ""}} {
 #	geo_set and line refers to the station record in data set
 #		coordinates are stored in all referenced geo data set
 #	@param slist information for points in traverse, order is significant!
-#	@param forceFree force free traverse calculation (for node)
+#	@param node 0/1 force free traverse calculation (for node)
 #	@return length of the traverse.
-proc CalcTraverse {stlist {forceFree 0}} {
+proc CalcTraverse {stlist {node 0}} {
 	global geoEasyMsg
 	global decimals
 	global PI PI2 PISEC PI2SEC RO
@@ -274,7 +275,7 @@ proc CalcTraverse {stlist {forceFree 0}} {
 		return 0
 	}
 	set free 0
-	if {$forceFree} {
+	if {$node} {
 		set free 1		;# force to calculate free traverse (for node)
 		set x(n1) ""
 		set y(n1) ""
@@ -418,7 +419,7 @@ proc CalcTraverse {stlist {forceFree 0}} {
 			set beta($i) [expr {round([Rad2Sec $beta($i)])}]
 		}
 	}
-	if {$forceFree} { set beta($n1) "" }
+	if {$node} { set beta($n1) "" }
 #	calculate sum of betas if we have both orientation
 	if {$beta(0) != "" && $beta($n1) != ""} {
 		set sumbeta 0
@@ -681,8 +682,8 @@ proc CalcTraverse {stlist {forceFree 0}} {
 	}
 	# check error limits 2 * (10 + 10 * length[km]) & 2 * (28" + n * 2)"
 	set store 0
-	# store coordinates
-	if {$store == 0} {
+	# store coordinates if not node
+	if {$store == 0 && $node == 0} {
 		set last [expr {$n - 1}]
 		if {$free} { incr last}
 		for {set i 1} {$i < $last} {incr i} {
@@ -745,8 +746,9 @@ proc GeoTrigLine {} {
 #	geo_set and line refers to the station record in data set
 #		coordinates are stored in all referenced geo data set
 #	@param slist information for points in traverse, order is significant!
-#	@return the length of line.
-proc CalcTrigLine {stlist} {
+#	@param node 0/1 0 simple line/node (no coordinate storing)
+#	@return the length of line and endpoint height as a list.
+proc CalcTrigLine {stlist {node 0}} {
 	global geoEasyMsg
 	global decimals
 
@@ -777,7 +779,7 @@ proc CalcTrigLine {stlist} {
 		} else {
 			set prevpn ""
 		}
-#		get station instument height
+#		get station instrument height
 		upvar #0 ${geo}_geo($ref) st_buf
 		if {[info exists st_buf]} {
 			set st_height($i) [GetVal {3 6} $st_buf]
@@ -817,14 +819,18 @@ proc CalcTrigLine {stlist} {
 			incr ref
 		}
 	}
-	if {[info exists z(0)] == 0 || $z(0) == ""} {
+	if {$node == 0 && ([info exists z(0)] == 0 || $z(0) == "")} {
 		GeoLog1 $geoEasyMsg(miszTri)
 		tk_dialog .msg $geoEasyMsg(warning) \
 			$geoEasyMsg(miszTri) warning 0 OK
 		return
 	}
 	set free 0	;# flag free trigonometric line
-	if {[info exists z($n_1)] == 0 || $z($n_1) == ""} {
+	if {$node == 1} {
+		# force free line calculation
+		set free 1
+		if {[info exists z($n_1)]} { set z($n_1) "" }
+	} elseif {[info exists z($n_1)] == 0 || $z($n_1) == ""} {
 		set free 1	;# free trigonometric line
 		if {[tk_dialog .msg $geoEasyMsg(warning) \
 			$geoEasyMsg(freeTri) warning 0 OK $geoEasyMsg(cancel)] == 1} {
@@ -936,15 +942,15 @@ proc CalcTrigLine {stlist} {
 		set store [tk_dialog .msg $geoEasyMsg(warning) \
 			$geoEasyMsg(limTrig) warning 1 OK $geoEasyMsg(cancel)]
 	}
-	# store coordinates
-	if {$store == 0} {
+	# store coordinates if not node calculation
+	if {$store == 0 && $node == 0} {
 		set last [expr {$n - 1}]
 		if {$free} { incr last}
 		for {set i 1} {$i < $last} {incr i} {
 			StoreZ [lindex [lindex $stlist $i] 2] $z($i)
 		}
 	}
-	return $sumd
+	return [list $sumd $z($n_1)]
 }
 
 #
