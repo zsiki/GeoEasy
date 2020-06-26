@@ -74,10 +74,13 @@ proc GeoTraverseNode {{mode 0}} {
 		if {[llength $slist] > 1} {
 			set slists($n) $slist		;# save traverse
 			if {$mode == 0} {
-				set t($n) [CalcTraverse $slist 1]	;# force free traverse
-				set c($n) [GetCoord $node {38 37}]
+				set w [CalcTraverse $slist 1]	;# force free traverse
+				if {[llength $w] < 2} { return }
+				set t($n) [lindex $w 0]
+				set c($n) [lrange $w 1 end]
 			} else {
 				set w [CalcTrigLine $slist 1]
+				if {[llength $w] < 3} { return }
 				set t($n) [lindex $w 0]
 				set c($n) [lindex $w 1]
 			}
@@ -103,12 +106,12 @@ proc GeoTraverseNode {{mode 0}} {
 	for {set i 0} {$i < $n} {incr i} {
 		set st [expr {$st + 1.0 / $t($i) / $t($i)}]
 		if {$mode == 0} {
-			set sx [expr {$sx + [GetVal 38 $c($i)] / $t($i) / $t($i)}]
-			set sy [expr {$sy + [GetVal 37 $c($i)] / $t($i) / $t($i)}]
+			set sx [expr {$sx + [lindex $c($i) 0] / $t($i) / $t($i)}]
+			set sy [expr {$sy + [lindex $c($i) 1] / $t($i) / $t($i)}]
 			GeoLog1 [format \
 				"%-10s %8.${decimals}f %12.${decimals}f %12.${decimals}f" \
 				[lindex [lindex $slists($i) 0] 2] $t($i) \
-				[GetVal 38 $c($i)] [GetVal 37 $c($i)]]
+				[lindex $c($i) 0] [lindex $c($i) 1]]
 		} else {
 			set sz [expr {$sz + $c($i) / $t($i) / $t($i)}]
 			GeoLog1 [format \
@@ -660,7 +663,7 @@ proc CalcTraverse {stlist {node 0}} {
 		GeoLog1 "$geoEasyMsg(error7Tra)        -\
 			[format "%8d" [expr {int(1.25 * 1.2 *  (14 + 3.5 * $sumt / 100.0))}]]"
 	} else {
-	# mindket vegen tajekozott
+	# closed line traverse
 		GeoLog1 "$geoEasyMsg(error2Tra) \
 			[format "%8d" [expr {int(40 + 2 * $n)}]] \
 			[format "%8d" [expr {int(6 + 1.5 * $sumt / 100.0)}]]"
@@ -690,7 +693,7 @@ proc CalcTraverse {stlist {node 0}} {
 			StoreCoord [lindex [lindex $stlist $i] 2] $x($i) $y($i)
 		}
 	}
-	return $sumt
+	return [list $sumt $x($n1) $y($n1)]
 }
 
 #
