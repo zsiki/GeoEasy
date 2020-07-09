@@ -62,7 +62,7 @@ proc GeoTraverseNode {{mode 0}} {
 	set node [GeoEntry $geoEasyMsg(numTra) $geoEasyMsg(nodeTra)]
 	if {[string length $node] == 0} {return}
 	set n 0
-	# first calculate coordinates from free taverses
+	# first calculate coordinates from free traverses
 	while {[tk_dialog .msg $geoEasyMsg(info) \
 				"[expr {$n + 1}] $geoEasyMsg(travLine)" info 0 OK \
 				$geoEasyMsg(ende)] == 0} {
@@ -75,12 +75,12 @@ proc GeoTraverseNode {{mode 0}} {
 			set slists($n) $slist		;# save traverse
 			if {$mode == 0} {
 				set w [CalcTraverse $slist 1]	;# force free traverse
-				if {[llength $w] < 2} { return }
+				if {[llength $w] < 3} { return }
 				set t($n) [lindex $w 0]
 				set c($n) [lrange $w 1 end]
 			} else {
 				set w [CalcTrigLine $slist 1]
-				if {[llength $w] < 3} { return }
+				if {[llength $w] < 2} { return }
 				set t($n) [lindex $w 0]
 				set c($n) [lindex $w 1]
 			}
