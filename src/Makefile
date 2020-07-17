@@ -1,6 +1,6 @@
 # add path to tcl_cruncher if installed
 #TCL_CRUNCHER = ./tcl_cruncher
-FREE_WRAP = ../../freewrap664
+FREE_WRAP = ../../freewrap
 TCL_DOC = ../../tcldoc-0.85/tcldoc.tcl
 # uncomment next line if no tcl_cruncher installed
 TCL_CRUNCHER = cat
@@ -38,7 +38,7 @@ EXTERNAL_CS2CS = `command -v cs2cs`
 EXTERNAL_GAMMALOCAL = `command -v gama-local`
 EXTERNAL_TRIANGLE = `command -v triangle`
 
-all: GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
+all: gizi.ico GeoEasy GeoEasy.exe GeoEasy64.exe ComEasy ComEasy.exe ComEasy64.exe linux 
 
 GeoEasy: GeoEasy.tcl
 # check message files
@@ -50,6 +50,18 @@ GeoEasy.exe: GeoEasy.tcl
 GeoEasy64.exe: GeoEasy.tcl
 	$(FREE_WRAP)/linux64/freewrap GeoEasy.tcl -w $(FREE_WRAP)/win64/freewrap.exe -i gizi.ico -forcewrap -o GeoEasy64.exe
 
+gizi.ico: geoeasy_ico.png
+	convert geoeasy_ico.png -alpha off -resize 128x128 geoeasy_ico_128_24.png
+	convert geoeasy_ico.png -alpha off -resize 48x48 geoeasy_ico_48_24.png
+	convert geoeasy_ico.png -alpha off -resize 48x48 -colors 256 geoeasy_ico_48_8.png
+	convert geoeasy_ico.png -alpha off -resize 48x48 -colors 16 geoeasy_ico_48_4.png
+	convert geoeasy_ico.png -alpha off -resize 32x32 geoeasy_ico_32_24.png
+	convert geoeasy_ico.png -alpha off -resize 32x32 -colors 256 geoeasy_ico_32_8.png
+	convert geoeasy_ico.png -alpha off -resize 32x32 -colors 16 geoeasy_ico_32_4.png
+	convert geoeasy_ico.png -alpha off -resize 16x16 -colors 256 geoeasy_ico_16_8.png
+	convert geoeasy_ico.png -alpha off -resize 16x16 -colors 16 geoeasy_ico_16_4.png
+	convert geoeasy_ico_16_4.png geoeasy_ico_16_8.png geoeasy_ico_32_4.png geoeasy_ico_32_8.png geoeasy_ico_32_24.png geoeasy_ico_48_4.png geoeasy_ico_48_8.png geoeasy_ico_48_24.png geoeasy_ico_128_24.png gizi.ico
+	rm geoeasy_ico_128_24.png geoeasy_ico_48_24.png geoeasy_ico_48_8.png geoeasy_ico_48_4.png  geoeasy_ico_32_24.png geoeasy_ico_32_8.png geoeasy_ico_32_4.png geoeasy_ico_16_8.png geoeasy_ico_16_4.png
 GeoEasy.tcl: source
 	rm -f GeoEasy.tcl
 	$(TCL_CRUNCHER) build_date.tcl sources.tcl defaultmask.tcl ${GE_SOURCES} > GeoEasy.tcl
