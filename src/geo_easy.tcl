@@ -218,8 +218,8 @@ proc GeoEasy {top} {
 		set logName [getopt "--log" $logName]  
 	}
 	# parse help options
-	set help [getopt "--help" "not"]
-	if {$help != "not"} {
+	set help [getopt "--help" "--nopar"]
+	if {$help == 1} {
 		puts $geoEasyMsg(mainTitle)
 		puts ""
 		if {$help == "authors"} {
@@ -280,7 +280,7 @@ proc GeoEasy {top} {
 
 	global nogui
 	set nogui 0		;# GUI enabled 
-	if {[getopt "--nogui" "not"] != "not"} { set nogui 1 }	;# turn of gui
+	if {[getopt "--nogui" "--nopar"] == 1} { set nogui 1 }	;# turn of gui
 	# process command line file arguments
 	if {[llength $argv] > 0} {
 		foreach arg $argv {
@@ -315,7 +315,7 @@ proc GeoEasy {top} {
 			}
 		}
 	}
-	if {[getopt "--nogui" "not"] != "not"} {
+	if {$nogui == 1} {
 		exit 0
 	}
 
@@ -685,8 +685,8 @@ proc GeoModules {moduleinfo} {
 #
 #	Delete all approximate coordinate fro mall opened data set
 proc GeoRecalcAppr {} {
-global geoLoaded
-global geoEasyMsg
+	global geoLoaded
+	global geoEasyMsg
 
 	if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delappr) \
 		warning 0 OK $geoEasyMsg(cancel)] != 0} {
@@ -1519,7 +1519,7 @@ proc CenterWnd {this} {
 #
 #   Get commandline parameter with default value
 #	@param name nameof argument
-#	@param default default value if switch not given
+#	@param default default value if switch not given, special --nopar default value to mark switch without par
 #   @return value for name or empty
 proc getopt {name {default ""}} {
 	global argv
@@ -1527,12 +1527,16 @@ proc getopt {name {default ""}} {
 	set pos [lsearch -regexp $argv ^$name]
 	set var ""
 	if {$pos >= 0} {
-		set pos1 [expr {$pos + 1}]
-		if {[llength $argv] > $pos1} {
-			set var [lindex $argv $pos1]
-			set argv [lreplace $argv $pos $pos1]
+		if {$default != "--nopar"} { 	;# get value for switch
+			set pos1 [expr {$pos + 1}]
+			if {[llength $argv] > $pos1} {
+				set var [lindex $argv $pos1]
+				set argv [lreplace $argv $pos $pos1]
+			} else {
+				set argv [lreplace $argv $pos $pos]
+			}
 		} else {
-			set argv [lreplace $argv $pos $pos]
+			set var 1	;# mark presence of switch without arg value
 		}
 	} else {
 		set var $default
