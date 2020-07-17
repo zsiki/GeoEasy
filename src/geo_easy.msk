@@ -100,7 +100,7 @@ set cs2csProg {./cs2cs}
 # dxf output parameters
 #
 global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
-    pcodelayer bname battr block ptext xzplane
+    pcodelayer bname battr block ptext xzplane useblock addlines
 set p3d {0}
 set pd {0}
 set pon {1}
@@ -118,6 +118,8 @@ set sz {1.5}
 set zdec {2}
 set pcodelayer {0}
 set xzplane {0}
+set useblock {0}
+set addlines {0}
 # html browser (UNIX)
 global browser
 set browser {}
