@@ -1427,9 +1427,98 @@ msk file
 
 GeoEasy configuration file. It is a Tcl executable file with saved
 parameters.
+Some parameters can be modified through the GUI some can be modified in the 
+geo_easy.msk file. The following long list contains all parameters.
+
++-----------------------+
+| parameter             |
++=======================+
+| addlines              |
+| autoRefresh           |
+| avgH                  |
+| browser               |
+| cooMaskDefault        |
+| cooSep                |
+| cs2csProg             |
+| decimals              |
+| defaultCodedLines     |
+| defaultDetails        |
+| defaultObservations   |
+| defaultPointNumbers   |
+| defaultUsedPointsOnly |
+| detailreg             |
+| dirLimit              |
+| dxfview               |
+| dxpn                  |
+| dxz                   |
+| dypn                  |
+| dyz                   |
+| epsReg                |
+| gamaAngles            |
+| gamaConf              |
+| gamaProg              |
+| gamaShortOut          |
+| gamaSvgOut            |
+| gamaTol               |
+| gamaXmlOut            |
+| geoApprColor          |
+| geoDoc                |
+| geoFinalColor         |
+| geoLang               |
+| geoLangs              |
+| geoLineColor          |
+| geoMaskColors         |
+| geoMaskDefault        |
+| geoNostationColor     |
+| geoObsColor           |
+| geoOrientationColor   |
+| geoStationColor       |
+| header                |
+| langCodes             |
+| lastDir               |
+| maskRows              |
+| maxColl               |
+| maxIndex              |
+| maxIteration          |
+| multiSep              |
+| oriDetail             |
+| p3d                   |
+| parMask               |
+| pcodelayer            |
+| pd                    |
+| pnlay                 |
+| polyStyle             |
+| pon                   |
+| projRed               |
+| refr                  |
+| regLine               |
+| regLineClose          |
+| regLineCont           |
+| regLineEnd            |
+| regLineStart          |
+| rp                    |
+| rtfview               |
+| slay                  |
+| spn                   |
+| stdAngle              |
+| stdDist1              |
+| stdDist2              |
+| stdLevel              |
+| sz                    |
+| triangleProg          |
+| txtFilter             |
+| txtSep                |
+| useblock              |
+| x3dColor              |
+| xzplane               |
+| zdec                  |
+| zlay                  |
+| zon                   |
++-----------------------+
+ 
 It also contains the field-book and coordinate list definitions (masks).
 Each mask has three lists to define data, field format and field size. 
-These lits are collected in three associative arrays, the mask name is the
+These lists are collected in three associative arrays, the mask name is the
 index. Separate arrays are
 maintened for field-books and coordinate lists, geoMasks, geoMaskParams and
 geoMaskWidths for field-books and cooMaks, cooMaksParams and cooMaksWidths
