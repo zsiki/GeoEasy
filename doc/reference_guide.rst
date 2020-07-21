@@ -1428,93 +1428,205 @@ msk file
 GeoEasy configuration file. It is a Tcl executable file with saved
 parameters.
 Some parameters can be modified through the GUI some can be modified in the 
-geo_easy.msk file. The following long list contains all parameters.
+geo_easy.msk file. The following long list contains all parameters in ABC
+order.
 
-+-----------------------+
-| parameter             |
-+=======================+
-| addlines              |
-| autoRefresh           |
-| avgH                  |
-| browser               |
-| cooMaskDefault        |
-| cooSep                |
-| cs2csProg             |
-| decimals              |
-| defaultCodedLines     |
-| defaultDetails        |
-| defaultObservations   |
-| defaultPointNumbers   |
-| defaultUsedPointsOnly |
-| detailreg             |
-| dirLimit              |
-| dxfview               |
-| dxpn                  |
-| dxz                   |
-| dypn                  |
-| dyz                   |
-| epsReg                |
-| gamaAngles            |
-| gamaConf              |
-| gamaProg              |
-| gamaShortOut          |
-| gamaSvgOut            |
-| gamaTol               |
-| gamaXmlOut            |
-| geoApprColor          |
-| geoDoc                |
-| geoFinalColor         |
-| geoLang               |
-| geoLangs              |
-| geoLineColor          |
-| geoMaskColors         |
-| geoMaskDefault        |
-| geoNostationColor     |
-| geoObsColor           |
-| geoOrientationColor   |
-| geoStationColor       |
-| header                |
-| langCodes             |
-| lastDir               |
-| maskRows              |
-| maxColl               |
-| maxIndex              |
-| maxIteration          |
-| multiSep              |
-| oriDetail             |
-| p3d                   |
-| parMask               |
-| pcodelayer            |
-| pd                    |
-| pnlay                 |
-| polyStyle             |
-| pon                   |
-| projRed               |
-| refr                  |
-| regLine               |
-| regLineClose          |
-| regLineCont           |
-| regLineEnd            |
-| regLineStart          |
-| rp                    |
-| rtfview               |
-| slay                  |
-| spn                   |
-| stdAngle              |
-| stdDist1              |
-| stdDist2              |
-| stdLevel              |
-| sz                    |
-| triangleProg          |
-| txtFilter             |
-| txtSep                |
-| useblock              |
-| x3dColor              |
-| xzplane               |
-| zdec                  |
-| zlay                  |
-| zon                   |
-+-----------------------+
+.. note::
+
+    GUI-X note added to those parameters what the user can set through the
+    graphical user interface of GeoEasy. Available X values are
+
+    - D DXF output dialogue
+    - C Calculaion parameters
+    - A Adjustment parameters
+    - O Other parameters
+    - R Colors
+    - G Graphic window Commands menu
+    - T Txt import dialogue
+    - M Mask windows Commands menu
+
++-----------------------+-----------------------------------------------------+
+| parameter             | description                                         |
++=======================+=====================================================+
+| addlines              | Add lines to DXF output GUI: DXF dialogue (0/1)     |
+|                       | GUI-D	                                              | 
++-----------------------+-----------------------------------------------------+
+| autoRefresh           | Refresh windows after calculations (0/1) GUI-O      | 
++-----------------------+-----------------------------------------------------+
+| avgH                  | Average height above MSL to reduce distances        |
+|                       | (0-off) GUI-C                                       | 
++-----------------------+-----------------------------------------------------+
+| browser               | Path to browser to open html (Linux only)           | 
++-----------------------+-----------------------------------------------------+
+| cooMaskDefault        | Default coordinate mask GUI-O                       | 
++-----------------------+-----------------------------------------------------+
+| cooSep                | Fields separator for exported csv files GUI-O       | 
++-----------------------+-----------------------------------------------------+
+| cs2csProg             | Path to cs2cs program (part of proj)                | 
++-----------------------+-----------------------------------------------------+
+| decimals              | Number of decimals in output/coordinate lists GUI-C | 
++-----------------------+-----------------------------------------------------+
+| defaultCodedLines     | Display lines in graphic window (0/1) GUI-G         | 
++-----------------------+-----------------------------------------------------+
+| defaultDetails        | Display detail points in graphic window (0/1) GUI-G | 
++-----------------------+-----------------------------------------------------+
+| defaultObservations   | Display observations in graphic window (0/1) GUI-G  | 
++-----------------------+-----------------------------------------------------+
+| defaultPointNumbers   | Display point IDs in graphic window (0/1)  GUI-G    | 
++-----------------------+-----------------------------------------------------+
+| defaultUsedPointsOnly | Display only observed points (0/1) GUI-G            |
++-----------------------+-----------------------------------------------------+
+| detailreg             | Regexp to select detail points                      | 
++-----------------------+-----------------------------------------------------+
+| dirLimit              | Weight of shorter distances are decreased for       |
+|                       | network adjustment  GUI-A                           | 
++-----------------------+-----------------------------------------------------+
+| dxfview               | Path to dxf viewer program (Linux only)             | 
++-----------------------+-----------------------------------------------------+
+| dxpn                  | X offset of point ID text in dxf output GUI-D       | 
++-----------------------+-----------------------------------------------------+
+| dxz                   | X offset of elevation text in dxf output GUI-D      | 
++-----------------------+-----------------------------------------------------+
+| dypn                  | Y offset of point ID text in dxf output GUI-D       | 
++-----------------------+-----------------------------------------------------+
+| dyz                   | Y offset of elevation text in dxf output GUI-D      | 
++-----------------------+-----------------------------------------------------+
+| epsReg                | Tolerance in regression calculation when            | 
+|                       | iteration used
++-----------------------+-----------------------------------------------------+
+| gamaAngles            | Angle units in GNU Gama output GUI-A                | 
++-----------------------+-----------------------------------------------------+
+| gamaConf              | Confidence level for blunder detection in network   |
+|                       | adjustment GUI-A                                    |
++-----------------------+-----------------------------------------------------+
+| gamaProg              | Path to gama-local program                          | 
++-----------------------+-----------------------------------------------------+
+| gamaShortOut          | Short output from gama-local (0/1) GUI-A            | 
++-----------------------+-----------------------------------------------------+
+| gamaSvgOut            | Create SVG error ellipses for horizontal network    | 
+|                       | GUI-A                                               |
++-----------------------+-----------------------------------------------------+
+| gamaTol               | Tolerance for constant terms to filter observations | 
+|                       | before adjustment GUI-A                             |
++-----------------------+-----------------------------------------------------+
+| gamaXmlOut            | Preserve gama-local XML output (0/1) GUI-A          | 
++-----------------------+-----------------------------------------------------+
+| geoApprColor          | Point ID color in graphic window for point with     | 
+|                       | preliminary coordinates GUI-R                       |
++-----------------------+-----------------------------------------------------+
+| geoDoc                | URL to the docs on GitHub                           | 
++-----------------------+-----------------------------------------------------+
+| geoFinalColor         | Point ID color in graphic window for point with     |
+|                       | final coordinates GUI-R                             |
++-----------------------+-----------------------------------------------------+
+| geoLang               | Current language for the GUI GUI-O                  | 
++-----------------------+-----------------------------------------------------+
+| geoLangs              | Available languafes for the GUI                     | 
++-----------------------+-----------------------------------------------------+
+| geoLineColor          | Color for coded lines in graphic window GUI-R       | 
++-----------------------+-----------------------------------------------------+
+| geoMaskColors         | Colors for values in field-book and                 | 
+|                       | coordinate list GUI-R                               |
++-----------------------+-----------------------------------------------------+
+| geoMaskDefault        | Default field-book mask GUI-O                       | 
++-----------------------+-----------------------------------------------------+
+| geoNostationColor     | Color for non-station point in graphic window GUI-R | 
++-----------------------+-----------------------------------------------------+
+| geoObsColor           | Color for observation lines in graphic window GUI-R | 
++-----------------------+-----------------------------------------------------+
+| geoOrientationColor   | Color for oriented stations in graphic window GUI-R | 
++-----------------------+-----------------------------------------------------+
+| geoStationColor       | Color for non-orinented stations in graphic window  | 
+|                       | GUI-R                                               |
++-----------------------+-----------------------------------------------------+
+| header                | Number of header lines to skip in txt input         | 
+|                       | GUI-T
++-----------------------+-----------------------------------------------------+
+| langCodes             | Code pages for languages                            | 
++-----------------------+-----------------------------------------------------+
+| lastDir               | Last visited folder                                 | 
++-----------------------+-----------------------------------------------------+
+| maskRows              | Number of rows in field-book or coordinate list     | 
+|                       | GUI-M                                               |
++-----------------------+-----------------------------------------------------+
+| maxColl               | Limit for collimation error in seconds              | 
++-----------------------+-----------------------------------------------------+
+| maxIndex              | Limit for index error in seconds                    | 
++-----------------------+-----------------------------------------------------+
+| maxIteration          | Maximal number of iterations in regression calc.    | 
++-----------------------+-----------------------------------------------------+
+| multiSep              | Merge adjacent delimiters in txt input (0/1) GUI-T  | 
++-----------------------+-----------------------------------------------------+
+| oriDetail             | Use detail points in orientation and adjustment     | 
+|                       | GUI-O                                               |
++-----------------------+-----------------------------------------------------+
+| p3d                   | Save 3D points into DXF GUI-D                       | 
++-----------------------+-----------------------------------------------------+
+| parMask               | Field-book parameters to show                       | 
++-----------------------+-----------------------------------------------------+
+| pcodelayer            | Separate points by point code on layer name GUI-D   | 
++-----------------------+-----------------------------------------------------+
+| pd                    | Export only detail points into DXF output GUI-D     |
++-----------------------+-----------------------------------------------------+
+| pnlay                 | Layer name for points IDs in DXF output GUI-D       | 
++-----------------------+-----------------------------------------------------+
+| polyStyle             | Polygon fill color for KML export                   | 
++-----------------------+-----------------------------------------------------+
+| pon                   | Export point IDs into DXF output GUI-D              | 
++-----------------------+-----------------------------------------------------+
+| projRed               | Projection reduction of distances GUI-C             | 
++-----------------------+-----------------------------------------------------+
+| refr                  | Refraction correction for triginometric height      | 
+|                       | GUI-C                                               |
++-----------------------+-----------------------------------------------------+
+| regLine               | Regexp for coded lines                              | 
++-----------------------+-----------------------------------------------------+
+| regLineClose          | Regexp for closing coded line (create closed loop)  | 
++-----------------------+-----------------------------------------------------+
+| regLineCont           | Regexp for next point in coded line                 | 
++-----------------------+-----------------------------------------------------+
+| regLineEnd            | Regexp for end point in coded line                  | 
++-----------------------+-----------------------------------------------------+
+| regLineStart          | Regexp for start point in coded line                | 
++-----------------------+-----------------------------------------------------+
+| rp                    | Point marker size in DXF output GUI-D               | 
++-----------------------+-----------------------------------------------------+
+| rtfview               | Path to RTF file viewer (Linux only)                | 
++-----------------------+-----------------------------------------------------+
+| slay                  | Layer name for point symbols in DXF output GUI-D    | 
++-----------------------+-----------------------------------------------------+
+| spn                   | Text height for point IDs in DXF output GUI-D       | 
++-----------------------+-----------------------------------------------------+
+| stdAngle              | Mean error for directions GUI-C                     | 
++-----------------------+-----------------------------------------------------+
+| stdDist1              | Additive member for mean error of distances GUI-C   | 
++-----------------------+-----------------------------------------------------+
+| stdDist2              | Multiplicative member for mean error of distances   | 
+|                       | GUI-C                                               |
++-----------------------+-----------------------------------------------------+
+| stdLevel              | Mean error for leveleing GUI-C                      | 
++-----------------------+-----------------------------------------------------+
+| sz                    | Text height for elevations in DXF output GUI-D      | 
++-----------------------+-----------------------------------------------------+
+| triangleProg          | Path to triangle program                            | 
++-----------------------+-----------------------------------------------------+
+| txtFilter             | Regexp to filter input lines in txt file GUI-T      | 
++-----------------------+-----------------------------------------------------+
+| txtSep                | Separators for input lines in txt file GUI-T        | 
++-----------------------+-----------------------------------------------------+
+| useblock              | Use blocks in DXF output (0/1) GUI-D                | 
++-----------------------+-----------------------------------------------------+
+| x3dColor              | Color for X3D export                                | 
++-----------------------+-----------------------------------------------------+
+| xzplane               | Export XZ plain as XY (front view) GUI-D            | 
++-----------------------+-----------------------------------------------------+
+| zdec                  | Number of decimals in elevation text in DXF output  | 
+|                       | GUI-D                                               |
++-----------------------+-----------------------------------------------------+
+| zlay                  | Layer name for elevations text in DXF output GUI-D  | 
++-----------------------+-----------------------------------------------------+
+| zon                   | Elevation into DXF output (0/1) GUI-D               | 
++-----------------------+-----------------------------------------------------+
  
 It also contains the field-book and coordinate list definitions (masks).
 Each mask has three lists to define data, field format and field size. 
