@@ -1449,12 +1449,12 @@ order.
 | parameter             | description                                         |
 +=======================+=====================================================+
 | addlines              | Add lines to DXF output GUI: DXF dialogue (0/1)     |
-|                       | GUI-D	                                              | 
+|                       | GUI-D                                               |
 +-----------------------+-----------------------------------------------------+
 | autoRefresh           | Refresh windows after calculations (0/1) GUI-O      | 
 +-----------------------+-----------------------------------------------------+
 | avgH                  | Average height above MSL to reduce distances        |
-|                       | (0-off) GUI-C                                       | 
+|                       | (0-off) GUI-C                                       |
 +-----------------------+-----------------------------------------------------+
 | browser               | Path to browser to open html (Linux only)           | 
 +-----------------------+-----------------------------------------------------+
@@ -1479,7 +1479,7 @@ order.
 | detailreg             | Regexp to select detail points                      | 
 +-----------------------+-----------------------------------------------------+
 | dirLimit              | Weight of shorter distances are decreased for       |
-|                       | network adjustment  GUI-A                           | 
+|                       | network adjustment  GUI-A                           |
 +-----------------------+-----------------------------------------------------+
 | dxfview               | Path to dxf viewer program (Linux only)             | 
 +-----------------------+-----------------------------------------------------+
@@ -1491,8 +1491,8 @@ order.
 +-----------------------+-----------------------------------------------------+
 | dyz                   | Y offset of elevation text in dxf output GUI-D      | 
 +-----------------------+-----------------------------------------------------+
-| epsReg                | Tolerance in regression calculation when            | 
-|                       | iteration used
+| epsReg                | Tolerance in regression calculation when iteration  |
+|                       | used                                                | 
 +-----------------------+-----------------------------------------------------+
 | gamaAngles            | Angle units in GNU Gama output GUI-A                | 
 +-----------------------+-----------------------------------------------------+
@@ -1540,7 +1540,7 @@ order.
 |                       | GUI-R                                               |
 +-----------------------+-----------------------------------------------------+
 | header                | Number of header lines to skip in txt input         | 
-|                       | GUI-T
+|                       | GUI-T                                               |
 +-----------------------+-----------------------------------------------------+
 | langCodes             | Code pages for languages                            | 
 +-----------------------+-----------------------------------------------------+
