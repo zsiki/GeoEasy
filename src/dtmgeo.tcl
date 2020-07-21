@@ -549,8 +549,8 @@ proc CreateTin {polyFile targetFile} {
 			return
 		}
 	} else {
-		regsub -all " " $polyFile "\\ " polyFile
-		regsub -all " " $targetFile "\\ " targetFile
+#		regsub -all " " $polyFile "\\ " polyFile
+#		regsub -all " " $targetFile "\\ " targetFile
 		if {[catch {eval [concat exec "{$triangleProg} $flags \"$polyFile\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(creaDtm): $msg" \
 				error 0 OK
