@@ -36,7 +36,7 @@ proc GeoTraverse {{mode 0}} {
 				0 $geoEasyMsg(no) $geoEasyMsg(yes)]
 		}
 		if {$mode == 1} {
-			CalcTrigLine $slist $node
+			CalcTrigLine $slist
 		}
 		if {$autoRefresh} {
 			RefreshAll
