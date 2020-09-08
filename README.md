@@ -20,6 +20,8 @@ See the [doc](./doc) folder for various reStructuredText files, the [wiki](https
 
 [Developer documentation](http://digikom.hu/tcldoc/)
 
+[OpenHub page](https://www.openhub.net/p/geoeasy)
+
 ## Installation
 
 Users can select source or [binary releases](http://digikom.hu/english/geo_easy_e.html). Linux and Windows operating
