@@ -872,7 +872,7 @@ proc MenuLoad {w {def ""}} {
 						set fnCoo [string trim [tk_getOpenFile -filetypes $typ \
 							-initialdir $lastDir -initialfile $gpCoo]]
 						if {[string length $fnCoo] && \
-							[string match "after#*" $fncoo] == 0} {
+							[string match "after#*" $fnCoo] == 0} {
 							set lastDir [file dirname $fnCoo]
 							set res [GeoProfiCoo $fnCoo $fn]
 						}
