@@ -200,9 +200,9 @@ proc Sdr {fn} {
 							set ${fa}_geo($lines) [list [list 2 $stpn]]
 							GeoLog1 "$geoCodes(2): $stpn"
 							if {[info exists ${fa}_ref($pn)] == -1} {
-								set ${fa}_ref($pn) $lines
+								set ${fa}_ref($stpn) $lines
 							} else {
-								lappend ${fa}_ref($pn) $lines
+								lappend ${fa}_ref($stpn) $lines
 							}
 							incr lines
 						}
