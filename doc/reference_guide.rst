@@ -1121,23 +1121,61 @@ and select one or more layers for mass point, break lines and hole markers.
 Load
 ....
 
+Open an existing DTM. The input is selected from the standard file selection 
+dialog. Beside the .dtm file a .pnt and a. pol file have to be in the 
+same folder.
+
 Add
 ...
+
+Add another DTM to the loaded one and regenerate triangles considering points,
+break/border lines from both DTMs.
 
 Close
 .....
 
+Close the loaded DTM.
+
 Save
 ....
+
+Save the loaded DTM.
 
 Profile
 .......
 
+Create a profile specifying start and end points and distance between point
+in the profile. The interpolated elevations with horizontal coordinates are
+printed in the Calculation results window. Optionally a DXF or a GeoEasy 
+coordinate file can be created from the interpolated profile points.
+
+.. figure:: images/profile.png
+	:align: center
+
+	Profile dialog
+
+.. note::
+
+	You can use the *Height interpolation* tool from the toolbar to
+    specify start and end points with the mouse. Click on the start point and
+    drag the mouse to draw a rubber line and release mouse button et the end
+    point.
+
 Contours
 ........
 
+Generate contour lines. The contour interval can be set in a dialog box.
+Enter 0 for the contour interval to erase contour lines from the 
+graphic window.
+
+.. note::
+
+	You can export contour lines to a DXF file using the DXF ourput.
+
 Volume
 ......
+
+Calculate volume above a reference plain.
 
 Volume difference
 .................
