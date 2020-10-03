@@ -6,7 +6,7 @@
 
 set terminal svg size 950,520 font "Verdana,12"
 
-set title 'Downloads 2017 October - 2020 August'
+set title 'Downloads 2017 October - 2020 September'
 set xlabel ' '
 set ylabel 'Count'
 
