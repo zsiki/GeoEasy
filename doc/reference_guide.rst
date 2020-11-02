@@ -1176,9 +1176,43 @@ Volume
 ......
 
 Calculate volume above a reference plain.
+The user have to enter the height of the reference plain. The volume is
+calculated in the prisms above the reference plain. The result is written into 
+the *Calculation results* window.
+
+.. code::
+
+    2020.11.02 19:52 - Volume ... - test
+    Base height  Volume        Above        Below       Area     Surface area
+     100.000    1267409.3    1267409.3          0.0     178543.3     179311.4
+
+The *Volume* = *Above* - *Below*.
 
 Volume difference
 .................
+
+Calculate volume difference between the loaded and another TIN. GRIDs are
+generated from both TINs using the same GRID steps. Only the common area of the
+two generated GRIDs are considered.
+
+.. figure:: rg_images/ascii_grid.png
+
+First the user have to give the grid step (step for north and east axis). 
+Next in the file selection dialogue a previously saved DTM can be selected.
+
+.. code::
+
+    2020.11.02 19:40 - Volume difference ... testa - testb
+    Grid step: 50.00
+    Lower left  corner: 655886.80 222996.11
+    Upper right corner: 656417.18 223621.18
+    Cut  Volume: 32125.1 m3 Area: 125000.0 m2
+    Fill Volume: 10376.4 m3 Area:  45000.0 m2
+    Same: 10000.0 m2
+
+Beside the results in the *Calculation results* window a new difference grid is
+generated in the folder of the loaded TIN. This file is an ESRI ASCII GRID
+which can be loaded into several sortware among others into QGIS.
 
 VRML/X3D export
 ...............
