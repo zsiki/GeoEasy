@@ -1130,6 +1130,7 @@ proc MenuSaveAs {fn} {
 			*.gpx { set res [GpxOut $fn $nn]}
 			*.dmp { set res [TxtOut $fn $nn]}
 			*.kml { set res [KmlOut $fn $nn]}
+            *.sql { set res [SavePSql $fn $nn]}
 			default {
 				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(saveext) \
 					warning 0 OK

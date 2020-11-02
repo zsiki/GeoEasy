@@ -56,6 +56,7 @@ set saveTypes {
 	{"GPS Trackmaker" {.txt}}
 	{"GPS XML" {.gpx}}
 	{"Keyhole Markup Language Datei" {.kml}}
+    {"PostGIS SQL script" {.sql}}
 }
 
 set xmlTypes {

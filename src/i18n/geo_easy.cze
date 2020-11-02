@@ -56,6 +56,7 @@ set saveTypes {
 	{"GPS trasa" {.txt}}
 	{"GPS XML" {.gpx}}
 	{"Keyhole Markup Language soubor" {.kml}}
+    {"PostGIS SQL script" {.sql}}
 }
 
 set xmlTypes {
