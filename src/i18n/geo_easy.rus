@@ -330,8 +330,8 @@ set geoEasyMsg(menuPopupArc)	"Arcsection"
 set geoEasyMsg(menuPopupEle)	"Высота"
 set geoEasyMsg(menuPopupDetail)	"Detail points"
 set geoEasyMsg(menuPopupAdj3D)	"3D adjustment"
-set geoEasyMsg(menuPopupAdj2D)	"Horizontal adjustment"
-set geoEasyMsg(menuPopupAdj1D)	"Elevation adjustment"
+set geoEasyMsg(menuPopupAdj2D)	"Горизонтальное уравнивание"
+set geoEasyMsg(menuPopupAdj1D)	"Высотное уравнивание"
 set geoEasyMsg(menuGraph)		"Окно"
 set geoEasyMsg(menuGraNew)		"Новое графическое окно"
 set geoEasyMsg(menuLogNew)		"Окно журнала"
@@ -385,9 +385,9 @@ set geoEasyMsg(menuSaveRtf)     "Сохранить как RTF"
 set geoEasyMsg(menuCooTr)       "Преобразование ..."
 set geoEasyMsg(menuCooTrFile)	"Преобразование, параметры из файла"
 set geoEasyMsg(menuCooDif)		"Расхождение координат"
-set geoEasyMsg(menuCooSwapEN)   "Swap East-North"		;# TODO
-set geoEasyMsg(menuCooSwapEZ)   "Swap East-Elev"		;# TODO
-set geoEasyMsg(menuCooSwapNZ)   "Swap North-Elev"		;# TODO
+set geoEasyMsg(menuCooSwapEN)   "Поменять Восток-Север"		;# TODO
+set geoEasyMsg(menuCooSwapEZ)   "Поменять Восток-Высоту"	;# TODO
+set geoEasyMsg(menuCooSwapNZ)   "Поменять Север-Высоту"		;# TODO
 set geoEasyMsg(menuCooDelAppr)  "Удалить предварительные координаты"
 set geoEasyMsg(menuCooDel)		"Удалить все координаты"
 set geoEasyMsg(menuPntDel)		"Удалить все точки"
@@ -499,11 +499,11 @@ set geoEasyMsg(area)		"Расчет площади"
 set geoEasyMsg(sum)			"Сумма"
 set geoEasyMsg(sum1)		"Площадь"
 set geoEasyMsg(sum2)		"Периметр"
-set geoEasyMsg(meanp)       "Weight point"	;# TODO
-set geoEasyMsg(centroid)    "Centre of gravity"	;# TODO
-set geoEasyMsg(endp)		"Endpoint?"
+set geoEasyMsg(meanp)       "Вес точки"	;# TODO
+set geoEasyMsg(centroid)    "Центр масс"	;# TODO
+set geoEasyMsg(endp)		"Конечная точка?"
 set geoEasyMsg(maxGr)		"Можно открыть только 10 графических окон"
-set geoEasyMsg(nopng)       "Png export not available"		;# TODO
+set geoEasyMsg(nopng)       "PNG экспорт не доступен"		;# TODO
 set geoEasyMsg(orist)		"Недостаточно известных (N,E,Z) ориентиров станции"
 
 set geoEasyMsg(linreg)		"Линия регрессии не может быть рассчитана"
@@ -530,29 +530,29 @@ set geoEasyMsg(errsavedtm)	"Ошибка сохранения DTM"
 
 set geoEasyMsg(stat)		"Статистика %d загруженных наборов данных\nКолчество пунктов: %d\nКоличество известных точек: %d\nКоличество detailed points: %d\nКоличество станций: %d\nКоличество известных станций: %d\nКоличество occupations: %d\nКоличество oriented occupations: %d\n"
 # gama
-set geoEasyMsg(gamapar)		"Adjustment parameters"
-set geoEasyMsg(gamaconf)    "Confidence level (0-1)"
+set geoEasyMsg(gamapar)		"Параметры уравнивания"
+set geoEasyMsg(gamaconf)    "Уровень доверия (0-1)"
 set geoEasyMsg(gamaangles)  "Угловые единицы"
 set geoEasyMsg(gamatol)     "Допуск \[mm\]"
 set geoEasyMsg(gamadirlimit)    "Предельное расстояния \[m\]"
 set geoEasyMsg(gamashortout)    "Краткий список вывода"
-set geoEasyMsg(gamasvgout)  "SVG error ellipses"
-set geoEasyMsg(gamaxmlout)  "Preserve GaMa XML output"
-set geoEasyMsg(gamanull)	"No text file result"
-set geoEasyMsg(gamanull1)	"No xml file result"
+set geoEasyMsg(gamasvgout)  "SVG эллипсы ошибок"
+set geoEasyMsg(gamaxmlout)  "Сохранить GaMa XML вывод"
+set geoEasyMsg(gamanull)	"Текстовый файл пустой"
+set geoEasyMsg(gamanull1)	"XML файл пустой"
 set geoEasyMsg(gamaori)		"Проблемы с сохранением ориентирного угла"
 set geoEasyMsg(gamastdhead0)    "Стандартное отклонение единицы веса"
 set geoEasyMsg(gamastdhead1)    "  m0  apriori    :"
 set geoEasyMsg(gamastdhead2)    "  m0' aposteriori:"
-set geoEasyMsg(gamastdhead3)    "% interval"
-set geoEasyMsg(gamastdhead4)    "contains the m0'/m0 value"
-set geoEasyMsg(gamastdhead5)    "doesn't contain the m0'/m0 value"
+set geoEasyMsg(gamastdhead3)    "% интервал"
+set geoEasyMsg(gamastdhead4)    "содержит значения m0'/m0"
+set geoEasyMsg(gamastdhead5)    "не содержит значения m0'/m0"
 set geoEasyMsg(gamacoohead0)    "Координаты"
-set geoEasyMsg(gamacoohead1)    "Point id        E          N          Z"	;# TODO
+set geoEasyMsg(gamacoohead1)    "ID точки        E          N          Z"	;# TODO
 set geoEasyMsg(gamaobshead0)    "Наблюдения"
-set geoEasyMsg(gamaobshead1)    "Station    Observed    Adj.obs.  Residual    Stdev"	;# TODO
+set geoEasyMsg(gamaobshead1)    "Станция    Направление    Ур.напр.  Невязка    Stdev"	;# TODO
 set geoEasyMsg(gamaorihead0) "Orientations"	;# TODO
-set geoEasyMsg(gamaorihead1) "Station  Preliminary  Adjusted"	;# TODO
+set geoEasyMsg(gamaorihead1) "Станция  Предварительный  Уравненный"	;# TODO
 #
 # tooltips
 #
@@ -566,7 +566,7 @@ set geoEasyMsg(toolReg)		"Регрессия"
 set geoEasyMsg(toolZdtm)	"Height interpolation"
 set geoEasyMsg(toolBreak)	"Break line"
 set geoEasyMsg(toolHole)	"Hole in DTM"
-set geoEasyMsg(toolXchgtri)	"Exchange triangles"
+set geoEasyMsg(toolXchgtri)	"Обмен треугольников"
 #
 # dxf/svg output
 #
@@ -591,12 +591,12 @@ set geoEasyMsg(ptext)		"Point numbers from text"
 set geoEasyMsg(layer2)		"Имя слоя"
 set geoEasyMsg(layer3)		"Имя слоя"
 set geoEasyMsg(ssize)		"Размер символа"
-set geoEasyMsg(pnon)		"Point name labels"
-set geoEasyMsg(dxpn)		"X shift"
-set geoEasyMsg(dypn)		"Y shift"
-set geoEasyMsg(pzon)		"Elevation labels"
-set geoEasyMsg(dxz)			"X shift"
-set geoEasyMsg(dyz)			"Y shift"
+set geoEasyMsg(pnon)		"Подпись Имени точки"
+set geoEasyMsg(dxpn)		"X сдвиг"
+set geoEasyMsg(dypn)		"Y сдвиг"
+set geoEasyMsg(pzon)		"Подпись Высоты"
+set geoEasyMsg(dxz)			"X сдвиг"
+set geoEasyMsg(dyz)			"Y сдвиг"
 set geoEasyMsg(zdec)		"Десятичные числа"
 set geoEasyMsg(spn)			"Размер текста"
 set geoEasyMsg(sz)			"Размер текста"
@@ -682,11 +682,11 @@ set geoEasyMsg(volumeErr)	"Недопустимая эталонная высо�
 
 # orthogonal transformation
 set geoEasyMsg(trpar)		"Параметры преобразования"
-set geoEasyMsg(trdy)		"Shift E:"
-set geoEasyMsg(trdx)		"Shift N:"
+set geoEasyMsg(trdy)		"Сдвиг E:"
+set geoEasyMsg(trdx)		"Сдвиг N:"
 set geoEasyMsg(trrot)		"Вращение (DMS):"
 set geoEasyMsg(trscale)		"Масштабный коэффициен E and N:"
-set geoEasyMsg(trdz)		"Shift Z:"
+set geoEasyMsg(trdz)		"Сдвиг Z:"
 set geoEasyMsg(trscalez)	"Масштабный коэффициен для Z:"
 set geoEasyMsg(allparnum)	"Число параметров в файле больше 21"
 
@@ -803,14 +803,14 @@ set geoEasyMsg(resize)		"Размер окна"
 #
 # log messages
 #
-set geoEasyMsg(start)		"GeoEasy started"
-set geoEasyMsg(stop)		"GeoEasy stopped"
-set geoEasyMsg(load)		"data set loaded"
-set geoEasyMsg(save)		"data set saved"
-set geoEasyMsg(saveas)		"data set saved as:"
-set geoEasyMsg(unload)		"data set closed"
-set geoEasyMsg(psave)		"project saved"
-set geoEasyMsg(pload)		"project loaded"
+set geoEasyMsg(start)		"GeoEasy запущен"
+set geoEasyMsg(stop)		"GeoEasy остановлен"
+set geoEasyMsg(load)		"набор данных загружен"
+set geoEasyMsg(save)		"набор данных сохранен"
+set geoEasyMsg(saveas)		"набор данных сохранен как:"
+set geoEasyMsg(unload)		"набор данных закрыт"
+set geoEasyMsg(psave)		"проект сохранен"
+set geoEasyMsg(pload)		"проект загружен"
 #
 set geoEasyMsg(faces)		"Two faces "
 set geoEasyMsg(face2)		"Station   Collimation     Index Distance T.height"
