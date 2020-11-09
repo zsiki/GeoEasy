@@ -1736,7 +1736,7 @@ proc ProcessList {l} {
 						set stdev {}
 						for {set k 0} {$k < $pl_dim} {incr k} {
 							set l [expr {$j + $k * ($band + 1)}]
-							lappend stdev [format "%.5f" [expr {sqrt([lindex $flt $l]) / 1000.0}]]
+							catch {lappend stdev [format "%.5f" [expr {sqrt([lindex $flt $l]) / 1000.0}]]}
 						}
 						StoreStdev [lindex $pl_ids $i] $stdev
 						set j [expr {$l + 1}]
