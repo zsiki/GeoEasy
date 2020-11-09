@@ -56,7 +56,7 @@ proc GeoEasy {top} {
 	global geoLangs langCodes
 
 	set version 313 ;# update for new release!
-	set version_str "[join [split $version {}] .]dev"
+	set version_str "[join [split $version {}] .]"
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
