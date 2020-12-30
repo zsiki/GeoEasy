@@ -63,7 +63,7 @@ proc ComEasy {top} {
 
 	menu $w.menu.help -tearoff 0
 	$w.menu.help add command -label $comEasyMsg(mComHelp1) \
-		-command "GeoHelp ComEasy.html"
+		-command "GeoHelp" -accelerator "F1"
 	$w.menu.help add command -label $comEasyMsg(mComAbout) \
 		-command "ComAbout"
 
