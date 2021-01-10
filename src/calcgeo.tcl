@@ -1878,6 +1878,7 @@ proc CalcArea {points} {
 	if {$pn1 == $pnn} {
 		set points [lrange $points 0 [expr {$n_1 - 1}]]
 	}
+    if {[llength $points] < 3} { return 0 }
 	set n 0
 	set sumd 0
 	set sumx 0
@@ -1932,7 +1933,7 @@ proc CalcArea {points} {
 			set i1 [expr {$i + 1}]
 		}
 		set sum [expr {$sum + $xx($i) * ($yy($i1) - $yy($i_1))}]
-		# for area weght point
+		# for area weight point
 		set sumxa [expr {$sumxa + ($xx($i) + $xx($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
 		set sumya [expr {$sumya + ($yy($i) + $yy($i1)) * ($xx($i) * $yy($i1) - $xx($i1) * $yy($i))}]
 	}
