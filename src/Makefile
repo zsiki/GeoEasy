@@ -9,7 +9,7 @@ GE_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gamaxml.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
 	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
 	maskgeo.tcl nikon.tcl profigeo.tcl proj.tcl reggeo.tcl sdr.tcl sokkia.tcl \
-	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
+	survce.tcl topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
 	xmlgeo.tcl zsenigeo.tcl sqlgeo.tcl \
 	geo_easy.tcl
 CE_SOURCES = com_easy.tcl helpgeo.tcl maincom_easy.tcl
@@ -19,7 +19,7 @@ DOC_SOURCES = adjgeo.tcl animate.tcl arcgeo.tcl calcgeo.tcl com_easy.tcl \
 	dtmgeo.tcl dxfgeo.tcl gc3.tcl geodimet.tcl graphgeo.tcl \
 	grid.tcl helpgeo.tcl idex.tcl lbgeo.tcl leica.tcl loadgeo.tcl \
 	maskgeo.tcl nikon.tcl profigeo.tcl proj.tcl reggeo.tcl sdr.tcl sokkia.tcl \
-	topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
+	survce.tcl topcon.tcl trackmaker.tcl transgeo.tcl travgeo.tcl trimble.tcl \
 	xmlgeo.tcl zsenigeo.tcl sqlgeo.tcl \
 	geo_easy.tcl
 #
