@@ -2442,6 +2442,7 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 		}
 	}
 	# calculate grid values
+    set area_limit [expr {$dx * $dx / 100.0}]
 	foreach i [array names ${tin}_ele] {
 		set triang [set ${tin}_ele($i)]
 		set p1 [set ${tin}_node([lindex $triang 0])]
@@ -2457,6 +2458,10 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 		set y3 [lindex $p3 1]
 		set z3 [lindex $p3 2]
 		set area0 [Area $x1 $y1 0 $x2 $y2 0 $x3 $y3 0]
+        if {$area0 < $area_limit} {
+            # GeoLog1 "Area below limit $area0" 
+            continue
+        }
 		set xmin [min $x1 $x2 $x3]
 		set ymin [min $y1 $y2 $y3]
 		set zmin [min $z1 $z2 $z3]
@@ -2484,13 +2489,13 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 					set b [expr {$dx2 * $dz1 - $dx1 * $dz2}]
 					set c [expr {$dx1 * $dy2 - $dx2 * $dy1}]
 					set w [expr {sqrt($a * $a + $b * $b + $c * $c)}]
-					set a [expr {$a / $w}]
-					set b [expr {$b / $w}]
-					set c [expr {$c / $w}]
-					set d [expr { -($a * $x1 + $b * $y1 + $c * $z1)}]
-					set zz [expr {(-$d - $a * $xgrid - $b * $ygrid) / $c}]
 					set k [expr {int(($xgrid - $x0) / $dx + 0.001)}]
 					set j [expr {int(($ygrid - $y0) / $dy + 0.001)}]
+                    set a [expr {$a / $w}]
+                    set b [expr {$b / $w}]
+                    set c [expr {$c / $w}]
+                    set d [expr { -($a * $x1 + $b * $y1 + $c * $z1)}]
+                    set zz [expr {(-$d - $a * $xgrid - $b * $ygrid) / $c}]
 # TBD miert esik kivul az interpolalt ertek????
 					if {$zmin > $zz} {
 						set zz $zmin
