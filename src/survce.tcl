@@ -191,6 +191,9 @@ proc SurvCe {fn} {
 						}
 					}
 				}
+                if {$th != ""} {
+                    lappend obuf [list 6 $th]
+                }
 			}
 		}
 		if {[llength $obuf] == 0} { continue }
