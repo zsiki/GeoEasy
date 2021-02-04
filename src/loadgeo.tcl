@@ -1976,6 +1976,7 @@ proc TxtOut {fn {nn ""}} {
 			# station record
 			set stpn [GetVal {2} $rec]
 			set ih [GetVal {3} $rec]
+            if {$ih != ""} { set ih [format "%.${decimals}f" $ih] }
 		} else {
 			# observation record
 			set hz [GetVal {7 21} $rec]
