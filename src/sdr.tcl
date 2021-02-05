@@ -92,33 +92,29 @@ proc Sdr {fn} {
 				if {$pnLength == 16} {
 					# station name
 					set stpn [string trim [GetSdrField $buf 4 16]]
-					lappend obuf [list 2 $stpn]
-					GeoLog1 "$geoCodes(2): $stpn"
 					# station height
 					set v [GetSdrField $buf 68 16 GetSdrDist]
-					if {[string length $v]} {
-						lappend obuf [list 3 $v]
-					}
 					set code [GetSdrField $buf 84 16]
 					set start 20
 					set len 16
 				} else {
 					# station name
 					set stpn [GetSdrField $buf 4 4]
-					# remove leading zeros
-					regsub "^0*(\[1-9\]\[0-9\]*)$" [string trim $stpn] \\1 stpn
-					if {$stpn == ""} { set stpn "0" } 
-					lappend obuf [list 2 $stpn]
-					GeoLog1 "$geoCodes(2): $stpn"
 					# station height
 					set v [GetSdrField $buf 38 10 GetSdrDist]
-					if {[string length $v]} {
-						lappend obuf [list 3 $v]
-					}
 					set code [GetSdrField $buf 48 16]
 					set start 8
 					set len 10
 				}
+                # remove leading zeros
+                regsub "^0*(\[1-9\]\[0-9\]*)$" [string trim $stpn] \\1 stpn
+                if {$stpn == ""} { set stpn "0" }
+                lappend obuf [list 2 $stpn]
+                GeoLog1 "$geoCodes(2): $stpn"
+                if {[string length $v]} {
+                    lappend obuf [list 3 $v]
+                }
+                set pn $stpn    ;# for ref update
 				# station co-ordinates
 				SdrCoo $fa $buf $stpn $code $start $len 
 			}
