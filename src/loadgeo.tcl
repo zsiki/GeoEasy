@@ -1221,9 +1221,10 @@ proc GetPol {pn {flag 0}} {
 				}
 				set strec [GetLastRec $fn _geo $ref 2]	;# get last station rec
 				set stpn [GetVal 2 $strec]				;# station name
-				if {[GetCoord $stpn {38 37}   $fn] == "" && $flag == 0 || \
-					[GetCoord $stpn {138 137} $fn] == "" && $flag} {
-					continue				;# no coord for station
+                set stcoo [GetCoord $stpn {38 37}   $fn]
+				if {$stcoo == "" && $flag} {
+					set stcoo [GetCoord $stpn {138 137} $fn]
+					if {$stcoo == ""} { continue }		;# no coord for station
 				}
 				set z [GetVal 101 $strec]				;# mean orientation
 				if {$z == "" && $flag} {
@@ -1239,7 +1240,7 @@ proc GetPol {pn {flag 0}} {
 				set dm [GetVal 10 $buf]				;# height diff.
 				set pcode [GetVal 4 $buf]			;# point code
 				if {$hdist == ""} {
-					set sdist [GetVal 9 $buf]			;# slope dist
+					set sdist [GetVal 9 $buf]		;# slope dist
 					if {($va == "" && $dm =="") || $sdist == ""} {
 						continue		;# slope dist without vert. angle or dm
 					}
@@ -1253,7 +1254,7 @@ proc GetPol {pn {flag 0}} {
 				# reduction only to see level & projection
 				set hdist [GetRedDist $hdist]
 
-				set sth [GetVal {3 6} $strec]				;# instrument height
+				set sth [GetVal {3 6} $strec]			;# instrument height
 				set h [GetVal 6 $buf]					;# signal height
 				if {$h == ""} {set h 0}					;# default signal height
 				set stcoo [GetCoord $stpn 39 $fn]		;# height of station
