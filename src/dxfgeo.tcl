@@ -314,6 +314,7 @@ proc DXFout {fn} {
 proc DXFout1 {fd pn} {
 	global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d zdec \
 		pcodelayer xzplane useblock
+    global decimals
 
 	set buf [GetCoord $pn {38 37}]
 	set x [GetVal 38 $buf]
@@ -328,8 +329,8 @@ proc DXFout1 {fd pn} {
 		[string length [string trim $y]] == 0} {
 		return				;# no x or y coordinate
 	}
-	set x [format "%.3f" $x]
-	set y [format "%.3f" $y]
+	set x [format "%.${decimals}f" $x]
+	set y [format "%.${decimals}f" $y]
 	set code [GetVal 4 $buf]
 	set layer $slay
 	if {$pcodelayer} {
@@ -338,8 +339,12 @@ proc DXFout1 {fd pn} {
 		}
 	}
 	if {[string length [string trim $z]]} {
-		set z [format "%.${zdec}f" $z]
-	} else { set z "" }
+		set z [format "%.${decimals}f" $z]
+		set ztxt [format "%.${zdec}f" $z]
+	} else {
+        set z ""
+        set ztxt ""
+    }
 	if {$useblock} {
 		puts $fd "  0\nINSERT\n  8\n$layer\n 66\n1\n  2\nPONT"
 		if {$p3d && [string length $z]} {
@@ -363,20 +368,20 @@ proc DXFout1 {fd pn} {
 		}
 	}
 	if {$zon} {
-		set wx [format "%.3f" [expr {$x + $dxz}]]
-		set wy [format "%.3f" [expr {$y + $dyz}]]
-		if {[string length $z]} {
+		set wx [format "%.${decimals}f" [expr {$x + $dxz}]]
+		set wy [format "%.${decimals}f" [expr {$y + $dyz}]]
+		if {[string length $ztxt]} {
 			if {$p3d} {
-				puts $fd "  0\nTEXT\n  8\n$zlay\n 10\n$wx\n 20\n$wy\n 30\n$z\n 40\n$sz\n  1\n$z"
+				puts $fd "  0\nTEXT\n  8\n$zlay\n 10\n$wx\n 20\n$wy\n 30\n$z\n 40\n$sz\n  1\n$ztxt"
 			} else {
-				puts $fd "  0\nTEXT\n  8\n$zlay\n 10\n$wx\n 20\n$wy\n 40\n$sz\n  1\n$z"
+				puts $fd "  0\nTEXT\n  8\n$zlay\n 10\n$wx\n 20\n$wy\n 40\n$sz\n  1\n$ztxt"
 			}
 		}
 	}
 	
 	if {$pon && ! $useblock} {
-		set wx [format "%.3f" [expr {$x + $dxpn}]]
-		set wy [format "%.3f" [expr {$y + $dypn}]]
+		set wx [format "%.${decimals}f" [expr {$x + $dxpn}]]
+		set wy [format "%.${decimals}f" [expr {$y + $dypn}]]
 		if {$p3d && [string length $z]} {
 			puts $fd "  0\nTEXT\n  8\n$pnlay\n 10\n$wx\n 20\n$wy\n 30\n$z\n 40\n$spn\n  1\n$pn"
 		} else {
