@@ -922,6 +922,7 @@ set geoEasyMsg(spTitle) "Primera l\u00EDnea"
 set geoEasyMsg(epTitle) "Segunda l\u00EDnea"
 set geoEasyMsg(arcPar) "Par\u00E1metros del Arco"
 set geoEasyMsg(arcRadius) "Radio"
+set geoEasyMsg(arcLength) "Arc length"      ;# TODO
 set geoEasyMsg(arcParam) "Par\u00E1metro de transici\u00F3n"
 set geoEasyMsg(arcTran) "Curva de transici\u00F3n\n  par\u00E1metro: %.1f\n  dR: %.2f\n  longitud: %.2f\n  X0: %.2f"
 set geoEasyMsg(arcStep) "Distancia entre los puntos de detalle \[m\]"

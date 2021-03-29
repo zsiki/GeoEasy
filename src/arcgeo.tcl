@@ -184,6 +184,7 @@ global buttonid
 proc SimpleArc {corner first last r pre step {num 0}} {
 global PI2 PI
 global geoEasyMsg
+global decimals
 	# calculate angels beta and alpha
 	set back [Bearing [GetVal 38 $corner] [GetVal 37 $corner] \
 		[GetVal 38 $first] [GetVal 37 $first]]
@@ -198,8 +199,11 @@ global geoEasyMsg
 	set alpha [expr {$PI - $beta}]
 	# tangent length
 	set t [expr {$r * tan($alpha / 2.0)}]
-	GeoLog1 "$geoEasyMsg(arcT): [format %.2f $t]"
-	GeoLog1 "$geoEasyMsg(arcRadius): [format %.2f $r]"
+    # arc length
+    set arc_len [expr {$r * $alpha}]
+	GeoLog1 "$geoEasyMsg(arcT): [format %.${decimals}f $t]"
+	GeoLog1 "$geoEasyMsg(arcRadius): [format %.${decimals}f $r]"
+	GeoLog1 "$geoEasyMsg(arcLength): [format %.${decimals}f $arc_len]"
 	GeoLog1 [format $geoEasyMsg(arcAlpha) [DMS $alpha] [DMS $beta]]
 
 	# start of arc
@@ -268,6 +272,7 @@ global geoEasyMsg
 proc TransitionArc {corner first last r p pre step {num 0}} {
 global PI2 PI
 global geoEasyMsg
+global decimals
 	# calculate angles beta and alpha
 	set back [Bearing [GetVal 38 $corner] [GetVal 37 $corner] \
 		[GetVal 38 $first] [GetVal 37 $first]]
@@ -308,8 +313,10 @@ global geoEasyMsg
 	set dr [expr {$u - pow($u,2) / 4.67 / $r}]
 	# tangent length
 	set t [expr {($r + $dr) * tan($alpha / 2.0) + $x0}]
-	GeoLog1 "$geoEasyMsg(arcT): [format %.2f $t]"
-	GeoLog1 "$geoEasyMsg(arcRadius): [format %.2f $r]"
+    set arc_len [expr {$r * ($alpha - 2 * $tau)}]
+	GeoLog1 "$geoEasyMsg(arcT): [format %.${decimals}f $t]"
+	GeoLog1 "$geoEasyMsg(arcRadius): [format %.${decimals}f $r]"
+	GeoLog1 "$geoEasyMsg(arcLength): [format %.${decimals}f $arc_len]"
 	GeoLog1 [format $geoEasyMsg(arcAlpha) [DMS $alpha] [DMS $beta]]
 	GeoLog1 [format $geoEasyMsg(arcTran) $p $dr $l $x0]
 	# start of arc

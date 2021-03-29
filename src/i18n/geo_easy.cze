@@ -921,6 +921,7 @@ set geoEasyMsg(spTitle) "První linie"
 set geoEasyMsg(epTitle) "Druhá linie"
 set geoEasyMsg(arcPar) "Parametry oblouku"
 set geoEasyMsg(arcRadius) "Polomìr"
+set geoEasyMsg(arcLength) "Arc length"  ;# TODO
 set geoEasyMsg(arcParam) "Pøechodový parametr"
 set geoEasyMsg(arcTran) "Pøechodnice\n  parametr: %.1f\n  dR: %.2f\n  délka: %.2f\n  X0: %.2f"
 set geoEasyMsg(arcStep) "Vzdálenost mezi podrobnými body \[m\]"

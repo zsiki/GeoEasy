@@ -923,6 +923,7 @@ set geoEasyMsg(spTitle) "Erste Linie"
 set geoEasyMsg(epTitle) "Zweite Linie"
 set geoEasyMsg(arcPar) "Bogen-und Übergangsbogen-parameter"
 set geoEasyMsg(arcRadius) "Radius"
+set geoEasyMsg(arcLength) "Arc length"      ;# TODO
 set geoEasyMsg(arcParam) "Übergangsbogen-parameter"
 set geoEasyMsg(arcTran) "Übergangsbogen\n  Parameter: %.1f\n  dR: %.2f\n  Länge: %.2f\n  X0: %.2f"
 set geoEasyMsg(arcStep) "Abstand zwischen Detailpunkten \[m\]"
