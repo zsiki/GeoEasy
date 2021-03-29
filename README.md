@@ -1,9 +1,9 @@
 # GeoEasy
 surveying calculation, network adjustment, digital terrain models, regression calculation
 
-Volunteers are wellcome! Send us bug reports, feature requests through the issue tracker. 
-Clone the repository, change the code and send us back a pull request to include your
-enchacement in the core system.
+Volunteers are wellcome! Send us bug reports, feature requests through the
+issue tracker.  Clone the repository, change the code and send us back a pull
+request to include your enchacement in the core system.
 
 ## History
 
