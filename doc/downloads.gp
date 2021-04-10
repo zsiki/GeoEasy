@@ -6,7 +6,7 @@
 
 set terminal png font "Verdana,8" size 950, 520
 
-set title 'Downloads 2017 October - 2021 January'
+set title 'Downloads 2017 October - 2021 March'
 set xlabel ' '
 set ylabel 'Count'
 
