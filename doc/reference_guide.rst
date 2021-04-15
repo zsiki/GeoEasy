@@ -3,6 +3,8 @@ GeoEasy 3.1
 Reference Guide
 ===============
 
+.. contents:: Table of Contents
+
 GeoEasy is a complex tool for land surveyors 
 
 * to calculate coordinates from observations,

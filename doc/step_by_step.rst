@@ -8,6 +8,11 @@ GeoEasy 3 Step by Step Tutorial
 
 .. note:: This training material does not extend to the use of the program in every detail, further information can be found in other documentation files.
 
+.. contents:: Table of Contents
+
+Introduction
+------------
+
 The installation kit contains a *demodata* directory. In this guide the data
 files from the *demodata* directory will be used.
 
