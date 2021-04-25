@@ -725,7 +725,7 @@ proc TranHParam {} {
 	checkbutton $this.savepar -text $geoEasyMsg(parSave) \
 		-variable parSave
 	button $this.exit -text $geoEasyMsg(ok) -command "destroy $this"
-	button $this.cancel -text $geoEasyMsg(cancel) -command {set tranType -1; destroy $this}
+	button $this.cancel -text $geoEasyMsg(cancel) -command {set tranType -1; destroy .tranhdia}
 
 	pack $this.save $this.savepar -side top -anchor w
 	pack $this.exit $this.cancel -side right
