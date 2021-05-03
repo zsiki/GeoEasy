@@ -143,11 +143,17 @@ set geoCodes(4)		"Kód bodu"
 set geoCodes(5)		"Èíslo bodu"
 set geoCodes(6)		"Výška cíle"
 set geoCodes(7)		"Vodorovný úhel"
+set geoCodes(-7)    "Not used"              ;# TODO
 set geoCodes(8)		"Zenitový úhel"
+set geoCodes(-8)    $geoCodes(-7)
 set geoCodes(9)		"Šikmá vzdálenost"
+set geoCodes(-9)    $geoCodes(-7)
 set geoCodes(10)	"Pøevýšení"
+set geoCodes(-10)   $geoCodes(-7)
 set geoCodes(120)   "Mìøené pøevýšení" 
+set geoCodes(-120)  $geoCodes(-7)
 set geoCodes(11)	"Vodorovná vzdálenost"
+set geoCodes(-11)   $geoCodes(-7)
 set geoCodes(12)	"Výmìra"
 set geoCodes(13)	"Kubatura"
 set geoCodes(14)	"Procento sklonu"
@@ -612,6 +618,8 @@ set geoEasyMsg(txtcols)		"Sloupce v souboru"
 # parameters
 #
 set geoEasyMsg(parTitle)	"Výpoèet parametrù"
+set geoEasyMsg(angleUnit)   "Angle units"           ;# TODO
+set geoEasyMsg(distUnit)    "Distance units"        ;# TODO
 set geoEasyMsg(projred)		"Redukce projekce \[mm/km\]:"
 set geoEasyMsg(avgh)		"Prùmìrná nadmoøská výška \[m\]:"
 set geoEasyMsg(stdangle)	"Smìrodatná odchylka smìru \[\"\]:"

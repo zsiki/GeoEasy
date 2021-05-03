@@ -79,7 +79,7 @@ proc Geodimeter {fn} {
 							foreach h $hz {
 								set coll [expr {$w - $h}]
 								GeoLog1 [format "%-10s %10s kollimacio" \
-									[string range $pno 0 9] [DMS $coll]]
+									[string range $pno 0 9] [ANG $coll]]
 								if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
 									GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(7)"
 								}
@@ -94,7 +94,7 @@ proc Geodimeter {fn} {
 							foreach h $v {
 								set ind [expr {$w - $h}]
 								GeoLog1 [format "%-10s %10s index" \
-									[string range $pno 0 9] [DMS $ind]]
+									[string range $pno 0 9] [ANG $ind]]
 								if {[expr {abs($ind)}] > [expr {$maxIndex / $RO}]} {
 									# too large error > 6'
 									GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(8)"
@@ -224,7 +224,7 @@ proc Geodimeter {fn} {
 				foreach h $hz {
 					set coll [expr {$w - $h}]
 					GeoLog1 [format "%-10s %10s kollimacio" \
-						[string range $pno 0 9] [DMS $coll]]
+						[string range $pno 0 9] [ANG $coll]]
 					if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
 						GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(7)"
 					}
@@ -239,7 +239,7 @@ proc Geodimeter {fn} {
 				foreach h $v {
 					set ind [expr {$w - $h}]
 					GeoLog1 [format "%-10s %10s index" \
-						[string range $pno 0 9] [DMS $ind]]
+						[string range $pno 0 9] [ANG $ind]]
 					if {[expr {abs($ind)}] > [expr {$maxIndex / $RO}]} {
 						# too large error > 6'
 						GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(8)"
@@ -394,7 +394,7 @@ proc SaveJob {fn rn} {
 			}
 			foreach code {7 21 8} {
 				if {[GetVal $code $buf] != ""} {
-					set d [string trim [DMS [GetVal $code $buf]]]
+					set d [string trim [ANG [GetVal $code $buf]]]
 					set a ""; set deg ""; set min ""; set sec ""
 					# change from ddd-mm-ss to ddd.mmss
 					regexp "^(\[0-9\]+)-(\[0-9\]\[0-9\])-(\[0-9\]\[0-9\])$" \

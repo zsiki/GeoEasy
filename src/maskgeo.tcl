@@ -73,10 +73,8 @@ proc GeoMask {maskn fn {type "_geo"}} {
 	frame $xtr -relief flat
 	frame $grd -relief flat
 	frame $status -relief sunken -borderwidth 2
-#	frame $mnu -relief raised -borderwidth 2
 	menu $mnu -relief raised -tearoff 0 ;#-type menubar
 
-#	pack $mnu -side top -fill x
 	pack $status $xtr -side bottom -fill x
 	pack $grd -side left -in $xtr
 
@@ -250,11 +248,13 @@ proc GeoMask {maskn fn {type "_geo"}} {
 					catch {destroy $w}
 					return
 				}
-				if {[string length [set l$i]] > 0} {
-					set l$i "[set l$i]\n$t"
-				} else {
-					set l$i $t
-				}
+                if {$item > 0} {    ;# not not show not used
+                    if {[string length [set l$i]] > 0} {
+                        set l$i "[set l$i]\n$t"
+                    } else {
+                        set l$i $t
+                    }
+                }
 			}
 			set oarr($i) $items
 			label $grd.l$i -text [set l$i]
@@ -319,7 +319,7 @@ proc GeoFillMask {fn start w} {
 	set type _geo
 	global geoCodes
 	global ${fn}${type}
-	global geoMaskColors
+	global geoMaskColors geoNotUsedColor
 	global geoMasks geoMaskParams
 	global entryFmt entryCode entryCodes entryRow
 	global maskName
@@ -331,10 +331,6 @@ proc GeoFillMask {fn start w} {
 #	update last changed entry
 #
 	set act [focus]
-# TBD jo ez?
-#	if {[info exists entryRow($act)]} {
-#		if {[GeoValid $act] == 1} { return }
-#	}
 
 	set rows [lindex $mask 1]
 	set n [llength [array names ${fn}${type}]]
@@ -382,7 +378,11 @@ proc GeoFillMask {fn start w} {
 				foreach item $items {
 					set val [GetVal $item $rec]
 					if {$val != ""} {
-						set color [lindex $geoMaskColors $ind]
+                        if {$item < 0} {
+                            set color $geoNotUsedColor
+                        } else {
+                            set color [lindex $geoMaskColors $ind]
+                        }
 						break
 					}
 					incr ind
@@ -390,7 +390,7 @@ proc GeoFillMask {fn start w} {
 				set copied 0
 				if {[string index $par 0] == "-" && $rec != ""} {
 					set par [string range $par 1 end]
-					if {$val == ""} {									;# no value remember to last
+					if {$val == ""} {			;# no value remember to last
 						set val [GetLast $fn $type $k $items]
 						set stat disabled
 						set color "grey"
@@ -1074,6 +1074,75 @@ proc GeoLoadTcl {w} {
 }
 
 #
+#   convert angle (radian) to string 
+#   @param val angle to convert in radian
+#   @return angle in angleUnits
+proc ANG {val} {
+    global angleUnits
+
+    set w ""
+    if {[string length [string trim $val]] > 0} {
+        switch -exact $angleUnits {
+            "DMS" { set w [DMS $val]}
+            "GON" { set w [GON $val]}
+            "DMS1" { set w [DMS1 $val]}
+            "DEG" { set w [DEG $val]}
+        }
+    }
+    return $w
+}
+
+#
+#   Convert text to angle
+#   @param val angle text format
+#   @return angl in radians
+proc ANG1 {val} {
+    global angleUnits PI
+
+    set w ""
+    switch -exact $angleUnits {
+        "DMS1" -
+        "DMS" { set w [DMS2Rad $val]}
+        "GON" { set w [expr {$val / 200.0 * $PI}]}
+        "DEG" { set w [expr {$val / 180.0 * $PI}]}
+    }
+    return $w
+}
+    
+#
+#   Convert distance/coordinate to string
+#   @param val distance/coordinate
+#   @return distance in $distUnits
+proc DST {val} {
+    global distUnits
+
+    set w ""
+    switch -exact $distUnits {
+        "m" { set w $val }
+        "FEET" { set w [FEET $val] }
+        "OL" { set w [OL $val] }
+    }
+    return $w
+}
+
+#
+#   Convert string to distance/coordinate
+#   @param val distance/coordinate string
+#   @return distance in metres
+proc DST1 {val} {
+    global distUnits
+    global FOOT2M OL2M
+
+    set w ""
+    switch -exact $distUnits {
+        "m" { set w $val }
+        "FEET" { set w [expr {$val * $FOOT2M}] }
+        "OL" { set w [expr {$val * OL2M}] }
+    }
+    return $w
+}
+
+#
 #	Convert angle in radian or seconds to DMS
 #	@param angle angle to convert in radian
 #	@param unit angle unit rad/sec
@@ -1299,9 +1368,12 @@ proc GeoValid {w} {
 	} elseif {[regexp $reg($r) $val]} {
 		switch -- $entryFmt($w) {
 			"DMS1" -
-			"DMS" {
-				set val [DMS2Rad $val]
-				if {[string length $val] == 0} {	;# invalid DMS
+			"DMS" -
+            "GON" -
+            "DEG" -
+            "ANG" {
+				set val [ANG1 $val]
+				if {[string length $val] == 0} {	;# invalid angle
 					tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(wrongval) \
 						warning 0 OK
 					set lastVal ""	;# to realize changes!
@@ -1309,17 +1381,10 @@ proc GeoValid {w} {
 					return 1
 				}
 			}
-			"GON" {
-				set val [expr {$val / 200.0 * $PI}]
-			}
-			"DEG" {
-				set val [expr {$val / 180.0 * $PI}]
-			}
-			"FEET" {
-				set val [expr {$val * $FOOT2M}]
-			}
-			"OL" {
-				set val [expr {$val * $OL2M}]
+			"FEET" -
+            "OL" -
+            "DST" {
+				set val [DST1 $val]
 			}
 		}
 		if {[info exists lastVal] && \
@@ -1343,7 +1408,7 @@ proc GeoValid {w} {
 #	@param rootx, rooty position on screen
 proc GeoMaskPopup {opts w rootx rooty} {
 	global geoEasyMsg
-	global geoMaskColors
+	global geoMaskColors geoNotUsedColor
 	global geoCodes
 	global entryFmt entryCode entryCodes entryRow
 	global geoModules
@@ -1358,11 +1423,19 @@ proc GeoMaskPopup {opts w rootx rooty} {
 	menu .maskmenu -tearoff 0
 	set cl [lrange $geoMaskColors 0 [expr {[llength $opts] - 1}]]
 	foreach o $opts c $cl {
-		.maskmenu add command -label $geoCodes($o) -foreground $c \
-			-activeforeground $c \
-			-command "set entryCode($w) $o; \
-				$w configure -foreground $c; \
-				GeoValid $w"
+        if {$o > 0} {
+            .maskmenu add command -label $geoCodes($o) -foreground $c \
+                -activeforeground $c \
+                -command "set entryCode($w) $o; \
+                    $w configure -foreground $c; \
+                    GeoValid $w"
+         } else {   ;# use gray for not used
+            .maskmenu add command -label $geoCodes($o) -foreground $geoNotUsedColor \
+                -activeforeground $geoNotUsedColor \
+                -command "set entryCode($w) $o; \
+                    $w configure -foreground $geoNotUsedColor; \
+                    GeoValid $w"
+         }
 	}
 	.maskmenu add separator
 	if {[regexp "_geo\.grd\.e" $w]} {					;# geo data set
@@ -1982,7 +2055,7 @@ proc GeoMaskFindNext {} {
 			for {set i $findStart} {$i < $n} {incr i} {
 				set val [GetVal $codes [set ${geo}($i)]]
 				if {$entryFmt($w) == 3 && [string length $val]} {
-					set val [string trim [DMS $val]]
+					set val [string trim [ANG $val]]
 				}
 				if {$findMode == 0 && [string match $findTxt $val] || \
 					$findMode == 1 && [regexp -- $findTxt $val]} {

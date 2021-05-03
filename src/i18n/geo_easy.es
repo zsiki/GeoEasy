@@ -143,11 +143,17 @@ set geoCodes(4)		"C\u00F3digo del punto"
 set geoCodes(5)		"N\u00FAmero del punto"
 set geoCodes(6)		"Altura de la se\u00F1al"
 set geoCodes(7)		"\u00E1ngulo Horizontal"
+set geoCodes(-7)    "Not used"                      ;# TODO
 set geoCodes(8)		"\u00E1ngulo Vertical"
+set geoCodes(-8)    $geoCodes(-7)
 set geoCodes(9)		"Distancia de la pendiente"
+set geoCodes(-9)    $geoCodes(-7)
 set geoCodes(10)	"Diferencia de altura"
+set geoCodes(-10)   $geoCodes(-7)
 set geoCodes(120)	"Nivelaci\u00F3n de la diferencia de altura" 
+set geoCodes(-120)  $geoCodes(-7)
 set geoCodes(11)	"Distancia horizontal "
+set geoCodes(-11)   $geoCodes(-7)
 set geoCodes(12)	"\u00C1rea de la superficie"
 set geoCodes(13)	"Volumen"
 set geoCodes(14)	"Porcentaje de grado"
@@ -612,6 +618,8 @@ set geoEasyMsg(txtcols)		"Columnas en el archivo"
 # parameters
 #
 set geoEasyMsg(parTitle)	"Par\u00E1metros de c\u00E1lculo"
+set geoEasyMsg(angleUnit)   "Angle units"           ;# TODO
+set geoEasyMsg(distUnit)    "Distance units"        ;# TODO
 set geoEasyMsg(projred)		"Reducci\u00F3n para la proyecci\u00F3n \[mm/km\]:"
 set geoEasyMsg(avgh)		"Altura media por encima de Nivel medio del mar (MSL) \[m\]:"
 set geoEasyMsg(stdangle)	"Desviaci\u00F3n est\u00E1ndar para las direcciones \[\"\]:"

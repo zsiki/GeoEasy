@@ -111,7 +111,7 @@ proc GeoTran {{sourc ""}} {
 					GeoLog1 [format $geoEasyMsg(scaleRot) \
 						[expr {sqrt([lindex $par 2] * [lindex $par 2] + \
 							[lindex $par 3] * [lindex $par 3])}] \
-						[DMS [expr {atan2([lindex $par 3], [lindex $par 2])}]]]
+						[ANG [expr {atan2([lindex $par 3], [lindex $par 2])}]]]
 				}
 				1 {
 					set par [Helmert3 ${sourc}_coo ${target}_coo $plist]
@@ -130,7 +130,7 @@ proc GeoTran {{sourc ""}} {
 					# print scale & rotation
 					GeoLog1
 					GeoLog1 [format $geoEasyMsg(scaleRot) 1 \
-						[DMS [lindex $par 2]]]
+						[ANG [lindex $par 2]]]
 				}
 				2 {
 					set par [Affin ${sourc}_coo ${target}_coo $plist]

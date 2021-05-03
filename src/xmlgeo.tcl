@@ -24,7 +24,8 @@ proc GeoNet3D {{pns ""}} {
 	global env
 	global home
 	global lastDir
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+    global angleUnits
 
 	if {[info exists env(TMP)]} {
 		set tmpname $env(TMP)
@@ -34,6 +35,8 @@ proc GeoNet3D {{pns ""}} {
 		set tmpname "."
 	}
 	set tmpname [file join  $tmpname tmp.g3d]
+    set gamaAngles 360
+    if {$angleUnits == "GON"} { set gamaAngles 400 }
 	catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	if {$gamaSvgOut} {
@@ -95,7 +98,8 @@ proc GeoNet2D {{pns ""}} {
 	global env
 	global home
 	global lastDir
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+    global angleUnits
 
 	if {[info exists env(TMP)]} {
 		set tmpname $env(TMP)
@@ -105,6 +109,8 @@ proc GeoNet2D {{pns ""}} {
 		set tmpname "."
 	}
 	set tmpname [file join  $tmpname tmp.g2d]
+    set gamaAngles 360
+    if {$angleUnits == "GON"} { set gamaAngles 400 }
 	catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	if {$gamaSvgOut} {
@@ -166,7 +172,8 @@ proc GeoNet1D {{pns ""}} {
 	global geoLang geoCp
 	global env
 	global home
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+    global angleUnits
 
 	if {[info exists env(TMP)]} {
 		set tmpname $env(TMP)
@@ -175,6 +182,8 @@ proc GeoNet1D {{pns ""}} {
 	} else {
 		set tmpname "."
 	}
+    set gamaAngles 360
+    if {$angleUnits == "GON"} { set gamaAngle 400 }
 	set tmpname [file join  $tmpname tmp.g1d]
 		catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
@@ -421,7 +430,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	global decimals
 	global n nmeasure
 	global stdAngle stdDist1 stdDist2 stdLevel
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global SEC2CC
 
 	set newst 0
@@ -630,7 +639,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	global xmlTypes 
 	global decimals
 	global n nmeasure
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global RO
 	global SEC2CC
 
@@ -931,12 +940,12 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 							if {[expr {abs($pure)}] > [expr {50.0 * $w}] && \
 									$flag == 0} {
 								GeoLog1 [format "$geoEasyMsg(pure)" \
-									$stpn $p H [DMS $pure]]
+									$stpn $p H [ANG $pure]]
 								if {$msg_flag == 0} {
 									switch -exact \
 									[tk_dialog .msg $geoEasyMsg(warning) \
 										[format "$geoEasyMsg(pure)" \
-										$stpn $p H [DMS $pure]] \
+										$stpn $p H [ANG $pure]] \
 										warning 0 OK \
 										$geoEasyMsg(ignore) \
 										$geoEasyMsg(cancel)] {
@@ -1087,7 +1096,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	global autoRefresh
 	global xmlTypes 
 	global nmeasure n
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global RO
 	global SEC2CC
 
@@ -1378,12 +1387,12 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 							if {[expr {abs($pure)}] > [expr {50.0 * $w}] && \
 									$flag == 0} {
 								GeoLog1 [format "$geoEasyMsg(pure)" \
-									$stpn $p H [DMS $pure]]
+									$stpn $p H [ANG $pure]]
 								if {$msg_flag == 0} {
 									switch -exact \
 									[tk_dialog .msg $geoEasyMsg(warning) \
 										[format "$geoEasyMsg(pure)" \
-										$stpn $p H [DMS $pure]] \
+										$stpn $p H [ANG $pure]] \
 										warning 0 OK \
 										$geoEasyMsg(ignore) \
 										$geoEasyMsg(cancel)] {
@@ -1600,7 +1609,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 #	@param name name of xml file to process
 proc ProcessXml {name} {
 	global autoRefresh
-	global gamaProg gamaConf gamaAngles gamaTol gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol gamaShortOut gamaSvgOut gamaXmlOut
 	global pl_dim pl_ids
 	set pl_dim 0
 	set pl_ids {}
@@ -1792,8 +1801,8 @@ proc StoreOri {pn oa aoa} {
 #   Get parameters for GNU GaMa local network adjustment
 proc GamaParams {} {
     global geoEasyMsg
-	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
-	global lgamaConf lgamaAngles lgamaTol ldirLimit lgamaShortOut lgamaSvgOut lgamaXmlOut
+	global gamaProg gamaConf gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
+	global lgamaConf lgamaTol ldirLimit lgamaShortOut lgamaSvgOut lgamaXmlOut
 	global buttonid
 
     set w [focus]
@@ -1812,7 +1821,6 @@ proc GamaParams {} {
 	catch {wm attribute $this -topmost}
 
 	set lgamaConf $gamaConf
-	set lgamaAngles $gamaAngles
 	set lgamaTol $gamaTol
 	set ldirLimit $dirLimit
 	set lgamaShortOut $gamaShortOut
@@ -1821,8 +1829,6 @@ proc GamaParams {} {
 
 	label $this.lconf -text $geoEasyMsg(gamaconf)
 	entry $this.conf -textvariable lgamaConf -width 10
-	label $this.langles -text $geoEasyMsg(gamaangles)
-	tk_optionMenu $this.angles lgamaAngles "360" "400"
 	label $this.ltol -text $geoEasyMsg(gamatol)
 	entry $this.tol -textvariable lgamaTol -width 10
 	label $this.ldirlimit -text $geoEasyMsg(gamadirlimit)
@@ -1841,17 +1847,15 @@ proc GamaParams {} {
 
 	grid $this.lconf -row 0 -column 0 -sticky w
 	grid $this.conf -row 0 -column 1 -sticky w
-	grid $this.langles -row 1 -column 0 -sticky w
-	grid $this.angles -row 1 -column 1 -sticky w
-	grid $this.ltol -row 2 -column 0 -sticky w
-	grid $this.tol -row 2 -column 1 -sticky w
-	grid $this.ldirlimit -row 3 -column 0 -sticky w
-	grid $this.dirlimit -row 3 -column 1 -sticky w
-	grid $this.short -row 4 -column 0 -columnspan 2 -sticky e
-	grid $this.svg -row 5 -column 0 -columnspan 2 -sticky e
-	grid $this.xml -row 6 -column 0 -columnspan 2 -sticky e
-	grid $this.exit -row 7 -column 0
-	grid $this.cancel -row 7 -column 1
+	grid $this.ltol -row 1 -column 0 -sticky w
+	grid $this.tol -row 1 -column 1 -sticky w
+	grid $this.ldirlimit -row 2 -column 0 -sticky w
+	grid $this.dirlimit -row 2 -column 1 -sticky w
+	grid $this.short -row 3 -column 0 -columnspan 2 -sticky e
+	grid $this.svg -row 4 -column 0 -columnspan 2 -sticky e
+	grid $this.xml -row 5 -column 0 -columnspan 2 -sticky e
+	grid $this.exit -row 6 -column 0
+	grid $this.cancel -row 6 -column 1
 	tkwait visibility $this
 	CenterWnd $this
 	grab set $this
@@ -1859,7 +1863,6 @@ proc GamaParams {} {
 	tkwait variable buttonid
 	if {$buttonid == 0} {
 		if {[catch {format %f $lgamaConf}] == 0} { set gamaConf $lgamaConf }
-		set gamaAngles $lgamaAngles
 		if {[catch {format %f $lgamaTol}] == 0} { set gamaTol $lgamaTol }
 		if {[catch {format %f $ldirLimit}] == 0} { set dirLimit $ldirLimit }
 		set gamaShortOut $lgamaShortOut
@@ -1976,8 +1979,8 @@ proc GamaShortOutput {l} {
 								set firstori 0
 							}
 							if {$gamaAngles == 360} {
-								set oa [DMS [Gon2Rad $oa]]
-								set aoa [DMS [Gon2Rad $aoa]]
+								set oa [ANG [Gon2Rad $oa]]
+								set aoa [ANG [Gon2Rad $aoa]]
 							} else {
 								set oa [format "%10.4s" $oa]
 								set aoa [format "%10.4s" $aoa]
@@ -2012,7 +2015,7 @@ proc GamaShortOutput {l} {
 								set adj [Gon2Rad $adj]
 								set mea [Gon2Rad $mea]
 								set v [expr {$adj - $mea}]
-								GeoLog1 [format "%-10s %-10s %10s %8.${mmdec}f %8.${mmdec}f %s" $from $to [DMS $adj] [Rad2Sec $v] [expr {$stdev / $SEC2CC}] $type]
+								GeoLog1 [format "%-10s %-10s %10s %8.${mmdec}f %8.${mmdec}f %s" $from $to [ANG $adj] [Rad2Sec $v] [expr {$stdev / $SEC2CC}] $type]
 							}
 							"height-diff" { set type "DM"
 								GeoLog1 [format "%-10s %-10s %10.${decimals}f %8.${mmdec}f %8.${mmdec}f %s" $from $to $adj [expr {$adj - $mea}] $stdev $type]

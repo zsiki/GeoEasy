@@ -113,7 +113,7 @@ proc Orientation {geo lineno {flag 0}} {
 				[GetVal {37 137} $station_coo] \
 				[GetVal {38 138} $ref_coo] [GetVal {37 137} $ref_coo]]
 			if {$d > 0.01} {
-				lappend slist [list $i $ref_pn $z [string trim [DMS $z]] $d $r $b]
+				lappend slist [list $i $ref_pn $z [string trim [ANG $z]] $d $r $b]
 			} else {
 				tk_dialog .msg $geoEasyMsg(error) \
 					"$geoEasyMsg(samePnt) $station_pn $ref_pn $geo:$lineno" \
@@ -174,8 +174,8 @@ proc Orientation {geo lineno {flag 0}} {
 				GeoLog1 [format "%-10s %-10s   %s   %s   %s   %8.${decimals}f %4d %4d %8.${decimals}f"\
 					[lindex $items 1] \
 					[string range [GetPCode [lindex $items 1] 1] 0 9]\
-					[DMS [lindex $items 5]] [DMS [lindex $items 6]] \
-					[DMS [lindex $items 2]] [lindex $items 4] \
+					[ANG [lindex $items 5]] [ANG [lindex $items 6]] \
+					[ANG [lindex $items 2]] [lindex $items 4] \
 					[expr {int($e)}] $emax $E]
 				if {[expr {abs($e)}] > $emax} {
 					tk_dialog .msg $geoEasyMsg(warning) \
@@ -183,7 +183,7 @@ proc Orientation {geo lineno {flag 0}} {
 						warning 0 OK
 				}
 			}
-			GeoLog1 [format "%-47s %s" $geoCodes(101) [DMS $z]]
+			GeoLog1 [format "%-47s %s" $geoCodes(101) [ANG $z]]
 		}
 		return $z
 	} else {
@@ -471,7 +471,7 @@ proc GeoOri {pn w {flag 0}} {
 	}
 	if {$w != ""} {
 		global geoRes
-		set geoRes($w) [format "%s(%s):%s" $geoCodes(101) $pn [DMS $res]]
+		set geoRes($w) [format "%s(%s):%s" $geoCodes(101) $pn [ANG $res]]
 	}
 	if {$autoRefresh} {
 		RefreshAll
@@ -524,12 +524,12 @@ proc GeoSec {pn {w ""}} {
 			[lindex $arec 2] \
 			[string range [GetPCode [lindex $arec 2] 1] 0 9] \
 			[GetVal {38} $aco] [GetVal {37} $aco] \
-			[DMS [lindex $arec 3]]]
+			[ANG [lindex $arec 3]]]
 		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f   %s" \
 			[lindex $brec 2] \
 			[string range [GetPCode [lindex $brec 2] 1] 0 9] \
 			[GetVal {38} $bco] [GetVal {37} $bco] \
-			[DMS [lindex $brec 3]]]
+			[ANG [lindex $brec 3]]]
 		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f" \
 			$pn [string range [GetPCode $pn 1] 0 9] \
 			[lindex $res 0] [lindex $res 1]]
@@ -667,15 +667,15 @@ proc GeoRes {pn {w ""}} {
 		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f    %s %s" \
 			[lindex $arec 2] [string range [GetPCode [lindex $arec 2] 1] 0 9] \
 			[GetVal 38 $aco] [GetVal 37 $aco] \
-			[DMS [lindex $arec 3]] [DMS $alpha]]
+			[ANG [lindex $arec 3]] [ANG $alpha]]
 		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f    %s %s" \
 			[lindex $brec 2] [string range [GetPCode [lindex $brec 2] 1] 0 9] \
 			[GetVal 38 $bco] [GetVal 37 $bco] \
-			[DMS [lindex $brec 3]] [DMS $beta]]
+			[ANG [lindex $brec 3]] [ANG $beta]]
 		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f    %s" \
 			[lindex $crec 2] [string range [GetPCode [lindex $crec 2] 1] 0 9] \
 			[GetVal 38 $cco] [GetVal 37 $cco] \
-			[DMS [lindex $crec 3]]]
+			[ANG [lindex $crec 3]]]
 		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f" \
 			$pn [string range [GetPCode $pn 1] 0 9] \
 			[lindex $res 0] [lindex $res 1]]
@@ -1544,14 +1544,14 @@ proc GeoBearingDistance {pn {w ""}} {
 		}
 		if {$w != ""} {
 			global geoRes
-			set geoRes($w) [format "%s-%s: %s %.${decimals}f" $pn $pn1 [DMS $b] $d]
+			set geoRes($w) [format "%s-%s: %s %.${decimals}f" $pn $pn1 [ANG $b] $d]
 		}
 		if {$d3d == ""} {
 			GeoLog1 [format "%-10s %-10s %s %8.${decimals}f" \
-				$pn $pn1 [DMS $b] $d]
+				$pn $pn1 [ANG $b] $d]
 		} else {
 			GeoLog1 [format "%-10s %-10s %s %8.${decimals}f %8.${decimals}f %s" \
-				$pn $pn1 [DMS $b] $d $d3d [DMS $za]]
+				$pn $pn1 [ANG $b] $d $d3d [ANG $za]]
 		}
 	}
 }
@@ -1604,7 +1604,7 @@ proc GeoAngle {pn {w ""}} {
 	set co_b [expr {cos($b)}]
 	# output reference
 	GeoLog1 [format "%-10s %s %8.${decimals}f" \
-		$pn1 [DMS $b] $d]
+		$pn1 [ANG $b] $d]
 
 	# remove reference point from list
 	if {[set i [lsearch -exact $slist $pn1]] != -1} {
@@ -1652,11 +1652,11 @@ proc GeoAngle {pn {w ""}} {
 		if {$w != ""} {
 			global geoRes
 			set geoRes($w) [format "%s-%s: %s %.${decimals}f" \
-				$pn $pn1 [DMS $b] $d]
+				$pn $pn1 [ANG $b] $d]
 		}
 		GeoLog1 [format "%-10s %s %8.${decimals}f %s %s \
 			%12.${decimals}f %12.${decimals}f" \
-			$pn1 [DMS $b] $d [DMS $alfa] [DMS $alfa0] $abc $ord]
+			$pn1 [ANG $b] $d [ANG $alfa] [ANG $alfa0] $abc $ord]
 		set _temp_geo($i) [list "5 $pn1" "7 $alfa0" "11 $d"]
 		set _temp_coo($pn1) [list [list 5 $pn1] [list 38 $abc] [list 37 $ord]]
 		incr i
@@ -1746,13 +1746,13 @@ proc LineLine {pn1 pn2 pn3 pn4} {
 	GeoLog1 $geoEasyMsg(head1Sec)
 	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f   %s" \
 		[GetVal {5} $pn1coo] [GetVal {4} $pn1coo] \
-		[GetVal {38} $pn1coo] [GetVal {37} $pn1coo] [DMS $b12]]
+		[GetVal {38} $pn1coo] [GetVal {37} $pn1coo] [ANG $b12]]
 	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f" \
 		[GetVal {5} $pn2coo] [GetVal {4} $pn2coo] \
 		[GetVal {38} $pn2coo] [GetVal {37} $pn2coo]]
 	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f   %s" \
 		[GetVal {5} $pn3coo] [GetVal {4} $pn3coo] \
-		[GetVal {38} $pn3coo] [GetVal {37} $pn3coo] [DMS $b34]]
+		[GetVal {38} $pn3coo] [GetVal {37} $pn3coo] [ANG $b34]]
 	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f" \
 		[GetVal {5} $pn4coo] [GetVal {4} $pn4coo] \
 		[GetVal {38} $pn4coo] [GetVal {37} $pn4coo]]

@@ -204,7 +204,7 @@ global decimals
 	GeoLog1 "$geoEasyMsg(arcT): [format %.${decimals}f $t]"
 	GeoLog1 "$geoEasyMsg(arcRadius): [format %.${decimals}f $r]"
 	GeoLog1 "$geoEasyMsg(arcLength): [format %.${decimals}f $arc_len]"
-	GeoLog1 [format $geoEasyMsg(arcAlpha) [DMS $alpha] [DMS $beta]]
+	GeoLog1 [format $geoEasyMsg(arcAlpha) [ANG $alpha] [ANG $beta]]
 
 	# start of arc
 	set xs [expr {$t * sin($back) + [GetVal 38 $corner]}]
@@ -317,7 +317,7 @@ global decimals
 	GeoLog1 "$geoEasyMsg(arcT): [format %.${decimals}f $t]"
 	GeoLog1 "$geoEasyMsg(arcRadius): [format %.${decimals}f $r]"
 	GeoLog1 "$geoEasyMsg(arcLength): [format %.${decimals}f $arc_len]"
-	GeoLog1 [format $geoEasyMsg(arcAlpha) [DMS $alpha] [DMS $beta]]
+	GeoLog1 [format $geoEasyMsg(arcAlpha) [ANG $alpha] [ANG $beta]]
 	GeoLog1 [format $geoEasyMsg(arcTran) $p $dr $l $x0]
 	# start of arc
 	set xs [expr {$t * sin($back) + [GetVal 38 $corner]}]

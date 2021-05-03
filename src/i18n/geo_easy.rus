@@ -143,11 +143,17 @@ set geoCodes(4)		"Код точки"
 set geoCodes(5)		"Номер точки"
 set geoCodes(6)		"Сила сигнала"
 set geoCodes(7)		"Горизонтальный угол"
+set geoCodes(-7)    "Not used"                  ;# TODO
 set geoCodes(8)		"Вертикальный угол"
+set geoCodes(-8)    $geoCodes(-7)
 set geoCodes(9)		"Наклонное расстояние"
+set geoCodes(-9)    $geoCodes(-7)
 set geoCodes(10)	"Превышение"
+set geoCodes(-10)   $geoCodes(-7)
 set geoCodes(120)   "Регулировка превышения" 
+set geoCodes(-120)  $geoCodes(-7)
 set geoCodes(11)	"Горизонтальное расстояние"
+set geoCodes(-11)   $geoCodes(-7)
 set geoCodes(12)	"Площадь поверхности"
 set geoCodes(13)	"Объем"
 set geoCodes(14)	"Percent of grade"
@@ -611,6 +617,8 @@ set geoEasyMsg(txtcols)		"Столбцы в файле"
 # parameters
 #
 set geoEasyMsg(parTitle)	"Параметры расчета"
+set geoEasyMsg(angleUnit)   "Angle units"           ;# TODO
+set geoEasyMsg(distUnit)    "Distance units"        ;# TODO
 set geoEasyMsg(projred)		"Reduction for projection \[mm/km\]:"
 set geoEasyMsg(avgh)		"Средняя высота над MSL \[m\]:"
 set geoEasyMsg(stdangle)	"Стандартное отклонение для направлений \[\"\]:"

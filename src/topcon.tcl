@@ -721,3 +721,109 @@ proc Save210 {fn rn} {
 	close $f
 	return 0
 }
+
+#
+#	Read Topcon DL101 digital level raw format
+#	First letter in input line describes the record type
+#	b - start of BF line
+#	b,?,lineid,startp,elevation,datetime,??
+#	c - start of BBFF line
+#	c,?,lineid,?,?,,,,,,,,,,,,,,??,elevation,YYMMDDhhmmss,,,,?,
+#	g - foresight treading
+#	g,?,reading,distance,?,?,?,pid,?,hhmm
+#	h - second foresight reading (line type "c")
+#	h,?,reading,distance,?,?,?,pid,?,hhmm
+#	i - foresight reading
+#	i,?,reading,distance,?,?,?,pid,?,hhmm
+#	j - second foresight reading (line type "c")
+#	j,?,reading,distance,?,?,?,pid,?,hhmm
+#	k - intersight reading
+#	k,?,reading,distance,?,?,?,pid,?,hhmm
+#	w - summary of line
+#	w.?,lineid,...
+#	t- end of line
+#	t,?,lineid,?,YYMMDDhhmms,?
+#	@param fn name of input file
+#	TODO
+proc TopConDL {fn} {
+	global reg
+	global geoEasyMsg geoCodes
+
+	set fa [GeoSetName $fn]
+	if {[string length $fa] == 0} {return -1}
+	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
+	if {[catch {set fin [open $fn r]}] != 0} {
+		return -1       ;# cannot open input file
+	}
+	set lines 0             ;# number of lines in output
+	set src 0               ;# input line number
+	set obuf ""             ;# output buffer
+	set ${fa}_par ""
+	set linetype "b"	;# default BF line
+	set lineid ""
+	while {! [eof $fin]} {
+		incr src	;# source line number
+		if {[gets $fin buf] == 0} continue
+		set buf [string trim $buf]
+		set buflist [split $buf ","]  ;# comma separated
+		set n [llength $buflist]
+		if {$n == 0} continue       ;# empty line
+		set code [lindex $buflist 0]
+		switch -exact $code {
+			b {	;# start of BF line
+				set linetype "b"
+				set lineid [lindex $buflist 2]
+				set startp [lindex $buflist 3]
+				set startz [expr {[lindex $buflist 4] / 10000.0}]
+puts "BF line id: $lineid  point: $startp $startz"
+			}
+			c {	;# start of BBFF line
+				set linetype "c"
+				set lineid [lindex $buflist 2]
+				set startp [lindex $buflist 17]
+				set startz [expr {[lindex $buflist 18] / 10000.0}]
+puts "BBFF line id: $lineid  point: $startp $startz"
+			}
+			g {	;# backsight reading
+				set b1 [expr {[lindex $buflist 2] / 10000.0}]
+				set b1d [expr {[lindex $buflist 3] / 10000.0}]
+				set bid [lindex $buflist 7]
+				set b2 ""
+				set f1 ""
+				set f2 ""
+				set b2d ""
+				set f1d ""
+				set f2d ""
+puts "B1 $bid $b1 $b1d"
+			}
+			i {	;# forsight reading
+				set f1 [expr {[lindex $buflist 2] / 10000.0}]
+				set f1d [expr {[lindex $buflist 3] / 10000.0}]
+				set fid [lindex $buflist 7]
+puts "F1 $fid $f1 $f1d"
+			}
+			h {	;# second backsight reading
+				set b2 [expr {[lindex $buflist 2] / 10000.0}]
+				set b2d [expr {[lindex $buflist 3] / 10000.0}]
+puts "B2 $bid $b2 $b2d"
+			}
+			j {	;# second foresight reading
+				set f2 [expr {[lindex $buflist 2] / 10000.0}]
+				set f2d [expr {[lindex $buflist 3] / 10000.0}]
+puts "F2 $fid $f2 $f2d"
+			}
+			k {	;# intersight reading
+				set k [expr {[lindex $buflist 2] / 10000.0}]
+				set kd [expr {[lindex $buflist 3] / 10000.0}]
+				set kid [lindex $buflist 7]
+puts "K  $kid $k $kd"
+			}
+			w {	;# line summary
+			}
+			t {	;# end of line
+			}
+		}
+	}
+	close $fin
+	return 0
+}

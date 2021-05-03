@@ -1268,7 +1268,7 @@ proc GetPol {pn {flag 0}} {
 						set height [expr {$height + [GetRefr $hdist]}]
 					}
 					lappend ret [list $stpn [format "%.${decimals}f" $hdist] $delta \
-						[DMS $delta] [format "%.${decimals}f" $height] $pcode]
+						[ANG $delta] [format "%.${decimals}f" $height] $pcode]
 				} elseif {$stcoo != "" && $sth != "" && $h != "" && $va != ""} {
 					set height [expr {[GetVal {39 139} $stcoo] + $sth + \
 						$hdist / tan($va) - $h}]
@@ -1277,11 +1277,11 @@ proc GetPol {pn {flag 0}} {
 						set height [expr {$height + [GetRefr $hdist]}]
 					}
 					lappend ret [list $stpn [format "%.${decimals}f" $hdist] $delta \
-						[DMS $delta] [format "%.4f" $height] $pcode]
+						[ANG $delta] [format "%.4f" $height] $pcode]
 				} else {
 					set height ""
 					lappend ret [list $stpn [format "%.${decimals}f" $hdist] $delta \
-						[DMS $delta] $height $pcode]
+						[ANG $delta] $height $pcode]
 				}
 			}
 		}
@@ -1874,7 +1874,7 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 	        pcodelayer bname battr block ptext xzplane
 	global polyStyle
 	global x3dColor
-	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 	global triangleProg
 	global cs2csProg
 	global geoDoc
@@ -1981,9 +1981,9 @@ proc TxtOut {fn {nn ""}} {
 		} else {
 			# observation record
 			set hz [GetVal {7 21} $rec]
-			if {$hz != ""} { set hz [string trim [DMS $hz]] }
+			if {$hz != ""} { set hz [string trim [ANG $hz]] }
 			set v [GetVal {8} $rec]
-			if {$v != ""} { set v [string trim [DMS $v]] }
+			if {$v != ""} { set v [string trim [ANG $v]] }
 			set d [GetVal {9 11} $rec]
 			if {$d != ""} { set d [format "%.${decimals}f" $d] }
 			set th [GetVal {6} $rec]

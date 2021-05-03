@@ -590,7 +590,7 @@ proc AvgFaces {f1 f2} {
 	}
 	GeoLog1 [format "%-10s %10s %10s %6.4f %6.3f" \
 		[string range [GetVal {5 62} $f1] 0 9] \
-		[DMS $collimationError] [DMS $indexError] $dt $dj]
+		[ANG $collimationError] [ANG $indexError] $dt $dj]
 	return $f1
 }
 

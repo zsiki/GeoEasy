@@ -243,7 +243,7 @@ proc LinRegX {plist} {
 	GeoLog [lindex $reglist 0]
 	GeoLog1 [format $geoEasyMsg(head0LinRegX) $m [format "%+.${decimals}f" $b]]
 	# report angle to axis
-	GeoLog1 "$geoEasyMsg(hAngleReg) [DMS [expr {atan($m)}]]"
+	GeoLog1 "$geoEasyMsg(hAngleReg) [ANG [expr {atan($m)}]]"
 	# report correlation
 	set correlation [expr {$kszi_eta / ($n - 1.0) / \
 		sqrt($eta_2 / ($n - 1.)) / sqrt($kszi_2 / ($n - 1.))}]
@@ -310,7 +310,7 @@ proc LinRegY {plist} {
 	GeoLog1
 	GeoLog [lindex $reglist 1]
 	GeoLog1 [format $geoEasyMsg(head0LinRegY) $m [format "%+.${decimals}f" $b]]
-	GeoLog1 "$geoEasyMsg(vAngleReg) [DMS [expr {atan($m)}]]"
+	GeoLog1 "$geoEasyMsg(vAngleReg) [ANG [expr {atan($m)}]]"
 	# report correlation
 	set correlation [expr {$kszi_eta / ($n - 1.0) / \
 		sqrt($eta_2 / ($n - 1.)) / sqrt($kszi_2 / ($n - 1.))}]
@@ -396,7 +396,7 @@ proc PlaneReg {plist} {
 	set dir [Bearing $a1 $a2 0 0]
 #	while {$dir < 0} { set dir [expr {$dir + $PI2}]}
 	set ang [expr {atan(sqrt($a1*$a1+$a2*$a2))}]
-	GeoLog1 [format $geoEasyMsg(head00PlaneReg) [DMS $dir] [DMS $ang]]
+	GeoLog1 [format $geoEasyMsg(head00PlaneReg) [ANG $dir] [ANG $ang]]
 	GeoLog1
 	GeoLog1 $geoEasyMsg(head1PlaneReg)
 	set sdz2 0
@@ -459,7 +459,7 @@ proc LinRegXY {plist title} {
 	GeoLog1
 	GeoLog $title
 	GeoLog1 [format $geoEasyMsg(head0LinRegX) $m [format %+.${decimals}f $b]]
-	GeoLog1 "$geoEasyMsg(hAngleReg) [DMS $fi]"
+	GeoLog1 "$geoEasyMsg(hAngleReg) [ANG $fi]"
 	# report correlation
 	set correlation [expr {$kszi_eta / ($n - 1.0) / \
 		sqrt($eta_2 / ($n - 1.)) / sqrt($kszi_2 / ($n - 1.))}]
@@ -1374,7 +1374,7 @@ proc PlaneRegYXZ { plist } {
 #	slope angle and direction
 	set dir [Bearing $a1 $a2 0 0]
 	set ang [expr {atan(sqrt($a1*$a1+$a2*$a2))}]
-	GeoLog1 [format $geoEasyMsg(head00PlaneReg) [DMS $dir] [DMS $ang]]
+	GeoLog1 [format $geoEasyMsg(head00PlaneReg) [ANG $dir] [ANG $ang]]
 	GeoLog1
 	GeoLog1 $geoEasyMsg(head1PDistReg)
 	set sr2 0
@@ -1884,7 +1884,7 @@ proc ParLin {alist blist} {
 	GeoLog [lindex $reglist 1]
 	GeoLog1 [format $geoEasyMsg(head0LinRegX) $m [format %+.${decimals}f $b]]
 	GeoLog1 [format $geoEasyMsg(head0LinRegX) $m [format %+.${decimals}f $b1]]
-	GeoLog1 "$geoEasyMsg(hAngleReg) [DMS $fi]"
+	GeoLog1 "$geoEasyMsg(hAngleReg) [ANG $fi]"
 	# distance
 	set dist [expr {sqrt(pow(($b * $m - $b1 * $m) / ($m * $m + 1), 2) + \
 						 pow(($b1 - $b) / ($m * $m + 1), 2))}]
@@ -1967,6 +1967,6 @@ proc PlaneAngle {n1 n2} {
 	set ang [expr {atan(sqrt($a3*$a3+$b3*$b3)/sqrt($a3*$a3+$b3*$b3+$c3*$c3))}]
     GeoLog1
     GeoLog [lindex $reglist 8]
-	GeoLog1 "$geoEasyMsg(head1PlaneAngle) [DMS $gamma]"
-	GeoLog1 [format $geoEasyMsg(head2PlaneAngle) [DMS $dir] [DMS $ang]]
+	GeoLog1 "$geoEasyMsg(head1PlaneAngle) [ANG $gamma]"
+	GeoLog1 [format $geoEasyMsg(head2PlaneAngle) [ANG $dir] [ANG $ang]]
 }

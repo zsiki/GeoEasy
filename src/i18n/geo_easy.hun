@@ -143,11 +143,17 @@ set geoCodes(4)		"Pont kód"
 set geoCodes(5)		"Pontszám"
 set geoCodes(6)		"Jelmagasság"
 set geoCodes(7)		"Irányérték"
+set geoCodes(-7)    "Nem használt"
 set geoCodes(8)		"Zenit szög"
+set geoCodes(-8)    $geoCodes(-7)
 set geoCodes(9)		"Ferde távolság"
+set geoCodes(-9)    $geoCodes(-7)
 set geoCodes(10)	"Mag. kül. trigmag" ;#"Függõleges távolság"
+set geoCodes(-10)   $geoCodes(-7)
 set geoCodes(120)	"Mag. kül. szintezés"
+set geoCodes(-120)  $geoCodes(-7)
 set geoCodes(11)	"Vízszintes távolság"
+set geoCodes(-11)   $geoCodes(-7)
 set geoCodes(12)	"Felszín"
 set geoCodes(13)	"Térfogat"
 set geoCodes(14)	"Emelkedõ %"
@@ -615,6 +621,8 @@ set geoEasyMsg(txtcols)		"Oszlopok a fájlban"
 #	paraméterek
 #
 set geoEasyMsg(parTitle)	"Számítási paraméterek"
+set geoEasyMsg(angleUnit)   "Szögegység"
+set geoEasyMsg(distUnit)    "Hosszegység"
 set geoEasyMsg(projred)		"Vetületi redukció \[mm/km\]:"
 set geoEasyMsg(avgh)		"Átlagos tengerszint feletti magasság \[m\]:"
 set geoEasyMsg(stdangle)	"Irány/zenit középhiba \[\"\]:"

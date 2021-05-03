@@ -41,7 +41,7 @@ proc GeoEasy {top} {
 #	set default geo_easy.msk parameters
 	global projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
 	global cooSep txtSep decimals multiSep autoRefresh geoLang geoCp browser rtfview
-	global geoMaskColors
+	global geoMaskColors geoNotUsedColor
 	global geoLineColor geoFinalColor geoApprColor geoStationColor \
 		geoOrientationColor geoNostationColor
 	global geoMasks geoMaskParams
@@ -55,7 +55,7 @@ proc GeoEasy {top} {
 	global saveType comSaveType
 	global geoLangs langCodes
 
-	set version 314 ;# update for new release!
+	set version 320 ;# update for new release!
 	set version_str "[join [split $version {}] .]dev"
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data

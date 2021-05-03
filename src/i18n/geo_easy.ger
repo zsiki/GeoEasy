@@ -141,11 +141,17 @@ set geoCodes(4)		"Punktcode"
 set geoCodes(5)		"Punktnummer"
 set geoCodes(6)		"Zielhöhe"
 set geoCodes(7)		"beobachtete Richtung"
+set geoCodes(-7)    "Not used"              ;# TODO
 set geoCodes(8)		"Zenitwinkel"
+set geoCodes(-8)    $geoCodes(-7)
 set geoCodes(9)		"Schrägdistanz"
+set geoCodes(-9)    $geoCodes(-7)
 set geoCodes(10)	"Höhenunterschied" ;#"vertikale Distanz"
+set geoCodes(-10)   $geoCodes(-7)
 set geoCodes(120)	"nivellierter Höhenunterschied"
+set geoCodes(-120)  $geoCodes(-7)
 set geoCodes(11)	"Horizontaldistanz"
+set geoCodes(-11)   $geoCodes(-7)
 set geoCodes(12)	"Fläche"
 set geoCodes(13)	"Kubatur"
 set geoCodes(14)	"Steigung in %"
@@ -612,6 +618,8 @@ set geoEasyMsg(txtcols)		"Spalten in der Datei"
 #	paraméterek
 #
 set geoEasyMsg(parTitle)	"Berechnungsparameter"
+set geoEasyMsg(angleUnit)   "Angle units"           ;# TODO
+set geoEasyMsg(distUnit)    "Distance units"        ;# TODO
 set geoEasyMsg(projred)		"Projektionsreduktion \[mm/km\]:"
 set geoEasyMsg(avgh)		"Mittlere Höhe des Projektperimeters über Meer \[m\]:"
 set geoEasyMsg(stdangle)	"Standardabweichung der Richtungsmessung/Zenitwinkelmessung \[\"\]:"

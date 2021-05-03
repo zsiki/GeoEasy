@@ -143,11 +143,17 @@ set geoCodes(4)		"Point code"
 set geoCodes(5)		"Point number"
 set geoCodes(6)		"Signal height"
 set geoCodes(7)		"Horizontal angle"
+set geoCodes(-7)	"Not used"
 set geoCodes(8)		"Vertical angle"
+set geoCodes(-8)	$geoCodes(-7)
 set geoCodes(9)		"Slope distance"
+set geoCodes(-9)	$geoCodes(-7)
 set geoCodes(10)	"Height diff"
+set geoCodes(-10)	$geoCodes(-7)
 set geoCodes(120)	"Height diff. leveling" 
+set geoCodes(-120)	$geoCodes(-7)
 set geoCodes(11)	"Horizontal distance"
+set geoCodes(-11)	$geoCodes(-7)
 set geoCodes(12)	"Area of surface"
 set geoCodes(13)	"Volume"
 set geoCodes(14)	"Percent of grade"
@@ -612,6 +618,8 @@ set geoEasyMsg(txtcols)		"Columns in file"
 # parameters
 #
 set geoEasyMsg(parTitle)	"Calculation parameters"
+set geoEasyMsg(angleUnit)   "Angle units"
+set geoEasyMsg(distUnit)    "Distance units"
 set geoEasyMsg(projred)		"Reduction for projection \[mm/km\]:"
 set geoEasyMsg(avgh)		"Average height above MSL \[m\]:"
 set geoEasyMsg(stdangle)	"Standard deviation for directions \[\"\]:"

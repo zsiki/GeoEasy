@@ -236,12 +236,14 @@ proc GeoProgress {{ms "Please wait"} {t ""}} {
 #
 #	Dialog to set up calculation parameters
 proc GeoCParam {} {
-	global projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
-	global locprojRed locavgH locstdAngle locstdDist1 locstdDist2 locrefr locstdLevel locdec
+	global angleUnits distUnits projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
+	global locangleUnits locdistUnits locprojRed locavgH locstdAngle locstdDist1 locstdDist2 locrefr locstdLevel locdec
 	global decimals
 	global geoEasyMsg
 	global buttonid
 
+    set locangleUnits $angleUnits
+    set locdistUnits $distUnits
 	set locprojRed $projRed
 	set locavgH $avgH 
 	set locstdAngle $stdAngle
@@ -261,6 +263,8 @@ proc GeoCParam {} {
 	wm transient .param $w
 	catch {wm attribute .param -topmost}
 
+    label .param.langle -text $geoEasyMsg(angleUnit)
+    label .param.ldist -text $geoEasyMsg(distUnit)
 	label .param.lprojred -text $geoEasyMsg(projred)
 	label .param.lavgh -text $geoEasyMsg(avgh)
 	label .param.lstdangle -text $geoEasyMsg(stdangle)
@@ -270,6 +274,8 @@ proc GeoCParam {} {
 	checkbutton .param.refr -text $geoEasyMsg(refr) -variable locrefr
 	label .param.ldec -text $geoEasyMsg(dec)
 	
+    tk_optionMenu .param.angles locangleUnits "DMS" "GON" "DMS1" "DEG"
+    tk_optionMenu .param.dists locdistUnits "m" "FEET"
 	entry .param.projred -textvariable locprojRed -width 10
 	entry .param.avgh -textvariable locavgH -width 10
 	entry .param.stdangle -textvariable locstdAngle -width 10
@@ -283,25 +289,29 @@ proc GeoCParam {} {
 	button .param.cancel -text $geoEasyMsg(cancel) \
 		-command "destroy .param; set buttonid 1"
 
-	grid .param.lprojred -row 0 -column 0 -sticky w
-	grid .param.lavgh -row 1 -column 0 -sticky w
-	grid .param.lstdangle -row 2 -column 0 -sticky w
-	grid .param.lstddist1 -row 3 -column 0 -sticky w
-	grid .param.lstddist2 -row 4 -column 0 -sticky w
-	grid .param.lstdlevel -row 5 -column 0 -sticky w
-	grid .param.refr -row 6 -column 0 -sticky e -columnspan 2
-	grid .param.ldec -row 7 -column 0 -sticky w
+    grid .param.langle -row 0 -column 0 -sticky w
+    grid .param.ldist -row 1 -column 0 -sticky w
+	grid .param.lprojred -row 2 -column 0 -sticky w
+	grid .param.lavgh -row 3 -column 0 -sticky w
+	grid .param.lstdangle -row 4 -column 0 -sticky w
+	grid .param.lstddist1 -row 5 -column 0 -sticky w
+	grid .param.lstddist2 -row 6 -column 0 -sticky w
+	grid .param.lstdlevel -row 7 -column 0 -sticky w
+	grid .param.refr -row 8 -column 0 -sticky e -columnspan 2
+	grid .param.ldec -row 9 -column 0 -sticky w
 
-	grid .param.projred -row 0 -column 1 -sticky w
-	grid .param.avgh -row 1 -column 1 -sticky w
-	grid .param.stdangle -row 2 -column 1 -sticky w
-	grid .param.stddist1 -row 3 -column 1 -sticky w
-	grid .param.stddist2 -row 4 -column 1 -sticky w
-	grid .param.stdlevel -row 5 -column 1 -sticky w
-	grid .param.dec -row 7 -column 1 -sticky w
+    grid .param.angles -row 0 -column 1 -sticky w
+    grid .param.dists -row 1 -column 1 -sticky w
+	grid .param.projred -row 2 -column 1 -sticky w
+	grid .param.avgh -row 3 -column 1 -sticky w
+	grid .param.stdangle -row 4 -column 1 -sticky w
+	grid .param.stddist1 -row 5 -column 1 -sticky w
+	grid .param.stddist2 -row 6 -column 1 -sticky w
+	grid .param.stdlevel -row 7 -column 1 -sticky w
+	grid .param.dec -row 9 -column 1 -sticky w
 	
-	grid .param.exit -row 8 -column 0
-	grid .param.cancel -row 8 -column 1
+	grid .param.exit -row 10 -column 0
+	grid .param.cancel -row 10 -column 1
 
 	tkwait visibility .param
 	CenterWnd .param
@@ -309,6 +319,8 @@ proc GeoCParam {} {
 
 	tkwait variable buttonid
 	if {$buttonid == 0} {
+        set angleUnits $locangleUnits
+        set distUnits $locdistUnits
 		if {[catch {format %f $locprojRed}] == 0} {
 			set projRed $locprojRed
 		} else {
@@ -335,6 +347,7 @@ proc GeoCParam {} {
 		if {[catch {format %f $locdec}] == 0} {
 			set decimals $locdec
 		}
+        RefreshAll
 	}
 }
 
