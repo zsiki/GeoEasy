@@ -774,6 +774,11 @@ transformation.
       231      88568.240   2281.760   650252.518   248692.628
       232      88619.860   3159.880   650304.141   249570.746
 
+.. note::
+
+    There are other transformations in GeoEasy. From the Coordinate list
+    you can make 2D transformation from stored parameters or manualy
+    given parameters. 
 
 Elevation transformation
 ........................
@@ -961,11 +966,289 @@ Help menu
 Popup menu
 ~~~~~~~~~~
 
+The popup menu is displayed when you click in the field-book with
+right mouse button.
+
+The first or first few options in the popup menu above the horizontal line show
+the possible value types in the field. For example you can change slope
+distance to horizontal distance and vica versa.
+
+Delete
+......
+
+Delete the actual row if it is a observation record or delete all
+observations from this station if it is a station record. You have to
+confirm the deletion.
+
+New observation
+...............
+
+Add a new observation record after the actual row. First the point number 
+have to be entered and a new ro is added what you can fill later.
+
+New station
+...........
+
+Add a new station to the end of the field-book. First the point number
+have to be entered and a new station row is added what you can fill later.
+
+Insert station record
+.....................
+
+Insert station record in front of the actual record. This way you can divide 
+observations into two stations.
+
+Delete station record
+.....................
+
+Delete only the station record. This way you can merge the observations of two
+stations.
+
+Find
+....
+
+Search for a string value or regular expression in the column of the click.
+
+Calculate
+.........
+
+The *Calculate* has a submenu from where you can select calculations for the
+clicked point. 
+The first option in tihs menu is the point number. Selecting this options you
+get information about the actual point. The options in the calculation
+menu are enabled if the calculation for this point is available.
+
+Bearing/Distance
+++++++++++++++++
+
+Calculate whole circle bearing and distance from this point to the selected
+points. You can select several points from the point list.
+The result of the calculation is shows in the *Calculation results*
+window.
+
+.. code::
+
+    2021.04.25 21:03 - Bearing/Distance
+    Point num  Point num  Bearing   Distance Slope dis Zenith angle
+    12         11          32-30-25  1588.87
+    12         13         292-23-57  6272.27
+    12         14           9-42-05  2982.45
+
+Setting out
++++++++++++
+
+Polar and rectangular setting out data are calculated. First a reference 
+direction have to be selected and from the second list of point numbers the
+targets of setting out. Finally you can deside to save the polar
+setting out data into a new GeoEasy data set.
+
+.. code::
+
+    2021.04.25 21:08 - Setting out
+    Station number: 14
+    Point num  Bearing   Distance Angle     Angle from 1st  Local E     Local N
+    15         226-57-43  5959.74
+    12         189-42-05  2982.45 322-44-22 322-44-22       2373.70      1805.70
+    16         231-22-38  1425.78  41-40-33   4-24-54       1421.55      -109.76
+    231        230-35-12  3360.04 359-12-35   3-37-29       3353.32      -212.43
+    232        243-44-28  2837.07  13-09-16  16-46-45       2716.29      -819.01
+
+Orientation
++++++++++++
+
+Calculate orientation angle for this point. The orientation directions can be
+selected from a point list. In the list the orientation angle and the point
+number is visible. The results are visible in the *Calculation results* 
+window and the orientation angles are stored in the field-book (you can see
+these values in the orientation mask).
+
+.. code::
+
+    2021.04.25 21:38 - Orientation - 231
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    15                      341-58-03   222-18-10   240-20-07    2615.06   -1   14    -0.02
+    13                       52-48-11   293-08-21   240-20-10    4029.89    1   11     0.02
+    Average orientation angle                       240-20-08
+
+Appr. orientation
++++++++++++++++++
+
+Calculate approximate orientation, not only the fixed coordinates are used but 
+the preliminary coordinates, too.
+
+Polar point
++++++++++++
+
+Intersection
+++++++++++++
+
+Resection
++++++++++
+
+Arcsection
+++++++++++
+
+3D adjustment
++++++++++++++
+
+Horizontal adjustment
++++++++++++++++++++++
+
+Elevation adjustment
+++++++++++++++++++++
+
+Elevation
++++++++++
+
+Detail points
++++++++++++++
+
 GeoEasy coordinate list
 -----------------------
 
+Each loaded data set contains a coordinate list. A list is opened from the
+Edit menu of the main window. Point in the coordinate list are ordered by
+*Point number*. Points may have preliminary or fix (final) coordinates in the
+coordinate list. Preliminary coordinates are used only for graphical display
+of points and for network adjusments.
+
 Commands menu
 ~~~~~~~~~~~~~
+
+Mask
+....
+
+The user can here select from the different display formats of the coordinate 
+list. There are four standard masks:
+
+- difference - displays fix coordinates and coordinate differences to an other coordinate list, use it with *Coordinate differences* option from this menu
+- fix - displays fix (final ) coordinates
+- fix_stdev - displays fix coordinates and standard deviation, standard deviations are loaded from network adjusments
+- prelim_fix - displays fix or preliminary coordinates, preliminary coordinates are displayed only if no fix coordinates are available
+
+Users can add extra mask.
+
+Number of rows
+..............
+
+Set the number of displayed rows in the window.
+
+Refresh all windows
+...................
+
+Refresh the content of all opened windows.
+
+Refresh
+.......
+
+Refrersh the content of this coordinate list window.
+
+New point
+.........
+
+Add a new point to the coordinate list. First you have to input the point
+number of the new point. Then a new row is inserted into the list with the
+point number and you can fill east, north and elevation.
+
+Field book
+..........
+
+You can open the field book belonging to the actual coordinate list. If it is
+opened no new window will be opened, the window will be rised only.
+
+Check coordinate list
+.....................
+
+Check the coordinate list for errors. The results are sent to the 
+*Calculatin results* window.
+
+Transformation
+..............
+
+Transform the the coordinates of the actual coordinate list in 2D and/or 1D.
+2D orthogonal transformation parameters (offset, rotation and scale) and
+1D vertical offset can be given.
+The coordinates in the coordinate list are overwritten by the transformed
+values.
+
+Transformation, parameters from file
+....................................
+
+Stored transformation parameter set can be applied to the coordinates in the
+list. Two different data format can be used for stored parameters, .prm
+(Helmert and affine transformation) and .all (polinomial), see the data formats
+the appendix.
+The coordinates in the coordinate list are overwritten by the transformed
+values.
+
+Coordinate differences
+......................
+
+The coordinate difference of two coordinate lists are calculated. The second
+coordinate list you compare to should not be loaded. Select the GeoEasy data
+set to compare to from the standard file selection dialog and change the mask
+to the *difference* to see the result.
+
+Swap East-North, Swap East-Elev, Swap North-Elev
+................................................
+
+Swap the given coordinates in the list. Be careful if you have observations in
+the opened field-books, after coordinate change you loose the calculation 
+possibilities.
+
+Preliminary -> final coordinates
+................................
+
+Change all preliminary coordinates to fixed (final).
+
+Delete preliminary coordinates
+..............................
+
+Delete all preliminary coordinates from this coordinate list.
+
+Delete all detail coordinates
+.............................
+
+Delete the coordinates of detail points. Detail points are  which have
+only one polar observation, have been not station and the point number
+meatch the *detailreg* regexp in geo_easy.msk. Default regexp is
+*^[0-9]+([-/]?([a-zA-Z]|[0-9])+)?$*
+
+Delete all coordinates
+......................
+
+Delete all coordinates from the coordinate list.
+
+Delete all points
+.................
+
+Delete all records from coordinate list.
+
+Save
+....
+
+Save the GeoEasy data set, not only the coordinate list.
+
+Save as CSV
+...........
+
+Save the coordinate list to CSV format.
+
+Save as RTF
+...........
+
+Saves the coordinate list to RTF document format.
+
+Save as HTML
+............
+
+Save the coordinate list to HTML format.
+
+Close
+.....
+
+Close the coordinate list window, de data set remains active in the current
+GeoEasy session.
 
 Calculate menu
 ~~~~~~~~~~~~~~
@@ -977,8 +1260,41 @@ for the convenience of the user.
 Help menu
 ~~~~~~~~~
 
+The *Help* menu is identical to the help menu of other windows.
+
 Popup menu
 ~~~~~~~~~~
+
+The popup menu is displayed when you click in the coordinate list with
+right mouse button.
+
+The first or first few options in the popup menu above the horizontal line show
+the possible value types in the field. For example you can change preliminary
+coordinate to fix or vica versa.
+
+Delete
+......
+
+Delet the actual row from the coordinate list.
+
+New point
+.........
+
+Add a new point to the coordinate list. Fist the point number can be entered.
+A new line is added to the coordinate list. The new point is inserted in 
+dictionary order of point numbers.
+
+Find
+....
+
+Search for a string value or regular expression in the column of the click.
+
+Calculate
+.........
+
+The *Calculate* has a submenu from where you can select calculations for the
+clicked point. The options in this submenu are identical to the popup
+menu of the fieldbook and graphic window.
 
 GeoEasy graphic window
 ----------------------
@@ -998,7 +1314,7 @@ Refresh all opened window, not only the graphic windows.
 Refresh
 .......
 
-Refresh actual graphic window
+Refresh actual graphic window.
 
 Zoom all
 ........
@@ -1158,10 +1474,7 @@ coordinate file can be created from the interpolated profile points.
 
 .. note::
 
-	You can use the *Height interpolation* tool from the toolbar to
-    specify start and end points with the mouse. Click on the start point and
-    drag the mouse to draw a rubber line and release mouse button et the end
-    point.
+	You can use the *Height interpolation* tool from the toolbar to specify start and end points with the mouse. Click on the start point and drag the mouse to draw a rubber line and release mouse button et the end point.
 
 Contours
 ........
