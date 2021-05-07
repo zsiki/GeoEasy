@@ -1119,10 +1119,11 @@ proc ANG1 {val} {
 #   @return distance in $distUnits
 proc DST {val} {
     global distUnits
+    global decimals
 
     set w ""
     switch -exact $distUnits {
-        "m" { set w $val }
+        "m" { set w [format "%.${decimals}f" $val] }
         "FEET" { set w [FEET $val] }
         "OL" { set w [OL $val] }
     }
