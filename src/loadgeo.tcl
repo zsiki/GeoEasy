@@ -2046,13 +2046,13 @@ proc FilterParams {} {
 	label $this.lpcFilter -text geoEasyMsg(lpcFilter)
 	entry $this.pcFilter -variable pcFilter
 	label $this.lrectE1 -text geoEasyMsg(lrectE1)
-	entry $this.rectE1 - variable rectE1
+	entry $this.rectE1 - variable rectE1 -justify right
 	label $this.lrectN1 -text geoEasyMsg(lrectN1)
-	entry $this.rectN1 - variable rectN1
+	entry $this.rectN1 - variable rectN1 -justify right
 	label $this.lrectE2 -text geoEasyMsg(lrectE2)
-	entry $this.rectE2 - variable rectE2
+	entry $this.rectE2 - variable rectE2 -justify right
 	label $this.lrectN2 -text geoEasyMsg(lrectN2)
-	entry $this.rectN2 - variable rectN2
+	entry $this.rectN2 - variable rectN2 -justify right
 
 	radiobutton $this.swapEN -text $geoEasyMsg(swapEN) -variable swapEN
 	radiobutton $this.swapEZ -text $geoEasyMsg(swapEZ) -variable swapEZ

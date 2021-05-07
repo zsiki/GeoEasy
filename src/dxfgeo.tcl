@@ -459,16 +459,16 @@ proc DXFparams {} {
 	grid $this.lzdec -row 15 -column 0 -sticky w
 
 	entry $this.slay -textvariable slay -width 10
-	entry $this.r -textvariable rp -width 10
+	entry $this.r -textvariable rp -width 10 -justify right
 	entry $this.pnlay -textvariable pnlay -width 10
-	entry $this.dxpn -textvariable dxpn -width 10
-	entry $this.dypn -textvariable dypn -width 10
-	entry $this.spn -textvariable spn -width 10
+	entry $this.dxpn -textvariable dxpn -width 10 -justify right
+	entry $this.dypn -textvariable dypn -width 10 -justify right
+	entry $this.spn -textvariable spn -width 10 -justify right
 	entry $this.zlay -textvariable zlay -width 10
-	entry $this.dxz -textvariable dxz -width 10
-	entry $this.dyz -textvariable dyz -width 10
-	entry $this.sz -textvariable sz -width 10
-	entry $this.zdec -textvariable zdec -width 10
+	entry $this.dxz -textvariable dxz -width 10 -justify right
+	entry $this.dyz -textvariable dyz -width 10 -justify right
+	entry $this.sz -textvariable sz -width 10 -justify right
+	entry $this.zdec -textvariable zdec -width 10 -justify right
 
 	grid $this.slay -row 0 -column 1 -sticky w
 	grid $this.r -row 1 -column 1 -sticky w
@@ -486,7 +486,7 @@ proc DXFparams {} {
 	checkbutton $this.ldxf -text $geoEasyMsg(contourpar) -variable contourDxf \
 		-command "c_check $this \$contourDxf"
 	label $this.lcontourinterval -text $geoEasyMsg(contourInterval)
-	entry $this.contourentry -textvariable contourInterval -width 10
+	entry $this.contourentry -textvariable contourInterval -width 10 -justify right
 	checkbutton $this.llay -text $geoEasyMsg(contourLayer) \
 		-variable contourLayer
 	checkbutton $this.l3d -text $geoEasyMsg(contour3Dface) \
@@ -1219,14 +1219,14 @@ proc SVGparams {} {
 	grid $this.lsz -row 14 -column 0 -sticky w
 	grid $this.lzdec -row 15 -column 0 -sticky w
 
-	entry $this.r -textvariable rp -width 10
-	entry $this.dxpn -textvariable dxpn -width 10
-	entry $this.dypn -textvariable dypn -width 10
-	entry $this.spn -textvariable spn -width 10
-	entry $this.dxz -textvariable dxz -width 10
-	entry $this.dyz -textvariable dyz -width 10
-	entry $this.sz -textvariable sz -width 10
-	entry $this.zdec -textvariable zdec -width 10
+	entry $this.r -textvariable rp -width 10 -justify right
+	entry $this.dxpn -textvariable dxpn -width 10 -justify right
+	entry $this.dypn -textvariable dypn -width 10 -justify right
+	entry $this.spn -textvariable spn -width 10 -justify right
+	entry $this.dxz -textvariable dxz -width 10 -justify right
+	entry $this.dyz -textvariable dyz -width 10 -justify right
+	entry $this.sz -textvariable sz -width 10 -justify right
+	entry $this.zdec -textvariable zdec -width 10 -justify right
 
 	grid $this.r -row 0 -column 1 -sticky w
 	grid $this.dxpn -row 7 -column 1 -sticky w
@@ -1241,7 +1241,7 @@ proc SVGparams {} {
 	checkbutton $this.ldxf -text $geoEasyMsg(contourpar) -variable contourDxf \
 		-command "c_check $this \$contourDxf"
 	label $this.lcontourinterval -text $geoEasyMsg(contourInterval)
-	entry $this.contourentry -textvariable contourInterval -width 10
+	entry $this.contourentry -textvariable contourInterval -width 10 -justify right
 	grid $this.ldxf -row 16 -column 0 -sticky w -columnspan 2
 	grid $this.lcontourinterval -row 17 -column 0 -sticky w
 	grid $this.contourentry -row 17 -column 1 -sticky w

@@ -1464,7 +1464,7 @@ proc ContourDia {} {
 	}
 
 	label $this.lcontourinterval -text $geoEasyMsg(contourInterval)
-	entry $this.contourentry -textvariable contourInterval -width 10
+	entry $this.contourentry -textvariable contourInterval -width 10 -justify right
 	button $this.exit -text $geoEasyMsg(ok) \
 		-command "destroy $this; set buttonid 0"
 	button $this.cancel -text $geoEasyMsg(cancel) \
@@ -1897,7 +1897,7 @@ proc VolumeDia {} {
 	}
 
 	label $this.lvolumelevel -text $geoEasyMsg(volumeLevel)
-	entry $this.levelentry -textvariable volumeLevel -width 10
+	entry $this.levelentry -textvariable volumeLevel -width 10 -justify right
 	button $this.exit -text $geoEasyMsg(ok) \
 		-command "destroy $this; set buttonid 0"
 	button $this.cancel -text $geoEasyMsg(cancel) \
@@ -2646,7 +2646,7 @@ proc GridParams {} {
 	wm transient $this $w
 	catch {wm attribute $this -topmost}
 	label $this.ldx -text $geoEasyMsg(griddx)
-	entry $this.dx -textvariable gridDX -width 10
+	entry $this.dx -textvariable gridDX -width 10 -justify right
 	checkbutton $this.vrml -text $geoEasyMsg(gridvrml) -variable gridVrml
 	button $this.exit -text $geoEasyMsg(ok) \
 		-command "destroy $this; set buttonid 0"
@@ -2686,15 +2686,15 @@ proc DtmInterpolateDialog {} {
 	wm transient $this $w
 	catch {wm attribute $this -topmost}
 	label $this.lx -text $geoEasyMsg(lx)
-	entry $this.x -textvariable xInterp -width 10
+	entry $this.x -textvariable xInterp -width 14 -justify right
 	label $this.ly -text $geoEasyMsg(ly)
-	entry $this.y -textvariable yInterp -width 10
+	entry $this.y -textvariable yInterp -width 14 -justify right
 	label $this.lx1 -text $geoEasyMsg(lx1)
-	entry $this.x1 -textvariable x1Interp -width 10
+	entry $this.x1 -textvariable x1Interp -width 14 -justify right
 	label $this.ly1 -text $geoEasyMsg(ly1)
-	entry $this.y1 -textvariable y1Interp -width 10
+	entry $this.y1 -textvariable y1Interp -width 14 -justify right
 	label $this.lstep -text $geoEasyMsg(lstep)
-	entry $this.step -textvariable stepInterp -width 10
+	entry $this.step -textvariable stepInterp -width 14 -justify right
 	checkbutton $this.dxf -text $geoEasyMsg(ldxf) -variable dxfProfile
 	checkbutton $this.coo -text $geoEasyMsg(lcoo) -variable cooProfile
 	button $this.exit -text $geoEasyMsg(ok) \

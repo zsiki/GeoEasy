@@ -1828,11 +1828,11 @@ proc GamaParams {} {
 	set lgamaXmlOut $gamaXmlOut
 
 	label $this.lconf -text $geoEasyMsg(gamaconf)
-	entry $this.conf -textvariable lgamaConf -width 10
+	entry $this.conf -textvariable lgamaConf -width 10 -justify right
 	label $this.ltol -text $geoEasyMsg(gamatol)
-	entry $this.tol -textvariable lgamaTol -width 10
+	entry $this.tol -textvariable lgamaTol -width 10 -justify right
 	label $this.ldirlimit -text $geoEasyMsg(gamadirlimit)
-	entry $this.dirlimit -textvariable ldirLimit -width 10
+	entry $this.dirlimit -textvariable ldirLimit -width 10 -justify right
 	checkbutton $this.short -text $geoEasyMsg(gamashortout) \
 	        -variable lgamaShortOut
 	checkbutton $this.svg -text $geoEasyMsg(gamasvgout) \

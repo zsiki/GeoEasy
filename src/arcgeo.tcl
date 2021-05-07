@@ -142,10 +142,10 @@ global buttonid
 	label $this.la -text $geoEasyMsg(arcStep)
 	label $this.ln -text $geoEasyMsg(arcNum)
 	label $this.lpre -text $geoEasyMsg(arcPrefix)
-	entry $this.r -textvariable arcR -width 10
-	entry $this.p -textvariable arcP -width 10
-	entry $this.a -textvariable arcStep -width 10
-	entry $this.n -textvariable arcNum -width 10
+	entry $this.r -textvariable arcR -width 10 -justify right
+	entry $this.p -textvariable arcP -width 10 -justify right
+	entry $this.a -textvariable arcStep -width 10 -justify right
+	entry $this.n -textvariable arcNum -width 10 -justify right
 	entry $this.pre -textvariable arcPre -width 10
 	checkbutton $this.save -text $geoEasyMsg(arcSave) -variable arcSave
 	button $this.exit -text $geoEasyMsg(ok) \

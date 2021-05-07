@@ -297,9 +297,9 @@ proc ProjPar {} {
 		-variable proj_preserv -command "preserv $this \$proj_preserv"
 	label $this.lzfac -text $geoEasyMsg(zfaclabel)
 	label $this.lzoffs -text $geoEasyMsg(zoffslabel)
-	entry $this.epsg -textvariable epsg -width 10
-	entry $this.zfac -textvariable proj_zfac -width 10
-	entry $this.zoffs -textvariable proj_zoffs -width 10
+	entry $this.epsg -textvariable epsg -width 10 -justify right
+	entry $this.zfac -textvariable proj_zfac -width 10 -justify right
+	entry $this.zoffs -textvariable proj_zoffs -width 10 -justify right
 
 	grid $this.lepsg -row 0 -column 0 -sticky w
 	grid $this.epsg -row 0 -column 1 -sticky w

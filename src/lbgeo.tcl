@@ -276,13 +276,13 @@ proc GeoCParam {} {
 	
     tk_optionMenu .param.angles locangleUnits "DMS" "GON" "DMS1" "DEG"
     tk_optionMenu .param.dists locdistUnits "m" "FEET"
-	entry .param.projred -textvariable locprojRed -width 10
-	entry .param.avgh -textvariable locavgH -width 10
-	entry .param.stdangle -textvariable locstdAngle -width 10
-	entry .param.stddist1 -textvariable locstdDist1 -width 10
-	entry .param.stddist2 -textvariable locstdDist2 -width 10
-	entry .param.stdlevel -textvariable locstdLevel -width 10
-	entry .param.dec -textvariable locdec -width 10
+	entry .param.projred -textvariable locprojRed -width 10 -justify right
+	entry .param.avgh -textvariable locavgH -width 10 -justify right
+	entry .param.stdangle -textvariable locstdAngle -width 10 -justify right
+	entry .param.stddist1 -textvariable locstdDist1 -width 10 -justify right
+	entry .param.stddist2 -textvariable locstdDist2 -width 10 -justify right
+	entry .param.stdlevel -textvariable locstdLevel -width 10 -justify right
+	entry .param.dec -textvariable locdec -width 10 -justify right
 
 	button .param.exit -text $geoEasyMsg(ok) \
 		-command "destroy .param; set buttonid 0"
@@ -588,7 +588,7 @@ proc GeoOParam {} {
 			{global v; set locCooMaskDefault $v}
 		incr i
 	}
-	entry .oparams.maskrows -textvariable locMaskRows -width 4
+	entry .oparams.maskrows -textvariable locMaskRows -width 4 -justify right
 	if {$tcl_platform(platform) == "unix"} {
 		set locBrowser $browser
 		set locRtfview $rtfview
