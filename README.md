@@ -61,4 +61,10 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 
 ## Download statistics of binary releases
 
-![Download statistics](doc/downloads.png "Download statistics from October 2017 to nowadays")
+### Last 12 months
+
+![Download statistics](doc/downloads12.png "Download statistics of last 12 months")
+
+### Yearly
+
+![Download statistics](doc/idownloadsyearly.png "Download statistics of last 12 months")
