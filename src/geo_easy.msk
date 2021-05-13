@@ -144,7 +144,7 @@ global geoMaskColors
 set geoMaskColors {black red blue green cyan}
 # color for not used observations
 global geoNotUsedColor
-set geoNotUsedColor {dark slate gray}
+set geoNotUsedColor {gray50}
 # colors in graphic window
 #
 #	geoLineColor - color for lines
