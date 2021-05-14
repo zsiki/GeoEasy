@@ -133,6 +133,8 @@ set polyStyle {}
 #	mask colors
 global geoMaskColors
 set geoMaskColors {black red blue green cyan}
+# color for not used observations
+global geoNotUsedColor
 # colors in graphic window
 #
 #	geoLineColor - color for lines
