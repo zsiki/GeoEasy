@@ -164,6 +164,7 @@ set geoCodes(18)	"Zenitový úhel - II. poloha"
 set geoCodes(19)	"dV"
 set geoCodes(20)	"Konstanta hranolu"
 set geoCodes(21)	"Smìr na orientaci"
+set geoCodes(-21)   $geoCodes(-7)
 set geoCodes(22)	"Kompenzátor"
 set geoCodes(23)	"Jednotky"
 set geoCodes(24)	"Voddorovný úhel - I. poloha"

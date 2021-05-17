@@ -164,6 +164,7 @@ set geoCodes(18)	"Zenitszög II"
 set geoCodes(19)	"dV"
 set geoCodes(20)	"Prizma állandó"
 set geoCodes(21)	"Tájékozó irány"
+set geoCodes(-21)   $geoCodes(-7)
 set geoCodes(22)	"Kompenzátor"
 set geoCodes(23)	"Egységek"
 set geoCodes(24)	"Irányérték I"

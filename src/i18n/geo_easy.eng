@@ -164,6 +164,7 @@ set geoCodes(18)	"VAII"
 set geoCodes(19)	"dV"
 set geoCodes(20)	"Offset constant to slope distance"
 set geoCodes(21)	"Horizontal ref. angle"
+set geoCodes(-21)   $geoCodes(-7)
 set geoCodes(22)	"Compensator"
 set geoCodes(23)	"Units"
 set geoCodes(24)	"HAI"

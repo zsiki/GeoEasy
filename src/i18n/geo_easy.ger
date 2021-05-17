@@ -162,6 +162,7 @@ set geoCodes(18)	"Zenitwinkel Lage II"
 set geoCodes(19)	"dV"
 set geoCodes(20)	"Prismenkonstante"
 set geoCodes(21)	"Orientierungspunkt/Anschlusspunkt"
+set geoCodes(-21)   $geoCodes(-7)
 set geoCodes(22)	"Kompensator"
 set geoCodes(23)	"Einheiten"
 set geoCodes(24)	"Hz-Richtung Lage I"
