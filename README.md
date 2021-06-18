@@ -24,7 +24,7 @@ See the [doc](./doc) folder for various reStructuredText files, the [wiki](https
 
 ## Installation
 
-Installation binaries for latest stabil version (3.1.3):
+Installation binaries for latest stabile version (3.1.3):
 
 * [Debian/Ubuntu](http://digikom.hu/download/geoeasy_3.1.3.deb)
 * [Windows](http://digikom.hu/download/Gizi313Setup.exe)
