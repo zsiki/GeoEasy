@@ -238,6 +238,43 @@ directory.
 
 The preparation should be repeated (make source).
 
+OSX (Machintosh) installation
+-----------------------------
+
+Usually Tcl/Tk, the necessary programming language is installed on OSX. Please check it.
+
+.. code:: bash
+
+	wish
+
+After this you should see a small empty graphic window in the upper left part of the 
+screen and the prompt in the terminal window is changed to %. Press CTLR/D in the terminal window
+to exit or close the small graphic window.
+
+For Machintos there is no binary release. You can use the source release.
+Open a terminal window, chenge you current directory where you would like to install the software and type the following commands:
+
+.. code:: bash
+
+	git clone https://github.com/zsiki/GeoEasy.git
+	cd GeoEasy/src
+	make source
+	wish geo_easy.tcl
+
+The last *wish* command starts the application. If you would like you start it again
+open a terminal window and change to the installation directory and enter
+
+.. code:: bash
+
+	wish geo_easy.tcl
+
+The menus of the program are in the main menu bar, see the screenshot below.
+
+
+
+You can create a small script to automate the startup process.
+
+
 Android Installation
 --------------------
 
