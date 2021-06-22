@@ -272,7 +272,7 @@ open a terminal window and change to the installation directory and enter
 The menus of the program are in the main menu bar, see the screenshot below.
 
 .. figure:: images/osx.png
-    :align center
+    :align: center
 
     GeoEasy on Machintosh (thanks to Marco Kukavicic)
 
