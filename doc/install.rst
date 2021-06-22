@@ -9,6 +9,7 @@ Supported operating systems
 
 * Windows XP/2000/7/8/10 32 or 64 bit
 * Linux with X11 Ubuntu/Fedora/Debian 64 bit
+* OSX
 * Android (experimental)
 
 Windows Installation
@@ -270,10 +271,18 @@ open a terminal window and change to the installation directory and enter
 
 The menus of the program are in the main menu bar, see the screenshot below.
 
+.. figure:: images/osx.png
+    :align center
 
+    GeoEasy on Machintosh (thanks to Marco Kukavicic)
 
 You can create a small script to automate the startup process.
 
+.. note::
+
+    To have the external tools, like GNU Gama, Triangle, etc. 
+    you should install those programs as it is documented in the 
+    Ubuntu source install  section.
 
 Android Installation
 --------------------
