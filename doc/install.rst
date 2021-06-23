@@ -242,7 +242,7 @@ The preparation should be repeated (make source).
 OSX (Machintosh) installation
 -----------------------------
 
-Usually Tcl/Tk, the necessary programming language is installed on OSX. Please check it.
+Usually Tcl/Tk, the necessary programming language is installed on OSX. Please check it from a terminal window.
 
 .. code:: bash
 
@@ -252,7 +252,7 @@ After this you should see a small empty graphic window in the upper left part of
 screen and the prompt in the terminal window is changed to %. Press CTLR/D in the terminal window
 to exit or close the small graphic window.
 
-For Machintos there is no binary release. You can use the source release.
+For Machintosh there is no binary release. You can use only use the source release.
 Open a terminal window, chenge you current directory where you would like to install the software and type the following commands:
 
 .. code:: bash
@@ -262,6 +262,8 @@ Open a terminal window, chenge you current directory where you would like to ins
 	make source
 	wish geo_easy.tcl
 
+This will install the latest development version. If you want to install the stabile version select a zip or tgz 
+file from the https://github.com/zsiki/GeoEasy/tags page.
 The last *wish* command starts the application. If you would like you start it again
 open a terminal window and change to the installation directory and enter
 
@@ -282,7 +284,7 @@ You can create a small script to automate the startup process.
 
     To have the external tools, like GNU Gama, Triangle, etc. 
     you should install those programs as it is documented in the 
-    Ubuntu source install  section.
+    Ubuntu source install section.
 
 Android Installation
 --------------------
