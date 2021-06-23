@@ -171,6 +171,8 @@ version regularly, then the *git clone* should be preferred.
 
 	git clone https://github.com/zsiki/GeoEasy.git
 
+This will install the latest development version. If you want to install the stabile version select a zip or tgz 
+file from the https://github.com/zsiki/GeoEasy/tags page.
 Change directory to **GeoEasy/src** and
 run the following commands from the command line, to prepare it.
 
