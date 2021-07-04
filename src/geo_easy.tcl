@@ -253,11 +253,11 @@ proc GeoEasy {top} {
 		exit 0
 	}  
 
-#	GeoEasy & ComEasy message file
+#	GeoEasy & ComEasy message files
 	foreach name [list geo_easy com_easy] {
 		set msgFile [file join $home i18n $name.$geoLang]
 		if {[file isfile $msgFile] && [file readable $msgFile]} {
-			if {[catch {source $msgFile} msg] == 1} {
+			if {[catch {source -encoding utf-8 $msgFile} msg] == 1} {
 				tk_dialog .msg "Error" "Error in message file:\n$msg" error 0 OK
 				exit
 			}

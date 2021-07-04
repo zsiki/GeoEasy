@@ -7,7 +7,7 @@ global comTypes
 global comSetTypes
 
 # saved communication parameters
-set comSetTypes {{"ComEasy paraméterek" {.com}}}
+set comSetTypes {{"ComEasy paramÃ©terek" {.com}}}
 
 # downloaded file types
 set comTypes {
@@ -20,81 +20,81 @@ set comTypes {
 	{"TopCon GTS-210" {.210}}
 	{"Trimble M5" {.m5}}
 	{"Nikon DTM-300" {.nik}}
-	{"Geodat 124 formátum" {.dat}}
-	{"Minden fájl" {.*}}
+	{"Geodat 124 formÃ¡tum" {.dat}}
+	{"Minden fÃ¡jl" {.*}}
 }
 
 # window titles
 set comEasyMsg(comTitle)		"ComEasy V1.0"
 set comEasyMsg(digikom)			"Szponzor DigiKom Kft."
-set comEasyMsg(about1)			"Soros vonali kommunikáció"
-set comEasyMsg(about2)			"Minden földmérõnek"
-set comEasyMsg(parsTitle)		"Kommunikációs paraméterek"
+set comEasyMsg(about1)			"Soros vonali kommunikÃ¡ciÃ³"
+set comEasyMsg(about2)			"Minden fÃ¶ldmÃ©rÅ‘nek"
+set comEasyMsg(parsTitle)		"KommunikÃ¡ciÃ³s paramÃ©terek"
 set comEasyMsg(error)			"Hiba"
 
 # menu text
 set comEasyMsg(mComFile)		"Parancsok"
-set comEasyMsg(mComPars)		"Beállítások ..."
-set comEasyMsg(mComDir)			"Tartalomjegyzék"
-set comEasyMsg(mComDownload)	"Letöltés ..."
-set comEasyMsg(mComUpload)		"Feltöltés ..."
-set comEasyMsg(mComStop)		"Leállít"
-set comEasyMsg(mComExit)		"Kilép"
-set comEasyMsg(mComHelp)		"Súgó"
-set comEasyMsg(mComHelp1)		"Súgó ..."
-set comEasyMsg(mComAbout)		"Névjegy ..."
-set comEasyMsg(mComStored)		"Tárolt beállítások"
+set comEasyMsg(mComPars)		"BeÃ¡llÃ­tÃ¡sok ..."
+set comEasyMsg(mComDir)			"TartalomjegyzÃ©k"
+set comEasyMsg(mComDownload)	"LetÃ¶ltÃ©s ..."
+set comEasyMsg(mComUpload)		"FeltÃ¶ltÃ©s ..."
+set comEasyMsg(mComStop)		"LeÃ¡llÃ­t"
+set comEasyMsg(mComExit)		"KilÃ©p"
+set comEasyMsg(mComHelp)		"SÃºgÃ³"
+set comEasyMsg(mComHelp1)		"SÃºgÃ³ ..."
+set comEasyMsg(mComAbout)		"NÃ©vjegy ..."
+set comEasyMsg(mComStored)		"TÃ¡rolt beÃ¡llÃ­tÃ¡sok"
 set comEasyMsg(mComPrint)		"Nyomtat"
-set comEasyMsg(mComPrintSelection)		"Szelekciót nyomtat"
+set comEasyMsg(mComPrintSelection)		"SzelekciÃ³t nyomtat"
 
 # label text
-set comEasyMsg(parsHead1)		"Vonali beállítások"
-set comEasyMsg(parsHead2)		"Kommunikációs beállítások"
-set comEasyMsg(parsHead3)		"Egyéb beállítások"
+set comEasyMsg(parsHead1)		"Vonali beÃ¡llÃ­tÃ¡sok"
+set comEasyMsg(parsHead2)		"KommunikÃ¡ciÃ³s beÃ¡llÃ­tÃ¡sok"
+set comEasyMsg(parsHead3)		"EgyÃ©b beÃ¡llÃ­tÃ¡sok"
 
 set comEasyMsg(parsPort)		"Csatorna:"
-set comEasyMsg(parsBaud)		"Sebesség:"
-set comEasyMsg(parsParity)		"Paritás:"
+set comEasyMsg(parsBaud)		"SebessÃ©g:"
+set comEasyMsg(parsParity)		"ParitÃ¡s:"
 set comEasyMsg(parsData)		"Adat bitek:"
 set comEasyMsg(parsStop)		"Stop bitek:"
-set comEasyMsg(parsEofchar)		"Fájlvég jel:"
+set comEasyMsg(parsEofchar)		"FÃ¡jlvÃ©g jel:"
 
-set comEasyMsg(parsBlocking)	"Blokkolás:"
-set comEasyMsg(parsTranslation)	"Sorvég jelek:"
-set comEasyMsg(parsBuffering)	"Pufferelés:"
-set comEasyMsg(parsBuffsize)	"Puffer méret:"
-set comEasyMsg(parsEncoding)	"Kódlap:"
-set comEasyMsg(parsInit)		"Inicializálás:"
-set comEasyMsg(parsQuery)		"Rekord kérés:"
-set comEasyMsg(parsSendquery)	"Rekord vége:"
-set comEasyMsg(parsDir)			"Tartalomjegyzék:"
+set comEasyMsg(parsBlocking)	"BlokkolÃ¡s:"
+set comEasyMsg(parsTranslation)	"SorvÃ©g jelek:"
+set comEasyMsg(parsBuffering)	"PufferelÃ©s:"
+set comEasyMsg(parsBuffsize)	"Puffer mÃ©ret:"
+set comEasyMsg(parsEncoding)	"KÃ³dlap:"
+set comEasyMsg(parsInit)		"InicializÃ¡lÃ¡s:"
+set comEasyMsg(parsQuery)		"Rekord kÃ©rÃ©s:"
+set comEasyMsg(parsSendquery)	"Rekord vÃ©ge:"
+set comEasyMsg(parsDir)			"TartalomjegyzÃ©k:"
 
 # button labels
 set comEasyMsg(ok)				"OK"
-set comEasyMsg(cancel)			"Mégsem"
+set comEasyMsg(cancel)			"MÃ©gsem"
 set comEasyMsg(save)			"Ment"
-set comEasyMsg(load)			"Betölt"
+set comEasyMsg(load)			"BetÃ¶lt"
 
 # error messages
-set comEasyMsg(warning)			"figyelmeztetés"
-set comEasyMsg(helpfile)		"A súgó fájlt nem találom"
-set comEasyMsg(browser)			"A súgót megjelenítõ programot nem sikerült elindítani.\nEllenõrizze a html fájlok megjelenitésére regisztrált programot"
-set comEasyMsg(gizidll)			"Telepítési hiba, kód=1"
-set comEasyMsg(comOpen)			"Kommunikációs csatorna nyitási hiba"
-set comEasyMsg(comConfigure)	"Kommunikációs csatorna konfigurálási hiba"
-set comEasyMsg(cantSave)		"Nem sikerült írásra megnyitni a fájlt"
-set comEasyMsg(cantOpen)		"Nem sikerült olvasásra megnyitni a fájlt"
-set comEasyMsg(cantSource)		"Nem sikerült betölteni a paraméter fájlt"
-set comEasyMsg(cantRead)		"Kommunikációs csatorna olvasási hiba"
-set comEasyMsg(cantWrite)		"Kommunikációs csatorna irási hiba"
-set comEasyMsg(cantFRead)		"Fájl olvasási hiba"
-set comEasyMsg(cantFWrite)		"Fájl irási hiba"
-set comEasyMsg(noBlocking)		"Blokkolt átvitel meg fejlesztes alatt"
+set comEasyMsg(warning)			"figyelmeztetÃ©s"
+set comEasyMsg(helpfile)		"A sÃºgÃ³ fÃ¡jlt nem talÃ¡lom"
+set comEasyMsg(browser)			"A sÃºgÃ³t megjelenÃ­tÅ‘ programot nem sikerÃ¼lt elindÃ­tani.\nEllenÅ‘rizze a html fÃ¡jlok megjelenitÃ©sÃ©re regisztrÃ¡lt programot"
+set comEasyMsg(gizidll)			"TelepÃ­tÃ©si hiba, kÃ³d=1"
+set comEasyMsg(comOpen)			"KommunikÃ¡ciÃ³s csatorna nyitÃ¡si hiba"
+set comEasyMsg(comConfigure)	"KommunikÃ¡ciÃ³s csatorna konfigurÃ¡lÃ¡si hiba"
+set comEasyMsg(cantSave)		"Nem sikerÃ¼lt Ã­rÃ¡sra megnyitni a fÃ¡jlt"
+set comEasyMsg(cantOpen)		"Nem sikerÃ¼lt olvasÃ¡sra megnyitni a fÃ¡jlt"
+set comEasyMsg(cantSource)		"Nem sikerÃ¼lt betÃ¶lteni a paramÃ©ter fÃ¡jlt"
+set comEasyMsg(cantRead)		"KommunikÃ¡ciÃ³s csatorna olvasÃ¡si hiba"
+set comEasyMsg(cantWrite)		"KommunikÃ¡ciÃ³s csatorna irÃ¡si hiba"
+set comEasyMsg(cantFRead)		"FÃ¡jl olvasÃ¡si hiba"
+set comEasyMsg(cantFWrite)		"FÃ¡jl irÃ¡si hiba"
+set comEasyMsg(noBlocking)		"Blokkolt Ã¡tvitel meg fejlesztes alatt"
 
 # info messages
-set comEasyMsg(waiting)			"Várom az adatokat ... (az átvitel leállítása/fájl lezárása Ctrl-Z)"
-set comEasyMsg(comClose)		"Átviteli csatornát lezártam"
-set comEasyMsg(comFClose)		"Fájlt lezártam"
-set comEasyMsg(eof)				"Fájl vége"
-set comEasyMsg(loadgizi)		"Adatok betöltése GeoEasy-be?"
+set comEasyMsg(waiting)			"VÃ¡rom az adatokat ... (az Ã¡tvitel leÃ¡llÃ­tÃ¡sa/fÃ¡jl lezÃ¡rÃ¡sa Ctrl-Z)"
+set comEasyMsg(comClose)		"Ãtviteli csatornÃ¡t lezÃ¡rtam"
+set comEasyMsg(comFClose)		"FÃ¡jlt lezÃ¡rtam"
+set comEasyMsg(eof)				"FÃ¡jl vÃ©ge"
+set comEasyMsg(loadgizi)		"Adatok betÃ¶ltÃ©se GeoEasy-be?"
 set comEasyMsg(separator)		"---------------------"
