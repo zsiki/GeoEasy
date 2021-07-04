@@ -67,4 +67,4 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 
 ### Yearly
 
-![Download statistics](doc/downloadsyearly.png "Download statistics of last 12 months")
+![Download statistics](doc/downloadsyearly.png "iYearly download statistics")
