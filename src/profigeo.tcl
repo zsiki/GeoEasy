@@ -100,7 +100,7 @@ proc GeoProfi {fn} {
 					lappend obuf [list 8 $w]
 				}
 				# slope distance
-				set w [string trim [string range $buf 45 52]]
+				set w [string trim [string range $buf 45 55]]
 				if {[string length $w] > 0} {
 					if {[regexp $reg(2) $w] == 0} { return $src }
 					lappend obuf [list 9 $w]
