@@ -1846,7 +1846,7 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 # global variables a msk file
 	global geoLang geoCp
 	global autoRefresh
-	global projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
+	global angleUnits distUnits projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
 	global maxColl maxIndex
 	global cooSep
 	global txtSep multiSep txtFilter header
@@ -1859,6 +1859,7 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 	global rtfview
 	global dxfview
 	global geoMaskColors
+    global geoNotUsedColor
 	global geoObsColor geoLineColor geoFinalColor geoApprColor geoStationColor \
 		geoOrientationColor geoNostationColor
 	global defaultObservations defaultDetails defaultPointNumbers \
@@ -1871,10 +1872,10 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 	global maskRows
 	global regLineStart regLineCont regLineEnd regLine regLineClose
     global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
-	        pcodelayer bname battr block ptext xzplane
+	        pcodelayer bname battr block ptext xzplane useblock addlines
 	global polyStyle
 	global x3dColor
-	global gamaProg gamaConf gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
+	global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 	global triangleProg
 	global cs2csProg
 	global geoDoc

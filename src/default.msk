@@ -1,9 +1,9 @@
 # supported languages
 global geoLangs
-array set geoLangs {hun hu eng {en us} ger {ge de} rus ru cze cz}
+array set geoLangs {hun hu eng {en us} ger {ge de} rus ru cze cz es {es}}
 # language codes for windows
 global langCodes
-array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus "0405" cze}
+array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus "0405" cze "040A" es}
 # GUI language change default to hun/eng/ger/... to set GUI language other than OS lang
 global geoLang
 set geoLang {default}
@@ -12,12 +12,16 @@ global geoCp
 # set geoCp {cp-1250}
 # link to help/docs
 global geoDoc
-set geoDoc "http://github.com/zsiki/GeoEasy/doc"
+set geoDoc "See:\nhttp://github.com/zsiki/GeoEasy/doc and\nhttps://github.com/zsiki/GeoEasy/wiki"
 # automatic window refresh
 global autoRefresh
 set autoRefresh {1}
 # standard deviations, corrections
-global projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
+global angleUnits distUnits projRed avgH stdAngle stdDist1 stdDist2 refr stdLevel
+# angle units DMS/GON
+set angleUnits {DMS}
+# distance units m/feet
+set distUnits {m}
 # projection reduction mm/km
 set projRed {0.0}
 # average elevation above mean see level
@@ -100,7 +104,7 @@ set cs2csProg {./cs2cs}
 # dxf output parameters
 #
 global rp dxpn dypn dxz dyz spn sz pon zon slay pnlay zlay p3d pd zdec \
-    pcodelayer bname battr block ptext xzplane
+    pcodelayer bname battr block ptext xzplane useblock addlines
 set p3d {0}
 set pd {0}
 set pon {1}
@@ -118,6 +122,8 @@ set sz {1.5}
 set zdec {2}
 set pcodelayer {0}
 set xzplane {0}
+set useblock {0}
+set addlines {0}
 # html browser (UNIX)
 global browser
 set browser {}
@@ -129,12 +135,16 @@ global dxfview
 set dxfview {}
 # kml fill color
 global polyStyle
-set polyStyle {}
+set polyStyle {32d2d2d2}
+# X3D diffusecolor
+global x3dColor
+set x3dColor {0.7 0.7 0.7}
 #	mask colors
 global geoMaskColors
 set geoMaskColors {black red blue green cyan}
 # color for not used observations
 global geoNotUsedColor
+set geoNotUsedColor {gray50}
 # colors in graphic window
 #
 #	geoLineColor - color for lines
@@ -195,21 +205,21 @@ set regLineClose {_cl$}
 #			"-" show previous value
 #				e.g. it is used for station number in field books
 #			"" string value
-#			"DMS" angle in DMS unit (DDD-MM-SS format)
-#			"DMS1" angle in DMS units (DDD-MM-SS.S format)
-#			"GON" angle in GRAD units (4 decimals)
-#			"DEG" angle in DEG units (4 decimals)
-#			"FEET" length/cordinate in foots
-#			"OL" length in fathoms
-#			"FLOAT" real number, numner of decials from global parameter
+#			"DMS" angle in DMS unit (DDD-MM-SS format)  DEPRICATED use ANG
+#			"DMS1" angle in DMS units (DDD-MM-SS.S format)  DEPRICATED use ANG
+#			"GON" angle in GRAD units (4 decimals)  DEPRICATED use ANG
+#			"DEG" angle in DEG units (4 decimals)  DEPRICATED use ANG
+#			"FEET" length/cordinate in foots    DEPRICATED use DST
+#			"OL" length in fathoms  DEPRICATED use DST
+#			"FLOAT" real number, number of decials from global parameter
 #			"INT" integer number
-#		DEC depricated!!!!!!
+#		DEC DEPRICATED!!!!!!
 #			"DEC n m" width "n", decimals "m"
 #				if m = 0 integer value
 #				if n = 0 width equal to the minimal neccessary value
-#		format depricated!!!!
+#		format DEPRICATED!!!!
 #			"format "%n.mt" C like format
-#				a C nyelvben megengedett formátum vezérlők használhatók
+#				a C language format conrollers can be used
 #				e.g. %8.2f real value in 8 char wide field with 2 decimals
 #				    %10s text right aligned in 10 char wide field
 #				    %-10s text left aligned in 10 char wide field
@@ -219,35 +229,23 @@ global maskRows
 set maskRows {20}
 global geoMasks geoMaskParams geoMaskWidths geoMaskDefault
 set geoMaskDefault {tahimeter}
-set geoMasks(tahimeter_code) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
-set geoMaskParams(tahimeter_code) {"-" "" "" FLOAT DMS DMS FLOAT}
+set geoMasks(tahimeter_code) {table 20 2 {5 62} 4 {6 3} {7 21 -7} {8 -8} {9 11 -9}}
+set geoMaskParams(tahimeter_code) {"-" "" "" DST ANG ANG DST}
 set geoMaskWidths(tahimeter_code) {10 10 10 10 10 10 10}
-set geoMasks(orientation) {table 20 2 {62 5} {7 21} {100 101}}
-set geoMaskParams(orientation) {"-" "" DMS DMS}
+set geoMasks(orientation) {table 20 2 {62 5} {7 21 -21} {100 101}}
+set geoMaskParams(orientation) {"-" "" ANG ANG}
 set geoMaskWidths(orientation) {10 10 10 10}
-set geoMasks(horiz) {table 20 2 {5 62} {7 21} 8 {11 9}}
-set geoMaskParams(horiz) {"-" "" DMS DMS FLOAT}
+set geoMasks(horiz) {table 20 2 {5 62} {7 21 -7} {8 -8} {11 9 -9}}
+set geoMaskParams(horiz) {"-" "" ANG ANG DST}
 set geoMaskWidths(horiz) {10 10 10 10 10}
-set geoMasks(tahimeter_gon) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
-set geoMaskParams(tahimeter_gon) {"-" "" FLOAT GON GON FLOAT}
-set geoMaskWidths(tahimeter_gon) {10 10 10 10 10 10}
-set geoMasks(tahimeter_deg) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
-set geoMaskParams(tahimeter_deg) {"-" "" FLOAT DEG DEG FLOAT}
-set geoMaskWidths(tahimeter_deg) {10 10 10 10 10 10}
-set geoMasks(tahimeter) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
-set geoMaskParams(tahimeter) {"-" "" FLOAT DMS DMS FLOAT}
+set geoMasks(tahimeter) {table 20 2 {5 62} {6 3} {7 21 -7} {8 -8} {9 11 -9}}
+set geoMaskParams(tahimeter) {"-" "" DST ANG ANG DST}
 set geoMaskWidths(tahimeter) {10 10 10 10 10 10}
-set geoMasks(tahimeter1) {table 20 2 {5 62} {6 3} {7 21} 8 {9 11}}
-set geoMaskParams(tahimeter1) {"-" "" FLOAT DMS1 DMS1 FLOAT}
-set geoMaskWidths(tahimeter1) {10 10 10 10 10 10}
-set geoMasks(tahimeter_dm) {table 20 2 {5 62} {6 3} {7 21} {10 120} {9 11}}
-set geoMaskParams(tahimeter_dm) {"-" "" FLOAT DMS FLOAT FLOAT}
+set geoMasks(tahimeter_dm) {table 20 2 {5 62} {6 3} {7 21 -7} {10 120 -10} {9 11 -9}}
+set geoMaskParams(tahimeter_dm) {"-" "" DST ANG DST DST}
 set geoMaskWidths(tahimeter_dm) {10 10 10 10 10 10}
-set geoMasks(tahimeter_feet) {table 20 2 {5 62} 4 {6 3} {7 21} 8 {9 11}}
-set geoMaskParams(tahimeter_feet) {"-" "" "" FEET DMS DMS FEET}
-set geoMaskWidths(tahimeter_feet) {10 10 10 10 10 10 10}
-set geoMasks(levelling) {table 20 2 {5 62} {10 120} {9 11}}
-set geoMaskParams(levelling) {"-" "" FLOAT FLOAT}
+set geoMasks(levelling) {table 20 2 {5 62} {10 120 -10} {9 11 -9}}
+set geoMaskParams(levelling) {"-" "" DST DST}
 set geoMaskWidths(levelling) {10 10 10 10}
 #
 #	masks for coordinate lists
@@ -270,16 +268,16 @@ set geoMaskWidths(levelling) {10 10 10 10}
 global cooMasks cooMaskParams cooMaskWidths cooMaskDefault
 set cooMaskDefault {prelim_fix}
 set cooMasks(difference) {table 20 5 4 38 37 39 41 40 42}
-set cooMaskParams(difference) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
+set cooMaskParams(difference) {"" "" DST DST DST DST DST DST}
 set cooMaskWidths(difference) {10 10 10 10 10 10 10 10}
 set cooMasks(prelim_fix) {table 20 5 4 {38 138} {37 137} {39 139}}
-set cooMaskParams(prelim_fix) {"" "" FLOAT FLOAT FLOAT}
+set cooMaskParams(prelim_fix) {"" "" DST DST DST}
 set cooMaskWidths(prelim_fix) {10 10 10 10 10}
 set cooMasks(fix) {table 20 5 4 38 37 39}
-set cooMaskParams(fix) {"" "" FLOAT FLOAT FLOAT}
+set cooMaskParams(fix) {"" "" DST DST DST}
 set cooMaskWidths(fix) {10 10 10 10 10}
 set cooMasks(fix_stdev) {table 20 5 4 38 238 37 237 39 239}
-set cooMaskParams(fix_stdev) {"" "" FLOAT FLOAT FLOAT FLOAT FLOAT FLOAT}
+set cooMaskParams(fix_stdev) {"" "" DST FLOAT DST FLOAT DST FLOAT}
 set cooMaskWidths(fix_stdev) {10 10 10 10 10 10 10 10}
 #
 # mask parameters
