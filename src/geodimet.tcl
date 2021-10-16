@@ -15,16 +15,16 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #	Read in geodimeter data files into memory
-#   @param fn name of geodimeter file
+#   @param fn path to geodimeter file
+#   @param fa internal name of dataset
 #	@return 0 on success
-proc Geodimeter {fn} {
+proc Geodimeter {fn fa} {
 	global reg
 	global geoLoaded
 	global PI PI2 RO
 	global geoEasyMsg geoCodes
 	global maxColl maxIndex
 
-	set fa [GeoSetName $fn]
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[string length $fa] == 0} {return -1}
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -303,9 +303,10 @@ proc SaveAre {fn rn} {
 #	"1,2=6001 3=1.580 "
 #	"2,4=JEL 5=6002 6=1.590 7=289.2244 8=90.2016 9=21.471 "
 #	"3,4=KER 5=6001 6=1.500 7=149.4940 8=89.5136 9=6.146 "
-#	@param fn name of geodimeter file
+#	@param fn path to geodat file
+#	@param fa internal name for dataset
 #	@return 0 on success
-proc Geodat124 {fn} {
+proc Geodat124 {fn fa} {
 
 	# set the name of temperary job file
 	set oname [file rootname $fn].job
@@ -337,7 +338,7 @@ proc Geodat124 {fn} {
 	close $f1
 	close $fo
 	# load the temperary job file
-	set res [Geodimeter $oname]
+	set res [Geodimeter $oname $fa]
 	catch {file delete $oname}
 	return $res
 }

@@ -286,11 +286,11 @@ proc FlowSum {h_order dtm_grid flow_dirs slope res} {
 
 #
 #	Load a grid into memory as points
-#	@param fn file name to load (*.asc or *arx)
+#	@param fn path to file to load (*.asc or *arx)
+#	@param fa internal name of dataset
 #	@return 0 on succcess
-proc GeoGridIn {fn} {
+proc GeoGridIn {fn fa} {
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	set name [file rootname [file tail $fn]]

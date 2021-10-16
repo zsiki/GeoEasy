@@ -49,13 +49,13 @@ proc GeoTran {{sourc ""}} {
 	if {[string length $targetFile] == 0 || \
 		[string match "after#*" $targetFile]} { return }
 	set lastDir [file dirname $targetFile]
-	set target [GeoSetName $targetFile]
-	if {[lsearch -exact $geoLoaded $target] != -1} {
+	set target [GeoSetID]
+	if {[lsearch -exact $geoLoadedDir $targetFile] != -1} {
 		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) warning 0 OK
 		return
 	}
 	# load target geo data set
-	set res [LoadGeo $targetFile]
+	set res [LoadGeo $targetFile $target]
 	if {$res != 0} {	;# error loading
 		UnloadGeo $target
 		if {$res < 0} {
@@ -743,7 +743,7 @@ proc TranHParam {} {
 #	The target coordinate system is loaded for the transformation.
 #	@param sourc name of geo data set to transform (optional)
 proc GeoHTran {{sourc ""}} {
-	global geoLoaded
+	global geoLoaded geoLoadedDir
 	global geoEasyMsg
 	global fileTypes
 	global lastDir
@@ -773,13 +773,13 @@ proc GeoHTran {{sourc ""}} {
 	if {[string length $targetFile] == 0 || \
 		[string match "after#*" $targetFile]} { return }
 	set lastDir [file dirname $targetFile]
-	set target [GeoSetName $targetFile]
-	if {[lsearch -exact $geoLoaded $target] != -1} {
+	set target [GeoSetID]
+	if {[lsearch -exact $geoLoadedDir $targetFile] != -1} {
 		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) warning 0 OK
 		return
 	}
 	# load target geo data set
-	set res [LoadGeo $targetFile]
+	set res [LoadGeo $targetFile $target]
 	if {$res != 0} {	;# error loading
 		UnloadGeo $target
 		if {$res < 0} {

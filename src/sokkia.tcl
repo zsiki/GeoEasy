@@ -157,16 +157,16 @@
 #		Elevation
 #		checksum
 #
-#	@param fn name of input file
+#	@param fn path to input file
+#	@param fa internal name of dataset
 #	@return 0 on success
-proc Sokia {fn} {
+proc Sokia {fn fa} {
 	global geoLoaded geoEasyMsg geoCodes
 	global PI2
 	global coord
 	global reg
 
 	set c_order 1
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {

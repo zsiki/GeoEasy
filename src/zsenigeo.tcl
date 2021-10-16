@@ -24,12 +24,12 @@
 #			AM,point number,code,th,hzI,hzII,hz,zI,zII,z,dI,dII,d
 #			RM - detail point
 #			RM,point number,code,th,hzI,hzII,hz,zI,zII,z,dI,dII,d
-#	@param fn name of GeoZseni gjk file
+#	@param fn path to GeoZseni gjk file
+#	@param fa internal name of dataset
 #	@return 0 on success
-proc GeoZseni {fn} {
+proc GeoZseni {fn fa} {
 	global reg
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {

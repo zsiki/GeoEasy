@@ -912,26 +912,27 @@ proc DXFimport {filen} {
 
 #
 #	Import points from  AutoCAD release 10..2000 DXF file
-#	@param filen name of dxf file
-proc GeoDXFin {filen} {
+#	@param filen path to dxf file
+#	@param fa internal name of dataset
+proc GeoDXFin {filen fa} {
 	global geoLoaded
 	global buttonid
 
 	DXFimport $filen
 	tkwait window .dxfimp
 	if {$buttonid} { return -999}
-	return [DXFin $filen]
+	return [DXFin $filen fa]
 }
 
 #
 #	Import points & blocks from  AutoCAD release 10..2000 DXF file
-#	@param fn
-proc DXFin {fn} {
+#	@param fn path to dxf file
+#	@param fa internal name of dataset
+proc DXFin {fn fa} {
 
 	global bname battr bcode belev pnlay p3d pcodelayer block ptext dxfpnt
 	global geoEasyMsg
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	

@@ -15,14 +15,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #	Read in SurvCE RW5 data file into memory
-#	@param fn name of SurvCE rw5 file
+#	@param fn path to SurvCE rw5 file
+#	@param fa internal name of dataset
 #	@return 0 on success
-proc SurvCe {fn} {
+proc SurvCe {fn fa} {
 	global reg
 	global geoLoaded
 	global geoEasyMsg geoCodes
-
-	set fa [GeoSetName $fn]
 
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[string length $fa] == 0} {return -1}

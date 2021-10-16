@@ -28,9 +28,9 @@
 #		new toplevel window created
 #		binds are added to move forward and backward
 #	@param maskn mask definition name
-#	@param fn geo data set name
+#	@param f geo data set short name
 #	@param type  "_geo" or "_coo" (optional, default _geo)
-proc GeoMask {maskn fn {type "_geo"}} {
+proc GeoMask {maskn f {type "_geo"}} {
 	global geoEasyMsg
 	global geoCodes
 	global geoMasks geoMaskParams geoMaskWidths
@@ -42,13 +42,9 @@ proc GeoMask {maskn fn {type "_geo"}} {
 	global geoModules
 	global reglist
 
-#	set fn [string tolower $fn]
+    set fn [GetInternalName $f]
+    set fs [GetShortName $f]
 	set w .[string tolower ${fn}]${type}
-#	if {[winfo exists $w]} {
-#		wm deiconify $w
-#		raise $w
-#		return
-#	}
 	set maskPos($w) 0
 	set maskName($w) $maskn
 	if {$type == "_geo"} {
@@ -65,6 +61,7 @@ proc GeoMask {maskn fn {type "_geo"}} {
 	wm protocol $w WM_DELETE_WINDOW "GeoMaskExit $w"
 	wm protocol $w WM_SAVE_YOURSELF "GeoMaskExit $w"
 	wm resizable $w 0 0
+    wm title $w ${fs}${type}
 
 	set grd $w.grd
 	set status $w.status
@@ -310,7 +307,6 @@ proc GeoMask {maskn fn {type "_geo"}} {
 		bind $w <Key-Up> "CooPageMask $fn $w -1"
 		bind $w <MouseWheel> "CooWheelMask $fn $w %D"
 	}
-#	bind $w <Key-Escape> "GeoMaskExit $w"
 	bind $w <Alt-KeyPress-F4> "GeoMaskExit $w"
 }
 
@@ -565,10 +561,11 @@ proc pnumCmp {pn1 pn2} {
 
 #
 #	Open new edit window
-#	@param fn geo data set name
-proc EditGeo {fn} {
+#	@param f geo data set short name
+proc EditGeo {f} {
 	global geoMasks geoMaskParams geoMaskDefault
 
+    set fn [GetInternalName $f]
 	if {[winfo exists .${fn}_geo]} {
 		wm deiconify .${fn}_geo
 		raise .${fn}_geo
@@ -588,10 +585,11 @@ proc EditGeo {fn} {
 
 #
 #	Open new edit window
-#	@param fn coo data set name
-proc EditCoo {fn} {
+#	@param f coo data set short name
+proc EditCoo {f} {
 	global cooMasks cooMaskParams cooMaskDefault
 
+    set fn [GetInternalName $f]
 	if {[winfo exists .${fn}_coo]} {
 		wm deiconify .${fn}_coo
 		raise .${fn}_coo
@@ -2761,15 +2759,17 @@ proc GeoMaskCsv {maskn fn type} {
 
 #
 #	Display meta data (date, observer, instrument, ...) in modal dialog
-#	@param fn geo data set name
-proc EditPar {fn} {
+#	@param f geo data set short name
+proc EditPar {f} {
 	global geoLoaded parMask
 	global geoChanged
 	global buttonid
 	global geoEasyMsg geoCodes
-	global ${fn}_par
 	global reg
 
+    set fn [GetInternalName $f]
+	global ${fn}_par
+    set fs [GetShortName $f]
 	set w [focus]
 	if {$w == ""} { set w "." }
 	set this .parmask
@@ -2781,7 +2781,7 @@ proc EditPar {fn} {
 	}
 
 	toplevel $this -class Dialog
-	wm title $this "$fn $geoEasyMsg(parmask)"
+	wm title $this "$fs $geoEasyMsg(parmask)"
 	wm resizable $this 0 0
 	wm transient $this $w
 	catch {wm attribute $this -topmost}
@@ -3386,12 +3386,12 @@ proc CooDif {{source ""}} {
     if {[string length $targetFile] == 0 || \
 		[string match "after#*" $targetFile]} { return }
     set lastDir [file dirname $targetFile]
-    set target [GeoSetName $targetFile]
+    set target [GeoSetID]
 	set unload 0
     if {[lsearch -exact $geoLoaded $target] == -1} {
 		set unload 1
 		# geo dataset not loaded, load target geo data set
-		set res [LoadGeo $targetFile]
+		set res [LoadGeo $targetFile $target]
 		if {$res != 0} {    ;# error loading
 			UnloadGeo $target
 			if {$res < 0} {

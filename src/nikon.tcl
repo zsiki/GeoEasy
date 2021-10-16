@@ -35,13 +35,13 @@
 #
 #		Stations start must be marked by data type 2
 #		e.g. 1,2,MD,point_number-instrument_height,x,y,z (x,y,z is optional)
-#	@param fn name of nikon file
+#	@param fn path to nikon file
+#	@param fa internal name of dataset
 #	@return 0 on success
-proc Nikon {fn} {
+proc Nikon {fn fa} {
 	global reg
 	global geoEasyMsg
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {

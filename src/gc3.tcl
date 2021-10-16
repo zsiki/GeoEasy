@@ -41,7 +41,7 @@ proc GeoCalc {fn {fo ""}} {
 	global reg
 	global geoEasyMsg
 
-	set fa [GeoSetName $fn]
+	set fa [GeoSetID]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {

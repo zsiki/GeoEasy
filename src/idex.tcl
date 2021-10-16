@@ -15,15 +15,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #	Read in Leica idex data file into memory
-#	@param fn name of leica idex file
+#	@param fn path to leica idex file
+#	@param fa internal name of dataset
 #	@return 0 on success
-proc Idex {fn} {
+proc Idex {fn fa} {
 	global reg
 	global geoLoaded
 	global PI PI2
 	global geoEasyMsg geoCodes
 
-	set fa [GeoSetName $fn]
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[string length $fa] == 0} {return -1}
 	if {[catch {set f1 [open $fn r]}] != 0} {

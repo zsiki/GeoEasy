@@ -67,14 +67,15 @@
 #	Y  - Y coordinate
 #	y  - y coordinate local
 #	Z  - Z coordinate
-#	@param fn input file name
-proc TrimbleM5 {fn} {
+#	@param fn path to input file
+#	@param fa internal name of dataset
+#	@return non-zero on error
+proc TrimbleM5 {fn fa} {
 	global geoLoaded geoEasyMsg geoCodes
 	global FOOT2M PI PI2
 	global reg
 	global loadHeader
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {

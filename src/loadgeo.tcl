@@ -32,19 +32,111 @@ proc ldiff {l1 l2} {
 
 #	Returns geo data set name, replaces invalid chars with "_"
 #
-#	@param fn file name of geo-easy data set
-#	@return valid geo set name
+#	@param fn file name of geoeasy data set
+#	@return name part of path without extension
 #
 proc GeoSetName {fn} {
 	set w [string trim $fn]
 	set f [file tail [file rootname $fn]]
+	return $f
+}
 
-	# replace invalid chars
-	regsub -all "\[\t \.\]" $f "_" f   ;# replace space,tab & .
-	if {[regexp "^\[_a-zA-Z\]" $f] == 0} {
-		set f "_$f"
-	}
-	return [string tolower $f]
+#   Create unique name for internaly used arrays of field-book
+#
+#   @return unique geo set name if the form fb_1, fb_2, etc
+#
+proc GeoSetID {} {
+    global geoSetID
+    incr geoSetID
+
+    return "fb_[format "%d" $geoSetID]"
+}
+
+#   Get geo data set display name
+#
+#   @param f internal or full name of geo data set
+#   @return geo data set display (short) name
+proc GetShortName {fn} {
+    global geoLoaded geoLoadedDir
+
+    set pos [lsearch -exact $geoLoaded $fn]
+    if {$pos == -1} {
+        set pos [lsearch -exact $geoLoadedDir $fn]
+    }
+    if {$pos > -1} {
+        return [GeoSetName [lindex $geoLoadedDir $pos]]
+    }
+    return $fn
+}
+
+#   Get geo data set internal name
+#
+#   @param f internal or full name of geo data set
+#   @return geo data set internal name
+proc GetInternalName {fn} {
+    global geoLoaded geoLoadedDir
+
+    set pos [lsearch -exact $geoLoaded $fn]
+    if {$pos == -1} {
+        set pos [lsearch -exact $geoLoadedDir $fn]
+    }
+    if {$pos > -1} {
+        return [lindex $geoLoaded $pos]
+    }
+    foreach f $geoLoadedDir fid $geoLoaded {
+        if {[GeoSetName $f] == $fn} {
+            return $fid
+        }
+    }
+    return $fn
+}
+
+#   Get geo data set full path
+#
+#   @param f internal or full name of geo data set
+#   @return geo data set full name
+proc GetFullName {fn} {
+    global geoLoaded geoLoadedDir
+
+    set pos [lsearch -exact $geoLoaded $fn]
+    if {$pos == -1} {
+        set pos [lsearch -exact $geoLoadedDir $fn]
+    }
+    if {$pos > -1} {
+        return [lindex $geoLoadedDir $pos]
+    }
+    foreach f $geoLoadedDir {
+        if {[GeoSetName $f] == $fn} {
+            return $f
+        }
+    }
+    return $fn
+}
+
+#
+#   Replace internal name to short name in list
+#
+#   @param slist list to process
+#   @return modified list
+proc InternalToShort {slist} {
+    set olist {}
+    foreach s $slist {
+        lappend olist [lreplace $s 0 0 [GetShortName [lindex $s 0]]]
+    }
+    return $olist
+}
+
+#
+#   Replace short name to internal name in list
+#
+#   @param slist list to process
+#   @return modified list
+proc ShortToInternal {slist} {
+    set olist {}
+    foreach s $slist {
+        lappend olist [lreplace $s 0 0 [GetInternalName [lindex $s 0]]]
+    }
+    return $olist
 }
 
 #	Generate sign character
@@ -117,40 +209,35 @@ proc GetRedDist {dist {va ""} {dm ""}} {
 
 #	Load geo-easy data set into memory.
 #	Memory structures used
-#		${fn}_geo - array elements are indexed by file line number and
+#		${f}_geo - array elements are indexed by file line number and
 #					hold a station or observation record
-#		${fn}_coo - array elements are indexed by point number and
+#		${f}_coo - array elements are indexed by point number and
 #					hold point type and coordinates
-#		${fn}_ref - array elements are indexed by point number and
+#		${f}_ref - array elements are indexed by point number and
 #					references to the point as indexes in _geo array
-#		${fn}_par - list of meta data (optional)
+#		${f}_par - list of meta data (optional)
 #
 #	@param fn file name of geo-easy data set
 #	@returnxs < 0 in case of errors, 0 OK
-proc LoadGeo {fn} {
+proc LoadGeo {fn f} {
 	global geoEasyMsg
 	global reg tcl_platform
 	global autoRefresh
 
-	set f [file rootname $fn]
+	set ff [file rootname $fn]
 #
 #	open geo data file & coordinate file
 #
-	if {[catch {set f1 [open $f.geo r]}] != 0} {
+	if {[catch {set f1 [open $ff.geo r]}] != 0} {
 		return -6
 	}
 	set f2 ""
-	catch {set f2 [open $f.coo r]}
-#	if {[catch {set f2 [open $f.coo r]}] != 0} {
-#		catch {close $f1}
-#		return -7
-#	}
+	catch {set f2 [open $ff.coo r]}
 	set f3 ""
-	catch {set f3 [open $f.par r]}	;# par file
+	catch {set f3 [open $ff.par r]}	;# par file
 #
 #	load station and observation records
 #
-	set f [GeoSetName $fn]
 	global ${f}_geo ${f}_coo ${f}_ref ${f}_par
 	catch "unset ${f}_geo ${f}_coo ${f}_ref ${f}_par"
 	set lineno 0
@@ -341,10 +428,11 @@ proc SaveGeo {fn {nn ""}} {
 #
 #	open geo data file & coordinate file
 #
+    set in [GetInternalName $fn]
 	if {$nn != ""} {
 		set fulln $nn
 	} elseif {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8			;# geo data set not loaded
 		}
@@ -362,18 +450,18 @@ proc SaveGeo {fn {nn ""}} {
 #
 #	save station and observation records
 #
-	global ${fn}_geo ${fn}_coo ${fn}_par
+	global ${in}_geo ${in}_coo ${in}_par
 	set lineno 0
-	while {[info exists ${fn}_geo($lineno)]} {
-		puts $f1 [set ${fn}_geo($lineno)]
+	while {[info exists ${in}_geo($lineno)]} {
+		puts $f1 [set ${in}_geo($lineno)]
 		incr lineno
 	}
 #
 #	save coordinates
 #
 	set lineno 0
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set buf [set ${fn}_coo($pn)]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set buf [set ${in}_coo($pn)]
 		# remove coordinate differences
 		set buf [DelVal {40 41 42} $buf]
 		puts $f2 $buf
@@ -384,11 +472,11 @@ proc SaveGeo {fn {nn ""}} {
 #
 #	save meta data
 #
-	if {[llength ${fn}_par]} {
+	if {[llength ${in}_par]} {
 		if {[catch {set f3 [open $fulln.par w]}] != 0} {
 			return -11
 		}
-		catch {puts $f3 [set ${fn}_par]}
+		catch {puts $f3 [set ${in}_par]}
 		catch {close $f3}
 	}
 	return 0

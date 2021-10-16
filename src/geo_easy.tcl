@@ -22,7 +22,7 @@ exec wish "$0" "$@"
 #		@param top name of top level window
 #		@return none
 proc GeoEasy {top} {
-	global env argc argv
+	global env argc argv geoSetID
 	global tcl_precision tcl_platform
 	global auto_path
 	global geoEasyMsg
@@ -79,8 +79,9 @@ proc GeoEasy {top} {
 
 	# initialize globals
 	set tcl_precision 17		;# use maximal precision
-	set geoLoaded ""
-	set geoLoadedDir ""
+    set geoSetID 0              ;# unique id for loaded data sets
+	set geoLoaded ""            ;# internal array names for geo/coo/par
+	set geoLoadedDir ""         ;# full path to loaded file
 	set tinLoaded ""
 	set newtin_poly ""
 	set newtin_hole ""
@@ -424,11 +425,11 @@ proc GeoEasy {top} {
 		-command "GeoExit $top" -accelerator "Alt-F4"
 	
 	menu $topw.menu.file.unload -tearoff 0 \
-		-postcommand {MenuFill $topw.menu.file.unload $geoLoaded MenuUnload}
+		-postcommand {MenuFill $topw.menu.file.unload MenuUnload}
 	menu $topw.menu.file.save -tearoff 0 \
-		-postcommand {MenuFill $topw.menu.file.save $geoLoaded MenuSave}
+		-postcommand {MenuFill $topw.menu.file.save MenuSave}
 	menu $topw.menu.file.saveas -tearoff 0 \
-		-postcommand {MenuFill $topw.menu.file.saveas $geoLoaded MenuSaveAs}
+		-postcommand {MenuFill $topw.menu.file.saveas MenuSaveAs}
 #
 #	edit menu
 #
@@ -444,11 +445,11 @@ proc GeoEasy {top} {
 		-command "LoadMask"
 
 	menu $topw.menu.edit.geo -tearoff 0 \
-		-postcommand {MenuFill $topw.menu.edit.geo $geoLoaded EditGeo}
+		-postcommand {MenuFill $topw.menu.edit.geo EditGeo}
 	menu $topw.menu.edit.coo -tearoff 0 \
-		-postcommand {MenuFill $topw.menu.edit.coo $geoLoaded EditCoo}
+		-postcommand {MenuFill $topw.menu.edit.coo EditCoo}
 	menu $topw.menu.edit.par -tearoff 0 \
-		-postcommand {MenuFill $topw.menu.edit.par $geoLoaded EditPar}
+		-postcommand {MenuFill $topw.menu.edit.par EditPar}
 #
 #	calculate menu
 #
@@ -702,13 +703,14 @@ proc GeoRecalcAppr {} {
 #
 #	Fill a cascade menu with options
 #	@param m handle to menu widget
-#	@param o list of menu option texts
 #	@param p command name to execute with selected option parameter
-proc MenuFill {m o p} {
+proc MenuFill {m p} {
+    global geoLoadedDir
 
 	catch "$m delete 0 last"					;# remove previous options
-	foreach opt $o {
-		$m add command -label $opt -command "$p $opt"
+	foreach o $geoLoadedDir {
+        set opt [GeoSetName $o]
+		$m add command -label $opt -command "$p \"$opt\""
 	}
 }
 
@@ -765,9 +767,9 @@ proc MenuNew {w} {
 		}
 	}
 	# validity check
-	set f [GeoSetName $fn]
+	set f [GeoSetID]
 	if {[info exists geoLoaded]} {
-		if {[lsearch -exact $geoLoaded $f] != -1} {
+		if {[lsearch -exact $geoLoadedDir $fn] != -1} {
 			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) \
 				warning 0 OK
 			return			;# geo data set already loaded
@@ -786,7 +788,7 @@ proc MenuNew {w} {
 #
 #	Load/convert a data file
 #	Side effects:
-#		geoLoaded changes and new global arrays are created by LoadGeo
+#		geoLoaded changed and new global arrays are created by LoadGeo
 #	@param w handle to top widget
 #	@def data set name to load, optional, if not given a file selection dialog open
 #	@return none
@@ -812,9 +814,9 @@ proc MenuLoad {w {def ""}} {
 	foreach fn $fns {
 		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 			set lastDir [file dirname $fn]
-			set f [GeoSetName $fn]
+			set f [GeoSetID]
 			if {[info exists geoLoaded]} {
-				if {[lsearch -exact $geoLoaded $f] != -1} {
+				if {[lsearch -exact $geoLoadedDir $fn] != -1} {
 					tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) \
 						warning 0 OK
 					continue			;# geo data set already loaded
@@ -822,50 +824,51 @@ proc MenuLoad {w {def ""}} {
 			} else {
 				set geoLoaded ""
 				set geoLoadedDir ""
+                unset geoChanged
 			}
 			switch -glob [string tolower $fn] {
 				*.job {
-					set res [Geodimeter $fn]
+					set res [Geodimeter $fn $f]
 					if {$res == 0} {	;# try to load are too
 						set fn1 [file rootname $fn]
 						append fn1 ".are"
 						if {[file exists $fn1]} {
-							set res [Geodimeter $fn1]
+							set res [Geodimeter $fn1 $f]    ;# TODO same internal name??? no not lost coords loade from job file
 						}
 					}
 				}
 				*.are {
-					set res [Geodimeter $fn]
-					# .are eseten nincs .job betoltes
+					set res [Geodimeter $fn $f]
+					# .job is not loaded in case of .are
 				}
 				*.gdt {
-					set res [Geodat124 $fn]
+					set res [Geodat124 $fn $f]
 				}
 				*.scr -
 				*.set {
-					set res [Sokia $fn]
+					set res [Sokia $fn $f]
 				}
 				*.crd -
 				*.sdr {
-					set res [Sdr $fn]
+					set res [Sdr $fn $f]
 				}
 				*.gsi -
 				*.gre -
 				*.wld {
-					set res [Leica $fn]
+					set res [Leica $fn $f]
 				}
 				*.idx {
-					set res [Idex $fn]
+					set res [Idex $fn $f]
 				}
 				*.m5 {
-					set res [TrimbleM5 $fn]
+					set res [TrimbleM5 $fn $f]
 				}
 				*.geo {
-					set res [LoadGeo $fn]
+					set res [LoadGeo $fn $f]
 				}
 
 				*.mjk {
-					set res [GeoProfi $fn]
+					set res [GeoProfi $fn $f]
 					if {$res == 0} {
 						set typ [list [lindex $fileTypes \
 							[lsearch -glob $fileTypes "*.eov*"]]]
@@ -874,13 +877,13 @@ proc MenuLoad {w {def ""}} {
 						if {[string length $fnCoo] && \
 							[string match "after#*" $fnCoo] == 0} {
 							set lastDir [file dirname $fnCoo]
-							set res [GeoProfiCoo $fnCoo $fn]
+							set res [GeoProfiCoo $fnCoo $f]
 						}
 					}
 				}
 
 				*.gmj {
-					set res [GeoCalc $fn]
+					set res [GeoCalc $fn $f]
 				}
 				
 				*.eov -
@@ -888,70 +891,70 @@ proc MenuLoad {w {def ""}} {
 				*.her -
 				*.hkr -
 				*.hdr {
-					set res [GeoProfiCoo $fn]
+					set res [GeoProfiCoo $fn $f]
 				}
 
 				*.pnt {
-					set res [TxtCoo $fn "pnt.txp"]
+					set res [TxtCoo $fn $f "pnt.txp"]
 				}
 				*.dat {
-					set res [TxtCoo $fn "dat.txp"]
+					set res [TxtCoo $fn $f "dat.txp"]
 				}
 				*.csv -
 				*.txt {
-					set res [TxtCoo $fn]
+					set res [TxtCoo $fn $f]
 				}
 				*.dmp {
-					set res [TxtGeo $fn]
+					set res [TxtGeo $fn $f]
 				}
 
 				*.gts7 -
 				*.700 {
-					set res [TopCon $fn]
+					set res [TopCon $fn $f]
 					if {$res == 0} {
 						set fn1 [file rootname $fn]
 						append fn1 ".yxz"
 						if {[file exists $fn1]} {
-							set res [TopConCoo $fn1]
+							set res [TopConCoo $fn1 $f]
 						}
 					}
 				}
 
 				*.210 {
-					set res [TopCon210 $fn]
+					set res [TopCon210 $fn $f]
 				}
 
 				*.yxz {
-					set res [TopConCoo $fn]
+					set res [TopConCoo $fn $f]
 					if {$res == 0} {
 						set fn1 [file rootname $fn]
 						append fn1 ".700"
 						if {[file exists $fn1]} {
-							set res [TopCon $fn1]
+							set res [TopCon $fn1 $f]
 						}
 					}
 				}
 
 				*.nik {
-					set res [Nikon $fn]
+					set res [Nikon $fn $f]
 				}
 
 				*.dxf {
-					set res [GeoDXFin $fn]
+					set res [GeoDXFin $fn $f]
 				}
 				*.asc -
 				*.arx {
-					set res [GeoGridIn $fn]
+					set res [GeoGridIn $fn $f]
 				}
 				*.gjk {
-					set res [GeoZseni $fn]
+					set res [GeoZseni $fn $f]
 				}
 				*.rw5 -
 				*.raw {
-					set res [SurvCe $fn]
+					set res [SurvCe $fn $f]
 				}
 				*.n4c {
-					set res [n4ce $fn]
+					set res [n4ce $fn $f]
 				}
 				default {
 					tk_dialog .msg $geoEasyMsg(warning) \
@@ -987,15 +990,6 @@ proc MenuLoad {w {def ""}} {
 	#		collect repeated observed point numbers/names
 	#
 			global ${f}_ref ${f}_geo ${f}_coo
-	#		set used ""
-	#		foreach pn [array names ${f}_ref] {
-	#			if {[lsearch -exact $obspn $pn] != -1} {
-	#				lappend used $pn
-	#			}
-	#		}
-	#		if {[llength $used] > 0} {
-	#			GeoListbox [lsort $used] 0 $geoEasyMsg(double) 0
-	#		}
 	#
 	#		collect repeated point numbers in coo lists
 	#
@@ -1026,19 +1020,22 @@ proc MenuLoad {w {def ""}} {
 
 #
 #	Ask for save than unload geo data set
-#	@param fn name of geo data set
+#	@param fn internal or external name of geo data set
 #	@return code 0/2 OK/Canceled
 proc MenuUnload {fn} {
 	global geoEasyMsg
 	global geoChanged
 	global autoRefresh
+    global geoLoaded geoLoadedDir
 
-	if {[info exists geoChanged($fn)] && $geoChanged($fn) > 0} {
-		set a [tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(saveit) $fn" \
+    set in [GetInternalName $fn]
+    set sn [GetShortName $fn]
+	if {[info exists geoChanged($in)] && $geoChanged($in) > 0} {
+		set a [tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(saveit) $sn" \
 				warning 0 $geoEasyMsg(yes) $geoEasyMsg(no) $geoEasyMsg(cancel)]
 		switch -exact $a {
 			0 {
-				set res [SaveGeo $fn]
+				set res [SaveGeo $in]
 				if {$res == 0} {
 					GeoLog "$fn $geoEasyMsg(save)"
 				} else {
@@ -1056,8 +1053,8 @@ proc MenuUnload {fn} {
 	} else {
 		GeoLog "$fn $geoEasyMsg(unload)"
 	}
-	catch {unset geoChanged($fn)}
-	UnloadGeo $fn
+	catch {unset geoChanged($in)}
+	UnloadGeo $in
 	if {$autoRefresh} {
 		GeoDrawAll
 	}

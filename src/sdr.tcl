@@ -16,17 +16,16 @@
 
 #	Read in Sokkia (sdr) data files into memory
 #	Input data format (34 different record types)
-#	@param fn name of sokkia sdr file
+#	@param fn path to sokkia sdr file
+#	@param fa internal name for dataset
 #	@return 0 on success
-proc Sdr {fn} {
+proc Sdr {fn fa} {
 	global geoLoaded
 	global PI2
 	global coord
 	global reg
 	global angleUnit distanceUnit coordOrder angleDirection
 	global geoEasyMsg geoCodes
-
-	set fa [GeoSetName $fn]
 
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par

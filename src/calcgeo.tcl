@@ -449,6 +449,7 @@ proc GeoOri {pn w {flag 0}} {
 		}
 	}
 	set slist [GetStation $pn]
+
 	switch -exact [llength $slist] {
 		0 {
 			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri) \
@@ -458,10 +459,12 @@ proc GeoOri {pn w {flag 0}} {
 		1 {
 		}
 		default {	;# select from occupations
-			set slist [GeoListbox $slist {0 1} $geoEasyMsg(lbTitle3) 1]
-			if {[llength $slist] == 0} {
+            set vlist [InternalToShort $slist]
+			set vlist [GeoListbox $vlist {0 1} $geoEasyMsg(lbTitle3) 1]
+			if {[llength $vlist] == 0} {
 				return
 			}
+            set slist [ShortToInternal $vlist]
 		}
 	}
 	set res [Orientation [lindex [lindex $slist 0] 0] \
@@ -490,6 +493,7 @@ proc GeoSec {pn {w ""}} {
 
 	set res ""
 	set slist [GetExtDir $pn]			;# return external directions
+    set vlist [InternalToShort $slist]
 	switch -exact [llength $slist] {
 		0 -
 		1 {
@@ -499,10 +503,11 @@ proc GeoSec {pn {w ""}} {
 		}
 		2 -
 		default {
-			set slist [GeoListbox $slist {0 2} $geoEasyMsg(lbTitle) 2]
-			if {[llength $slist] == 0} {
+			set vlist [GeoListbox $vlist {0 2} $geoEasyMsg(lbTitle) 2]
+			if {[llength $vlist] == 0} {
 				return
 			}
+            set slist [ShortToInternal $vlist]
 		}
 	}
 	set arec [lindex $slist 0]
@@ -610,6 +615,7 @@ proc GeoRes {pn {w ""}} {
 	set res ""
 	# stations we can resect
 	set stlist [GeoResStation $pn]
+    set vlist [InternalToShort $stlist]
 	switch -exact [llength $stlist] {
 		0 {
 			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noStn) \
@@ -619,14 +625,16 @@ proc GeoRes {pn {w ""}} {
 		1 {
 		}
 		default {
-			set stlist [GeoListbox $stlist {0 1} $geoEasyMsg(lbTitle3) 1]
-			if {[llength $stlist] == 0} {
+			set vlist [GeoListbox $vlist {0 1} $geoEasyMsg(lbTitle3) 1]
+			if {[llength $vlist] == 0} {
 				return
 			}
+            set stlist [ShortToInternal $vlist]
 		}
 	}
 	set slist [GetIntDir1 [lindex [lindex $stlist 0] 0] \
 		[lindex [lindex $stlist 0] 1]]			;# return internal directions
+    set vlist [InternalToShort $slist]
 	switch -exact [llength $slist] {
 		0 -
 		1 -
@@ -637,10 +645,11 @@ proc GeoRes {pn {w ""}} {
 		}
 		3 -
 		default {
-			set slist [GeoListbox $slist {0 2} $geoEasyMsg(lbTitle) 3]
-			if {[llength $slist] == 0} {
+			set vlist [GeoListbox $vlist {0 2} $geoEasyMsg(lbTitle) 3]
+			if {[llength $vlist] == 0} {
 				return
 			}
+            set slist [ShortToInternal $vlist]
 		}
 	}
 	set arec [lindex $slist 0]
@@ -747,6 +756,7 @@ proc GeoArc {pn {w ""}} {
 
 	set res ""
 	set slist [GetDist $pn]			;# return distances
+    set vlist [InternalToShort $slist]
 	switch -exact [llength $slist] {
 		0 -
 		1 {
@@ -756,10 +766,11 @@ proc GeoArc {pn {w ""}} {
 		}
 		2 -
 		default {
-			set sl [GeoListbox $slist {0 2 3} $geoEasyMsg(lbTitle) 2]
-			if {[llength $sl] == 0} {
+			set vl [GeoListbox $vlist {0 2 3} $geoEasyMsg(lbTitle) 2]
+			if {[llength $vl] == 0} {
 				return
 			}
+            set sl [ShortToInternal $vl]
 		}
 	}
 	set arec [lindex $sl 0]

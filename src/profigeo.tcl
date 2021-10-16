@@ -15,15 +15,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #	Read in GeoProfi data files into memory
-#	@param fn name of geoProfi mjk file
+#	@param fn path to geoProfi mjk file
+#	@param fa internal name of dataset
 #	@return 0 on success
-proc GeoProfi {fn} {
+proc GeoProfi {fn fa} {
 	global reg
 	global gpCoo
 	global geoCodes
 
 	set gpCoo ""			;# name of releated coordinate file
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -143,18 +143,12 @@ proc GeoProfi {fn} {
 #		36-43   Z coordinate
 #		44-		point code
 #	@param fn name of geoprofi coordinate file
-#	@param fmjk name of geoprofi mjk file (optional)
+#	@param fa internal geo set name
 #	@return 0 on success
-proc GeoProfiCoo {fn {fmjk ""}} {
+proc GeoProfiCoo {fn fa} {
 	global reg
 	global geoEasyMsg
 
-	if {[string length $fmjk]} {
-		# coordinates to observations
-		set fa [GeoSetName $fmjk]
-	} else {
-		set fa [GeoSetName $fn]
-	}
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -201,10 +195,11 @@ proc GeoProfiCoo {fn {fmjk ""}} {
 #	Text file can be separated by characters given in txtSep (geo_easy.msk)
 #	Order of values can be set
 #	If no point number given in input an ordinal number will be generated
-#	@param fn name of txt file
+#	@param fn path to txt file
+#	@param fa internal name of geo set arrays
 #	@param ff format file optional
 #	@return 0 on success
-proc TxtCoo {fn {ff ""}} {
+proc TxtCoo {fn fa {ff ""}} {
 	global geoEasyMsg
 	global reg
 	global txtSep multiSep header txtFilter
@@ -213,7 +208,6 @@ proc TxtCoo {fn {ff ""}} {
 	if {! [info exists multiSep] } { set multiSep 0 }
 	if {! [info exists header] } { set header 0 }
 	if {! [info exists txtFilter] } { set txtFilter "" }
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -614,10 +608,11 @@ proc c_state {} {
 #	Load observations from ascii text file
 #	Text file can be separated by characters given in txtSep (geo_easy.msk)
 #	Order of values can be set
-#	@param fn name of txt file
+#	@param fn path to txt file
+#	@param fa internal name of dataset
 #	@param ff format file optional
 #	@return 0 on success
-proc TxtGeo {fn {ff ""}} {
+proc TxtGeo {fn fa {ff ""}} {
 	global geoEasyMsg geoCodes
 	global reg
 	global txtSep multiSep header txtFilter
@@ -627,7 +622,6 @@ proc TxtGeo {fn {ff ""}} {
 	if {! [info exists multiSep] } { set multiSep 0 }
 	if {! [info exists header] } { set header 0 }
 	if {! [info exists txtFilter] } { set txtFilter "" }
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -778,21 +772,21 @@ proc TxtGeo {fn {ff ""}} {
 #	3 - station (3, station_id, ???, ???, ih)
 #	4 - orientation (4, nop, hz, v, sd, th, point_id)
 #	5 - detail point (5, point_id, hz, v, sd, th, code)
-#	@param fn name of txt file
+#	@param fn path to txt file
+#	@param internal name of dataset
 #	@return 0 on success
-proc n4ce {fn} {
+proc n4ce {fn fa} {
 	global geoLoaded
 	global geoEasyMsg
 	global geoCodes
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {
 		return -1       ;# cannot open input file
 	}
 
-	set fa [GeoSetName $fn]
+	set fa [GeoSetID]
 	set lineno 0            ;# line number in input
 	set nrow 0				;# fieldbook index
 	set sep ","				;# field separator

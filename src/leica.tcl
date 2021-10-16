@@ -28,9 +28,10 @@
 # code blocks mustnot be used this case
 # lines started with ! are skipped
 # @param fn name of leica (wild) file
+# @param fa internal name of dataset
 # @param fo name of output file without extension
 # @return 0 on success
-proc Leica {fn {fo ""}} {
+proc Leica {fn fa {fo ""}} {
 	global geoLoaded
 	global PI2 PI
 	global reg
@@ -38,7 +39,6 @@ proc Leica {fn {fo ""}} {
 	global FOOT2M
 
 	set codeblock 0			;# no codeblock found
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -194,7 +194,7 @@ proc Leica {fn {fo ""}} {
 						foreach a "${fa}_geo ${fa}_ref ${fa}_coo ${fa}_par" {
 							catch "unset $a"
 						}
-						return [LeicaDNA $fn $fo]
+						return [LeicaDNA $fn $fa $fo]
 					}
 				}
 				"42" {	;# station number
@@ -665,10 +665,11 @@ proc SaveGsi {fn rn {wl 8}} {
 
 #
 #	Read leica DNA GSI file
-#	@param fn name of leica (wild) file
+#	@param fn path to leica (wild) file
+#	@param fa internal name of dataset
 #	@param fo name of output file without extension
 #	@return 0 on success
-proc LeicaDNA {fn {fo ""}} {
+proc LeicaDNA {fn fa {fo ""}} {
 	global geoLoaded
 	global PI2 PI
 	global reg
@@ -676,7 +677,6 @@ proc LeicaDNA {fn {fo ""}} {
 	global FOOT2M
 
 	set codeblock 0			;# no codeblock found
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return 1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f [open $fn r]}] != 0} {

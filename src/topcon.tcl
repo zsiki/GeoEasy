@@ -48,13 +48,14 @@
 #	CTL if present follows the FS or SS header record
 #	HV, SD, HD must follow a BS, FS or SS header and follows the CTL if present
 #	OFFSET may follow any SD or HD record
-#	@param fn name of GTS-700 file
-proc TopCon {fn} {
+#	@param fn path to of GTS-700 file
+#	@param fa internal name of dataset
+#	@return non-zero on error
+proc TopCon {fn fa} {
 	global reg
 	global FOOT2M
 	global geoEasyMsg geoCodes
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -322,12 +323,13 @@ proc TopCon {fn} {
 #	Read in TopCon GTS-700 co-ordinate file
 #	Record format:
 #		point_number, Easting, Northing, Elevation, point code
-#	@param fn name of GTS-700 co-ordinate file
-proc TopConCoo {fn} {
+#	@param fn path to GTS-700 co-ordinate file
+#	@param fa internal name of dataset
+#	@return non-zero on error
+proc TopConCoo {fn fa} {
 	global reg
 	global geoEasyMsg
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_coo
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -421,13 +423,14 @@ proc Txt2Coo {str {d 1}} {
 #	Data sent in records record start is marked by ^B, record end is marked
 #	by ^C, end of file marked ^D, record length is 135 bytes
 #	There is a checksum (4 digit) before end of record (^C)
-#	@param fn name of TopCon210 file
-proc TopCon210 {fn} {
+#	@param fn path to TopCon210 file
+#	@param fa internal name of dataset
+#	@return non-zero on error
+proc TopCon210 {fn fa} {
 	global reg
 	global geoEasyMsg
 	global geoCodes
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set f1 [open $fn r]}] != 0} {
@@ -743,13 +746,13 @@ proc Save210 {fn rn} {
 #	w.?,lineid,...
 #	t- end of line
 #	t,?,lineid,?,YYMMDDhhmms,?
-#	@param fn name of input file
+#	@param fn path to input file
+#	@param fa internal name of dataset
 #	TODO
-proc TopConDL {fn} {
+proc TopConDL {fn fa} {
 	global reg
 	global geoEasyMsg geoCodes
 
-	set fa [GeoSetName $fn]
 	if {[string length $fa] == 0} {return -1}
 	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
 	if {[catch {set fin [open $fn r]}] != 0} {
