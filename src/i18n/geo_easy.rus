@@ -143,7 +143,7 @@ set geoCodes(4)		"Код точки"
 set geoCodes(5)		"Номер точки"
 set geoCodes(6)		"Сила сигнала"
 set geoCodes(7)		"Горизонтальный угол"
-set geoCodes(-7)    "Not used"  ;# TODO
+set geoCodes(-7)    "Не используется"
 set geoCodes(8)		"Вертикальный угол"
 set geoCodes(-8)    $geoCodes(-7)
 set geoCodes(9)		"Наклонное расстояние"
@@ -618,8 +618,8 @@ set geoEasyMsg(txtcols)		"Столбцы в файле"
 # parameters
 #
 set geoEasyMsg(parTitle)	"Параметры расчета"
-set geoEasyMsg(angleUnit)   "Angle units"   ;# TODO
-set geoEasyMsg(distUnit)    "Distance units"    ;# TODO
+set geoEasyMsg(angleUnit)   "Угловые единицы"
+set geoEasyMsg(distUnit)    "Линейные единицы"
 set geoEasyMsg(projred)		"Reduction for projection \[mm/km\]:"
 set geoEasyMsg(avgh)		"Средняя высота над MSL \[m\]:"
 set geoEasyMsg(stdangle)	"Стандартное отклонение для направлений \[\"\]:"
@@ -931,7 +931,7 @@ set geoEasyMsg(spTitle) "Первая линия"
 set geoEasyMsg(epTitle) "Вторая линия"
 set geoEasyMsg(arcPar) "Параметры кривой"
 set geoEasyMsg(arcRadius) "Радиус"
-set geoEasyMsg(arcLength) "Arc length"  ;# TODO
+set geoEasyMsg(arcLength) "Длина дуги"
 set geoEasyMsg(arcParam) "Параметр перехода"
 set geoEasyMsg(arcTran) "Кривая перехода\n  параметр: %.1f\n  dR: %.2f\n  длина: %.2f\n  X0: %.2f"
 set geoEasyMsg(arcStep) "Расстояние между detail points \[m\]"
