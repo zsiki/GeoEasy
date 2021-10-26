@@ -921,7 +921,7 @@ proc GeoDXFin {filen fa} {
 	DXFimport $filen
 	tkwait window .dxfimp
 	if {$buttonid} { return -999}
-	return [DXFin $filen fa]
+	return [DXFin $filen $fa]
 }
 
 #
