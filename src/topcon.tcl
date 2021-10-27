@@ -694,10 +694,12 @@ proc TopCon210 {fn fa} {
 proc Save210 {fn rn} {
 	global geoEasyMsg
 	global geoLoaded
-	global ${fn}_coo
+
+    set in [GetInternalName $fn]
+	global ${in}_coo
 
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8	;# geo data set not loaded
 		}
@@ -706,10 +708,10 @@ proc Save210 {fn rn} {
 	}
 	set f [open $rn w]
 	# go through coordinates dictionary order
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set x [GetVal {37} [set ${fn}_coo($pn)]]
-		set y [GetVal {38} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set x [GetVal {37} [set ${in}_coo($pn)]]
+		set y [GetVal {38} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		if {[string length $x] || [string length $y] || [string length $z]} {
 			set buf "_+[format "%-10s" [string range $pn 0 9]]_"
 			if {[string length $y] == 0} { set y 0.0 }

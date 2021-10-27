@@ -30,7 +30,7 @@ proc ldiff {l1 l2} {
 	return $res
 }
 
-#	Returns geo data set name, replaces invalid chars with "_"
+#	Returns geo data set name
 #
 #	@param fn file name of geoeasy data set
 #	@return name part of path without extension
@@ -2056,12 +2056,13 @@ proc TxtOut {fn {nn ""}} {
 #
 #	save station and observation records
 #
-	global ${fn}_geo
+    set in [GetInternalName $fn]
+	global ${in}_geo
 	set lineno 0
 	set stpn ""
 	set ih ""
-	while {[info exists ${fn}_geo($lineno)]} {
-		set rec [set ${fn}_geo($lineno)]
+	while {[info exists ${in}_geo($lineno)]} {
+		set rec [set ${in}_geo($lineno)]
 		if {[GetVal {2} $rec] != ""} {
 			# station record
 			set stpn [GetVal {2} $rec]

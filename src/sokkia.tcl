@@ -476,10 +476,12 @@ proc AddCoo {f pn x y {z ""} {pcode "?"}} {
 proc SaveScr {fn rn} {
 	global geoEasyMsg
 	global geoLoaded
-	global ${fn}_coo
+
+    set in [GetInternalName $fn]
+	global ${in}_coo
 	
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8           ;# geo data set not loaded
 		}
@@ -489,10 +491,10 @@ proc SaveScr {fn rn} {
 	set f [open $rn w]
 	set skipped ""
 	# go through coordinates
-	foreach pn [array names ${fn}_coo] {
-		set x [GetVal {38} [set ${fn}_coo($pn)]]
-		set y [GetVal {37} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+	foreach pn [array names ${in}_coo] {
+		set x [GetVal {38} [set ${in}_coo($pn)]]
+		set y [GetVal {37} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		if {[string length $x] || [string length $y] || [string length $z]} {
 			if {[catch {set buf [format "%d,Ed,0000,?,0.0,0," $pn]}]} {
 				# non numeric point name

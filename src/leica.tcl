@@ -605,10 +605,12 @@ proc AvgFaces {f1 f2} {
 proc SaveGsi {fn rn {wl 8}} {
 	global geoEasyMsg
 	global geoLoaded
-	global ${fn}_coo
+
+    set in [GetInternalName $fn]
+	global ${in}_coo
 	
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8           ;# geo data set not loaded
 		}
@@ -618,10 +620,10 @@ proc SaveGsi {fn rn {wl 8}} {
 	set f [open $rn w]
 	set line 0
 	# go through coordinates
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set x [GetVal {38} [set ${fn}_coo($pn)]]
-		set y [GetVal {37} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set x [GetVal {38} [set ${in}_coo($pn)]]
+		set y [GetVal {37} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		# at least one coordinate is filled?
 		if {[string length $x] || [string length $y] || [string length $z]} {
 			incr line

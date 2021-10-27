@@ -169,10 +169,12 @@ proc Nikon {fn fa} {
 proc SaveNikon {fn rn} {
 	global geoEasyMsg
 	global geoLoaded
-	global ${fn}_coo
+
+    set in [GetInternalName $fn]
+	global ${in}_coo
 
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8		;# geo data set not loaded
 		}
@@ -182,10 +184,10 @@ proc SaveNikon {fn rn} {
 	set f [open $rn w]
 	puts $f "A,01,Cks,"
 	# go through coordinates
-	foreach pn [array names ${fn}_coo] {
-		set x [GetVal {38} [set ${fn}_coo($pn)]]
-		set y [GetVal {37} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+	foreach pn [array names ${in}_coo] {
+		set x [GetVal {38} [set ${in}_coo($pn)]]
+		set y [GetVal {37} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		if {[string length $x] || [string length $y] || [string length $z]} {
 			set buf "G,[string range $pn 0 11],"
 			if {[string length $x] == 0} { set x 0.0 }

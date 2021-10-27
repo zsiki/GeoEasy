@@ -4,12 +4,14 @@
 #   @param rn name of data file (.csv)
 #   @return 0 on success
 proc SavePSql {fn rn} {
-    global ${fn}_coo
     global geoLoaded
     global geoCodes geoEasyMsg
 
+    set in [GetInternalName $fn]
+    global ${in}_coo
+
     if {[info exists geoLoaded]} {
-        set pos [lsearch -exact $geoLoaded $fn]
+        set pos [lsearch -exact $geoLoaded $in]
         if {$pos == -1} {
             return -8           ;# geo data set not loaded
         }
@@ -26,11 +28,11 @@ proc SavePSql {fn rn} {
     puts $f "  code varchar(20)"
     puts $f ");"
 
-    foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-        set x [GetVal {38} [set ${fn}_coo($pn)]]
-        set y [GetVal {37} [set ${fn}_coo($pn)]]
-        set z [GetVal {39} [set ${fn}_coo($pn)]]
-        set code [GetVal {4} [set ${fn}_coo($pn)]]
+    foreach pn [lsort -dictionary [array names ${in}_coo]] {
+        set x [GetVal {38} [set ${in}_coo($pn)]]
+        set y [GetVal {37} [set ${in}_coo($pn)]]
+        set z [GetVal {39} [set ${in}_coo($pn)]]
+        set code [GetVal {4} [set ${in}_coo($pn)]]
         if {[string length $code]} {
             set code "'$code'"
         } else {

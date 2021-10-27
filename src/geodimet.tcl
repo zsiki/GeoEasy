@@ -268,11 +268,12 @@ proc Geodimeter {fn fa} {
 proc SaveAre {fn rn} {
 	global geoEasyMsg
 	global geoLoaded
-	global ${fn}_coo
 	global decimals
 	
+    set in [GetInternalName $fn]
+	global ${in}_coo
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8           ;# geo data set not loaded
 		}
@@ -282,10 +283,10 @@ proc SaveAre {fn rn} {
 	set f [open $rn w]
 	set skipped ""
 	# go through coordinates
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set x [GetVal {38} [set ${fn}_coo($pn)]]
-		set y [GetVal {37} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set x [GetVal {38} [set ${in}_coo($pn)]]
+		set y [GetVal {37} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		if {[string length $x] || [string length $y] || [string length $z]} {
 			puts $f [format "5=%s" $pn]
 			if {[string length $x]} { puts $f "38=[format "%.${decimals}f" $x]"}
@@ -358,7 +359,9 @@ proc SaveJob {fn rn} {
 	global decimals
 	global geoEasyMsg
 	global geoLoaded
-	global ${fn}_coo ${fn}_geo
+
+    set in [GetInternalName $fn]
+	global ${in}_coo ${in}_geo
 
 	set fn1 [file rootname $rn]
 	append fn1 ".job"
@@ -367,8 +370,8 @@ proc SaveJob {fn rn} {
 	append fn2 ".are"
 	set f2 [open $fn2 "w"]
 	set i 0
-	while {[info exists ${fn}_geo($i)]} {
-		set buf [set ${fn}_geo($i)]
+	while {[info exists ${in}_geo($i)]} {
+		set buf [set ${in}_geo($i)]
 		set ap [GetVal 2 $buf]
 		if {[string length $ap] > 0} {
 			# station rec
@@ -406,8 +409,8 @@ proc SaveJob {fn rn} {
 		}
 		incr i
 	}
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set buf [set ${fn}_coo($pn)]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set buf [set ${in}_coo($pn)]
 		foreach code {5 37 38 39} {
 			if {[GetVal $code $buf] != ""} {
 				puts $f2 "$code=[GetVal $code $buf]"

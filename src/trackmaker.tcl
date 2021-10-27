@@ -21,14 +21,16 @@
 proc TrackmakerOut {fn rn} {
 	global geoEasyMsg geoCodes
 	global geoLoaded
-	global ${fn}_coo ${fn}_par
 	global tcl_platform
 	global epsg proj_zfac proj_zoffs proj_preserv
 	global buttonid
 	global reg
+    
+    set in [GetInternalName $fn]
+	global ${in}_coo ${in}_par
 
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8           ;# geo data set not loaded
 		}
@@ -57,14 +59,14 @@ proc TrackmakerOut {fn rn} {
 	set lambda 0
 	# go through coordinates
 	set coords ""
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set pn [GetVal {5} [set ${fn}_coo($pn)]]
-		set pc [GetVal {4} [set ${fn}_coo($pn)]]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set pn [GetVal {5} [set ${in}_coo($pn)]]
+		set pc [GetVal {4} [set ${in}_coo($pn)]]
 		regsub -all "," $pc ";" pc
 		if {[string length $pc] == 0} { set pc $pn }
-		set x [GetVal {38} [set ${fn}_coo($pn)]]
-		set y [GetVal {37} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+		set x [GetVal {38} [set ${in}_coo($pn)]]
+		set y [GetVal {37} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		if {[string length $z] == 0} { set z 0 }
 		if {[string length $x] && [string length $y]} {
 			lappend coords [list $pn $pc $x $y $z]
@@ -97,14 +99,16 @@ proc TrackmakerOut {fn rn} {
 proc GpxOut {fn rn} {
 	global geoEasyMsg geoCodes
 	global geoLoaded
-	global ${fn}_coo
 	global tcl_platform
 	global epsg proj_zfac proj_zoffs proj_preserv
 	global buttonid
 	global reg
 
+    set in [GetInternalName $fn]
+	global ${in}_coo
+
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8           ;# geo data set not loaded
 		}
@@ -124,13 +128,13 @@ proc GpxOut {fn rn} {
 
 	set coords ""
 	# go through coordinates
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set pn [GetVal {5} [set ${fn}_coo($pn)]]
-		set pc [GetVal {4} [set ${fn}_coo($pn)]]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set pn [GetVal {5} [set ${in}_coo($pn)]]
+		set pc [GetVal {4} [set ${in}_coo($pn)]]
 		if {[string length $pc] == 0} { set pc $pn }
-		set x [GetVal {38} [set ${fn}_coo($pn)]]
-		set y [GetVal {37} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+		set x [GetVal {38} [set ${in}_coo($pn)]]
+		set y [GetVal {37} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		if {[string length $z] == 0} { set z 0 }
 		if {[string length $x] && [string length $y]} {
 			lappend coords [list $pn $pc $x $y $z]
@@ -185,14 +189,16 @@ proc GpxOut {fn rn} {
 proc KmlOut {fn rn} {
 	global geoEasyMsg geoCodes
 	global geoLoaded
-	global ${fn}_coo
 	global tcl_platform
 	global epsg proj_zfac proj_zoffs proj_preserv
 	global buttonid
 	global reg
 
+    set in [GetInternalName $fn]
+	global ${in}_coo
+
 	if {[info exists geoLoaded]} {
-		set pos [lsearch -exact $geoLoaded $fn]
+		set pos [lsearch -exact $geoLoaded $in]
 		if {$pos == -1} {
 			return -8           ;# geo data set not loaded
 		}
@@ -213,13 +219,13 @@ proc KmlOut {fn rn} {
 
 	set coords ""
 	# go through coordinates
-	foreach pn [lsort -dictionary [array names ${fn}_coo]] {
-		set pn [GetVal {5} [set ${fn}_coo($pn)]]
-		set pc [GetVal {4} [set ${fn}_coo($pn)]]
+	foreach pn [lsort -dictionary [array names ${in}_coo]] {
+		set pn [GetVal {5} [set ${in}_coo($pn)]]
+		set pc [GetVal {4} [set ${in}_coo($pn)]]
 		if {[string length $pc] == 0} { set pc $pn }
-		set x [GetVal {38} [set ${fn}_coo($pn)]]
-		set y [GetVal {37} [set ${fn}_coo($pn)]]
-		set z [GetVal {39} [set ${fn}_coo($pn)]]
+		set x [GetVal {38} [set ${in}_coo($pn)]]
+		set y [GetVal {37} [set ${in}_coo($pn)]]
+		set z [GetVal {39} [set ${in}_coo($pn)]]
 		if {[string length $z] == 0} { set z 0 }
 		if {[string length $x] && [string length $y]} {
 			lappend coords [list $pn $pc $x $y $z]
