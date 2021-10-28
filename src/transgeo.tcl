@@ -19,7 +19,7 @@
 #	The target coordinate system is loaded for the transformation.
 #	@param sourc name of geo data set to transform (optional)
 proc GeoTran {{sourc ""}} {
-	global geoLoaded
+	global geoLoaded geoLoadedDir
 	global geoEasyMsg
 	global fileTypes
 	global lastDir
@@ -99,7 +99,7 @@ proc GeoTran {{sourc ""}} {
 					set formY "expr [lindex $par 1] + [lindex $par 3] * \$x + \
 						[lindex $par 2] * \$y"
 					# start output to log window
-					GeoLog "$geoEasyMsg(typeHelmert4) $sourc -> $target"
+					GeoLog "$geoEasyMsg(typeHelmert4) [GetShortName $sourc] -> [GeoSetName $targetFile]"
 					GeoLog1 [format $geoEasyMsg(formulaH4y) \
 						[format "%.${decimals}f" [lindex $par 0]] \
 						[lindex $par 2] [lindex $par 3]]
