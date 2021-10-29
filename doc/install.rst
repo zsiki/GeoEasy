@@ -255,7 +255,7 @@ screen and the prompt in the terminal window is changed to %. Press CTLR/D in th
 to exit or close the small graphic window.
 
 For Machintosh there is no binary release. You can use only use the source release.
-Open a terminal window, chenge you current directory where you would like to install the software and type the following commands:
+Open a terminal window, change your current directory where you would like to install the software and type the following commands:
 
 .. code:: bash
 
