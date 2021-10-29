@@ -147,9 +147,10 @@ proc GeoEasy {top} {
 	set w ""
 	# get the language of the operating system
 	if {$tcl_platform(platform) != "unix"} {
-		set ww ""
+		set ww "0000"
 		catch {set ww [string toupper [registry get HKEY_LOCAL_MACHINE\\SYSTEM\\CONTROLSET001\\control\\nls\\language InstallLanguage]]}
-		if {[lsearch -exact [array names langCodes] $ww] > -1} {
+        # search for language groups only
+		if {[lsearch -regexp [array names langCodes] "[string range $ww 2 3]$"] > -1} {
 			set w $langCodes($ww)
 		} else {
 			set w eng
