@@ -2015,7 +2015,7 @@ proc GamaShortOutput {l} {
 								set adj [Gon2Rad $adj]
 								set mea [Gon2Rad $mea]
 								set v [expr {$adj - $mea}]
-								GeoLog1 [format "%-10s %-10s %10s %8.${mmdec}f %8.${mmdec}f %s" $from $to [ANG $adj] [Rad2Sec $v] [expr {$stdev / $SEC2CC}] $type]
+								GeoLog1 [format "%-10s %-10s %11s %8.${mmdec}f %8.${mmdec}f %s" $from $to [ANG $adj] [Rad2Sec $v] [expr {$stdev / $SEC2CC}] $type]
 							}
 							"height-diff" { set type "DM"
 								GeoLog1 [format "%-10s %-10s %10.${decimals}f %8.${mmdec}f %8.${mmdec}f %s" $from $to $adj [expr {$adj - $mea}] $stdev $type]

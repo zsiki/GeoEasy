@@ -78,7 +78,7 @@ proc Geodimeter {fn fa} {
 						if {[llength $hz] > 1} {
 							foreach h $hz {
 								set coll [expr {$w - $h}]
-								GeoLog1 [format "%-10s %10s kollimacio" \
+								GeoLog1 [format "%-10s %11s kollimacio" \
 									[string range $pno 0 9] [ANG $coll]]
 								if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
 									GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(7)"
@@ -93,7 +93,7 @@ proc Geodimeter {fn fa} {
 						if {[llength $v] > 1} {
 							foreach h $v {
 								set ind [expr {$w - $h}]
-								GeoLog1 [format "%-10s %10s index" \
+								GeoLog1 [format "%-10s %11s index" \
 									[string range $pno 0 9] [ANG $ind]]
 								if {[expr {abs($ind)}] > [expr {$maxIndex / $RO}]} {
 									# too large error > 6'
@@ -223,7 +223,7 @@ proc Geodimeter {fn fa} {
 			if {[llength $hz] > 1} {
 				foreach h $hz {
 					set coll [expr {$w - $h}]
-					GeoLog1 [format "%-10s %10s kollimacio" \
+					GeoLog1 [format "%-10s %11s kollimacio" \
 						[string range $pno 0 9] [ANG $coll]]
 					if {[expr {abs($coll)}] > [expr {$maxColl / $RO}]} {
 						GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): $pno $geoCodes(7)"
@@ -238,7 +238,7 @@ proc Geodimeter {fn fa} {
 			if {[llength $v] > 1} {
 				foreach h $v {
 					set ind [expr {$w - $h}]
-					GeoLog1 [format "%-10s %10s index" \
+					GeoLog1 [format "%-10s %11s index" \
 						[string range $pno 0 9] [ANG $ind]]
 					if {[expr {abs($ind)}] > [expr {$maxIndex / $RO}]} {
 						# too large error > 6'

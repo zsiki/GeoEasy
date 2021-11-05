@@ -1154,7 +1154,6 @@ proc DST1 {val} {
 proc DMS {val {unit "rad"} {dec 0}} {
 	global PI
 
-#if {$val == ""} { return "" }	;# return empty
 	if {$val < 0} {
 		set val [expr {abs($val)}]
 		set sign 1

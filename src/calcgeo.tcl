@@ -171,7 +171,7 @@ proc Orientation {geo lineno {flag 0}} {
 				if {$e > [Rad2Sec $PI]} { set e [expr {$e - [Rad2Sec $PI2]}] }
 				if {$e < "-[Rad2Sec $PI]"} { set e [expr {$e + [Rad2Sec $PI2]} ]}
 				set E [expr {$e / 206264.8 * [lindex $items 4]}]
-				GeoLog1 [format "%-10s %-10s   %s   %s   %s   %8.${decimals}f %4d %4d %8.${decimals}f"\
+				GeoLog1 [format "%-10s %-10s %11s %11s %11s   %8.${decimals}f %4d %4d %8.${decimals}f"\
 					[lindex $items 1] \
 					[string range [GetPCode [lindex $items 1] 1] 0 9]\
 					[ANG [lindex $items 5]] [ANG [lindex $items 6]] \
@@ -183,7 +183,7 @@ proc Orientation {geo lineno {flag 0}} {
 						warning 0 OK
 				}
 			}
-			GeoLog1 [format "%-47s %s" $geoCodes(101) [ANG $z]]
+			GeoLog1 [format "%-46s%11s" $geoCodes(101) [ANG $z]]
 		}
 		return $z
 	} else {
@@ -525,12 +525,12 @@ proc GeoSec {pn {w ""}} {
 		GeoLog1
 		GeoLog $geoEasyMsg(menuPopupSec)
 		GeoLog1 $geoEasyMsg(head1Sec)
-		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f   %s" \
+		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f %11s" \
 			[lindex $arec 2] \
 			[string range [GetPCode [lindex $arec 2] 1] 0 9] \
 			[GetVal {38} $aco] [GetVal {37} $aco] \
 			[ANG [lindex $arec 3]]]
-		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f   %s" \
+		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f %11s" \
 			[lindex $brec 2] \
 			[string range [GetPCode [lindex $brec 2] 1] 0 9] \
 			[GetVal {38} $bco] [GetVal {37} $bco] \
@@ -673,15 +673,15 @@ proc GeoRes {pn {w ""}} {
 		GeoLog1
 		GeoLog $geoEasyMsg(menuPopupRes)
 		GeoLog1 $geoEasyMsg(head1Res)
-		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f    %s %s" \
+		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f  %11s %11s" \
 			[lindex $arec 2] [string range [GetPCode [lindex $arec 2] 1] 0 9] \
 			[GetVal 38 $aco] [GetVal 37 $aco] \
 			[ANG [lindex $arec 3]] [ANG $alpha]]
-		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f    %s %s" \
+		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f  %11s %11s" \
 			[lindex $brec 2] [string range [GetPCode [lindex $brec 2] 1] 0 9] \
 			[GetVal 38 $bco] [GetVal 37 $bco] \
 			[ANG [lindex $brec 3]] [ANG $beta]]
-		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f    %s" \
+		GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f  %11s" \
 			[lindex $crec 2] [string range [GetPCode [lindex $crec 2] 1] 0 9] \
 			[GetVal 38 $cco] [GetVal 37 $cco] \
 			[ANG [lindex $crec 3]]]
@@ -1558,10 +1558,10 @@ proc GeoBearingDistance {pn {w ""}} {
 			set geoRes($w) [format "%s-%s: %s %.${decimals}f" $pn $pn1 [ANG $b] $d]
 		}
 		if {$d3d == ""} {
-			GeoLog1 [format "%-10s %-10s %s %8.${decimals}f" \
+			GeoLog1 [format "%-10s %-10s %11s %8.${decimals}f" \
 				$pn $pn1 [ANG $b] $d]
 		} else {
-			GeoLog1 [format "%-10s %-10s %s %8.${decimals}f %8.${decimals}f %s" \
+			GeoLog1 [format "%-10s %-10s %11s %8.${decimals}f %8.${decimals}f %s" \
 				$pn $pn1 [ANG $b] $d $d3d [ANG $za]]
 		}
 	}
@@ -1614,7 +1614,7 @@ proc GeoAngle {pn {w ""}} {
 	set si_b [expr {sin($b)}]
 	set co_b [expr {cos($b)}]
 	# output reference
-	GeoLog1 [format "%-10s %s %8.${decimals}f" \
+	GeoLog1 [format "%-10s %11s %8.${decimals}f" \
 		$pn1 [ANG $b] $d]
 
 	# remove reference point from list
@@ -1665,7 +1665,7 @@ proc GeoAngle {pn {w ""}} {
 			set geoRes($w) [format "%s-%s: %s %.${decimals}f" \
 				$pn $pn1 [ANG $b] $d]
 		}
-		GeoLog1 [format "%-10s %s %8.${decimals}f %s %s \
+		GeoLog1 [format "%-10s %s %8.${decimals}f %11s %11s \
 			%12.${decimals}f %12.${decimals}f" \
 			$pn1 [ANG $b] $d [ANG $alfa] [ANG $alfa0] $abc $ord]
 		set _temp_geo($i) [list "5 $pn1" "7 $alfa0" "11 $d"]
@@ -1755,13 +1755,13 @@ proc LineLine {pn1 pn2 pn3 pn4} {
 	GeoLog1
 	GeoLog $geoEasyMsg(menuCalLine)
 	GeoLog1 $geoEasyMsg(head1Sec)
-	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f   %s" \
+	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f %11s" \
 		[GetVal {5} $pn1coo] [GetVal {4} $pn1coo] \
 		[GetVal {38} $pn1coo] [GetVal {37} $pn1coo] [ANG $b12]]
 	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f" \
 		[GetVal {5} $pn2coo] [GetVal {4} $pn2coo] \
 		[GetVal {38} $pn2coo] [GetVal {37} $pn2coo]]
-	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f   %s" \
+	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f %11s" \
 		[GetVal {5} $pn3coo] [GetVal {4} $pn3coo] \
 		[GetVal {38} $pn3coo] [GetVal {37} $pn3coo] [ANG $b34]]
 	GeoLog1 [format "%-10s %-10s %12.${decimals}f %12.${decimals}f" \

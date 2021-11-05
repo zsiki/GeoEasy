@@ -863,7 +863,7 @@ set geoEasyMsg(head1Ele)	"Pontszám   Pontkód            M        Távolság"
 set geoEasyMsg(head1Det)	"                                                                         Tájékozott Vízszintes"
 set geoEasyMsg(head2Det)	"Pontszám   Pontkód             Y            X            M   Álláspont   irányérték távolság"
 set geoEasyMsg(head1Ori)	"Pontszám   Pontkód     Irányérték   Irányszög    Táj.szög   Távolság   e\" e\"max   E(m)"
-set geoEasyMsg(head1Dis)	"Pontszám   Pontszám   Irányszög Távolság Ferde táv Zenit sz."
+set geoEasyMsg(head1Dis)	"Pontszám   Pontszám     Irányszög Távolság Ferde táv Zenit sz."
 set geoEasyMsg(head1Angle)	"Pontszám   Irányszög Távolság Törésszög 0-ra forg.     Absz.         Ord."
 # transformation
 set geoEasyMsg(head1Tran)	"Pontszám           y            x            Y            X           dY           dX         dt"

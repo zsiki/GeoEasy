@@ -588,7 +588,7 @@ proc AvgFaces {f1 f2} {
 		GeoLog1 $geoEasyMsg(face2)
 		GeoLog1 $geoEasyMsg(face3)
 	}
-	GeoLog1 [format "%-10s %10s %10s %6.4f %6.3f" \
+	GeoLog1 [format "%-10s %11s %11s %6.4f %6.3f" \
 		[string range [GetVal {5 62} $f1] 0 9] \
 		[ANG $collimationError] [ANG $indexError] $dt $dj]
 	return $f1

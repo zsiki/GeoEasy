@@ -852,7 +852,7 @@ set geoEasyMsg(head1Ele)	"Punto n\u00FAm  C\u00F3digo            Height      Dis
 set geoEasyMsg(head1Det)	"                                                                         Oriented   Horizontal"
 set geoEasyMsg(head2Det)	"Punto n\u00FAm  C\u00F3digo              E            N              H   Estaci\u00F3n     direcci\u00F3n  distancia"
 set geoEasyMsg(head1Ori)	"Punto n\u00FAm  C\u00F3digo         Direcci\u00F3n    Bearing   Orient ang   Distancia   e\" e\"max   E(m)"
-set geoEasyMsg(head1Dis)	"Punto n\u00FAm  Punto n\u00FAm  Bearing   Distancia Pendiente dis Zenith \u00E1ngulo"
+set geoEasyMsg(head1Dis)	"Punto n\u00FAm  Punto n\u00FAm    Bearing   Distancia Pendiente dis Zenith \u00E1ngulo"
 set geoEasyMsg(head1Angle)	"Punto n\u00FAm  Bearing   Distancia \u00C1ngulo     \u00C1ngulo from 1st  Local E     Local N"
 # transformation
 set geoEasyMsg(head1Tran)	"Punto n\u00FAm          e            n            E            N          dE           dN           dist"

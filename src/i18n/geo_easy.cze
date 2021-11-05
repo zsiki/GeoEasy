@@ -850,7 +850,7 @@ set geoEasyMsg(head1Ele)    "Číslo bodu  Kód            Výka      Vzdálen
 set geoEasyMsg(head1Det)	"                                                                         Orientováno   Zhorizontováno"
 set geoEasyMsg(head2Det)    "Číslo bodu  Kód              Y            X              H   Stanovisko     směr  vzdálenost"
 set geoEasyMsg(head1Ori)    "Číslo bodu  Kód         Směr    Směr   Orientační směr   Vzdálenost   e\" e\"max   X(m)"
-set geoEasyMsg(head1Dis)    "Číslo bodu  Číslo bodu  Směrník   Vzdálenost Sklon dis Zenitový úhel"
+set geoEasyMsg(head1Dis)    "Číslo bodu  Číslo bodu    Směrník   Vzdálenost Sklon dis Zenitový úhel"
 set geoEasyMsg(head1Angle)  "Číslo bodu  Směrník   Vzdálenost Úhel     Úhel z prvního  Local X     Local Y"
 # transformation
 set geoEasyMsg(head1Tran)	"Číslo bodu          y            x            Y            X          dY           dX           vzdálenost"

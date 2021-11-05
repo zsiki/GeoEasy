@@ -299,7 +299,7 @@ proc GeoEasy {top} {
 				regsub "\}$" $name "" name
 				switch -glob -- $name {
 					*.geo {
-						MenuLoad $top $name
+						MenuLoad $top [file normalize $name]
 					}
 					*.gpr { GeoProjLoad $top $name }
 					*.msk -

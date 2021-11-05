@@ -227,12 +227,14 @@ proc GetTraverse {{codes {37 38}} {stopAt ""}} {
 				set ref [lindex $stlist 0]
 			}
 			default {
-				set ref [lindex [GeoListbox $stlist {0 1} \
+                set vlist [InternalToShort $stlist]
+				set vlist [lindex [GeoListbox $vlist {0 1} \
 					$geoEasyMsg(lbTitle3) 1] 0]
-				if {$ref == ""} {
+				if {$vlist == ""} {
 					Beep
 					return ""
 				}
+                set ref [ShortToInternal $vlist]
 			}
 		}
 		lappend ref $pn
@@ -552,7 +554,7 @@ proc CalcTraverse {stlist {node 0}} {
 		set pcode [string range [GetPCode [lindex [lindex $stlist $i] 2] 1] 0 9]
 		if {[info exists t1($i)]} { set t_1 [format "%8.${decimals}f" $t1($i)] } else { set t_1 "-" } 
 		if {[info exists t2($i)]} { set t_2 [format "%8.${decimals}f" $t2($i)] } else { set t_2 "-" } 
-		GeoLog1  [format "           %10s %8s" [ANG [expr {$delta($i) / $RO}]] $t_1]
+		GeoLog1  [format "           %11s %8s" [ANG [expr {$delta($i) / $RO}]] $t_1]
 		if {$i > 0} {
 			if {$beta($i) == ""} {
 				GeoLog1 [format "%-10s %10s %8.${decimals}f %8.${decimals}f %8.${decimals}f %10.${decimals}f %10.${decimals}f" \
@@ -560,17 +562,17 @@ proc CalcTraverse {stlist {node 0}} {
 					$dx($i) $dy($i) [expr {$dx($i) + $vx($i)}] \
 					[expr {$dy($i) + $vy($i)}]]
 			} else {
-				GeoLog1 [format "%-10s %10s %8.${decimals}f %8.${decimals}f %8.${decimals}f %10.${decimals}f %10.${decimals}f" \
+				GeoLog1 [format "%-10s %11s %8.${decimals}f %8.${decimals}f %8.${decimals}f %10.${decimals}f %10.${decimals}f" \
 					[lindex [lindex $stlist $i] 2] [ANG [expr {$beta($i) / $RO}]] $t($i) \
 					$dx($i) $dy($i) [expr {$dx($i) + $vx($i)}] \
 					[expr {$dy($i) + $vy($i)}]]
 			}
 		} else {
 			if {$beta($i) == ""} {
-				GeoLog1 [format "%-10s %10s" \
+				GeoLog1 [format "%-10s %11s" \
 					[lindex [lindex $stlist $i] 2] ""]
 			} else {
-				GeoLog1 [format "%-10s %10s" \
+				GeoLog1 [format "%-10s %11s" \
 					[lindex [lindex $stlist $i] 2] [ANG [expr {$beta($i) / $RO}]]]
 			}
 		}
@@ -584,11 +586,11 @@ proc CalcTraverse {stlist {node 0}} {
 			}
 			if {$beta(0) == "" || $beta($n1) == ""} {
 				GeoLog1 [format \
-					"%-10s %10s %8s %8s %8s %10.${decimals}f %10.${decimals}f" \
+					"%-10s %11s %8s %8s %8s %10.${decimals}f %10.${decimals}f" \
 					$pcode "" $t_2 $w1 $w2 $x($i) $y($i)]
 			} else {
 				GeoLog1 [format \
-					"%-10s %10s %8s %8.${decimals}f %8.${decimals}f %10.${decimals}f %10.${decimals}f" \
+					"%-10s %11s %8s %8.${decimals}f %8.${decimals}f %10.${decimals}f %10.${decimals}f" \
 					$pcode [ANG [expr {$vbeta($i) / $RO}]] $t_2 $vx($i) $vy($i) $x($i) $y($i)]
 			}
 		} else {
@@ -598,7 +600,7 @@ proc CalcTraverse {stlist {node 0}} {
 					$pcode "" $x($i) $y($i)]
 			} else {
 				GeoLog1 [format \
-					"%-10s %10s                            %10.${decimals}f %10.${decimals}f" \
+					"%-10s %11s                            %10.${decimals}f %10.${decimals}f" \
 					$pcode [ANG [expr {$vbeta($i) / $RO}]] $x($i) $y($i)]
 			}
 		}
@@ -615,13 +617,13 @@ proc CalcTraverse {stlist {node 0}} {
 			GeoLog1 [format "           %10s          %8.${decimals}f %8.${decimals}f" "" $ddx $ddy]
 		}
 	} else {
-		GeoLog1 [format "           %10s                            %10.${decimals}f %10.${decimals}f" \
+		GeoLog1 [format "          %11s                            %10.${decimals}f %10.${decimals}f" \
 			[ANG 0] [expr {$x($n1) - $x(0)}] [expr {$y($n1) - $y(0)}]]
-		GeoLog1 [format "           %10s %8.${decimals}f %8.${decimals}f %8.${decimals}f" \
+		GeoLog1 [format "          %11s %8.${decimals}f %8.${decimals}f %8.${decimals}f" \
 			[ANG [expr {$sumbeta / $RO}]] $sumt $sumdx $sumdy]
-		GeoLog1 [format "           %10s" \
+		GeoLog1 [format "          %11s" \
 			[ANG [expr {$n1 * $PI}]]]
-		GeoLog1 [format "           %10s          %8.${decimals}f %8.${decimals}f" \
+		GeoLog1 [format "          %11s          %8.${decimals}f %8.${decimals}f" \
 			[ANG [expr {$dbeta / $RO}]] $ddx $ddy]
 	}
 	if {! $free} {

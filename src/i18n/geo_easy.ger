@@ -851,7 +851,7 @@ set geoEasyMsg(head1Ele)	"Punktnr.   Punktcode           Z        Strecke"
 set geoEasyMsg(head1Det)	"                                                                        orientierte Horizontal-"
 set geoEasyMsg(head2Det)	"Punktnr.   Punktcode           Y            X            M   Standpunkt  Richtungen distanz"
 set geoEasyMsg(head1Ori)	"Punktnr.   Punktcode   Hz-Winkel    Azimut     Orientierung Strecke    e\" e\"max   E(m)"
-set geoEasyMsg(head1Dis)	"Punktnr.   Punktnr.   Azimut    Strecke Schrägdist Zenitwinkel"
+set geoEasyMsg(head1Dis)	"Punktnr.   Punktnr.     Azimut    Strecke Schrägdist Zenitwinkel"
 set geoEasyMsg(head1Angle)	"Punktnr.   Azimut    Strecke  Brechwinkel auf Null     Absz.         Ord."
 # transformation
 set geoEasyMsg(head1Tran)	"Punktnr.           y            x            Y            X           dY           dX         dt"

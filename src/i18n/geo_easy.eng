@@ -850,7 +850,7 @@ set geoEasyMsg(head1Ele)	"Point num  Code            Height      Distance"
 set geoEasyMsg(head1Det)	"                                                                         Oriented   Horizontal"
 set geoEasyMsg(head2Det)	"Point num  Code              E            N              H   Station     direction  distance"
 set geoEasyMsg(head1Ori)	"Point num  Code         Direction    Bearing   Orient ang   Distance   e\" e\"max   E(m)"
-set geoEasyMsg(head1Dis)	"Point num  Point num  Bearing   Distance Slope dis Zenith angle"
+set geoEasyMsg(head1Dis)	"Point num  Point num    Bearing   Distance Slope dis Zenith angle"
 set geoEasyMsg(head1Angle)	"Point num  Bearing   Distance Angle     Angle from 1st  Local E     Local N"
 # transformation
 set geoEasyMsg(head1Tran)	"Point num          e            n            E            N          dE           dN           dist"
