@@ -24,11 +24,11 @@ See the [doc](./doc) folder for various reStructuredText files, the [wiki](https
 
 ## Installation
 
-Installation binaries for latest stabile version (3.1.3):
+Installation binaries for latest stabile version (3.2.0):
 
-* [Debian/Ubuntu](http://digikom.hu/download/geoeasy_3.1.3.deb)
-* [Windows](http://digikom.hu/download/Gizi313Setup.exe)
-* [Windows portable (zip)](http://digikom.hu/download/GeoEasy313.zip)
+* [Debian/Ubuntu](http://digikom.hu/download/geoeasy_3.2.0.deb)
+* [Windows](http://digikom.hu/download/Gizi320Setup.exe)
+* [Windows portable (zip)](http://digikom.hu/download/GeoEasy320.zip)
 
 Users can select source or [beta binary or older releases](http://digikom.hu/english/geo_easy_e.html). Linux, OSX and Windows operating
 systems are supported. See the [installation guide](doc/install.rst).
