@@ -1,6 +1,6 @@
 # Documentations for GeoEasy
 
-- [A1 format poster about GeoEasy 3.1](./GeoEasy31poster.odp)
+- [A1 format poster about GeoEasy 3.2](http://digikom.hu/english/GeoEasy32poster.pdf)
 - [Installation guide for GeoEasy](./install.rst)  (Linux and Windows)
 - [Step by step tutorial for GeoEasy](./step_by_step.rst)
 - [Reference Guide for GeoEasy](./reference_guide.rst)  (under construction)
