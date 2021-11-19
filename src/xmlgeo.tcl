@@ -47,11 +47,13 @@ proc GeoNet3D {{pns ""}} {
 		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
 			return
 		}
+puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	} else {
+puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
@@ -121,11 +123,13 @@ proc GeoNet2D {{pns ""}} {
 		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
 			return
 		}
+puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	} else {
+puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
 			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
@@ -572,7 +576,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	} else {
 		set cov_band "cov-band = \"0\""
 	}
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" $cov_band />"
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" $cov_band />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjz "Z"
@@ -1012,7 +1016,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	} else {
 		set cov_band "cov-band = \"0\""
 	}
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" $cov_band />"
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" $cov_band />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjxy "XY"
@@ -1520,7 +1524,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	} else {
 		set cov_band "cov-band = \"0\""
 	}
-	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" update-constrained-coordinates = \"yes\" $cov_band />"
+	puts $xml "<parameters sigma-apr = \"1\" conf-pr = \"$gamaConf\" tol-abs = \"$gamaTol\" sigma-act = \"aposteriori\" $cov_band />"
 	puts $xml "<points-observations distance-stdev=\"$stdDist1 $stdDist2\" direction-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" angle-stdev=\"[expr {round($stdAngle * $SEC2CC * sqrt(2.0))}]\" zenith-angle-stdev=\"[expr {round($stdAngle * $SEC2CC)}]\" >"
 	if {$free_network} {
 		set adjxyz "XYZ"
