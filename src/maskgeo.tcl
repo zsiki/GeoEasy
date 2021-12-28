@@ -240,7 +240,7 @@ proc GeoMask {maskn f {type "_geo"}} {
 			set l$i ""
 			foreach item $items {
 				if {[catch {set t $geoCodes($item)}] != 0} {
-					tk_dialog .msg $geoEasyMsg(error) \
+					geo_dialog .msg $geoEasyMsg(error) \
 						[format $geoEasyMsg(geocode) $item] error 0 OK
 					catch {destroy $w}
 					return
@@ -820,7 +820,7 @@ proc GeoSelectMask {masks} {
 	global geoEasyMsg
 
 	if {[array exists $masks] == 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(nomask) error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(nomask) error 0 OK
 		return ""
 	}
 	set w [focus]
@@ -885,7 +885,7 @@ proc LoadMask {} {
 	set fn [string trim [tk_getOpenFile -filetypes $mskTypes]]
 	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		if {[catch {source $fn} msg] != 0} {
-			tk_dialog .msg $geoEasyMsg(warning) \
+			geo_dialog .msg $geoEasyMsg(warning) \
 				[format $geoEasyMsg(wrongmask) $msg] \
 				warning 0 OK
 			unset geoMasks
@@ -1000,7 +1000,7 @@ proc GeoClearLog {w} {
 	global logName geoEasyMsg
 	global lstTypes
 	catch {
-		if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(logDelete) \
+		if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(logDelete) \
 				warning 0 $geoEasyMsg(ok) $geoEasyMsg(cancel)] == 0} {
 			file delete -force $logName
 			$w.w.t delete 0.1 end	;# delete content
@@ -1034,7 +1034,7 @@ global lstTypes
 			puts $fd $t
 			close $fd
 				} msg] != 0} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(cantSave) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(cantSave) \
 				warning 0 OK
 			return
 		}
@@ -1071,7 +1071,7 @@ proc GeoLoadTcl {w} {
 	if {[string length $on] == 0 || [string match "after#*" $on]} { return }
 	set lastDir [file dirname $on]
 	if {[catch {source $on} msg] != 0} {
-		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 	}
 }
 
@@ -1357,7 +1357,7 @@ proc GeoValid {w} {
 	# one of the point names must be filled
 	if {[lsearch -exact $mustfill $entryCode($w)] != -1 && \
 		[string length $val] == 0} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(mustfill) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(mustfill) \
 			warning 0 OK
 		set lastVal ""	;# to realize changes!
 		focus $w
@@ -1376,7 +1376,7 @@ proc GeoValid {w} {
             "ANG" {
 				set val [ANG1 $val]
 				if {[string length $val] == 0} {	;# invalid angle
-					tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(wrongval) \
+					geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(wrongval) \
 						warning 0 OK
 					set lastVal ""	;# to realize changes!
 					focus $w
@@ -1396,7 +1396,7 @@ proc GeoValid {w} {
 		}
 		GeoStoreEntry $w $val	;# store new value
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(wrongval) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(wrongval) warning 0 OK
 		focus $w
 		return 1
 	}
@@ -1698,7 +1698,7 @@ proc GeoDelete {w {st_only 0}} {
 	set n [llength [array names ${geo}]]
 	if {[GetVal 2 $buf] != "" && $st_only == 0} {	;# station
 		# confirm delete whole station
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(stndel) \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(stndel) \
 			info 0 OK $geoEasyMsg(cancel)] == 1} {
 			return
 		}
@@ -1708,7 +1708,7 @@ proc GeoDelete {w {st_only 0}} {
 		}
 	} else {
 		# confirm delete record
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(recdel) \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(recdel) \
 			info 0 OK $geoEasyMsg(cancel)] == 1} {
 			return
 		}
@@ -1749,7 +1749,7 @@ proc CooDelete {w} {
 	global geoEasyMsg
 
 	# confirm delete record
-	if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(recdel) \
+	if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(recdel) \
 		info 0 OK $geoEasyMsg(cancel)] == 1} {
 		return
 	}
@@ -1797,7 +1797,7 @@ proc CooNew {w} {
 	set geoChanged($fn) 1
 	if {[lsearch -exact [array names $geo] $pn] != -1} {
 		# point name already used
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(usedPn) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(usedPn) warning 0 OK
 		return
 	}
 	set ${geo}($pn) [list [list 5 $pn]]
@@ -1815,7 +1815,7 @@ proc CooFinal {w} {
 	global autoRefresh
 
 	regsub "^\.(.*)\.grd\.e.*$" $w "\\1" geo		;# name of data set
-	if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(finalize) \
+	if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(finalize) \
 		warning 0 $geoEasyMsg(yes) $geoEasyMsg(no)] == 1} { return }
 	global $geo
 	# mark change in data set
@@ -2084,7 +2084,7 @@ proc GeoMaskFindNext {} {
 		}
 	}
 	Beep
-	tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(nomore) warning 0 OK
+	geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(nomore) warning 0 OK
 }
 
 #
@@ -2206,7 +2206,7 @@ proc GeoMaskHtml {maskn fn type} {
 		set i 0	;# color index
 		foreach item $items {
 			if {[catch {set t $geoCodes($item)}] != 0} {
-				tk_dialog .msg $geoEasyMsg(error) \
+				geo_dialog .msg $geoEasyMsg(error) \
 					[format $geoEasyMsg(geocode) $item] error 0 OK
 				close $fd
 				return
@@ -2331,10 +2331,10 @@ proc GeoMaskHtml {maskn fn type} {
 
 	puts $fd "</table></body></html>"
 	close $fd
-	if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+	if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 		if {[ShellExec "$on"]} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(browser) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(browser) \
 				warning 0 OK
 		}
 	}
@@ -2438,7 +2438,7 @@ proc GeoMaskRtf {maskn fn type} {
 		puts $fd "\\pard \\intbl \\qc"
 		foreach item $items {
 			if {[catch {set t $geoCodes($item)}] != 0} {
-				tk_dialog .msg $geoEasyMsg(error) \
+				geo_dialog .msg $geoEasyMsg(error) \
 					[format $geoEasyMsg(geocode) $item] error 0 OK
 				close $fd
 				return
@@ -2575,10 +2575,10 @@ proc GeoMaskRtf {maskn fn type} {
 
 	puts $fd "\\pard\\f0\\fs20\\par\}"
 	close $fd
-	if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+	if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 		if {[ShellExec "$on"]} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
 				warning 0 OK
 		}
 	}
@@ -2636,7 +2636,7 @@ proc GeoMaskCsv {maskn fn type} {
 		puts -nonewline $fd "\""
 		foreach item $items {
 			if {[catch {set t $geoCodes($item)}] != 0} {
-				tk_dialog .msg $geoEasyMsg(error) \
+				geo_dialog .msg $geoEasyMsg(error) \
 					[format $geoEasyMsg(geocode) $item] error 0 OK
 				close $fd
 				return
@@ -2702,7 +2702,7 @@ proc GeoMaskCsv {maskn fn type} {
 		}
 	} else {
 		# coordinates
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(csvwarning) info 0 \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(csvwarning) info 0 \
 				$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 			set pns [lsort -dictionary [array names ${fn}${type}]]
 			foreach pn $pns {
@@ -2750,10 +2750,10 @@ proc GeoMaskCsv {maskn fn type} {
 	}
 
 	close $fd
-	if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+	if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 		if {[ShellExec "$on"]} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(browser) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(browser) \
 				warning 0 OK
 		}
 	}
@@ -2818,7 +2818,7 @@ proc EditPar {f} {
 			if {[info exists e$i] && [string length [set e$i]] && \
 					[lsearch -exact {114 115 116} $c] != -1 && \
 					[regexp $reg(2) [set e$i]] == 0} {
-				tk_dialog .msg $geoEasyMsg(error) \
+				geo_dialog .msg $geoEasyMsg(error) \
 					"$geoEasyMsg(wrongval) $geoCodes($c)" error 0 OK
 				return
 			}
@@ -2908,7 +2908,7 @@ proc CooTrDia {c} {
 		if {[regexp $reg(2) $tr_dx] == 0 || [regexp $reg(2) $tr_dy] == 0 || \
 			[regexp $reg(3) $tr_rot] == 0 || [regexp $reg(2) $tr_scale] == 0 || \
 			[regexp $reg(2) $tr_dz] == 0 || [regexp $reg(2) $tr_scalez] == 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}
@@ -3046,13 +3046,13 @@ proc CooTrFile {c} {
 		switch -glob [string tolower $fn] {
 			*.prm {
 				if {[catch {set f [open $fn "r"]}] != 0} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) error 0 OK
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) error 0 OK
 					return
 				}
 				# load affine parameters
 				for {set i 0} {$i < 6} {incr i} {
 					if {[catch {set par($i) [string trim [gets $f]]}] != 0} {
-						tk_dialog .msg $geoEasyMsg(error) \
+						geo_dialog .msg $geoEasyMsg(error) \
 							"$geoEasyMsg(-5) [expr {$i + 1}]" error 0 OK
 						catch {close $f}
 						return
@@ -3092,7 +3092,7 @@ proc CooTrFile {c} {
 			}
 			*.all {
 				if {[catch {set f [open $fn "r"]}] != 0} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) error 0 OK
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) error 0 OK
 					return
 				}
 				for {set i 0} {$i < 20} {incr i} {
@@ -3127,7 +3127,7 @@ proc CooTrFile {c} {
 				}
 				catch {close $f}
 				if {$j > 21} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(allparnum) \
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(allparnum) \
 						error 0 OK
 					return
 				}
@@ -3186,7 +3186,7 @@ proc CooDelAppr {c {confirm 1}} {
 	global geoChanged
 
 	if {$confirm} {
-		if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delappr) \
+		if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delappr) \
 			warning 0 OK $geoEasyMsg(cancel)] != 0} {
 			return
 		}
@@ -3211,7 +3211,7 @@ proc CooDel {c} {
 	global autoRefresh
 	global geoChanged
 
-	if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delcoo) \
+	if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delcoo) \
 		warning 0 OK $geoEasyMsg(cancel)] != 0} {
 		return
 	}
@@ -3234,7 +3234,7 @@ proc PntDel {c} {
 	global $c
 	global autoRefresh
 
-	if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delpnt) \
+	if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delpnt) \
 		warning 0 OK $geoEasyMsg(cancel)] != 0} {
 		return
 	}
@@ -3253,7 +3253,7 @@ proc CooDelDetail {c} {
 	global autoRefresh
 	global geoChanged
 
-	if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(deldetailpnt) \
+	if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(deldetailpnt) \
 		warning 0 OK $geoEasyMsg(cancel)] != 0} {
 		return
 	}
@@ -3329,7 +3329,7 @@ proc ResizeMask {maskn fn type w} {
 	set r [GeoEntry $geoEasyMsg(rowCount) $geoEasyMsg(resize) $r 10]
 	if {$r == ""} { return }
 	if {[regexp $reg(1) $r] == 0 || $r < 5} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) error 0 OK
 		return
 	}
 	if {$type == "_geo"} {
@@ -3373,7 +3373,7 @@ proc CooDif {{source ""}} {
 	global autoRefresh
 
     if {([info exists geoLoaded] == 0) || ([llength $geoLoaded] == 0)} {
-        tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
+        geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
         return
     }
     # select source geo data set (co-ordinate system) if no parameter
@@ -3397,15 +3397,15 @@ proc CooDif {{source ""}} {
 		if {$res != 0} {    ;# error loading
 			UnloadGeo $target
 			if {$res < 0} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
 			} else {
-				tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
+				geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
 					warning 0 OK
 			}
 			return
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(loaded) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(loaded) \
 			warning 0 OK
 	}
     upvar #0 ${source}_coo sourceCoo

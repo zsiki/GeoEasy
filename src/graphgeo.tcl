@@ -49,12 +49,12 @@ proc GeoNewWindow {{win_name ""}} {
 
 	if {([info exists geoLoaded] == 0 || [llength $geoLoaded] == 0) && \
 		[lsearch -exact $geoModules "dtm"] == -1} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noGeo) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noGeo) warning 0 OK
 #		return	;# no geo data set loaded
 	}
 	if {[llength [GetGiven]] == 0 && \
 		[lsearch -exact $geoModules "dtm"] == -1} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) warning 0 OK
 	}
 	if {[string length $win_name]} {
 		if {[winfo exists $win_name]} { }
@@ -67,7 +67,7 @@ proc GeoNewWindow {{win_name ""}} {
 			incr i
 		}
 		if {$i > 9} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(maxGr) warning 0 OK
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(maxGr) warning 0 OK
 			return
 		}
 		set this .g$i
@@ -1078,21 +1078,21 @@ proc GeoPopup {can x y rootx rooty} {
 			# new dtm item?
 			if {[lsearch -glob $tags Bnew] != -1} {
 				# delete break line
-				if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delbreakline) \
+				if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delbreakline) \
 					warning 0 $geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 					$can delete $id
 					DeleteBreak [WorldX $this $cx] [WorldY $this $cy]
 				}
 			} elseif {[lsearch -glob $tags Hnew] != -1} {
 				# delete hole marker
-				if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delhole) \
+				if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delhole) \
 					warning 0 $geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 					$can delete $id
 					DeleteHole [WorldX $this $cx] [WorldY $this $cy]
 				}
 			} elseif {[lsearch -glob $tags "N*"] != -1} {
 				# delete dtm node
-				if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(deldtmpnt) \
+				if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(deldtmpnt) \
 					warning 0 $geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 					$can delete $id
 					set pid [lindex $tags [lsearch -glob $tags "N*"]]
@@ -1103,7 +1103,7 @@ proc GeoPopup {can x y rootx rooty} {
 				}
 			} elseif {[lsearch -glob $tags "T*"] != -1} {
 				# delete triangle
-				if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(deldtmtri) \
+				if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(deldtmtri) \
 					warning 0 $geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 					$can delete $id
 					set pid [lindex $tags [lsearch -glob $tags "T*"]]
@@ -1358,7 +1358,7 @@ proc PolyPoint {this x y} {
 		if {$pn == $prevPoint} {
 			# do not add the same point
 			# check for end (for multiple occupied points!)
-			if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(endp) info 0 \
+			if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(endp) info 0 \
 					$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 				PolyEnd $this
 				return
@@ -1503,7 +1503,7 @@ proc GeoPng {this} {
 	global pngTypes geoEasyMsg lastDir
 
 	if {[catch {package require img::window} msg]} {
-        tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(nopng)" \
+        geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(nopng)" \
             error 0 OK
 		return
 	}

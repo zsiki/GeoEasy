@@ -43,13 +43,13 @@ proc CenterWnd {this} {
 
 	if {[file isfile [file join $home com_easy.hun]] == 0 || \
 			[file readable [file join $home com_easy.hun]] == 0} {
-		tk_dialog .msg "Hiba" "Az uzenet fajlt (com_easy.hun) nem talalom" \
+		geo_dialog .msg "Hiba" "Az uzenet fajlt (com_easy.hun) nem talalom" \
 			error 0 OK
 		exit
 	}
 
 	if {[catch {source [file join $home com_easy.hun]} msg] == 1} {
-		tk_dialog .msg "Hiba" "Hiba az uzenet fajlban:\n$msg" error 0 OK
+		geo_dialog .msg "Hiba" "Hiba az uzenet fajlban:\n$msg" error 0 OK
 		exit
 	}
 	

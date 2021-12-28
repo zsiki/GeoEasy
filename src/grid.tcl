@@ -130,7 +130,7 @@ proc GridDif {gridname1 gridname2 {out ""}} {
 	if {$dx != [set ${name2}(cellsize)] || $x0 != [set ${name2}(xllcorner)] || \
 		$y0 != [set ${name2}(yllcorner)] || $nrows != [set ${name2}(nrows)] || \
 		$ncols != [set ${name2}(ncols)]} {
-		tk_dialog .msg "Hiba" "eltero parameterek" error 0 OK
+		geo_dialog .msg "Hiba" "eltero parameterek" error 0 OK
 	}
 	set dx2 [expr {$dx * $dx}]
 	set no 0

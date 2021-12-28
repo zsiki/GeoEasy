@@ -592,6 +592,7 @@ set geoEasyMsg(useblock)	"mit Blöcken"
 set geoEasyMsg(pcode1)		"Punktcode aus Layername"
 set geoEasyMsg(dxfpnt)		"Punkt aus Elementen"
 set geoEasyMsg(3d)			"3D"
+set geoEasyMsg(skipdbl)     "Skip double"                   ;# TODO
 set geoEasyMsg(addlines)	"Linework"
 set geoEasyMsg(pd)			"Nur die Detailpunkte"
 set geoEasyMsg(ptext)		"Punktnummer aus Beschriftungen"

@@ -47,15 +47,13 @@ proc GeoNet3D {{pns ""}} {
 		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
 			return
 		}
-puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	} else {
-puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	}
@@ -123,15 +121,13 @@ proc GeoNet2D {{pns ""}} {
 		if {[string length $filen] == 0 || [string match "after#*" $filen]} {
 			return
 		}
-puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" --svg \"${filen}\" \"$tmpname\""]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	} else {
-puts "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""
 		if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 			return
 		}
 	}
@@ -192,7 +188,7 @@ proc GeoNet1D {{pns ""}} {
 		catch {file delete [glob "${tmpname}*"]}
 	if {[GamaExport "$tmpname" $pns] == 0} { return }
 	if {[catch {eval [concat exec "{$gamaProg} --language [string range $geoLang 0 1] --encoding $geoCp --angles $gamaAngles --xml \"${tmpname}.xml\" --text \"${tmpname}.txt\" \"$tmpname\""]} msg]} {
-		tk_dialog .msg  $geoEasyMsg(error) $msg error 0 OK
+		geo_dialog .msg  $geoEasyMsg(error) $msg error 0 OK
 		return
 	}
 	if {! $gamaShortOut} {
@@ -298,7 +294,7 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 					return [Gama2dXmlOut $fn $unknowns $fixed]
 				}
 			} else {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
 					warning 0 OK
 			}
 		}
@@ -325,13 +321,12 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 					return [Gama1dXmlOut $fn $unknowns $fixed]
 				}
 			} else {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
 					warning 0 OK
 			}
 		}
 		".g3d" {
 			set used [Known3DPointsOnly $used];# at least appr. coordinates
-#puts "used: $used"
 			if {[llength $used] > 0} {		;# there are observed points
 				set used [lsort -dictionary $used]
 				if {[llength $pns]} {
@@ -339,7 +334,6 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 				} else {
 					set unknowns [GeoListbox $used 0 $geoEasyMsg(lbTitle2) -1]
 				}
-#puts "unknowns: $unknowns"
 				if {[llength $unknowns] > 0} {
 					if {[llength $fixed]} {
 						if {[string compare $fixed "all"] == 0} {
@@ -351,11 +345,10 @@ proc GamaExport {{fn ""} {pns ""} {fixed ""}} {
 							set fixed [GeoListbox $fixed 0 $geoEasyMsg(lbTitle5) 0]
 						}
 					}
-#puts "fixed: $fixed"
 					return [Gama3dXmlOut $fn $unknowns $fixed]
 				}
 			} else {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noUnknowns) \
 					warning 0 OK
 			}
 		}
@@ -523,7 +516,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 									$stpn E $p $pure]
 						if {$msg_flag == 0} {
 							switch -exact \
-								[tk_dialog .msg $geoEasyMsg(warning) \
+								[geo_dialog .msg $geoEasyMsg(warning) \
 									[format "$geoEasyMsg(pure)" \
 									$stpn $p E $pure] warning 0 OK \
 									$geoEasyMsg(ignore) \
@@ -555,7 +548,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 	}
 	GeoDiaEnd .dia
 	if {$nmeasure < 2} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
 		return 0
 	}
 	# xml output
@@ -687,7 +680,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 						if {$stref >= 0} {
 							set stpn [GetVal 2 $stbuf]
 						} else {
-							tk_dialog .msg $geoEasyMsg(error) \
+							geo_dialog .msg $geoEasyMsg(error) \
 								$geoEasyMsg(noStation) error 0 OK
 							GeoDiaEnd .dia
 							return
@@ -785,7 +778,6 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 								set py [GetVal {37 137} $pcoo]
 								set dist [Distance $px $py $stx $sty]
 								set measure($nmeasure) [list $stpn $p "D" $d ""]
-#puts $dbg "sorszam: $nmeasure meres: $measure($nmeasure)"
 								# repeat count
 								set nrep [GetVal 112 $pbuf]
 								if {$nrep == "" || $nrep <= 0} { set nrep 1 }
@@ -802,7 +794,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 										$stpn $p D $pure]
 									if {$msg_flag == 0} {
 										switch -exact \
-										[tk_dialog .msg $geoEasyMsg(warning) \
+										[geo_dialog .msg $geoEasyMsg(warning) \
 											[format "$geoEasyMsg(pure)" \
 											$stpn $p D $pure] \
 											warning 0 OK \
@@ -862,7 +854,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 					if {$zk == ""} {
 						if {$flag == 0} {
 							GeoLog1 "$geoEasyMsg(noOri1) $stpn"
-							set w [tk_dialog .msg $geoEasyMsg(warning) \
+							set w [geo_dialog .msg $geoEasyMsg(warning) \
 								"$geoEasyMsg(noOri1) $stpn" warning 1 OK \
 									$geoEasyMsg(cancel)]
 						} else { set w 1 }
@@ -947,7 +939,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 									$stpn $p H [ANG $pure]]
 								if {$msg_flag == 0} {
 									switch -exact \
-									[tk_dialog .msg $geoEasyMsg(warning) \
+									[geo_dialog .msg $geoEasyMsg(warning) \
 										[format "$geoEasyMsg(pure)" \
 										$stpn $p H [ANG $pure]] \
 										warning 0 OK \
@@ -986,7 +978,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	if {$nmeasure == 0 || $nmeasure < $n} {
 		if {$flag == 0} {
 			GeoLog1 $geoEasyMsg(noAdj)
-			tk_dialog .msg $geoEasyMsg(warning) \
+			geo_dialog .msg $geoEasyMsg(warning) \
 				$geoEasyMsg(noAdj) warning 0 OK
 		}
 		GeoDiaEnd .dia
@@ -994,7 +986,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 	}
 	GeoDiaEnd .dia
 	if {$nmeasure < 3} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
 		return 0
 	}
 	# xml output
@@ -1104,7 +1096,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	global RO
 	global SEC2CC
 
-#puts "Gama3dXmlOut"
 	set nmeasure 0							;# number of observations considered
 	set n [llength $pns]
 	GeoDia .dia $geoEasyMsg(adjDia) nmeasure n	;# display dialog panel
@@ -1116,7 +1107,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	set msg_flag 0	;# display warning on too large pure value
 	set free_network [expr {([llength $fixed] == 0) ? 1 : 0}]
 	foreach pn $pns {
-#puts "pn: $pns"
 	#	get all references from all loaded geo data sets
 		foreach geo $geoLoaded {
 			global ${geo}_ref ${geo}_geo ${geo}_par
@@ -1146,7 +1136,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						if {$stref >= 0} {
 							set stpn [GetVal 2 $stbuf]
 						} else {
-							tk_dialog .msg $geoEasyMsg(error) \
+							geo_dialog .msg $geoEasyMsg(error) \
 								$geoEasyMsg(noStation) error 0 OK
 							GeoDiaEnd .dia
 							return
@@ -1154,7 +1144,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 					}
 					set ih [GetVal {3 6} $stbuf]	;# instrument height
  					if {$ih == ""} { set ih 0 }
-#puts "stations: $stations"
 					if {[lsearch -exact $stations "$geo $stref"] != -1} {
 					# station already processed
 						continue
@@ -1172,7 +1161,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						set newst 0			;# station is known point
 						set stcoo [GetCoord $stpn {38 37} $geo]
 					}
-#puts "stcoo $stcoo"
 					if {$stcoo == ""} {
 						continue	;# no coordinate for station skip it
 					}
@@ -1188,7 +1176,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 					set refdir 0
 					set othdir 0
 					set lineno [expr {$stref + 1}]	;# first observation
-#puts "station: $stpn"
 					while {1} {
 						if {[info exists ${geo}_geo($lineno)] == 0} {
 							break		;# end of geo data set
@@ -1200,7 +1187,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						set p [GetVal {5 62} $pbuf]	;# point number of other end
 						set th [GetVal 6 $pbuf]		;# target height
 						if {$th == ""} { set th 0}
-#puts "iranyzott pont $p"
 						set pcoo ""
 						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
@@ -1213,7 +1199,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 							set newp 0			;# p is known point
 							set pcoo [GetCoord $p {38 37 39} $geo]
 						}
-#puts "coords: $pcoo"
 						if {$pcoo == ""} {
 							incr lineno
 							continue	;# no coord skip
@@ -1221,7 +1206,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						set px [GetVal {38 138} $pcoo]
 						set py [GetVal {37 137} $pcoo]
 						set pz [GetVal {39 139} $pcoo]
-#puts "newst: $newst  newp: $newp"
 						if {($newst == 1 || $newp == 1) && \
 							([lsearch -exact $fixed $stpn] > -1 || \
 							 [lsearch -exact $pns $stpn] > -1) && \
@@ -1243,7 +1227,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 									set dist [Distance3d $stx $sty $stz $px $py $pz $ih $th]
 									set measure($nmeasure) [list $stpn $p "S" $d "" $ih $th]
 								}
-#puts "sorszam: $nmeasure meres: $measure($nmeasure)"
 								# repeat count
 								set nrep [GetVal 112 $pbuf]
 								if {$nrep == "" || $nrep <= 0} { set nrep 1 }
@@ -1258,7 +1241,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 										$stpn $p D $pure]
 									if {$msg_flag == 0} {
 										switch -exact \
-										[tk_dialog .msg $geoEasyMsg(warning) \
+										[geo_dialog .msg $geoEasyMsg(warning) \
 											[format "$geoEasyMsg(pure)" \
 											$stpn $p D $pure] \
 											warning 0 OK \
@@ -1312,7 +1295,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 					if {$zk == ""} {
 						if {$flag == 0} {
 							GeoLog1 "$geoEasyMsg(noOri1) $stpn"
-							set w [tk_dialog .msg $geoEasyMsg(warning) \
+							set w [geo_dialog .msg $geoEasyMsg(warning) \
 								"$geoEasyMsg(noOri1) $stpn" warning 1 OK \
 									$geoEasyMsg(cancel)]
 						} else { set w 1 }
@@ -1394,7 +1377,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 									$stpn $p H [ANG $pure]]
 								if {$msg_flag == 0} {
 									switch -exact \
-									[tk_dialog .msg $geoEasyMsg(warning) \
+									[geo_dialog .msg $geoEasyMsg(warning) \
 										[format "$geoEasyMsg(pure)" \
 										$stpn $p H [ANG $pure]] \
 										warning 0 OK \
@@ -1437,7 +1420,6 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						set p [GetVal {5 62} $pbuf]	;# point number of other end
 						set th [GetVal 6 $pbuf]		;# target height
 						if {$th == ""} { set th 0}
-#puts $dbg "iranyzott pont $p"
 						set pcoo ""
 						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
@@ -1494,7 +1476,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	if {$nmeasure == 0 || $nmeasure < $n} {
 		if {$flag == 0} {
 			GeoLog1 $geoEasyMsg(noAdj)
-			tk_dialog .msg $geoEasyMsg(warning) \
+			geo_dialog .msg $geoEasyMsg(warning) \
 				$geoEasyMsg(noAdj) warning 0 OK
 		}
 		GeoDiaEnd .dia
@@ -1502,7 +1484,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 	}
 	GeoDiaEnd .dia
 	if {$nmeasure < 4} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noObs) warning 0 OK
 		return 0
 	}
 	# xml output
@@ -1796,7 +1778,7 @@ proc StoreOri {pn oa aoa} {
 		incr stored
 	}
 	if {$stored != 1} {
-		tk_dialog .msg $geoEasyMsg(warning) \
+		geo_dialog .msg $geoEasyMsg(warning) \
 			"$geoEasyMsg(gamaori) $pn" warning 0 OK
 	}
 }

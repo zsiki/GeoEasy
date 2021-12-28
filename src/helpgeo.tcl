@@ -18,7 +18,7 @@
 proc GeoHelp {} {
 	global geoEasyMsg
 	global geoDoc
-	tk_dialog .msg $geoEasyMsg(info) $geoDoc info 0 OK
+	geo_dialog .msg $geoEasyMsg(info) $geoDoc info 0 OK
 }
 
 #	Display html document in browser
@@ -43,19 +43,19 @@ proc GeoHelpOld {{doc "sugo.html"} {topic ""}} {
 		}
 		if {[ShellExec "$htmlfile"]} {
 			if {[info exists geoEasyMsg]} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(browser) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(browser) \
 					warning 0 OK
 			} else {
-				tk_dialog .msg $comEasyMsg(warning) $comEasyMsg(browser) \
+				geo_dialog .msg $comEasyMsg(warning) $comEasyMsg(browser) \
 					warning 0 OK
 			}
 		}
 	} else {
 		if {[info exists geoEasyMsg]} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(helpfile) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(helpfile) \
 				warning 0 OK
 		} else {
-			tk_dialog .msg $comEasyMsg(warning) $comEasyMsg(helpfile) \
+			geo_dialog .msg $comEasyMsg(warning) $comEasyMsg(helpfile) \
 				warning 0 OK
 		}
 	}

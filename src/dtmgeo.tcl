@@ -95,7 +95,7 @@ proc CreateTinDia {win} {
 	if {$w == ""} {set w "."}
 	
 	if {[string length $tinLoaded]} {
-		if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(regenDtm) warning 0 OK $geoEasyMsg(cancel)] == 1} {
+		if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(regenDtm) warning 0 OK $geoEasyMsg(cancel)] == 1} {
 			return
 		}
 	}
@@ -179,7 +179,7 @@ proc CreateTinDia {win} {
 					set plist [GetGiven {37 38 39}]
 				}
 				if {[llength $plist] < 3 && [string length $tinLoaded] == 0} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewmassp) \
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewmassp) \
 						error 0 OK
 					return
 				}
@@ -219,12 +219,12 @@ proc CreateTinDia {win} {
 				foreach pp $newtin_poly {
 					if {[lindex [lindex $pp 0] 3] == "geo" && \
 							! [info exists ids([lindex [lindex $pp 0] 4])]} {
-						tk_dialog .msg "Hiba" "ciki alappont?!" error 0 OK
+						geo_dialog .msg "Hiba" "ciki alappont?!" error 0 OK
 						continue
 					}
 					if {[lindex [lindex $pp 1] 3] == "geo" && \
 							! [info exists ids([lindex [lindex $pp 1] 4])]} {
-						tk_dialog .msg "Hiba" "ciki alappont?!" error 0 OK
+						geo_dialog .msg "Hiba" "ciki alappont?!" error 0 OK
 						continue
 					}
 					if {[lindex [lindex $pp 0] 3] == "geo"} {
@@ -262,7 +262,7 @@ proc CreateTinDia {win} {
 					[string match "after#*" $dxfFile]} { return }
 				# get point, breaklines, hole markers from dxf
 				if {[catch {set f [open $dxfFile r]}]} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) \
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-1) \
 						error 0 OK
 					return
 				}
@@ -427,7 +427,7 @@ proc CreateTinDia {win} {
 				close $f
 
 				if {[llength $points] < 3 && [string length $tinLoaded] == 0} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewmassp) \
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewmassp) \
 						error 0 OK
 					return
 				}
@@ -515,7 +515,7 @@ proc CreateTinDia {win} {
 			}
 		}
 		if {[catch {CreateTin $poly $target} msg] == 1} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(tinfailed) $msg" error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(tinfailed) $msg" error 0 OK
 			return
 		} else {
 			LoadTin [file rootname $target]
@@ -544,7 +544,7 @@ proc CreateTin {polyFile targetFile} {
 	if {$dtmconvex} {append flags " -c"}
 	if {$tcl_platform(platform) != "unix"} {
 		if {[catch {eval [concat exec "{${triangleProg}.exe} $flags \"$polyFile\""]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(creaDtm): $msg" \
+			geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(creaDtm): $msg" \
 				error 0 OK
 			return
 		}
@@ -552,7 +552,7 @@ proc CreateTin {polyFile targetFile} {
 #		regsub -all " " $polyFile "\\ " polyFile
 #		regsub -all " " $targetFile "\\ " targetFile
 		if {[catch {eval [concat exec "{$triangleProg} $flags \"$polyFile\""]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(creaDtm): $msg" \
+			geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(creaDtm): $msg" \
 				error 0 OK
 			return
 		}
@@ -563,7 +563,7 @@ proc CreateTin {polyFile targetFile} {
 		set ext [lindex {ele poly node} $i]
 		set ext1 [lindex {dtm pol pnt} $i]
 		if {[catch {file rename -force "${src}.1.${ext}" "${target}.${ext1}"} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(tinfailed) $msg" \
+			geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(tinfailed) $msg" \
 				error 0 OK
 			foreach ext {ele poly node} {
 				catch {file delete -force ${src}.1.${ext}}
@@ -618,7 +618,7 @@ proc LoadTin {tp} {
 
 	if {[string length $tinLoaded]} {
 		if {$tinChanged} {
-			set a [tk_dialog .msg $geoEasyMsg(warning) \
+			set a [geo_dialog .msg $geoEasyMsg(warning) \
 				"$geoEasyMsg(saveDtm) $tinLoaded" \
 				warning 0 $geoEasyMsg(yes) $geoEasyMsg(no) $geoEasyMsg(cancel)]
 			switch -exact $a {
@@ -630,7 +630,7 @@ proc LoadTin {tp} {
 				}
 			}
 		} else {
-			if {[tk_dialog .msg $geoEasyMsg(warning) \
+			if {[geo_dialog .msg $geoEasyMsg(warning) \
 				"$geoEasyMsg(closDtm) $tinLoaded" \
 				warning 0 $geoEasyMsg(yes) $geoEasyMsg(cancel)] == 1} {
 				return
@@ -649,7 +649,7 @@ proc LoadTin {tp} {
 	if {[LoadTinEle $tp] != 0 || \
 			[LoadTinNodes $tp] != 0 || \
 			[LoadTinPoly $tp] != 0} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(loadDtm) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(loadDtm) warning 0 OK
 		UnloadTin
 	}
 	DtmMenuState
@@ -669,7 +669,7 @@ proc SaveTin {} {
 	if {[SaveTinEle $path] || \
 		[SaveTinNodes $path] || \
 		[SaveTinPoly $path]}	{
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(errsavedtm) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(errsavedtm) \
 			error 0 OK
 	}
 	set tinChanged 0
@@ -686,7 +686,7 @@ proc UnloadTin {} {
 	set newtin_hole ""
 	if {$tinLoaded == ""} { return }
 	if {$tinChanged} {
-		set a [tk_dialog .msg $geoEasyMsg(warning) \
+		set a [geo_dialog .msg $geoEasyMsg(warning) \
 			"$geoEasyMsg(saveit) $tinLoaded" \
 			warning 0 $geoEasyMsg(yes) $geoEasyMsg(no) $geoEasyMsg(cancel)]
 		switch -exact $a {
@@ -963,7 +963,7 @@ set newtin_poly ""	;# delete previous break/boundary lines
 	catch {unset ${tinName}_poly}
 	catch {unset ${tinName}_hole}
 	if {[catch {set f [open ${tinPath}.pol r]}] == 1} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(tinload) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(tinload) warning 0 OK
 		return
 	}
 	set buf [string trim [gets $f]]
@@ -1503,7 +1503,7 @@ proc GeoContour {this} {
 	}
 	if {[regexp $reg(2) $contourInterval] == 0 || \
 			$contourInterval < 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(contourIntErr) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(contourIntErr) \
 			error 0 OK
 		return
 	}
@@ -1531,7 +1531,7 @@ proc CreateVrml { } {
 			return
 		}
 		if {[regexp $reg(2) $zfac] == 0 || $zfac <= 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) error 0 OK
 			return
 		}
 		# get output name
@@ -1635,10 +1635,10 @@ proc CreateVrml { } {
 			puts $f "</X3D>"
 		}
 		close $f
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 			if {[ShellExec $target]} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
 					warning 0 OK
 			}
 		}
@@ -1672,7 +1672,7 @@ proc CreateKml { } {
 		if {$buttonid} { return }
 		if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
 			[regexp $reg(2) $proj_zoffs] == 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}
@@ -1700,7 +1700,7 @@ proc CreateKml { } {
 		}
 		set tr_coords [cs2cs $epsg 4326 $coords]
 		if {[llength $tr_coords] == 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cs2cs) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cs2cs) error 0 OK
 			return
 		}
 		for {set i 0} {$i < [llength $tr_coords]} { incr i} {
@@ -1743,10 +1743,10 @@ proc CreateKml { } {
 		puts $f "</Document>"
 		puts $f "</kml>"
 		close $f
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 			if {[ShellExec $target]} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
 					warning 0 OK
 			}
 		}
@@ -1941,7 +1941,7 @@ proc GeoVolume {w} {
 				[expr {abs([lindex $res 2])}] [lindex $res 3] [lindex $res 4]]
 			set geoRes($w) [format "%.0f m3" [lindex $res 0]]
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(volumeErr) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(volumeErr) \
 				error 0 OK
 			return
 
@@ -1963,7 +1963,7 @@ proc GeoVolumeDif {} {
 	tkwait window .gridparams
 	if {$buttonid} { return }
 	if {[regexp $reg(2) $gridDX] == 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 			error 0 OK	
 		return
 	}
@@ -2092,7 +2092,7 @@ proc DtmPolyPoint {this x y} {
 	if {$ptype == "geo"} {
 		set ref [GetCoord $pn {37 38 39}]
 		if {[llength $ref] == 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(noZDtm) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(noZDtm) error 0 OK
 			return
 		}
 		# GeoEasy point
@@ -2203,7 +2203,7 @@ proc DtmStat {{screen 1}} {
 			GeoLog1
 			GeoLog $geoEasyMsg(menuFileStat)
 			GeoLog1 $wstr
-			tk_dialog .msg $geoEasyMsg(info) $wstr info 0 OK
+			geo_dialog .msg $geoEasyMsg(info) $wstr info 0 OK
 		} else {
 			return [list $xmi $ymi $zmi $xma $yma $zma]
 		}
@@ -2578,10 +2578,10 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 		}
 		puts $f " \] \} \}"
 		close $f
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 			if {[ShellExec $target]} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
 					warning 0 OK
 			}
 		}
@@ -2615,7 +2615,7 @@ proc CreateGrid {} {
 		tkwait window .gridparams
 		if {$buttonid} { return }
 		if {[regexp $reg(2) $gridDX] == 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK	
 			return
 		}
@@ -2736,7 +2736,7 @@ proc DtmProfile {this} {
 
 	set can $this.map.c
 	if {[regexp $reg(2) $xInterp] == 0 || [regexp $reg(2) $yInterp] == 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 			error 0 OK
 		return
 	}
@@ -2751,7 +2751,7 @@ proc DtmProfile {this} {
 		return
 	} elseif {[regexp $reg(2) $x1Interp] == 0 || \
 		[regexp $reg(2) $y1Interp] == 0 || [regexp $reg(2) $stepInterp] == 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 			error 0 OK
 		return
 	}
@@ -2766,7 +2766,7 @@ proc DtmProfile {this} {
 		}
         set lastDir [file dirname $filen]
 		if {[catch {set fd [open $filen w]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
+			geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
 				error 0 OK
 			return
 		}
@@ -2781,7 +2781,7 @@ proc DtmProfile {this} {
 		}
         set lastDir [file dirname $fn]
 		if {[catch {set fc [open $fn w]} msg]} {
-			tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
+			geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
 				error 0 OK
 			return
 		}
@@ -2827,10 +2827,10 @@ proc DtmProfile {this} {
 	if {$dxfProfile} {
 		puts $fd "  0\nENDSEC\n  0\nEOF"
 		close $fd
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 			$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 			if {[ShellExec $filen]} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
 					warning 0 OK
 			}
 		}
@@ -2855,7 +2855,7 @@ proc LandXMLOut {} {
 	if {[string length $fn] == 0 || [string match "after#*" $fn]} { return }
 	set lastDir [file dirname $fn]
 	if {[catch {set f [open $fn "w"]} msg] == 1} {
-		tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(cantSave)\n$msg" error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(cantSave)\n$msg" error 0 OK
 		return
 	}
 	# XML header

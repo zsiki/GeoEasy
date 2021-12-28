@@ -11,13 +11,13 @@ proc init_animate {rw} {
 	set globedir [file join $bmdir globe]
 	set fn1 [file join $bmdir logo.gif]
 	if {[file exists $fn1] == 0} {
-		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn1" \
+		geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn1" \
 			warning 0 OK
 		return
 	}
 	set fn2 [file join $bmdir pwrdLogo.gif]
 	if {[file exists $fn2] == 0} {
-		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn2" \
+		geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn2" \
 			warning 0 OK
 		return
 	}
@@ -27,7 +27,7 @@ proc init_animate {rw} {
 		set fn [file join $globedir globe_]
 		append fn [format %02d $i] .xbm
 		if {[file exists $fn] == 0} {
-			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn" \
+			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(image) $fn" \
 				warning 0 OK
 			return
 		}

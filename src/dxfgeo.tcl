@@ -41,16 +41,16 @@ proc GeoDXF {} {
 			[regexp $reg(2) $sz] == 0 || [regexp $reg(1) $zdec] == 0 || \
 			[regexp $reg(2) $contourInterval] == 0} {
 
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}
 		DXFout $filen
 
-		if {[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
+		if {[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(openit) info 0 \
 				$geoEasyMsg(yes) $geoEasyMsg(no)] == 0} {
 			if {[ShellExec "$filen"]} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(rtfview) \
 					warning 0 OK
 			}
 		}
@@ -69,7 +69,7 @@ proc DXFout {fn} {
 	global regLineStart regLineCont regLineEnd regLine regLineClose
 
 	if {[catch {set fd [open $fn w]} msg]} {
-		tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
+		geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
 			error 0 OK
 		return
 	}
@@ -822,7 +822,7 @@ proc dxfattrs {title mode} {
 #	@param filen name of dxf file
 proc DXFimport {filen} {
 	global geoEasyMsg
-	global bname battr bcode belev pnlay p3d pcodelayer block ptext dxfpnt
+	global bname battr bcode belev pnlay p3d pcodelayer block ptext dxfpnt skipdbl
 	global buttonid
 	global tmp
 
@@ -856,6 +856,7 @@ proc DXFimport {filen} {
 	checkbutton $this.dxfpnt -text $geoEasyMsg(dxfpnt) -variable dxfpnt
 	checkbutton $this.p3d -text $geoEasyMsg(3d) -variable p3d \
 		-command "d3_check $this \$p3d"
+	checkbutton $this.skipdbl -text $geoEasyMsg(skipdbl) -variable skipdbl
 
 	grid $this.block -row 0 -column 0 -sticky w -columnspan 2
 	grid $this.lblay -row 1 -column 1 -sticky w
@@ -866,7 +867,8 @@ proc DXFimport {filen} {
 	grid $this.pcode -row 6 -column 1 -sticky w -columnspan 2
 	grid $this.lplay -row 7 -column 1 -sticky w
 	grid $this.dxfpnt -row 8 -column 0 -sticky w -columnspan 2
-	grid $this.p3d -row 9 -column 0 -sticky w -columnspan 2
+	grid $this.p3d -row 9 -column 0 -sticky w
+	grid $this.skipdbl -row 9 -column 1 -sticky w
 
 	entry $this.bname -textvariable bname -width 10
 	entry $this.battr -textvariable battr -width 10
@@ -930,7 +932,7 @@ proc GeoDXFin {filen fa} {
 #	@param fa internal name of dataset
 proc DXFin {fn fa} {
 
-	global bname battr bcode belev pnlay p3d pcodelayer block ptext dxfpnt
+	global bname battr bcode belev pnlay p3d pcodelayer block ptext dxfpnt skipdbl
 	global geoEasyMsg
 
 	if {[string length $fa] == 0} {return 1}
@@ -965,7 +967,11 @@ proc DXFin {fn fa} {
 	if {$pcodelayer} {
 		set pattern "^$pnlay.*"
 	} else {
-		set pattern "^$pnlay$"
+        if {[string length $pnlay]} {
+            set pattern "^$pnlay$"
+        } else {    ;# empty layer name accept all
+            set pattern "."
+        }
 	}
 	while {! [eof $f]} {
 		incr src
@@ -982,7 +988,7 @@ proc DXFin {fn fa} {
 				# store previous entity if layer/block and point number ok
 				set obuf ""
 				if {$ptext && [regexp -nocase $pattern $layer] && \
-						$entity == "TEXT"} {
+						($entity == "TEXT" || $entity == "MTEXT")} {
 					regsub -nocase "^${pnlay}(.*)" $layer \\1 pcode
 				} elseif {($block && $blk == $bname && $entity == "INSERT")} {
 					if {[string length $psz] == 0} {
@@ -1005,8 +1011,10 @@ proc DXFin {fn fa} {
 					lappend obuf [list 37 $y]
 					if {$p3d} { lappend obuf [list 39 $z] }
 					if {[lsearch -exact [array names ${fa}_coo] $psz] != -1} {
-						tk_dialog .msg $geoEasyMsg(warning) \
-							"$geoEasyMsg(dblPn): $psz" warning 0 OK
+                        if {! $skipdbl} {
+                            geo_dialog .msg $geoEasyMsg(warning) \
+                                "$geoEasyMsg(dblPn): $psz" warning 0 OK
+                        }
 					} else {
 						set ${fa}_coo($psz) $obuf
 					}
@@ -1022,7 +1030,7 @@ proc DXFin {fn fa} {
 				set entity [string toupper $value]
 				set subentity ""
 			}
-			1 { if {$ptext && $entity == "TEXT" && \
+			1 { if {$ptext && ($entity == "TEXT" || $entity == "MTEXT") && \
 					[regexp -nocase $pattern $layer]} {
 					set psz [string trim $value]
 				}
@@ -1046,21 +1054,21 @@ proc DXFin {fn fa} {
 					set layer [string trim [string toupper $value]]
 				}
 			}
-			10 { if {($entity == "TEXT" || $entity == "INSERT" || \
-						$entity == "POINT") && \
-						[string length $subentity] == 0} {
+			10 { if {($entity == "TEXT" || $entity == "MTEXT" || \
+                      $entity == "INSERT" || $entity == "POINT") && \
+					  [string length $subentity] == 0} {
 					set x $value ;#[format "%.4f" $value]
 				}
 			}
-			20 { if {($entity == "TEXT" || $entity == "INSERT" || \
-						$entity == "POINT") && \
-						[string length $subentity] == 0} {
+			20 { if {($entity == "TEXT" || $entity == "MTEXT" || \
+                      $entity == "INSERT" || $entity == "POINT") && \
+					  [string length $subentity] == 0} {
 					set y $value ;#[format "%.4f" $value]
 				}
 			}
-			30 { if {($entity == "TEXT" || $entity == "INSERT" || \
-						$entity == "POINT") && \
-						[string length $subentity] == 0} {
+			30 { if {($entity == "TEXT" || $entity == "MTEXT" || \
+                      $entity == "INSERT" || $entity == "POINT") && \
+					  [string length $subentity] == 0} {
 					set z $value ;#[format "%.4f" $value]
 				}
 			}
@@ -1081,7 +1089,7 @@ proc SVGout {fn} {
 	global regLineStart regLineCont regLineEnd regLine regLineClose
 
 	if {[catch {set fd [open $fn w]} msg]} {
-		tk_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
+		geo_dialog .msg $geoEasyMsg(error) "$geoEasyMsg(-1): $msg" \
 			error 0 OK
 		return
 	}
@@ -1284,7 +1292,7 @@ proc GeoSVG {} {
 			[regexp $reg(2) $sz] == 0 || [regexp $reg(1) $zdec] == 0 || \
 			[regexp $reg(2) $contourInterval] == 0} {
 
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}

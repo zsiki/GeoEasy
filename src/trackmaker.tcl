@@ -43,7 +43,7 @@ proc TrackmakerOut {fn rn} {
 	if {$buttonid} { return }
 	if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
 		[regexp $reg(2) $proj_zoffs] == 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 			error 0 OK
 		return
 	}
@@ -121,7 +121,7 @@ proc GpxOut {fn rn} {
 	if {$buttonid} { return }
 	if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
 		[regexp $reg(2) $proj_zoffs] == 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 			error 0 OK
 		return
 	}
@@ -211,7 +211,7 @@ proc KmlOut {fn rn} {
 	if {$buttonid} { return }
 	if {[regexp $reg(1) $epsg] == 0 || [regexp $reg(2) $proj_zfac] == 0 || \
 		[regexp $reg(2) $proj_zoffs] == 0} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 			error 0 OK
 		return
 	}

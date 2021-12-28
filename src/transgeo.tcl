@@ -30,7 +30,7 @@ proc GeoTran {{sourc ""}} {
 	if {! [info exists tranType]} { set tranType 0 }
 	if {! [info exists parSave]} { set parSave 0 }
 	if {([info exists geoLoaded] == 0) || ([llength $geoLoaded] == 0)} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
 		return
 	}
 	# select source geo data set (co-ordinate system) if no parameter
@@ -51,7 +51,7 @@ proc GeoTran {{sourc ""}} {
 	set lastDir [file dirname $targetFile]
 	set target [GeoSetID]
 	if {[lsearch -exact $geoLoadedDir $targetFile] != -1} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) warning 0 OK
 		return
 	}
 	# load target geo data set
@@ -59,9 +59,9 @@ proc GeoTran {{sourc ""}} {
 	if {$res != 0} {	;# error loading
 		UnloadGeo $target
 		if {$res < 0} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
 		} else {
-			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
+			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
 				warning 0 OK
 		}
 		return
@@ -81,7 +81,7 @@ proc GeoTran {{sourc ""}} {
 		}
 	}
 	if {[llength $commonPn] < 2} {
-		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(fewPoints) $res" \
+		geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(fewPoints) $res" \
 			warning 0 OK
 	} else {
 		# open dialog to select control points for transformation &
@@ -275,7 +275,7 @@ proc GeoTran {{sourc ""}} {
 				if {$tranSave} {
 					set res [SaveGeo $target [file rootname $targetFile]]
 					if {$res != 0} {
-						tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg($res) \
+						geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg($res) \
 							error 0 OK
 					}
 				}
@@ -753,7 +753,7 @@ proc GeoHTran {{sourc ""}} {
 	if {! [info exists tranSave]} { set tranSave 0 }
 	if {! [info exists parSave]} { set parSave 0 }
 	if {([info exists geoLoaded] == 0) || ([llength $geoLoaded] == 0)} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-8) warning 0 OK
 		return
 	}
 	# select source geo data set (co-ordinate system) if no parameter
@@ -775,7 +775,7 @@ proc GeoHTran {{sourc ""}} {
 	set lastDir [file dirname $targetFile]
 	set target [GeoSetID]
 	if {[lsearch -exact $geoLoadedDir $targetFile] != -1} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(-2) warning 0 OK
 		return
 	}
 	# load target geo data set
@@ -783,9 +783,9 @@ proc GeoHTran {{sourc ""}} {
 	if {$res != 0} {	;# error loading
 		UnloadGeo $target
 		if {$res < 0} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
 		} else {
-			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
+			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
 				warning 0 OK
 		}
 		return
@@ -803,7 +803,7 @@ proc GeoHTran {{sourc ""}} {
 		}
 	}
 	if {[llength $commonPn] < 1} {
-		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(fewPoints) $res" \
+		geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(fewPoints) $res" \
 			warning 0 OK
 	} else {
 		# open dialog to select control points for transformation &
@@ -875,7 +875,7 @@ proc GeoHTran {{sourc ""}} {
 			if {$tranSave} {
 				set res [SaveGeo $target [file rootname $targetFile]]
 				if {$res != 0} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg($res) \
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg($res) \
 						error 0 OK
 				}
 			}

@@ -593,6 +593,7 @@ set geoEasyMsg(useblock)	"Bloky"
 set geoEasyMsg(pcode1)		"Číst kódy bodů z vrstvy"
 set geoEasyMsg(dxfpnt)		"Pouít body"
 set geoEasyMsg(3d)			"3D"
+set geoEasyMsg(skipdbl)     "Skip double"               ;# TODO
 set geoEasyMsg(addlines)    "Vektorová kresba"
 set geoEasyMsg(pd)			"Pouze podrobné body"
 set geoEasyMsg(ptext)		"Čísla bodů z textu"

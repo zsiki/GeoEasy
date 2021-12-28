@@ -115,7 +115,7 @@ proc Idex {fn fa} {
 					while {[regsub -all "\[ \t\]\[ \t\]" $buf " " buf]} { }
 					set buflist [split $buf " \t"]
 					if {[lindex $buf 1] != "DMS"} {
-						tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(units) error 0 OK
+						geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(units) error 0 OK
 						return $src
 					}
 				}
@@ -125,7 +125,7 @@ proc Idex {fn fa} {
 					while {[regsub -all "\[ \t\]\[ \t\]" $buf " " buf]} { }
 					set buflist [split $buf " \t"]
 					if {[lindex $buf 1] != "METRE"} {
-						tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(units) error 0 OK
+						geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(units) error 0 OK
 						return $src
 					}
 				}

@@ -522,7 +522,7 @@ proc SaveScr {fn rn} {
 		}
 	}
 	if {[string length $skipped]} {
-		tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(nonNumPn) $skipped" \
+		geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(nonNumPn) $skipped" \
 			warning 0 OK
 	}
 	close $f

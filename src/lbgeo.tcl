@@ -138,7 +138,7 @@ proc lbExit {this mode pmode flag} {
 			} else {
 				set msg  "$geoEasyMsg(wrongsel)\n[format $geoEasyMsg(wrongsel2) $pmode]"
 			}
-			tk_dialog .msg $geoEasyMsg(warning) $msg warning 0 OK
+			geo_dialog .msg $geoEasyMsg(warning) $msg warning 0 OK
 			return
 		}
 		if {$flag == 2} { lappend s "end" }
@@ -653,7 +653,7 @@ proc GeoOParam {} {
 		set autoRefresh $locAutoRefresh
 		if {$locLang != $geoLang} {
 			set geoLang $locLang
-			tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(langChange) info 0 OK
+			geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(langChange) info 0 OK
 		}
 		set oriDetail $locOriDetail
 		if {$locMaskRows > 2 && $locMaskRows < 50} {

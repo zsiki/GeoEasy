@@ -186,7 +186,7 @@ proc Geodimeter {fn fa} {
 			23 {
 				if {[string index $val 2] != 1 || \
 					[string index $val 3] != 2} {
-					tk_dialog .msg $geoEasyMsg(error) \
+					geo_dialog .msg $geoEasyMsg(error) \
 						$geoEasyMsg(units) error 0 OK
 					return $src  ;# error in input
 				}
@@ -206,7 +206,7 @@ proc Geodimeter {fn fa} {
 				if {[lsearch -glob [set ${fa}_coo($pno)] "$code *"] == -1} {
 					lappend ${fa}_coo($pno) $buflist
 				} else {
-					tk_dialog .msg $geoEasyMsg(warning) \
+					geo_dialog .msg $geoEasyMsg(warning) \
 						"$geoEasyMsg(dblPn): $pno ($fn:$src)" warning 0 OK
 				}
 			}

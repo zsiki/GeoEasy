@@ -323,7 +323,7 @@ proc LoadGeo {fn f} {
 				}
 			}
 			if {[lsearch -exact [array names ${f}_coo] $pn] != -1} {
-				tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
+				geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
 					warning 0 OK
 				continue
 			}
@@ -1840,7 +1840,7 @@ proc GeoJoin { } {
 	global saveType
 
 	if {[llength $geoLoaded] < 1} {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-8) error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(-8) error 0 OK
 		return
 	}
 	# get output name
@@ -1861,7 +1861,7 @@ proc GeoJoin { } {
 	set fn2 "[file rootname $fn].coo"
 	# save observations
 	if {[catch {set f1 [open $fn1 "w"]} errmsg] == 1} {
-		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
 		return
 	}
 	foreach dataSet $geoLoaded {
@@ -1869,7 +1869,7 @@ proc GeoJoin { } {
 		set lineno 0
 		while {[info exists ${dataSet}_geo($lineno)]} {
 			if {[catch {puts $f1 [set ${dataSet}_geo($lineno)]} errmsg] == 1} {
-				tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
+				geo_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
 				catch {close $f1}
 				catch {file delete $fn1}
 				return
@@ -1880,7 +1880,7 @@ proc GeoJoin { } {
 	catch {close $f1}
 	# save coordinates
 	if {[catch {set f2 [open $fn2 "w"]} errmsg] == 1} {
-		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
 		return
 	}
 	foreach psz [GetAll] {
@@ -1913,7 +1913,7 @@ proc GeoJoin { } {
 		}
 		if {[llength $buf]} {	;# has it coordinates?
 			if {[catch {puts $f2 $buf} errmsg] == 1} {
-				tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
+				geo_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
 				catch {close $f1}
 				catch {close $f2}
 				catch {file delete $fn1}
@@ -1977,11 +1977,11 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 	catch {file copy -force $fn $oldfn}
 	#set fn "geo_easy.msk"
 	if {[catch {set fi [open $oldfn "r"]} errmsg] == 1} {
-		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
 		return
 	}
 	if {[catch {set f [open $fn "w"]} errmsg] == 1} {
-		tk_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $errmsg error 0 OK
 		return
 	}
 	# read msk file and replace values
@@ -2012,7 +2012,7 @@ proc GeoSaveParams {{fn "geo_easy.msk"}} {
 			if {[info exist $varname]} {
 				puts -nonewline $f [set $varname]
 			} else {
-				tk_dialog .msg "Error" "Variable not found $varname" error 0 OK
+				geo_dialog .msg "Error" "Variable not found $varname" error 0 OK
 			}
 			puts $f "\}"
 		} else {

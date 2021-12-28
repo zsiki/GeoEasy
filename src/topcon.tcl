@@ -349,7 +349,7 @@ proc TopConCoo {fn fa} {
 		set code ""
 		set pn [lindex $buflist 0]
 		if {[info exists ${fa}_coo($pn)] != 0} {
-			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
+			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
 				warning 0 OK
 			continue
 		}
@@ -625,7 +625,7 @@ proc TopCon210 {fn fa} {
 				set z [Txt2Coo $w 3]
 				AddCoo $fa $pn $x $y $z
 			} else {
-				tk_dialog .msg $geoEasyMsg(error) \
+				geo_dialog .msg $geoEasyMsg(error) \
 					"$geoEasyMsg(skipped) $lines" error 0 OK
 			}
 			if {[llength $obuf]} {

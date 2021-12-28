@@ -42,7 +42,7 @@ proc cs2cs {from_epsg to_epsg coords} {
 	}
 	close $fp
 	if {[catch {eval [concat exec "{$cs2csProg} -f \"%.7f\" +init=epsg:$from_epsg +to +init=epsg:$to_epsg < \"$tmpname\" > \"$tmp1name\""]} msg]} {
-		tk_dialog .msg $geoEasyMsg(error) $msg error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $msg error 0 OK
 		return ""
 	}
 	set fp1 [open "$tmp1name" r]

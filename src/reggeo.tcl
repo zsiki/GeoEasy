@@ -31,7 +31,7 @@ proc GeoReg {regindex} {
 				LinRegXY $rplist [lindex $reglist 0]
 			}
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	} elseif {$regindex == 1} {
 		# parallel lines
@@ -45,7 +45,7 @@ proc GeoReg {regindex} {
 			set pplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -2]
 			ParLin $rplist $pplist
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	} elseif {$regindex == 2} {
 		# circle
@@ -66,7 +66,7 @@ proc GeoReg {regindex} {
 				}
 			}
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 
 	} elseif {$regindex >= 3 && $regindex <= 9} {
@@ -104,7 +104,7 @@ proc GeoReg {regindex} {
 				}
 			}
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	}
 }
@@ -133,7 +133,7 @@ proc GeoReg1 {plist} {
 			}
 		}
 		if {[string length $nop] > 0} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
 				warning 0 OK
 		}
 		if {[llength $rplist] >= 2 && $regindex == 0} {
@@ -153,7 +153,7 @@ proc GeoReg1 {plist} {
 				CircleRegR $rplist $r
 			}
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	} elseif {$regindex >= 3 && $regindex <= 7} {
 		# 3D regression
@@ -165,7 +165,7 @@ proc GeoReg1 {plist} {
 			}
 		}
 		if {[string length $nop] > 0} {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
 				warning 0 OK
 		}
 		if {[llength $rplist] >= 3 && $regindex == 3} {
@@ -191,7 +191,7 @@ proc GeoReg1 {plist} {
 		} elseif {[llength $rplist] >= 5 && $regindex == 8} {
 			ParabReg $rplist		;# TODO not tested, not enabled
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	}
 }
@@ -235,7 +235,7 @@ proc LinRegX {plist} {
 	}
 	# check for vertical line
 	if {[catch {set m [expr {$kszi_eta / $kszi_2}]}]} {
-		tk_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
+		geo_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
 		exit
 	}
 	set b [expr {$xs - $m * $ys}]
@@ -302,7 +302,7 @@ proc LinRegY {plist} {
 	}
 	# check for vertical line
 	if {[catch {set m [expr {$kszi_eta / $eta_2}]}]} {
-		tk_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
+		geo_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
 		exit
 	} else {
 		set b [expr {$ys - $m * $xs}]
@@ -381,11 +381,11 @@ proc PlaneReg {plist} {
 	set deta1 [expr {-$kszi_zeta * $eta_2 + $eta_zeta * $kszi_eta}]
 	set deta2 [expr {-$kszi_2 * $eta_zeta + $kszi_eta * $kszi_zeta}]
 	if {[catch {set a1 [expr {-$deta1 / $det}]}]} {
-		tk_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
+		geo_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
 		exit
 	}
 	if {[catch {set a2 [expr {-$deta2 / $det}]}]} {
-		tk_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
+		geo_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
 		exit
 	}
 	set a0 [expr {$zs - $a1 * $ys - $a2 * $xs}]
@@ -450,7 +450,7 @@ proc LinRegXY {plist title} {
 	}
 	if {[catch { \
 		set fi [expr {0.5 * atan2(2.0 * $kszi_eta, ($kszi_2 - $eta_2))}]}]} {
-		tk_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
+		geo_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
 		exit
 	}
 	set m [expr {tan($fi)}]
@@ -1194,7 +1194,7 @@ proc Line3DRegOld {plist} {
 				incr k
 			}
 			if {$k == 0} {
-				tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
+				geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
 					error 0 OK
 				return
 			}
@@ -1218,7 +1218,7 @@ proc Line3DRegOld {plist} {
 		set b(0) $sly1
 		set b(1) $sly2
 		if {[catch {GaussElimination a b 2}]} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
 				error 0 OK
 			return
 		}
@@ -1232,7 +1232,7 @@ proc Line3DRegOld {plist} {
 		set b(0) $slx1
 		set b(1) $slx2
 		if {[catch {GaussElimination a b 2}]} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
 				error 0 OK
 			return
 		}
@@ -1246,7 +1246,7 @@ proc Line3DRegOld {plist} {
 		set b(0) $slx1
 		set b(1) $slx2
 		if {[catch {GaussElimination a b 2}]} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
 				error 0 OK
 			return
 		}
@@ -1365,7 +1365,7 @@ proc PlaneRegYXZ { plist } {
 		set a0 [expr {-$d / double($c)}]
 		set a1 [expr {-$a / double($c)}]
 		set a2 [expr {-$b / double($c)}]}]} {
-		tk_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
+		geo_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
 		exit
 	}
 	GeoLog1
@@ -1555,7 +1555,7 @@ proc GeoRegDist {index} {
 				# calculate line eq.
 				if {[catch {set l \
 						[Line2D [lindex $eplist 0] [lindex $eplist 1]]}]} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(linreg) \
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(linreg) \
 						error 0 OK
 					return
 				}
@@ -1579,7 +1579,7 @@ proc GeoRegDist {index} {
 				GeoLog1 [format $geoEasyMsg(maxLDistReg) $md]
 			}
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	} elseif {$index == 1} {
 		# select points for plane
@@ -1591,7 +1591,7 @@ proc GeoRegDist {index} {
 				if {[catch {set p \
 						[Plane3D [lindex $pplist 0] [lindex $pplist 1] \
 						[lindex $pplist 2]]}]} {
-					tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(planreg) \
+					geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(planreg) \
 						error 0 OK
 				}
 				set rplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -1]
@@ -1614,7 +1614,7 @@ proc GeoRegDist {index} {
 				GeoLog1 [format $geoEasyMsg(maxLDistReg) $md]
 			}
 		} else {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	}
 }
@@ -1874,7 +1874,7 @@ proc ParLin {alist blist} {
 	}
 	if {[catch { \
 		set fi [expr {0.5 * atan2(2.0 * $kszi_eta, ($kszi_2 - $eta_2))}]}]} {
-		tk_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
+		geo_dialog .msg "Hiba" $geoEasyMsg(linreg) error 0 OK
 		exit
 	}
 	set m [expr {tan($fi)}]

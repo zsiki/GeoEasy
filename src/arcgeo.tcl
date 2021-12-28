@@ -51,22 +51,22 @@ global lastDir
 		if {$buttonid} { return }
 		if {[regexp $reg(2) $arcR] == 0 || \
 			([llength $arcP] && [regexp $reg(2) $arcP] == 0)} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}
 		if {[string length $arcStep] && [regexp $reg(2) $arcStep] <= 0.1} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}
 		if {[string length $arcNum] && [regexp $reg(2) $arcNum] == 0} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}
 		if {[string length $arcNum] && [string length $arcStep]} {
-			tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
+			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 				error 0 OK
 			return
 		}
@@ -88,7 +88,7 @@ global lastDir
 			set res [SimpleArc $cp $sp $ep $arcR $arcPre $as $an]
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
+		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 	}
 	if {$arcSave} {
 		set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]

@@ -31,7 +31,7 @@ proc GeoTraverse {{mode 0}} {
 	if {[llength $slist] > 2} {
 		if {$mode == 0} {
 			CalcTraverse $slist
-			set mode [tk_dialog .msg $geoEasyMsg(info) \
+			set mode [geo_dialog .msg $geoEasyMsg(info) \
 				$geoEasyMsg(trigLineToo) info \
 				0 $geoEasyMsg(no) $geoEasyMsg(yes)]
 		}
@@ -42,7 +42,7 @@ proc GeoTraverse {{mode 0}} {
 			RefreshAll
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTra) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTra) \
 			warning 0 OK
 	}
 }
@@ -63,7 +63,7 @@ proc GeoTraverseNode {{mode 0}} {
 	if {[string length $node] == 0} {return}
 	set n 0
 	# first calculate coordinates from free traverses
-	while {[tk_dialog .msg $geoEasyMsg(info) \
+	while {[geo_dialog .msg $geoEasyMsg(info) \
 				"[expr {$n + 1}] $geoEasyMsg(travLine)" info 0 OK \
 				$geoEasyMsg(ende)] == 0} {
 		if {$mode == 0} {
@@ -165,7 +165,7 @@ proc GetTraverse {{codes {37 38}} {stopAt ""}} {
 	set startend [lsort -dictionary [GetGiven $codes]]
 	set ret ""
 	if {[llength $stations] < 1 || [llength $startend] < 1} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTra) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTra) warning 0 OK
 		return ""
 	}
 	set last 0
@@ -275,7 +275,7 @@ proc CalcTraverse {stlist {node 0}} {
 	set y($n1) [GetVal 37 $endp]
 	if {$x(0) == "" || $y(0) == ""} {
 		# no coord for startpoint
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTraCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTraCoo) \
 			warning 0 OK
 		return 0
 	}
@@ -286,7 +286,7 @@ proc CalcTraverse {stlist {node 0}} {
 		set y(n1) ""
 	} elseif {$x($n1) == "" || $y($n1) == ""} {
 		# no coordinate for endpoint
-		if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(freeTra) \
+		if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(freeTra) \
 				warning 0 OK $geoEasyMsg(cancel)] != 0} {
 			return 0
 		}
@@ -316,7 +316,7 @@ proc CalcTraverse {stlist {node 0}} {
 				set beta(0) ""
 			}
 			if {$beta(0) == ""} {			;# no orientation on start
-				if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(firstTra) \
+				if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(firstTra) \
 						warning 0 OK $geoEasyMsg(cancel)] != 0} {
 					return 0
 				}
@@ -333,7 +333,7 @@ proc CalcTraverse {stlist {node 0}} {
 			}
 			if {! $free && \
 			    $beta(0) != "" && $beta($i) == ""} {	;# no orientation on end
-				if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(lastTra) \
+				if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(lastTra) \
 						warning 0 OK $geoEasyMsg(cancel)] != 0} {
 					return 0
 				}
@@ -352,7 +352,7 @@ proc CalcTraverse {stlist {node 0}} {
 			}
 			if {[info exists buf] == 0 || [GetVal 2 $buf] != ""} {
 				if {$i == 0 || $i1 == $n} { break }	;# start and endpoint need not be a station
-				tk_dialog .msg $geoEasyMsg(warning) \
+				geo_dialog .msg $geoEasyMsg(warning) \
 					"$geoEasyMsg(angTra) [lindex [lindex $stlist $i] 2]" \
 					warning 0 OK
 				return 0					 ;# next station or end of data set
@@ -409,7 +409,7 @@ proc CalcTraverse {stlist {node 0}} {
 				set t($i) $prevdi
 			}
 		} elseif {$i > 0 && [info exists t($i)] == 0} {
-			tk_dialog .msg $geoEasyMsg(warning) \
+			geo_dialog .msg $geoEasyMsg(warning) \
 				"$geoEasyMsg(distTra) $prevpn" warning 0 OK
 			return 0
 		}
@@ -716,7 +716,7 @@ proc TraVals {buf} {
 	set angle [GetVal {7 21} $buf]
 	if {$angle == ""} {
 # TBD ide kell egy hiba nincs iranyertek!! act es prev kozott
-#			tk_dialog .msg $geoEasyMsg(warning) \
+#			geo_dialog .msg $geoEasyMsg(warning) \
 #				"nincs iranyertek $buf" warning 0 OK
 #puts "nincs iranyertek $buf"
 #		return ""
@@ -739,7 +739,7 @@ proc GeoTrigLine {} {
 			RefreshAll
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTra) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noTra) \
 			warning 0 OK
 	}
 }
@@ -826,7 +826,7 @@ proc CalcTrigLine {stlist {node 0}} {
 	}
 	if {$node == 0 && ([info exists z(0)] == 0 || $z(0) == "")} {
 		GeoLog1 $geoEasyMsg(miszTri)
-		tk_dialog .msg $geoEasyMsg(warning) \
+		geo_dialog .msg $geoEasyMsg(warning) \
 			$geoEasyMsg(miszTri) warning 0 OK
 		return
 	}
@@ -837,7 +837,7 @@ proc CalcTrigLine {stlist {node 0}} {
 		if {[info exists z($n_1)]} { set z($n_1) "" }
 	} elseif {[info exists z($n_1)] == 0 || $z($n_1) == ""} {
 		set free 1	;# free trigonometric line
-		if {[tk_dialog .msg $geoEasyMsg(warning) \
+		if {[geo_dialog .msg $geoEasyMsg(warning) \
 			$geoEasyMsg(freeTri) warning 0 OK $geoEasyMsg(cancel)] == 1} {
 			return
 		}
@@ -863,7 +863,7 @@ proc CalcTrigLine {stlist {node 0}} {
 			incr n_hd
 		}
 		if {$n_hd == 0} {
-			tk_dialog .msg $geoEasyMsg(warning) \
+			geo_dialog .msg $geoEasyMsg(warning) \
 				$geoEasyMsg(dzTri) warning 0 OK
 			return
 		}
@@ -944,7 +944,7 @@ proc CalcTrigLine {stlist {node 0}} {
 	# check error limit 32 * length / sqrt(n)
 	set store 0
 	if {[expr {abs($herr)}] > [expr {16.0 * $sumd / 1000.0 / sqrt($n) / 100.0}]} {
-		set store [tk_dialog .msg $geoEasyMsg(warning) \
+		set store [geo_dialog .msg $geoEasyMsg(warning) \
 			$geoEasyMsg(limTrig) warning 1 OK $geoEasyMsg(cancel)]
 	}
 	# store coordinates if not node calculation

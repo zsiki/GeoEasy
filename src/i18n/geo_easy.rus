@@ -592,6 +592,7 @@ set geoEasyMsg(useblock)	"Блоки"
 set geoEasyMsg(pcode1)		"Read point code from layer name"
 set geoEasyMsg(dxfpnt)		"Использовать точки"
 set geoEasyMsg(3d)			"3D"
+set geoEasyMsg(skipdbl)     "Skip double"               ;# TODO
 set geoEasyMsg(addlines)    "Linework"
 set geoEasyMsg(pd)			"Detail points only"
 set geoEasyMsg(ptext)		"Point numbers from text"

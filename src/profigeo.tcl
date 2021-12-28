@@ -180,7 +180,7 @@ proc GeoProfiCoo {fn fa} {
 		if {[string length $code] > 0} { lappend obuf [list 4 $code] }
 		# check for repeated point numbers
 		if {[lsearch -exact [array names ${fa}_coo] $pn] != -1} {
-			tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
+			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
 				warning 0 OK
 			continue
 		}
@@ -275,7 +275,7 @@ proc TxtCoo {fn fa {ff ""}} {
 			}
 			# check for repeated point numbers
 			if {[lsearch -exact [array names ${fa}_coo] $pn] != -1} {
-				tk_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
+				geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(dblPn): $pn" \
 					warning 0 OK
 				continue
 			}

@@ -140,7 +140,7 @@ proc Leica {fn fa {fo ""}} {
 						6 { set val [expr {$val / 10000.0}] }
 						7 { set val [expr {$val / 10000.0 *  $FOOT2M}] }
 						8 { set val [expr {$val / 100000.0}] }
-						default { tk_dialog .msg $geoEasyMsg(error) \
+						default { geo_dialog .msg $geoEasyMsg(error) \
 								$geoEasyMsg(units) error 0 OK
 								close $f1
 								return $lineno
@@ -148,7 +148,7 @@ proc Leica {fn fa {fo ""}} {
 					}
 				} else {
 					set val 0
-					tk_dialog .msg $geoEasyMsg(error) \
+					geo_dialog .msg $geoEasyMsg(error) \
 							$geoEasyMsg(wrongval) error 0 OK
 					close $f1
 					return $lineno
@@ -769,7 +769,7 @@ proc LeicaDNA {fn fa {fo ""}} {
 					6 { set val [expr {$val / 10000.0}] }
 					7 { set val [expr {$val / 10000.0 *  $FOOT2M}] }
 					8 { set val [expr {$val / 100000.0}] }
-					default { tk_dialog .msg $geoEasyMsg(error) \
+					default { geo_dialog .msg $geoEasyMsg(error) \
 							$geoEasyMsg(units) error 0 OK
 							close $f
 							return $lineno

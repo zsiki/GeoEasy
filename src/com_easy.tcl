@@ -112,7 +112,7 @@ proc ReadCom {com} {
 	global actPars
 
 	if {[catch {set cmsg [gets $com]} msg]} {
-		tk_dialog .msg $comEasyMsg(error) "$comEasyMsg(cantRead)\n$msg" \
+		geo_dialog .msg $comEasyMsg(error) "$comEasyMsg(cantRead)\n$msg" \
 			error 0 OK
 		CloseCom
 		return
@@ -138,7 +138,7 @@ proc ReadCom {com} {
 				[string compare $actPars(sendquery) $cmsg] != 0} {
 			ShowMsg $cmsg
 			if {[catch {puts $saveto $cmsg} msg]} {
-				tk_dialog .msg $comEasyMsg(error) \
+				geo_dialog .msg $comEasyMsg(error) \
 					"$comEasyMsg(cantFWrite)\n$msg" error 0 OK
 				CloseCom
 				return
@@ -169,7 +169,7 @@ proc CloseCom {{load 0}} {
 		ShowMsg $comEasyMsg(comFClose)
 	}
 	if {$load && [string length $ctopw]} {
-		if {[tk_dialog .msg info $comEasyMsg(loadgizi) info 0 OK \
+		if {[geo_dialog .msg info $comEasyMsg(loadgizi) info 0 OK \
 				$comEasyMsg(cancel)] == 0} {
 			MenuLoad $ctopw $savename
 		}
@@ -192,7 +192,7 @@ proc OpenCom {} {
 		set sp $actPars(port)
 	}
 	if {[catch {set com [open $sp RDWR]} msg] == 1} {
-		tk_dialog .msg $comEasyMsg(error) "$comEasyMsg(comOpen)\n$msg" \
+		geo_dialog .msg $comEasyMsg(error) "$comEasyMsg(comOpen)\n$msg" \
 			error 0 OK
 		return 1
 	}
@@ -202,7 +202,7 @@ proc OpenCom {} {
 		-translation $actPars(translation) \
 		-buffering $actPars(buffering) \
 		-buffersize $actPars(buffsize)} msg] == 1} {
-			tk_dialog .msg $comEasyMsg(error) \
+			geo_dialog .msg $comEasyMsg(error) \
 				"$comEasyMsg(comConfigure)\n$msg" error 0 OK
 			return 1
 	}
@@ -492,7 +492,7 @@ proc ComParsDlg {} {
 		set actPars(stop) $astop
 		if {$ablocking == 1} {
 			set ablocking 0
-			tk_dialog .msg $comEasyMsg(error) \
+			geo_dialog .msg $comEasyMsg(error) \
 				"$comEasyMsg(noBlocking)" warning 0 OK
 		}
 		set actPars(blocking) $ablocking
@@ -532,7 +532,7 @@ proc ComParsDlg {} {
 			-defaultextension ".com" -initialdir com_set]]
 		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 			if {[catch {set of [open $fn "w"]} msg]} {
-				tk_dialog .msg $comEasyMsg(error) \
+				geo_dialog .msg $comEasyMsg(error) \
 					"$comEasyMsg(cantSave)\n$msg" warning 0 OK
 				return
 			}
@@ -548,7 +548,7 @@ proc ComParsDlg {} {
 			-defaultextension ".com" -initialdir com_set]]
 		if {[string length $fn] && [string match "after#*" $fn] == 0} {
 			if {[catch {source $fn} msg]} {
-				tk_dialog .msg $comEasyMsg(error) \
+				geo_dialog .msg $comEasyMsg(error) \
 					"$comEasyMsg(cantSource)\n$msg" warning 0 OK
 				return
 			}
@@ -588,7 +588,7 @@ proc ComDownload {} {
 		if {[OpenCom] == 0} {
 			ComMenu 1	;# disable menus
 			if {[catch {set saveto [open $fn w]} msg] == 1} {
-				tk_dialog .msg $comEasyMsg(error) \
+				geo_dialog .msg $comEasyMsg(error) \
 					"$comEasyMsg(cantSave)\n$msg" warning 0 OK
 				return
 				CloseCom
@@ -597,7 +597,7 @@ proc ComDownload {} {
 				# send init string
 				if {[catch {puts $com $actPars(init)} msg]} {
 					CloseCom
-					tk_dialog .msg $comEasyMsg(error) \
+					geo_dialog .msg $comEasyMsg(error) \
 						"$comEasyMsg(cantWrite)\n$msg" warning 0 OK
 					return
 				}
@@ -619,7 +619,7 @@ proc ComUpload {} {
 	set fn [string trim [tk_getOpenFile -filetypes $comTypes]]
 	if {[string length $fn] && [string match "after#*" $fn] == 0} {
 		if {[catch {set f [open $fn r]} msg] == 1} {
-			tk_dialog .msg $comEasyMsg(error) \
+			geo_dialog .msg $comEasyMsg(error) \
 				"$comEasyMsg(cantOpen)\n$msg" warning 0 OK
 			return
 		}
@@ -630,7 +630,7 @@ proc ComUpload {} {
 				if {[catch {puts $com $actPars(init)} msg]} {
 					CloseCom
 					catch {close $f}
-					tk_dialog .msg $comEasyMsg(error) \
+					geo_dialog .msg $comEasyMsg(error) \
 						"$comEasyMsg(cantWrite)\n$msg" warning 0 OK
 					return
 				}
@@ -639,7 +639,7 @@ proc ComUpload {} {
 				if {[catch {gets $f buf} msg]} {
 					CloseCom
 					catch {close $f}
-					tk_dialog .msg $comEasyMsg(error) \
+					geo_dialog .msg $comEasyMsg(error) \
 						"$comEasyMsg(cantFRead)\n$msg" warning 0 OK
 					return
 				}
@@ -654,7 +654,7 @@ proc ComUpload {} {
 				if {[catch {puts $com $eofchar} msg]} {
 					CloseCom
 					catch {close $f}
-					tk_dialog .msg $comEasyMsg(error) \
+					geo_dialog .msg $comEasyMsg(error) \
 						"$comEasyMsg(cantWrite)\n$msg" warning 0 OK
 					return
 				}

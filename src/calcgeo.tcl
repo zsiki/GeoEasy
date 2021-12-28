@@ -115,7 +115,7 @@ proc Orientation {geo lineno {flag 0}} {
 			if {$d > 0.01} {
 				lappend slist [list $i $ref_pn $z [string trim [ANG $z]] $d $r $b]
 			} else {
-				tk_dialog .msg $geoEasyMsg(error) \
+				geo_dialog .msg $geoEasyMsg(error) \
 					"$geoEasyMsg(samePnt) $station_pn $ref_pn $geo:$lineno" \
 					error 0 OK
 			}
@@ -145,7 +145,7 @@ proc Orientation {geo lineno {flag 0}} {
 		}
 		if {[catch {set sz [expr {$sz / $sd}]}] || \
 			[catch {set cz [expr {$cz / $sd}]}]} {
-			tk_dialog .msg $geoEasyMsg(error) \
+			geo_dialog .msg $geoEasyMsg(error) \
 				"$geoEasyMsg(noOri2) $station_pn" \
 				error 0 OK
 			return -1
@@ -178,7 +178,7 @@ proc Orientation {geo lineno {flag 0}} {
 					[ANG [lindex $items 2]] [lindex $items 4] \
 					[expr {int($e)}] $emax $E]
 				if {[expr {abs($e)}] > $emax} {
-					tk_dialog .msg $geoEasyMsg(warning) \
+					geo_dialog .msg $geoEasyMsg(warning) \
 						"$geoEasyMsg(tajErr) $station_pn - [lindex $items 1]" \
 						warning 0 OK
 				}
@@ -438,12 +438,12 @@ proc GeoOri {pn w {flag 0}} {
 	if {[GetCoord $pn {38 37}] == ""} {
 		if {$flag & 2} {
 			if {[GetCoord $pn {138 137}] == ""} {
-				tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri) \
+				geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri) \
 					warning 0 OK
 				return
 			}
 		} else {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri) \
 				warning 0 OK
 			return
 		}
@@ -452,7 +452,7 @@ proc GeoOri {pn w {flag 0}} {
 
 	switch -exact [llength $slist] {
 		0 {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri) \
 				warning 0 OK
 			return
 		}
@@ -497,7 +497,7 @@ proc GeoSec {pn {w ""}} {
 	switch -exact [llength $slist] {
 		0 -
 		1 {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noSec) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noSec) \
 				warning 0 OK
 			return
 		}
@@ -542,7 +542,7 @@ proc GeoSec {pn {w ""}} {
 			RefreshAll
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
 			warning 0 OK
 	}
 }
@@ -618,7 +618,7 @@ proc GeoRes {pn {w ""}} {
     set vlist [InternalToShort $stlist]
 	switch -exact [llength $stlist] {
 		0 {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noStn) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noStn) \
 				warning 0 OK
 			return
 		}
@@ -639,7 +639,7 @@ proc GeoRes {pn {w ""}} {
 		0 -
 		1 -
 		2 {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noRes) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noRes) \
 				warning 0 OK
 			return
 		}
@@ -692,7 +692,7 @@ proc GeoRes {pn {w ""}} {
 			RefreshAll
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
 			warning 0 OK
 	}
 }
@@ -760,7 +760,7 @@ proc GeoArc {pn {w ""}} {
 	switch -exact [llength $slist] {
 		0 -
 		1 {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noArc) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noArc) \
 				warning 0 OK
 			return
 		}
@@ -819,7 +819,7 @@ proc GeoArc {pn {w ""}} {
 			RefreshAll
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
 			warning 0 OK
 	}
 }
@@ -1063,7 +1063,7 @@ proc GeoPol {pn {w ""}} {
 	set slist [GetPol $pn]
 	switch -exact [llength $slist] {
 		0 {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noPol) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noPol) \
 				warning 0 OK
 			return
 		}
@@ -1114,7 +1114,7 @@ proc GeoPol {pn {w ""}} {
 			RefreshAll
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
 			warning 0 OK
 	}
 }
@@ -1154,7 +1154,7 @@ proc GeoEle {pn {w ""}} {
 									;# geo_set line_no pn abs_height hor_dist
 	switch -exact [llength $slist] {
 		0 {
-			tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noEle) \
+			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noEle) \
 				warning 0 OK
 			return
 		}
@@ -1188,7 +1188,7 @@ proc GeoEle {pn {w ""}} {
 			RefreshAll
 		}
 	} else {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noCoo) \
 			warning 0 OK
 	}
 }
@@ -1241,7 +1241,7 @@ proc GeoInfo {pn} {
 	append wstr "$geoEasyMsg(nst) [llength $slist]\n"
 	append wstr "$geoEasyMsg(ndist) [llength $dlist]\n"
 	append wstr "$geoEasyMsg(next) [llength $elist]\n"
-	tk_dialog .msg "$geoEasyMsg(info) $pn" $wstr info 0 OK
+	geo_dialog .msg "$geoEasyMsg(info) $pn" $wstr info 0 OK
 }
 
 #
@@ -1307,10 +1307,10 @@ proc GeoFinalOri {{flag 5}} {
 	}
 	if {$np == 0} {
 		if {($flag & 4) == 0} {
-			tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(cantOri) info 0 OK
+			geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(cantOri) info 0 OK
 		} else {
 			if {($flag & 16) == 0 && \
-				[tk_dialog .msg $geoEasyMsg(info) $geoEasyMsg(readyOri) info \
+				[geo_dialog .msg $geoEasyMsg(info) $geoEasyMsg(readyOri) info \
 					0 OK $geoEasyMsg(cancel)] == 0} {
 				# repeat orientartions, overwrite previous values
 				GeoFinalOri [expr {$flag ^ 4}]
@@ -1332,7 +1332,7 @@ proc GeoDelOri {} {
 	global geoEasyMsg
 	global autoRefresh
 
-    if {[tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delori) \
+    if {[geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(delori) \
         warning 0 OK $geoEasyMsg(cancel)] != 0} {
         return
     }
@@ -1369,7 +1369,7 @@ proc GeoDetail {{all 0}} {
 		set detail [lsort -dictionary [GetNewDetail]]
 	}
 	if {[llength $detail] == 0} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(nodetail) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(nodetail) warning 0 OK
 		return
 	}
 	set np 0
@@ -1451,7 +1451,7 @@ proc GeoDetailStation {pn} {
 	global ${fn}_geo
 	# no orientation yet
 	if {[GetVal 101 [set ${fn}_geo($station_index)]] == ""} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri1) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noOri1) warning 0 OK
 		return
 	}
 	set detail [GetDetail]
@@ -1510,7 +1510,7 @@ proc GeoBearingDistance {pn {w ""}} {
 
 	set pn_coo [GetCoord $pn {37 38}]
 	if {$pn_coo == ""} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noAppCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noAppCoo) \
 			warning 0 OK
 		return
 	}
@@ -1583,7 +1583,7 @@ proc GeoAngle {pn {w ""}} {
 
 	set pn_coo [GetCoord $pn {37 38}]
 	if {$pn_coo == ""} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noAppCoo) \
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(noAppCoo) \
 			warning 0 OK
 		return
 	}
@@ -1673,7 +1673,7 @@ proc GeoAngle {pn {w ""}} {
 		incr i
 		set blast $b
 	}
-	set a [tk_dialog .msg $geoEasyMsg(warning) \
+	set a [geo_dialog .msg $geoEasyMsg(warning) \
 		$geoEasyMsg(saveso) warning 0 $geoEasyMsg(yes) $geoEasyMsg(no)]
 	if {$a == 0} {
 		set typ [list [lindex $fileTypes [lsearch -glob $fileTypes "*.geo*"]]]
@@ -2024,7 +2024,7 @@ proc GeoStat {} {
 	GeoLog1
 	GeoLog $geoEasyMsg(menuFileStat)
 	GeoLog1 $wstr
-	tk_dialog .msg $geoEasyMsg(info) $wstr info 0 OK
+	geo_dialog .msg $geoEasyMsg(info) $wstr info 0 OK
 }
 
 #
@@ -2037,7 +2037,7 @@ proc GeoFront {} {
 	
 	set slist [GetOrientedBaseStations {37 38 39}]
 	if {[llength $slist] == 0} {
-		tk_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(orist) warning 0 OK
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(orist) warning 0 OK
 		return
 	}
 	set stpns [GeoListbox $slist 0 $geoEasyMsg(lbTitle1) -2 0]
