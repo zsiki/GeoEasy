@@ -29,6 +29,7 @@ set fileTypes {
 	{"SurvCE RAW" {.rw5 .RW5}}
 	{"n4ce txt" {.n4c N4C}}
 	{"Nikon DTM-300" {.nik .NIK}}
+    {"Nikon RAW format" {.raw .RAW}}
 	{"Geodat 124" {.gdt .GDT}}
 	{"GeoProfi" {.mjk .MJK}}
 	{"Souřadnice GeoProfi" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}

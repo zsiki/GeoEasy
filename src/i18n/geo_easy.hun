@@ -29,6 +29,7 @@ set fileTypes {
 	{"SurvCE RAW formátum" {.rw5 .RW5}}
 	{"n4ce szöveg formátum" {.n4c .N4C}}
 	{"Nikon DTM-300 formátum" {.nik .NIK}}
+    {"Nikon RAW formátum" {.raw .RAW}}
 	{"Geodat 124 formátum" {.gdt .GDT}}
 	{"GeoProfi formátum" {.mjk .MJK}}
 	{"GeoProfi koordináták" {.eov .szt .her .hkr .hdr .EOV .SZT. .HER .HKR .HDR}}

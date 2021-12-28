@@ -29,6 +29,7 @@ set fileTypes {
 	{"Formato SurvCE RAW" {.rw5 .RW5}}
 	{"Formato n4ce txt" {.n4c N4C}}
 	{"Formato Nikon DTM-300" {.nik .NIK}}
+    {"Formato Nikon RAW" {.raw .RAW}}
 	{"Formato Geodat 124" {.gdt .GDT}}
 	{"Formato GeoProfi" {.mjk .MJK}}
 	{"Cordenadas GeoProfi" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}

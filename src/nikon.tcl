@@ -140,7 +140,7 @@ proc Nikon {fn fa} {
 		}
 
 		if {[llength $obuf] > 1 || [GetVal 2 $obuf] != ""} {
-			# check numerc values
+			# check numeric values
 			foreach l $obuf {
 				if {[lsearch -exact \
 						{3 6 7 8 9 10 11 21 24 25 26 27 28 29 37 38 39 49} \
@@ -201,5 +201,215 @@ proc SaveNikon {fn rn} {
 	}
 	puts $f "Z,Cks,"
 	close $f
+	return 0
+}
+
+#	Read in RAW Nikon data files into memory
+#	Input data format (field separator is comma)
+#
+#	Record format, coma separated
+#		Coordinate records
+#		    UP/MP/CC/RE uploaded/manual input/calculated/resection
+#		    Point_number
+#		    point_ id optional, not used
+#		    northing
+#		    easting
+#		    elevation
+#		    code
+#
+#       Station record
+#           ST
+#           station_number
+#           station_id optional, not used
+#           backhsight_number, not used
+#           backsite_id optional not used
+#           hi instrument height
+#           back_azimuth not used
+#           back_ha not used
+#
+#       Control point
+#           CP
+#           point_number
+#           point_id optional not used
+#           target_height
+#           slope_distance
+#           horizontal_angle
+#           vertical_angle
+#           time not used
+#           point_code
+#
+#       Sideshot
+#           SS
+#           point_number
+#           target_height
+#           slope_distance
+#           horizontal_angle
+#           vertical_angle
+#           time not used
+#           point_code
+#
+#       Stakeout
+#           SO
+#           point_number
+#           original_number optional not used
+#           target_height
+#           slope_distance
+#           horizontal_angle
+#           vertical_angle
+#           time not used
+#
+#       F1
+#           F1/F2 face
+#           point_number
+#           target_height
+#           slope_distance
+#           horizontal_angle
+#           vertical_angle
+#           time not used
+#
+#       Comment
+#           CO
+#           text, special to use:
+#               Dist Units: Metres
+#               Angle Units: DDDMMSS
+#               Zero VA: Zenith
+#               Coord Order: NEZ
+#   NOTE: only Metres, DDDMMSS, Zenith and NEZ settings are supported
+#
+#	@param fn path to nikon RAW file
+#	@param fa internal name of dataset
+#	@return 0 on success
+proc NikonRAW {fn fa} {
+	global reg
+	global geoEasyMsg
+
+	if {[string length $fa] == 0} {return -1}
+	global ${fa}_geo ${fa}_coo ${fa}_ref ${fa}_par
+	if {[catch {set f1 [open $fn r]}] != 0} {
+		return -1	;# cannot open input file
+	}
+	set ${fa}_par [list [list 55 Nikon_RAW]]
+	set lines 0		;# number of lines in output
+	set src 0		;# input line number
+	set points 0	;# number of points in coord list
+	while {! [eof $f1]} {
+		incr src
+		if {[gets $f1 buf] == 0} continue
+		set bl [split [string trim $buf] ","]	;# comma separated
+		set buflist ""
+		foreach a $bl {
+			lappend buflist [string trim $a]
+		}
+		set n [llength $buflist]
+		
+		if {$n == 0} { continue }   ;# empty line
+		set obuf ""	;# output buffer
+		switch -exact [lindex $buflist 0] {
+            CO {
+                set rem [lindex $buflist 1]
+                if {[regexp "^Dist Units:" $rem] == 1 && \
+                    [regexp "Metres$" $rem] == 0} {
+                        return $src
+                }
+                if {[regexp "^Angle Units:" $rem] == 1 && \
+                    [regexp "DDDMMSS$" $rem] == 0} {
+                        return $src
+                }
+                if {[regexp "^Coord Order:" $rem] == 1 && \
+                    [regexp "NEZ$" $rem] == 0} {
+                        return $src
+                }
+            }
+			UP -
+            MP -
+            CC -
+            RE {    ;# coordinates
+                set pn [lindex $buflist 1]
+                set x [lindex $buflist 3]
+                set y [lindex $buflist 4]
+                set z ""
+                if {[string length [lindex $buflist 5]]} {
+                    set z [lindex $buflist 5]
+                }
+                AddCoo $fa $pn $x $y $z
+            }
+            ST {    ;# station
+                set pn [lindex $buflist 1]
+                set ih [lindex $buflist 5]
+                lappend obuf [list 2 $pn]	;# station number
+                if {[string length $ih]} {
+                    lappend obuf [list 3 $ih]	;# instrument height
+                }
+            }
+            SO -
+            CP {    ;# control point
+                set pn [lindex $buflist 1]
+                set th [lindex $buflist 3]
+                set sd [lindex $buflist 4]
+                set ha [Deg2Rad [lindex $buflist 5]]
+                set va [Deg2Rad [lindex $buflist 6]]
+                set code ""
+                if {[llength $buflist] > 8]} {
+                    set code [lindex $buflist 8]
+                }
+                lappend obuf [list 5 $pn]	;# target number
+                if {[string length $th]} {
+                    lappend obuf [list 6 $th]	;# target height
+                }
+                if {[string length $sd]} {
+                    lappend obuf [list 9 $th]	;# slope distance
+                }
+                lappend obuf [list 7 $ha]	    ;# horizontal angle
+                lappend obuf [list 8 $ha]	    ;# zenith angle
+                if {[string length $code]} {
+                    lappend obuf [list 4 $code]	;# point code
+                }
+            }
+            F1 -
+            SS {    ;# sidedhot
+                set pn [lindex $buflist 1]
+                set th [lindex $buflist 2]
+                set sd [lindex $buflist 3]
+                set ha [Deg2Rad [lindex $buflist 4]]
+                set va [Deg2Rad [lindex $buflist 5]]
+                set code ""
+                if {[llength $buflist] > 7} {
+                    set code [lindex $buflist 7]
+                }
+                lappend obuf [list 5 $pn]	;# target number
+                if {[string length $th]} {
+                    lappend obuf [list 6 $th]	;# target height
+                }
+                if {[string length $sd]} {
+                    lappend obuf [list 9 $sd]	;# slope distance
+                }
+                lappend obuf [list 7 $ha]	    ;# horizontal angle
+                lappend obuf [list 8 $va]	    ;# zenith angle
+                if {[string length $code]} {
+                    lappend obuf [list 4 $code]	;# point code
+                }
+            }
+		}
+
+		if {[llength $obuf] > 1} {
+			# check numeric values
+			foreach l $obuf {
+				if {[lsearch -exact \
+						{3 6 7 8 9 10 11 21 24 25 26 27 28 29 37 38 39 49} \
+						[lindex $l 0]] != -1 && \
+						[regexp $reg(2) [lindex $l 1]] == 0} {
+					return $src
+				}
+			}
+			set ${fa}_geo($lines) $obuf
+			if {[info exists ${fa}_ref($pn)] == -1} {
+				set ${fa}_ref($pn) $lines
+			} else {
+				lappend ${fa}_ref($pn) $lines
+			}
+			incr lines
+		}
+	}
+	close $f1
 	return 0
 }
