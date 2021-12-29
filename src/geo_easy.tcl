@@ -220,7 +220,7 @@ proc GeoEasy {top} {
 			puts "  --help \[string\] - print help info and exit {authors, modules, version}"
 			puts "  --lang \[string\] - switch to a different language {[lsort [array names geoLangs]]}, default=auto"
 			puts "  --log \[string\] - select log {path/to/file.log | stdout | stderr}, default=$logName"
-            puts "  --exp extensiom - export files from commandline with the given extension"
+            puts "  --exp extension - export files from command line with the given extension"
 			puts "  --nogui - process command line files and exit"
 			puts " files:"
 			puts "  optional list of files of four types"

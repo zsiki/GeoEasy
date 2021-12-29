@@ -1,4 +1,4 @@
-.TH Geoeasy 1 "26 Dec 2018" "3.1.1" "User Manual"
+.TH Geoeasy 1 "29 Dec 2021" "3.2.1" "User Manual"
 .SH NAME
 .B geoeasy
 \- land surveying calculation, network adjustment, digital terrain models, regression calculation
@@ -12,13 +12,19 @@ Clone the repository, change the code and send us back a pull request to include
 .SH OPTIONS
 .TP
 .B \-\-help [string]
-Print help info and exit {authors, modules, version}.
+Print help info and exit.
 .TP
 .B \-\-lang [string]
-Switch to a different language {hun, eng, ger, rus, cze}, default=auto.
+Switch to a different language {hun, eng, ger, rus, cze}, default=auto, the language of the OS.
 .TP
 .B \-\-log [string]
 Select log {path/to/file.log | stdout | stderr}, default=~/geo_easy.log
+.TP
+.B \-\-nogui
+Process command line options and exit
+.TP
+.B \-\-exp [string]
+Export data files given in the command line to the selected format {geo | are | job | wld | gsi | scr | sdr | 210 | nik | csv | itr | txt | gpx | dmp | kml | sql | dxf}
 .SH EXAMPLE
 geoeasy --lang hun ~/demodata/test1.geo ./startup.tcl
 .SH SEE ALSO
