@@ -145,7 +145,7 @@ There are calculations for a single point and multiple points. Single point
 calculations are available from the popup menu, right click on the point in
 the graphic window or in the row of the point in the coordinate list window
 or in the field-book window.
-Multi point calculations are available from the *Calculation** menu of any
+Multi point calculations are available from the **Calculation** menu of any
 window.
 
 Whole circle bearing and distance
@@ -216,7 +216,7 @@ difference at the back-sight point.
 
 Note that the fill color of the point marker of point *12* became green,
 oriented station. The orientation angles and the mean are stored in the
-field-book, too. Select the orientation mask from the **Commands/Mask...**
+field-book, too. Select the *orientation* mask from the **Commands/Mask...**
 in the field-book window to see them.
 
 Orientation for all points
@@ -417,7 +417,16 @@ Traverse and trigonometric line
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There is a traversing line with three internal points (1_sp, 2_sp, 3_sp)
-between point *5001* and *5002*. Let's use the 6th toolbar icon to specify
+between point *5001* and *5002*.
+
+.. note::
+
+    Before you start traversing please make sure the start and end
+    point of the travese line have final coordinates (in black) in
+    the coordinate list. You can use resection for 5001, and 
+    intersection for 5002 if necessary.
+
+Let's use the 6th toolbar icon to specify
 the traversing line. Click on the first point (*5001*) and the three
 internal points using the traversing tool and double click on the last point
 (*5002*). A black line is draw as you click on points.
