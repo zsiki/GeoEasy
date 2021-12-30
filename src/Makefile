@@ -165,6 +165,10 @@ deb: deb-init deb-share deb-external deb-config deb-exec deb-doc deb-doc-config
 	@echo "Read README.md"
 	@echo "-----------------------------------------------------"
 
+manual: ../doc/man/man1/geoeasy.1.pdf
+../doc/man/man1/geoeasy.1.pdf: ../doc/man/man1/geoeasy.1
+	groff -m man -T pdf $^ > $@
+
 clean:
 	rm -f GeoEasy.tcl GeoEasy GeoEasy.exe GeoEasy64.exe \
 		ComEasy.tcl ComEasy ComEasy.exe ComEasy64.exe \
