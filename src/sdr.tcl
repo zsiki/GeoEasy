@@ -86,6 +86,10 @@ proc Sdr {fn fa} {
 				set angleDirection [string range $units 5 5]
 			}
 			"01" {	;# instrument record
+                if {[string first "Ruide R2" $buf] > -1} {
+                    # special hack for Ruide SDR
+                    set pnLength 16
+                }
 			}
 			"02" {	;# station record
 				if {$pnLength == 16} {
@@ -242,6 +246,7 @@ proc Sdr {fn fa} {
 			"12" {	;# iranysorozat
 			}
 			"13" {	;# remark
+                # TODO Ruide has observation here
 			}
 		}
 		if {[llength $obuf] > 0} {
