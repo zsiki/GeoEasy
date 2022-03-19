@@ -1855,7 +1855,11 @@ proc GeoJoin { } {
     if {[string match -nocase "*$typ" $fn] == 0} {
         set fn "$fn$typ"
     }
-	GeoLog "$geoEasyMsg(menuFileJoin) $geoLoaded \-\> $fn"
+    set w {}
+    foreach dataset $geoLoaded {
+        lappend w [GetShortName $dataset]
+    }
+	GeoLog "$geoEasyMsg(menuFileJoin) $w \-\> $fn"
 	set lastDir [file dirname $fn]
 	set fn1 "[file rootname $fn].geo"
 	set fn2 "[file rootname $fn].coo"
