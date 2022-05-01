@@ -7,10 +7,10 @@ request to include your enhancement in the core system.
 
 ## History
 
-The beginning of GeoEasy goes back to the late nineties (1997). Before the 3.0 
-version it was a proprietary software marketed in Hungary. After twenty
+The beginning of GeoEasy goes back to the late nineties (1997). Prior to version 3.0 
+it was proprietary software marketed in Hungary. After twenty
 year long development (with active and less active periods) in 2017 the license
-has been changed to open source.
+was changed to open source.
 
 ## Documentation
 
