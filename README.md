@@ -1,9 +1,9 @@
 # GeoEasy
 surveying calculation, network adjustment, digital terrain models, regression calculation
 
-Volunteers are wellcome! Send us bug reports, feature requests through the
+Volunteers are welcome! Send us bug reports, feature requests through the
 issue tracker.  Clone the repository, change the code and send us back a pull
-request to include your enchacement in the core system.
+request to include your enhancement in the core system.
 
 ## History
 
@@ -24,13 +24,13 @@ See the [doc](./doc) folder for various reStructuredText files, the [wiki](https
 
 ## Installation
 
-Installation binaries for latest stabile version (3.2.0):
+Installation binaries for latest stable version (3.2.0):
 
 * [Debian/Ubuntu](http://digikom.hu/download/geoeasy_3.2.0.deb)
 * [Windows](http://digikom.hu/download/Gizi320Setup.exe)
 * [Windows portable (zip)](http://digikom.hu/download/GeoEasy320.zip)
 
-Users can select source or [beta binary or older releases](http://digikom.hu/english/geo_easy_e.html). Linux, OSX and Windows operating
+Users can select source or [beta binary or older releases](http://digikom.hu/english/geo_easy_e.html). GNU/Linux, macOS and Windows operating
 systems are supported. See the [installation guide](doc/install.rst).
 
 ## Localization
