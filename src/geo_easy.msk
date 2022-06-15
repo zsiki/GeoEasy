@@ -12,7 +12,9 @@ global geoCp
 # set geoCp {cp-1250}
 # link to help/docs
 global geoDoc
-set geoDoc "See:\nhttp://github.com/zsiki/GeoEasy/doc and\nhttps://github.com/zsiki/GeoEasy/wiki"
+set geoDoc {See:
+http://github.com/zsiki/GeoEasy/doc and
+https://github.com/zsiki/GeoEasy/wiki}
 # automatic window refresh
 global autoRefresh
 set autoRefresh {1}

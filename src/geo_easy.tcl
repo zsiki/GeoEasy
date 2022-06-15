@@ -151,10 +151,9 @@ proc GeoEasy {top} {
 		set ww "0000"
 		catch {set ww [string toupper [registry get HKEY_LOCAL_MACHINE\\SYSTEM\\CONTROLSET001\\control\\nls\\language InstallLanguage]]}
         # search for language groups only
+        set w eng   # defult languge
 		if {[lsearch -regexp [array names langCodes] "[string range $ww 2 3]$"] > -1} {
-			set w $langCodes($ww)
-		} else {
-			set w eng
+			catch {set w $langCodes($ww)}
 		}
 	} else {
 		catch {set w [string range [string tolower $env(LANG)] 0 2]}
