@@ -715,11 +715,8 @@ proc TraVals {buf} {
 	if {$di != ""} { set di [GetRedDist $di $va] }
 	set angle [GetVal {7 21} $buf]
 	if {$angle == ""} {
-# TBD ide kell egy hiba nincs iranyertek!! act es prev kozott
-#			geo_dialog .msg $geoEasyMsg(warning) \
-#				"nincs iranyertek $buf" warning 0 OK
-#puts "nincs iranyertek $buf"
-#		return ""
+        geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(angTra) warning 0 OK
+		return ""
 	}
 	return [list $angle $di]
 }
