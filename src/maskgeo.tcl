@@ -2615,7 +2615,7 @@ proc GeoMaskCsv {maskn fn type} {
 	set lastDir [file dirname $on]
 	set fd [open $on w]				;# output file
 	fconfigure $fd -encoding cp1250
-	puts $fd "${fn}${type}/${geoEasyMsg(mainTitle)}"
+	puts $fd "[GetShortName ${fn}]${type}/${geoEasyMsg(mainTitle)}"
 
 	# param data for observations
 	if {$type == "_geo"} {
