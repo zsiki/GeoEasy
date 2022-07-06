@@ -144,7 +144,7 @@ proc TrimbleM5 {fn fa} {
 		for {set i 0} {$i < 3} {incr i} {
 			set type [string trim [string range $buf $pos [expr {$pos + 1}]]]
 			set value [string trim [ \
-				string range $buf [expr {$pos + 3}] [expr {$pos + 16}]]]
+				string range $buf [expr {$pos + 3}] [expr {$pos + 16}]] " \t"]
 			set unit [string tolower [string trim [ \
 				string range $buf [expr {$pos + 18}] [expr {$pos + 21}]]]]
 			switch -exact $type {
@@ -276,6 +276,7 @@ proc TrimbleM5 {fn fa} {
 					}
 					lappend obuf [list 8 $value]
 				}
+                N_ -
 				X {
 					if {$unit == "ft"} {
 						set value [format "%.3f" [expr {$value * $FOOT2M}]]
@@ -283,6 +284,7 @@ proc TrimbleM5 {fn fa} {
 					set x $value
 					set coords 1	;# coordinate record
 				}
+                E_ -
 				Y {
 					if {$unit == "ft"} {
 						set value [format "%.3f" [expr {$value * $FOOT2M}]]
@@ -290,6 +292,7 @@ proc TrimbleM5 {fn fa} {
 					set y $value
 					set coords 1	;# coordinate record
 				}
+                Z_ -
 				Z {
 					if {$unit == "ft"} {
 						set value [format "%.3f" [expr {$value * $FOOT2M}]]
