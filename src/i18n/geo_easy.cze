@@ -236,6 +236,14 @@ set geoCodes(137)	"Přibliná souřadnice X"
 set geoCodes(138)	"Přibliná souřadnice Y"
 set geoCodes(139)	"Přibliná výka"
 set geoCodes(140)	"EPSG kód"
+set geoCodes(172)   "Remark2"
+set geoCodes(173)   "Remark3"
+set geoCodes(174)   "Remark4"
+set geoCodes(175)   "Remark5"
+set geoCodes(176)   "Remark6"
+set geoCodes(177)   "Remark7"
+set geoCodes(178)   "Remark8"
+set geoCodes(179)   "Remark9"
 set geoCodes(237)   "Northing stdev"		;# TODO
 set geoCodes(238)   "Easting stdev"			;# TODO
 set geoCodes(239)   "Height stdev"			;# TODO

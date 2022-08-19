@@ -99,6 +99,7 @@ proc Leica {fn fa {fo ""}} {
 		set station_x_set 0				;# markers for found coords
 		set station_y_set 0
 		set station_z_set 0
+        set pcode ""
 		for {set i 0} {$i < $n} {incr i 3} {
 			set i2 [expr {$i + 2}]
 			set w [lindex $buflist $i]
@@ -250,6 +251,17 @@ proc Leica {fn fa {fo ""}} {
 					set pcode [string trim $val]
 					lappend obuf [list 4 $pcode]
 				}
+                "72" -
+                "73" -
+                "74" -
+                "75" -
+                "76" -
+                "77" -
+                "78" -
+                "79" {  ;# further remarks
+                    lappend obuf [list [expr {$code + 100}] [string trim $val]]
+                    append pcode ":" $val
+                }
 				"81" {
 					set x_set 1
 					set x $val

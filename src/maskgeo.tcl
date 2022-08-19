@@ -881,6 +881,7 @@ proc LoadMask {} {
 	global geoForms geoFormParams geoFormPat
 	global cooForms cooFormParams cooFormPat
 	global mskTypes
+    global geoEasyMsg
 
 	set fn [string trim [tk_getOpenFile -filetypes $mskTypes]]
 	if {[string length $fn] && [string match "after#*" $fn] == 0} {
