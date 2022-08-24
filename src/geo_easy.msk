@@ -249,6 +249,7 @@ set geoMaskWidths(tahimeter_dm) {10 10 10 10 10 10}
 set geoMasks(levelling) {table 20 2 {5 62} {10 120 -10} {9 11 -9}}
 set geoMaskParams(levelling) {"-" "" DST DST}
 set geoMaskWidths(levelling) {10 10 10 10}
+
 #
 #	masks for coordinate lists
 #	similiar to field book masks but only
