@@ -406,7 +406,7 @@ Save parameters
 ...............
 
 Save settings to *geo\_easy.msk* file.
-This file is used to set the parameters after starting the program.
+This file will be used to set the parameters after restarting the program.
 
 Exit
 ....
@@ -1817,6 +1817,10 @@ parameters.
 Some parameters can be modified through the GUI some can be modified in the 
 geo_easy.msk file. The following long list contains all parameters in ABC
 order.
+
+.. note::
+
+    Do not uses multi lines to set a single parameter is you edit the file manualy
 
 .. note::
 

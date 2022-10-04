@@ -6,15 +6,13 @@ global langCodes
 array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus "0405" cze "040A" es}
 # GUI language change default to hun/eng/ger/... to set GUI language other than OS lang
 global geoLang
-set geoLang {default}
+set geoLang {eng}
 # code page
 global geoCp
 # set geoCp {cp-1250}
 # link to help/docs
 global geoDoc
-set geoDoc {See:
-http://github.com/zsiki/GeoEasy/doc and
-https://github.com/zsiki/GeoEasy/wiki}
+set geoDoc {See:\nhttp://github.com/zsiki/GeoEasy/doc and\nhttps://github.com/zsiki/GeoEasy/wiki}
 # automatic window refresh
 global autoRefresh
 set autoRefresh {1}
@@ -76,7 +74,7 @@ set epsReg {0.00005}
 # gama-local parameters (network adjustment)
 global gamaProg gamaConf gamaAngles gamaTol dirLimit gamaShortOut gamaSvgOut gamaXmlOut
 # relative path to executable from GeoEasy home directory or absolute path
-set gamaProg {./gama-local}
+set gamaProg {/home/siki/GeoEasy/src/./gama-local}
 # confidence level
 set gamaConf {0.95}
 # 360 - DMS , 400 GRAD
@@ -95,13 +93,13 @@ set gamaXmlOut {0}
 #
 global triangleProg
 # relative path to executable from GeoEasy home directory or absolute path
-set triangleProg {./triangle}
+set triangleProg {/home/siki/GeoEasy/src/./triangle}
 #
 # cs2cs (projection transformation) parameters
 #
 global cs2csProg
 # relative path to executable from GeoEasy home directory or absolute path
-set cs2csProg {./cs2cs}
+set cs2csProg {/home/siki/GeoEasy/src/./cs2cs}
 #
 # dxf output parameters
 #
@@ -287,3 +285,4 @@ set cooMaskWidths(fix_stdev) {10 10 10 10 10 10 10 10}
 #
 global parMask
 set parMask {51 52 53 55 114 115 116 118 0}
+
