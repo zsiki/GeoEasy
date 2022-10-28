@@ -295,6 +295,7 @@ proc NikonRAW {fn fa} {
 	while {! [eof $f1]} {
 		incr src
 		if {[gets $f1 buf] == 0} continue
+puts $buf
 		set bl [split [string trim $buf] ","]	;# comma separated
 		set buflist ""
 		foreach a $bl {
@@ -366,6 +367,7 @@ proc NikonRAW {fn fa} {
                 }
             }
             F1 -
+            F2 -
             SS {    ;# sidedhot
                 set pn [lindex $buflist 1]
                 set th [lindex $buflist 2]
@@ -398,16 +400,47 @@ proc NikonRAW {fn fa} {
 						{3 6 7 8 9 10 11 21 24 25 26 27 28 29 37 38 39 49} \
 						[lindex $l 0]] != -1 && \
 						[regexp $reg(2) [lindex $l 1]] == 0} {
+puts $obuf
+puts $l
 					return $src
 				}
 			}
-			set ${fa}_geo($lines) $obuf
-			if {[info exists ${fa}_ref($pn)] == -1} {
-				set ${fa}_ref($pn) $lines
-			} else {
-				lappend ${fa}_ref($pn) $lines
-			}
-			incr lines
+            set face2 0
+            if {[string length [GetVal 5 $obuf]] > 0} { ;# observation record
+                # average of two faces
+                set li [expr {$lines - 1}]
+                while {$li > 0} {
+                    if {[string length \
+                            [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
+                        break   ;# stop previous station record reached
+                    }
+                    if {[GetVal 5 [set ${fa}_geo($li)]] == $pn} {
+                        # really second face?
+                        set obuf1 [set ${fa}_geo($li)]
+                        set avgbuf [AvgFaces $obuf1 $obuf]
+                        if {[llength $avgbuf]} {
+                            set face2 1
+                        } else {
+                            GeoLog1 [format $geoEasyMsg(noface2) \
+                                [GetVal {5 62} $obuf]]
+                        }
+                        break
+                    }
+                    incr li -1
+                }
+            }
+            if {$face2} {
+                #store average for 2 faces
+                set ${fa}_geo($li) $avgbuf
+            } else {
+                set ${fa}_geo($lines) $obuf
+                if {[info exists ${fa}_ref($pn)] == -1} {
+                    set ${fa}_ref($pn) $lines
+                } else {
+                    lappend ${fa}_ref($pn) $lines
+                }
+                incr lines
+            }
 		}
 	}
 	close $f1
