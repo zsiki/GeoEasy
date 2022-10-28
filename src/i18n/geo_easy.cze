@@ -30,6 +30,7 @@ set fileTypes {
 	{"n4ce txt" {.n4c N4C}}
 	{"Nikon DTM-300" {.nik .NIK}}
     {"Nikon RAW format" {.raw .RAW}}
+    {"FOIF format" {.mes .MES}}
 	{"Geodat 124" {.gdt .GDT}}
 	{"GeoProfi" {.mjk .MJK}}
 	{"Souřadnice GeoProfi" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}

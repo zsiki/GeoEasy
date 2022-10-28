@@ -989,7 +989,9 @@ proc MenuLoad {w {def ""}} {
 				*.raw {
 					set res [NikonRAW $fn $f]
 				}
-
+                *.mes {
+                    set res [Foif $fn $f]
+                }
 				*.dxf {
 					set res [GeoDXFin $fn $f]
 				}
