@@ -1,0 +1,24 @@
+CO,Nikon RAW data format V2.00
+CO,B: EXAMPLE5
+CO,Description: SAMPLE DATA OF DOWNLOAD
+CO,Client: NIKON
+CO,Comments: YOKOHAMA PLANT
+CO,Downloaded 22-JUL-2008 18:56:10
+CO,Software: Pre-installed software version: 1.10
+CO,Instrument: Nikon DTM-322
+CO,Dist Units: Metres
+CO,Angle Units: DDDMMSS
+CO,Zero azimuth: North
+CO,Zero VA: Zenith
+CO,Coord Order: NEZ
+CO,HA Raw data: Azimuth
+CO,Tilt Correction: VA:ON HA:ON
+CO, EXAMPLE5 <JOB> Created 22-JUL-2008 07:09:21
+MC,1,,100.000,200.000,10.000,
+CO,Temp:20C Press:760mmHg Prism:0 22-JUL-2008 07:11:34
+ST,1,,,,1.400,55.4500,55.4500
+F1,,,,0.0000,90.0000,8:27:58
+SS,3,1.200,330.706,326.027,20.320,07:13:46,SIGN
+SS,4,1.250,379.193,300.847,29.084,07:14:24,TREE
+SS,5,1.218,363.344,328.032,30.105,07:14:57,TREE R
+SO,1003,,1.240,331.220,326.783,19.998,07:18:17,
