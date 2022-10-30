@@ -106,10 +106,12 @@ proc Foif {fn fa} {
     set bl [split [string trim $header] ","]
 	set ${fa}_par [list [list 51 "[lindex $bl 3]-[lindex $bl 4]-[lindex $bl 5]"]]
 	set ${fa}_par [list [list 52 "[lindex $bl 6]:[lindex $bl 7]:[lindex $bl 8]"]]
+    set prev_sd 0
+    set prev_ha -1
+    set prev_va -1
 	while {! [eof $f1]} {
 		incr src
 		if {[gets $f1 buf] == 0} continue
-puts $buf
 		set bl [split [string trim $buf] ","]	;# comma separated
 		set buflist ""
 		foreach a $bl {
@@ -169,9 +171,16 @@ puts $buf
                 lappend obuf [list 5 $pn]
                 lappend obuf [list 7 $ha]       ;# horizontal angle
                 lappend obuf [list 8 $va]       ;# zenith angle
-                #if {[lindex $buflist 11] == 1} {
-                lappend obuf [list 9 $sd]   ;# slope distance
-                #}
+                if {$sd > 0.1 && ([expr {abs($sd - $prev_sd)}] > 0.1 || \
+                    ([expr {abs($ha - $prev_ha)}] < 0.001 && 
+                     [expr {abs($va - $prev_va)}] < 0.001))} {
+                    # store distance if it changes or the same direction (3')
+                    lappend obuf [list 9 $sd]   ;# slope distance
+                }
+                lappend obuf [list 6 $th]
+                set prev_sd $sd
+                set prev_ha $ha
+                set prev_va $va
             }
 		}
 
