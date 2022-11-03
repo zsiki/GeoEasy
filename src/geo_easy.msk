@@ -6,7 +6,7 @@ global langCodes
 array set langCodes {"040E" hun "0409" eng "0407" ger "0419" rus "0405" cze "040A" es}
 # GUI language change default to hun/eng/ger/... to set GUI language other than OS lang
 global geoLang
-set geoLang {eng}
+set geoLang {default}
 # code page
 global geoCp
 # set geoCp {cp-1250}
