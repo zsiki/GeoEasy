@@ -14,7 +14,7 @@ global geoEasyMsg
 global reglist
 set reglist { "2D Линия" "Параллельная 2D линия" "Круг" \
 	"Плоскость" "Горизонтальная плоскость" "Вертикальная плоскость" \
-	"Сфера" "3D линия" "Angle of planes"} ;# "Вертикальный параболоид" ;# TODO
+	"Сфера" "3D линия" "Angle of planes"} ;# "Вертикальный параболоид"
 
 set fileTypes {
 	{"GeoEasy формат" {.geo .GEO}}
@@ -112,7 +112,7 @@ set cadTypes {{"AutoCAD DXF" {.dxf}}
 set svgTypes {{"Scalable Vector Graphics" {.svg}}
 }
 
-set pngTypes {{"PNG image" {.png}}
+set pngTypes {{"PNG изображение" {.png}}
 }				;# TODO
 
 set mskTypes {{"GeoEasy mask" {.msk}}
@@ -394,9 +394,9 @@ set geoEasyMsg(menuSaveRtf)     "Сохранить как RTF"
 set geoEasyMsg(menuCooTr)       "Преобразование ..."
 set geoEasyMsg(menuCooTrFile)	"Преобразование, параметры из файла"
 set geoEasyMsg(menuCooDif)		"Расхождение координат"
-set geoEasyMsg(menuCooSwapEN)   "Поменять Восток-Север"		;# TODO
-set geoEasyMsg(menuCooSwapEZ)   "Поменять Восток-Высоту"	;# TODO
-set geoEasyMsg(menuCooSwapNZ)   "Поменять Север-Высоту"		;# TODO
+set geoEasyMsg(menuCooSwapEN)   "Поменять Восток-Север"
+set geoEasyMsg(menuCooSwapEZ)   "Поменять Восток-Высоту"
+set geoEasyMsg(menuCooSwapNZ)   "Поменять Север-Высоту"
 set geoEasyMsg(menuCooDelAppr)  "Удалить предварительные координаты"
 set geoEasyMsg(menuCooDel)		"Удалить все координаты"
 set geoEasyMsg(menuPntDel)		"Удалить все точки"
@@ -508,11 +508,11 @@ set geoEasyMsg(area)		"Расчет площади"
 set geoEasyMsg(sum)			"Сумма"
 set geoEasyMsg(sum1)		"Площадь"
 set geoEasyMsg(sum2)		"Периметр"
-set geoEasyMsg(meanp)       "Вес точки"	;# TODO
-set geoEasyMsg(centroid)    "Центр масс"	;# TODO
+set geoEasyMsg(meanp)       "Вес точки"
+set geoEasyMsg(centroid)    "Центр масс"
 set geoEasyMsg(endp)		"Конечная точка?"
 set geoEasyMsg(maxGr)		"Можно открыть только 10 графических окон"
-set geoEasyMsg(nopng)       "PNG экспорт не доступен"		;# TODO
+set geoEasyMsg(nopng)       "PNG экспорт не доступен"
 set geoEasyMsg(orist)		"Недостаточно известных (N,E,Z) ориентиров станции"
 
 set geoEasyMsg(linreg)		"Линия регрессии не может быть рассчитана"
@@ -557,11 +557,11 @@ set geoEasyMsg(gamastdhead3)    "% интервал"
 set geoEasyMsg(gamastdhead4)    "содержит значения m0'/m0"
 set geoEasyMsg(gamastdhead5)    "не содержит значения m0'/m0"
 set geoEasyMsg(gamacoohead0)    "Координаты"
-set geoEasyMsg(gamacoohead1)    "ID точки        E          N          Z"	;# TODO
+set geoEasyMsg(gamacoohead1)    "ID точки        E          N          Z"
 set geoEasyMsg(gamaobshead0)    "Наблюдения"
-set geoEasyMsg(gamaobshead1)    "Станция    Направление    Ур.напр.  Невязка    Stdev"	;# TODO
+set geoEasyMsg(gamaobshead1)    "Станция    Направление    Ур.напр.  Невязка    Stdev"
 set geoEasyMsg(gamaorihead0) "Orientations"	;# TODO
-set geoEasyMsg(gamaorihead1) "Станция  Предварительный  Уравненный"	;# TODO
+set geoEasyMsg(gamaorihead1) "Станция  Предварительный  Уравненный"
 #
 # tooltips
 #
