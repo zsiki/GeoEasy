@@ -110,8 +110,8 @@ set cadTypes {{"AutoCAD DXF" {.dxf}}
 set svgTypes {{"Scalable Vector Graphics" {.svg}}
 }
 
-set pngTypes {{"PNG image" {.png}}
-}				;# TODO
+set pngTypes {{"PNG image" {.png}}				;# TODO
+}
 
 set mskTypes {{"GeoEasy Eingabemaske" {.msk}}
 }

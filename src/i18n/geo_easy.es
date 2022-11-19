@@ -80,8 +80,8 @@ set tr1Types {{"Transformaci\u00F3n ortogonal/af\u00EDn" {.prm}}
 }
 
 set tr2Types {{"TRAFO transformaci\u00F3n" {.all}}
-}   # TODO
-
+}
+# TODO
 set tr12Types {{"Orthogonal/Affin transformation" {.prm}}
     {"TRAFO transformation" {.all}}
 }
@@ -112,8 +112,8 @@ set cadTypes {{"AutoCAD DXF" {.dxf}}
 set svgTypes {{"Scalable Vector Graphics" {.svg}}
 }
 
-set pngTypes {{"PNG image" {.png}}
-}			;# TODO
+set pngTypes {{"PNG image" {.png}}			;# TODO
+}
 
 set mskTypes {{"GeoEasy mascara" {.msk}}
 }
