@@ -12,9 +12,9 @@ global geoEasyMsg
 
 # regression types
 global reglist
-set reglist { "2D Line" "Parallel 2D lines" "Circle" \
-	"Plane" "Horizontal plane" "Vertical plane" \
-	"Sphere" "3D line" "Angle of planes" } ;# "Vertical paraboloid" 
+set reglist { "Linia 2D" "Równoległe linie 2D" "Koło" \
+	"Płaszczyzna" "Płaszczyzna pozioma" "Płaszczyzna pionowa" \
+	"Sfera" "Linia 3D" "Kąt nachylenia płaszczyzn" } ;# "Vertical paraboloid" 
 
 set fileTypes {
 	{"GeoEasy format" {.geo .GEO}}
@@ -33,28 +33,28 @@ set fileTypes {
 	{"FOIF format" {.mes .MES}}
 	{"Geodat 124 format" {.gdt .GDT}}
 	{"GeoProfi format" {.mjk .MJK}}
-	{"GeoProfi coordinates" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}
+	{"współrzędne GeoProfi" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}
 	{"GeoCalc3 format" {.gmj .GMJ}}
 	{"GeoZseni format" {.gjk .GJK}}
-	{"Coordinate list" {.txt .csv .dat .pnt .TXT .CSV .DAT .PNT}}
+	{"Wykaz współrzędnych" {.txt .csv .dat .pnt .TXT .CSV .DAT .PNT}}
 	{"Fieldbook" {.dmp .DMP}}
-	{"DTM GRID file" {.asc .arx .ASC .ARX}}
-	{"AutoCAD DXF file" {.dxf .DXF}}
-	{"All file" {.*}}
+	{"plik DTM GRID" {.asc .arx .ASC .ARX}}
+	{"plik AutoCAD DXF" {.dxf .DXF}}
+	{"Wszystkie pliki" {.*}}
 }
 
 set saveTypes {
 	{"GeoEasy format" {.geo}}
-	{"Geodimeter coordinates" {.are}}
-	{"Geodimeter measurements and coordinates" {.job}}
-	{"Sokkia set 4 coordinates" {.scr}}
-	{"Sokkia sdr33 coordinates" {.sdr}}
-	{"Leica coordinates 8 bytes" {.wld}}
-	{"Leica coordinates 16 bytes" {.gsi}}
-	{"Nikon DTM-300 coordinates" {.nik}}
+	{"Geodimeter współrzędne" {.are}}
+	{"Geodimeter pomiary i współrzędne" {.job}}
+	{"Sokkia set 4 współrzędne" {.scr}}
+	{"Sokkia sdr33 współrzędne" {.sdr}}
+	{"Leica współrzędne 8 bajtów" {.wld}}
+	{"Leica współrzędne 16 bajtów" {.gsi}}
+	{"Nikon DTM-300 współrzędne" {.nik}}
 	{"Fieldbook" {.dmp}}
-	{"Coordinate list" {.csv}}
-	{"ITR 2.x Coordinate list" {.itr}}
+	{"Wykaz współrzędnych" {.csv}}
+	{"ITR 2.x wykaz współrzędnych" {.itr}}
 	{"GPS Trackmaker" {.txt}}
 	{"GPS XML" {.gpx}}
 	{"Keyhole Markup Language file" {.kml}}
@@ -62,34 +62,34 @@ set saveTypes {
 }
 
 set xmlTypes {
-	{"GNU GaMa xml for 2D adjustment" {.g2d}}
-	{"GNU GaMa xml for 1D adjustment" {.g1d}}
-	{"GNU GaMa xml for 3D adjustment" {.g3d}}
+	{"GNU GaMa xml wyrównanie 2D" {.g2d}}
+	{"GNU GaMa xml wyrównanie 1D" {.g1d}}
+	{"GNU GaMa xml  wyrównanie 3D" {.g3d}}
 }
 
-set projTypes {{"GeoEasy project" {.gpr}}
+set projTypes {{"GeoEasy projekt" {.gpr}}
 }
 
-set trTypes {{"Affin transformation" {.prm}}
+set trTypes {{"Transformacja afiniczna" {.prm}}
 }
 
-set trHTypes {{"Vertical shift" {.vsh}}
+set trHTypes {{"Przesunięcie pionowe" {.vsh}}
 }
 
-set tr1Types {{"Orthogonal/Affin transformation" {.prm}}
+set tr1Types {{"Transformacja Helmerta/afiniczna" {.prm}}
 }
 
-set tr2Types {{"TRAFO transformation" {.all}}
+set tr2Types {{"Transformacja TRAFO" {.all}}
 }
 
-set tr12Types {{"Orthogonal/Affin transformation" {.prm}}
-	{"TRAFO transformation" {.all}}
+set tr12Types {{"Transformacja Helmerta/afiniczna" {.prm}}
+	{"Transformacja TRAFO" {.all}}
 }
 
 set tinTypes {{"GeoEasy dtm" {.dtm}}
 }
 
-set polyTypes {{"GeoEasy dtm source file" {.poly}}
+set polyTypes {{"Plik źródłowy GeoEasy dtm" {.poly}}
 }
 
 set vrmlTypes {{"Virtual reality X3D file" {.x3d}}
@@ -136,28 +136,28 @@ set tclTypes {{"Tcl script" {.tcl}}
 #
 #	codes used in geo data set
 #
-set geoCodes(-1)	"Skip"
-set geoCodes(0)		"Information"
-set geoCodes(1)		"Data used in INFO/DATA combination"
+set geoCodes(-1)	"Skocz"
+set geoCodes(0)		"Informacja"
+set geoCodes(1)		"Dane stosowane w połączeniu INFO/DANE"
 set geoCodes(2)		"Station number"
-set geoCodes(3)		"Instrument height"
-set geoCodes(4)		"Point code"
-set geoCodes(5)		"Point number"
-set geoCodes(6)		"Signal height"
-set geoCodes(7)		"Horizontal angle"
-set geoCodes(-7)	"Not used"
-set geoCodes(8)		"Vertical angle"
+set geoCodes(3)		"Wyskokość instrumentu"
+set geoCodes(4)		"Kod punktu"
+set geoCodes(5)		"Numer punktu"
+set geoCodes(6)		"Wyskokość lustra"
+set geoCodes(7)		"Kąt poziomy"
+set geoCodes(-7)	"Nieużywany"
+set geoCodes(8)		"Kąt pionowy"
 set geoCodes(-8)	$geoCodes(-7)
-set geoCodes(9)		"Slope distance"
+set geoCodes(9)		"Długość skośna"
 set geoCodes(-9)	$geoCodes(-7)
-set geoCodes(10)	"Height diff"
+set geoCodes(10)	"Różnica wysokości"
 set geoCodes(-10)	$geoCodes(-7)
 set geoCodes(120)	"Height diff. leveling" 
 set geoCodes(-120)	$geoCodes(-7)
-set geoCodes(11)	"Horizontal distance"
+set geoCodes(11)	"Długość pozioma"
 set geoCodes(-11)	$geoCodes(-7)
-set geoCodes(12)	"Area of surface"
-set geoCodes(13)	"Volume"
+set geoCodes(12)	"Pole powierzchni"
+set geoCodes(13)	"Objętość"
 set geoCodes(14)	"Percent of grade"
 set geoCodes(15)	"Area file"
 set geoCodes(16)	"C1-C2"
@@ -165,113 +165,113 @@ set geoCodes(17)	"HAII"
 set geoCodes(18)	"VAII"
 set geoCodes(19)	"dV"
 set geoCodes(20)	"Offset constant to slope distance"
-set geoCodes(21)	"Horizontal ref. angle"
+set geoCodes(21)	"Nawiązanie poziome"
 set geoCodes(-21)   $geoCodes(-7)
-set geoCodes(22)	"Compensator"
-set geoCodes(23)	"Units"
+set geoCodes(22)	"Kompensator"
+set geoCodes(23)	"Jednostki"
 set geoCodes(24)	"HAI"
 set geoCodes(25)	"VAI"
 set geoCodes(26)	"SVA"
 set geoCodes(27)	"SHA"
 set geoCodes(28)	"SHD"
 set geoCodes(29)	"SHT"
-set geoCodes(30)	"Atmospheric correction PPM"
-set geoCodes(37)	"Northing"
-set geoCodes(38)	"Easting"
-set geoCodes(39)	"Elevation"
+set geoCodes(30)	"Korekta atmosferyczna PPM"
+set geoCodes(37)	"X"
+set geoCodes(38)	"Y"
+set geoCodes(39)	"H"
 set geoCodes(40)	"dN"
 set geoCodes(41)	"dE"
 set geoCodes(42)	"dELE"
 set geoCodes(43)	"UTMSC"
-set geoCodes(44)	"Slope inclination"
+set geoCodes(44)	"Nachylenie zbocza"
 set geoCodes(45)	"dHA"
-set geoCodes(46)	"Standard deviation"
-set geoCodes(47)	"Rel. north coord."
-set geoCodes(48)	"Rel. east coord."
-set geoCodes(49)	"Vertical distance"
-set geoCodes(50)	"Job number"
-set geoCodes(51)	"Date"
-set geoCodes(52)	"Time"
-set geoCodes(53)	"Operator id"
-set geoCodes(54)	"Project id"
-set geoCodes(55)	"Instrument id"
-set geoCodes(56)	"Temperature"
-set geoCodes(57)	"Blank line"
-set geoCodes(58)	"Earth radius"
-set geoCodes(59)	"Refraction"
+set geoCodes(46)	"Odchylenie standardowe"
+set geoCodes(47)	"Współrzędna północna"
+set geoCodes(48)	"Współrzędna wschodnia."
+set geoCodes(49)	"Odległość pionowa"
+set geoCodes(50)	"Numer zadania"
+set geoCodes(51)	"Data"
+set geoCodes(52)	"Czas"
+set geoCodes(53)	"ID operatora"
+set geoCodes(54)	"ID projektu"
+set geoCodes(55)	"ID instrumentu"
+set geoCodes(56)	"Temperatura"
+set geoCodes(57)	"Pusta linia"
+set geoCodes(58)	"Promień Ziemi"
+set geoCodes(59)	"Refrakcja"
 set geoCodes(60)	"Shot identity"
-set geoCodes(61)	"Activity code"
-set geoCodes(62)	"Reference object"
-set geoCodes(63)	"Diameter"
-set geoCodes(64)	"Radius"
-set geoCodes(65)	"Geometry"
+set geoCodes(61)	"Kod aktywności"
+set geoCodes(62)	"Przedmiot odniesienia"
+set geoCodes(63)	"Średnica"
+set geoCodes(64)	"Promień"
+set geoCodes(65)	"Geometria"
 set geoCodes(66)	"Figure"
 set geoCodes(67)	"SON"
 set geoCodes(68)	"SOE"
 set geoCodes(69)	"SHT"
 set geoCodes(72)	"Radoffs"
 set geoCodes(73)	"Rt.offs"
-set geoCodes(74)	"Air pressure"
+set geoCodes(74)	"Ciśnienie powietrza"
 set geoCodes(75)	"dHT"
 set geoCodes(76)	"dHD"
 set geoCodes(77)	"dHA"
 set geoCodes(78)	"com"
 set geoCodes(79)	"END"
-set geoCodes(80)	"Section"
+set geoCodes(80)	"Sekcja"
 set geoCodes(81)	"A-parameter"
-set geoCodes(82)	"Section interval"
+set geoCodes(82)	"Odstęp między częściami"
 set geoCodes(83)	"Cl.ofs"
-set geoCodes(100)	"Orientation angle"
-set geoCodes(101)	"Average orientation angle"
-set geoCodes(102)	"Prelim. orientation"
-set geoCodes(103)	"Average prelim. orientation"
-set geoCodes(110)	"Observer"
-set geoCodes(111)	"Point order"
-set geoCodes(112)	"Repeat count"
-set geoCodes(114)	"Direction stddev \[\"\]"
-set geoCodes(115)	"Distance stddev (additive) \[mm\]"
-set geoCodes(116)	"Distance stddev (multiplyer) \[ppm\]"
-set geoCodes(117)	"Total length"
-set geoCodes(118)	"Leveling stddev \[mm/km\]"
-set geoCodes(137)	"Northing prelim."
-set geoCodes(138)	"Easting prelim."
-set geoCodes(139)	"Height prelim."
-set geoCodes(140)	"EPSG code"
-set geoCodes(237)	"Northing stdev"
-set geoCodes(238)	"Easting stdev"
-set geoCodes(239)	"Height stdev"
+set geoCodes(100)	"Kąt orientacji"
+set geoCodes(101)	"Średni kąt orientacji"
+set geoCodes(102)	"Orientacja wstępna"
+set geoCodes(103)	"Średnia orientacja wstępna"
+set geoCodes(110)	"Obserwator"
+set geoCodes(111)	"Kolejność punktów"
+set geoCodes(112)	"Licznik powtórzeń"
+set geoCodes(114)	"Kierunek stddev \[\"\]"
+set geoCodes(115)	"Odległość stddev (additive) \[mm\]"
+set geoCodes(116)	"Odległość stddev (multiplyer) \[ppm\]"
+set geoCodes(117)	"Długość całkowita"
+set geoCodes(118)	"Poziomowanie stddev \[mm/km\]"
+set geoCodes(137)	"wstępny X"
+set geoCodes(138)	"wstępny Y"
+set geoCodes(139)	"wstępny H"
+set geoCodes(140)	"kod EPSG"
+set geoCodes(237)	"odchylenie standardowe X"
+set geoCodes(238)	"odchylenie standardowe Y"
+set geoCodes(239)	"odchylenie standardowe H"
 
 #
 #	general messages button names
 #
-set geoEasyMsg(warning)		"warning"
-set geoEasyMsg(error)		"error"
-set geoEasyMsg(info)		"info"
+set geoEasyMsg(warning)		"ostrzeżenie"
+set geoEasyMsg(error)		"błąd"
+set geoEasyMsg(info)		"info."
 set geoEasyMsg(ok)			"OK"
-set geoEasyMsg(yes)			"Yes"
-set geoEasyMsg(no)			"No"
-set geoEasyMsg(cancel)		"Cancel"
-set geoEasyMsg(loadbut)		"Load"
-set geoEasyMsg(savebut)		"Save"
-set geoEasyMsg(all)			"All"
-set geoEasyMsg(ende)		"Finish"
-set geoEasyMsg(ignore)		"No warnings"
-set geoEasyMsg(wait)		"Wait"
-set geoEasyMsg(help)		"Help"
-set geoEasyMsg(find)		"Find"
-set geoEasyMsg(findNext)	"Find next"
-set geoEasyMsg(delete)		"Delete"
-set geoEasyMsg(add)			"Add"
-set geoEasyMsg(newObs)		"New observation"
-set geoEasyMsg(newSt)		"New station"
-set geoEasyMsg(newCoo)		"New point"
-set geoEasyMsg(insSt)		"Insert station record"
-set geoEasyMsg(delSt)		"Delete station record"
-set geoEasyMsg(finalCoo)	"Preliminary -> final coordinates"
-set geoEasyMsg(lastPoint)	"End point"
-set geoEasyMsg(browse)		"Browse ..."
-set geoEasyMsg(up)			"Up"
-set geoEasyMsg(down)		"Down"
+set geoEasyMsg(yes)			"Tak"
+set geoEasyMsg(no)			"Nie"
+set geoEasyMsg(cancel)		"Przerwij"
+set geoEasyMsg(loadbut)		"Otwórz"
+set geoEasyMsg(savebut)		"Zapisz"
+set geoEasyMsg(all)			"Wszystkie"
+set geoEasyMsg(ende)		"Zakończ"
+set geoEasyMsg(ignore)		"Bez ostrzeżeń"
+set geoEasyMsg(wait)		"Czekaj"
+set geoEasyMsg(help)		"Pomoc"
+set geoEasyMsg(find)		"Znajdź"
+set geoEasyMsg(findNext)	"Znajdź następny"
+set geoEasyMsg(delete)		"Usuń"
+set geoEasyMsg(add)			"Dodaj"
+set geoEasyMsg(newObs)		"Nowa obserwacja"
+set geoEasyMsg(newSt)		"Nowe stanowisko"
+set geoEasyMsg(newCoo)		"Nowy punkt"
+set geoEasyMsg(insSt)		"Wstaw stanowisko"
+set geoEasyMsg(delSt)		"Usuń stanowisko"
+set geoEasyMsg(finalCoo)	"Przybliżone -> ostateczne współrzędne"
+set geoEasyMsg(lastPoint)	"Punkt końcowy"
+set geoEasyMsg(browse)		"Przeglądaj ..."
+set geoEasyMsg(up)			"Góra"
+set geoEasyMsg(down)		"Dół"
 set geoEasyMsg(opensource)	"Open source GPL 2"
 #
 #	labels
