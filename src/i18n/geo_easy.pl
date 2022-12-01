@@ -17,25 +17,25 @@ set reglist { "Linia 2D" "Równoległe linie 2D" "Koło" \
 	"Sfera" "Linia 3D" "Kąt nachylenia płaszczyzn" } ;# "Vertical paraboloid" 
 
 set fileTypes {
-	{"GeoEasy format" {.geo .GEO}}
-	{"Geodimeter format" {.job .are .JOB .ARE}}
-	{"Sokkia set 4 format" {.set .scr .SET .SCR}}
-	{"Sokkia sdr format" {.sdr .crd .SDR .CRD}}
-	{"Leica GSI format" {.wld .gre .gsi .WLD .GRE .GSI}}
-	{"Leica IDEX format" {.idx .IDX}}
-	{"TopCon GTS-700 format" {.700 .yxz .gts7 .YXZ .GTS7}}
-	{"TopCon GTS-210 format" {.210}}
-	{"Trimble M5 format" {.m5 .M5}}
-	{"SurvCE RAW format" {.rw5 .RW5}}
-	{"n4ce txt format" {.n4c N4C}}
-	{"Nikon DTM-300 format" {.nik .NIK}}
-	{"Nikon RAW format" {.raw .RAW}}
-	{"FOIF format" {.mes .MES}}
-	{"Geodat 124 format" {.gdt .GDT}}
-	{"GeoProfi format" {.mjk .MJK}}
+	{"Format GeoEasy" {.geo .GEO}}
+	{"Format Geodimeter" {.job .are .JOB .ARE}}
+	{"Format Sokkia set 4" {.set .scr .SET .SCR}}
+	{"Format Sokkia sdr" {.sdr .crd .SDR .CRD}}
+	{"Format Leica GSI" {.wld .gre .gsi .WLD .GRE .GSI}}
+	{"Format Leica IDEX" {.idx .IDX}}
+	{"Format TopCon GTS-700" {.700 .yxz .gts7 .YXZ .GTS7}}
+	{"Format TopCon GTS-210" {.210}}
+	{"Format Trimble M5" {.m5 .M5}}
+	{"Format SurvCE RAW" {.rw5 .RW5}}
+	{"Format n4ce txt" {.n4c N4C}}
+	{"Format Nikon DTM-300" {.nik .NIK}}
+	{"Format Nikon RAW" {.raw .RAW}}
+	{"Format FOIF" {.mes .MES}}
+	{"Format Geodat 124" {.gdt .GDT}}
+	{"Format GeoProfi" {.mjk .MJK}}
 	{"współrzędne GeoProfi" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}
-	{"GeoCalc3 format" {.gmj .GMJ}}
-	{"GeoZseni format" {.gjk .GJK}}
+	{"Format GeoCalc3" {.gmj .GMJ}}
+	{"Format GeoZseni" {.gjk .GJK}}
 	{"Wykaz współrzędnych" {.txt .csv .dat .pnt .TXT .CSV .DAT .PNT}}
 	{"Fieldbook" {.dmp .DMP}}
 	{"plik DTM GRID" {.asc .arx .ASC .ARX}}
@@ -44,7 +44,7 @@ set fileTypes {
 }
 
 set saveTypes {
-	{"GeoEasy format" {.geo}}
+	{"Format GeoEasy" {.geo}}
 	{"Geodimeter współrzędne" {.are}}
 	{"Geodimeter pomiary i współrzędne" {.job}}
 	{"Sokkia set 4 współrzędne" {.scr}}
@@ -121,7 +121,7 @@ set mskTypes {{"GeoEasy mask" {.msk}}
 set lstTypes {{"Text list" {.lst}}
 }
 
-set webTypes {{"Home page" {.html}}
+set webTypes {{"Html" {.html}}
 }
 
 set docTypes {{"Rich Text Format" {.rtf}}
@@ -130,7 +130,7 @@ set docTypes {{"Rich Text Format" {.rtf}}
 set csvTypes {{"Comma Separated Values" {.csv}}
 }
 
-set tclTypes {{"Tcl script" {.tcl}}
+set tclTypes {{"skrypt Tcl" {.tcl}}
 }
 
 #
@@ -211,7 +211,7 @@ set geoCodes(68)	"SOE"
 set geoCodes(69)	"SHT"
 set geoCodes(72)	"Radoffs"
 set geoCodes(73)	"Rt.offs"
-set geoCodes(74)	"Ciśnienie powietrza"
+set geoCodes(74)	"Ciśnienie atmosferyczne"
 set geoCodes(75)	"dHT"
 set geoCodes(76)	"dHD"
 set geoCodes(77)	"dHA"
@@ -281,19 +281,19 @@ set geoEasyMsg(pattern)		"Wzorzec:"
 #	menu and title texts
 #
 set geoEasyMsg(maskTitle)		"Select mask"
-set geoEasyMsg(graphTitle)		"Graphic window"
-set geoEasyMsg(lbTitle)			"Select %d items"
-set geoEasyMsg(lbTitle1)		"Select at least %d items"
-set geoEasyMsg(lbTitle2)		"Select unknown points"
-set geoEasyMsg(lbTitle3)		"Select %d station"
-set geoEasyMsg(lbTitle4)		"Select coordinate"
-set geoEasyMsg(lbTitle5)		"Select known points"
-set geoEasyMsg(lbReg)			"Regression type"
-set geoEasyMsg(refTitle)		"Reference direction"
-set geoEasyMsg(soTitle)			"Point setting out"
-set geoEasyMsg(l1Title)			"First line"
-set geoEasyMsg(l2Title)			"Second line"
-set geoEasyMsg(p1Title)			"First point"
+set geoEasyMsg(graphTitle)		"Okno graficzne"
+set geoEasyMsg(lbTitle)			"Wybór %d elementów"
+set geoEasyMsg(lbTitle1)		"Wybór co najmniej %d elementów"
+set geoEasyMsg(lbTitle2)		"Wybór punktów nieznanych"
+set geoEasyMsg(lbTitle3)		"Wybór stacji %d"
+set geoEasyMsg(lbTitle4)		"Wybierz współrzędne"
+set geoEasyMsg(lbTitle5)		"Wybierz znane punkty"
+set geoEasyMsg(lbReg)			"Typ regresji"
+set geoEasyMsg(refTitle)		"Kierunek odniesienia"
+set geoEasyMsg(soTitle)			"Wyznaczenie punktów"
+set geoEasyMsg(l1Title)			"Pierwsza linia"
+set geoEasyMsg(l2Title)			"Druga linia"
+set geoEasyMsg(p1Title)			"Pierwszy punkt"
 set geoEasyMsg(p2Title)			"Second point"
 set geoEasyMsg(menuFile)		"Plik"
 set geoEasyMsg(menuFileNew)		"Nowy ..."
