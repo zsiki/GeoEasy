@@ -20,7 +20,7 @@ set comTypes {
 	{"TopCon GTS-210" {.210}}
 	{"Trimble M5" {.m5}}
 	{"Nikon DTM-300" {.nik}}
-	{"Geodat 124 form√°tum" {.dat}}
+	{"Geodat 124 form·tum" {.dat}}
 	{"All files" {.*}}
 }
 
