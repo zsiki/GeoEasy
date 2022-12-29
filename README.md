@@ -44,7 +44,8 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 | German    | Gergely Szabó, Csaba Égető                                           |
 | Hungarian | [Zoltán Siki](https://github.com/zsiki)                              |
 | English   | Andras Gabriel, [Zoltán Siki](https://github.com/zsiki)              |
-| Spanish   | [Andres Herrera](https://github.com/AndresHerrera)   |
+| Spanish   | [Andres Herrera](https://github.com/AndresHerrera)                   |
+| Polish    | [Darek Strojecki](https://github.com/nalfgar)                        |
 
 ## Open source software/packages used
 
