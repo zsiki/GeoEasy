@@ -9,7 +9,7 @@ if {[llength $argv] > 2} {
 	exit
 }
 set lang "eng"
-set langs [list eng hun ger rus cze es]
+set langs [list eng hun ger rus cze es pl]
 set prog "geo"
 set prog1 "Geo"
 set progs [list geo com]
