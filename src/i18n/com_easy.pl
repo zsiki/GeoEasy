@@ -1,0 +1,100 @@
+#-------------------------------------------------------------------------------
+#	-- ComEasy message file
+#-------------------------------------------------------------------------------
+global comEasyMsg
+global fileTypes
+global comTypes
+global comSetTypes
+
+# saved Communication Parameters
+set comSetTypes {{"ComEasy parameters" {.com}}}
+
+# accepted file types for download
+set comTypes {
+	{"Geodimeter JOB" {.job}}
+	{"Geodimeter ARE" {.are}}
+	{"Sokkia set 4" {.scr}}
+	{"Sokkia sdr" {.sdr}}
+	{"Leica GSI" {.gsi}}
+	{"TopCon GTS-700" {.700}}
+	{"TopCon GTS-210" {.210}}
+	{"Trimble M5" {.m5}}
+	{"Nikon DTM-300" {.nik}}
+	{"Geodat 124 formátum" {.dat}}
+	{"All files" {.*}}
+}
+
+# window titles
+set comEasyMsg(comTitle)		"ComEasy V1.0"
+set comEasyMsg(digikom)			"Sponsor DigiKom Ltd."
+set comEasyMsg(about1)			"Serial Communication"
+set comEasyMsg(about2)			"For Land Surveyors"
+set comEasyMsg(parsTitle)		"Communication Parameters"
+set comEasyMsg(error)			"Error"
+
+# menu text
+set comEasyMsg(mComFile)		"Commands"
+set comEasyMsg(mComPars)		"Settings ..."
+set comEasyMsg(mComDir)			"Directory"
+set comEasyMsg(mComDownload)	"Download ..."
+set comEasyMsg(mComUpload)		"Upload ..."
+set comEasyMsg(mComStop)		"Abort"
+set comEasyMsg(mComExit)		"Exit"
+set comEasyMsg(mComHelp)		"Help"
+set comEasyMsg(mComHelp1)		"Help ..."
+set comEasyMsg(mComAbout)		"About ..."
+set comEasyMsg(mComStored)		"Stored Parameters"
+set comEasyMsg(mComPrint)		"Print"
+set comEasyMsg(mComPrintSelection)	"Print Selection"
+
+# label text
+set comEasyMsg(parsHead1)		"Line Parameters"
+set comEasyMsg(parsHead2)		"Communication Parameters"
+set comEasyMsg(parsHead3)		"Other Parameters"
+
+set comEasyMsg(parsPort)		"Chanel:"
+set comEasyMsg(parsBaud)		"Speed:"
+set comEasyMsg(parsParity)		"Parity:"
+set comEasyMsg(parsData)		"Data bits:"
+set comEasyMsg(parsStop)		"Stop bits:"
+set comEasyMsg(parsEofchar)		"EOF marker:"
+
+set comEasyMsg(parsBlocking)	"Blocking:"
+set comEasyMsg(parsTranslation)	"EOL marker:"
+set comEasyMsg(parsBuffering)	"Buffering:"
+set comEasyMsg(parsBuffsize)	"Buffer size:"
+set comEasyMsg(parsEncoding)	"Code page:"
+set comEasyMsg(parsInit)		"Initial sequence:"
+set comEasyMsg(parsQuery)		"Query record:"
+set comEasyMsg(parsSendquery)	"Record end:"
+set comEasyMsg(parsDir)			"Directory:"
+
+# button labels
+set comEasyMsg(ok)				"OK"
+set comEasyMsg(cancel)			"Cancel"
+set comEasyMsg(save)			"Save"
+set comEasyMsg(load)			"Load"
+
+# error messages
+set comEasyMsg(warning)			"warning"
+set comEasyMsg(helpfile)		"Help file not found"
+set comEasyMsg(browser)			"Help cannot be displayed\nregister your word html browser to open .html files"
+set comEasyMsg(gizidll)			"Setup error code=1"
+set comEasyMsg(comOpen)			"Error opening chanel"
+set comEasyMsg(comConfigure)	"Error configuring chanel"
+set comEasyMsg(cantSave)		"Error opening file for write"
+set comEasyMsg(cantOpen)		"Error opening file for read"
+set comEasyMsg(cantSource)		"Error loading parameter file"
+set comEasyMsg(cantRead)		"Error reading chanel"
+set comEasyMsg(cantWrite)		"Error writing chanel"
+set comEasyMsg(cantFRead)		"Error reading file"
+set comEasyMsg(cantFWrite)		"Error writing file"
+set comEasyMsg(noBlocking)		"Blocking communication not available yet"
+
+# info messages
+set comEasyMsg(waiting)			"Waiting for data ... (press Ctrl-Z to stop)"
+set comEasyMsg(comClose)		"Communication chanel closed"
+set comEasyMsg(comFClose)		"File closed"
+set comEasyMsg(eof)				"End of file"
+set comEasyMsg(loadgizi)		"Load data to GeoEasy?"
+set comEasyMsg(separator)		"---------------------"
