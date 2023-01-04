@@ -7,7 +7,7 @@ global comTypes
 global comSetTypes
 
 # saved Communication Parameters
-set comSetTypes {{"ComEasy parameters" {.com}}}
+set comSetTypes {{"parametry ComEasy" {.com}}}
 
 # accepted file types for download
 set comTypes {
@@ -20,81 +20,81 @@ set comTypes {
 	{"TopCon GTS-210" {.210}}
 	{"Trimble M5" {.m5}}
 	{"Nikon DTM-300" {.nik}}
-	{"Geodat 124 form�tum" {.dat}}
-	{"All files" {.*}}
+	{"Geodat 124 format" {.dat}}
+	{"Wszystkie pliki" {.*}}
 }
 
 # window titles
 set comEasyMsg(comTitle)		"ComEasy V1.0"
-set comEasyMsg(digikom)			"Sponsor DigiKom Ltd."
-set comEasyMsg(about1)			"Serial Communication"
-set comEasyMsg(about2)			"For Land Surveyors"
-set comEasyMsg(parsTitle)		"Communication Parameters"
-set comEasyMsg(error)			"Error"
+set comEasyMsg(digikom)			"Sponsorowany przez DigiKom Ltd."
+set comEasyMsg(about1)			"Komunikacja szeregowa"
+set comEasyMsg(about2)			"Dla geodetów"
+set comEasyMsg(parsTitle)		"Parametry komunikacji"
+set comEasyMsg(error)			"Błąd"
 
 # menu text
-set comEasyMsg(mComFile)		"Commands"
-set comEasyMsg(mComPars)		"Settings ..."
-set comEasyMsg(mComDir)			"Directory"
-set comEasyMsg(mComDownload)	"Download ..."
-set comEasyMsg(mComUpload)		"Upload ..."
-set comEasyMsg(mComStop)		"Abort"
-set comEasyMsg(mComExit)		"Exit"
-set comEasyMsg(mComHelp)		"Help"
-set comEasyMsg(mComHelp1)		"Help ..."
-set comEasyMsg(mComAbout)		"About ..."
-set comEasyMsg(mComStored)		"Stored Parameters"
-set comEasyMsg(mComPrint)		"Print"
-set comEasyMsg(mComPrintSelection)	"Print Selection"
+set comEasyMsg(mComFile)		"Polecenia"
+set comEasyMsg(mComPars)		"Ustawienia ..."
+set comEasyMsg(mComDir)			"Katalog/Folder"
+set comEasyMsg(mComDownload)	"Pobierz ..."
+set comEasyMsg(mComUpload)		"Wyślij ..."
+set comEasyMsg(mComStop)		"Przerwij"
+set comEasyMsg(mComExit)		"Wyjscie"
+set comEasyMsg(mComHelp)		"Pomoc"
+set comEasyMsg(mComHelp1)		"Pomoc ..."
+set comEasyMsg(mComAbout)		"O ..."
+set comEasyMsg(mComStored)		"Parametry zapisane"
+set comEasyMsg(mComPrint)		"Drukuj"
+set comEasyMsg(mComPrintSelection)	"Drukuj zaznaczone"
 
 # label text
-set comEasyMsg(parsHead1)		"Line Parameters"
-set comEasyMsg(parsHead2)		"Communication Parameters"
-set comEasyMsg(parsHead3)		"Other Parameters"
+set comEasyMsg(parsHead1)		"Parametry linii"
+set comEasyMsg(parsHead2)		"Parametry komunikacji"
+set comEasyMsg(parsHead3)		"Inne parametry"
 
-set comEasyMsg(parsPort)		"Chanel:"
-set comEasyMsg(parsBaud)		"Speed:"
-set comEasyMsg(parsParity)		"Parity:"
-set comEasyMsg(parsData)		"Data bits:"
-set comEasyMsg(parsStop)		"Stop bits:"
-set comEasyMsg(parsEofchar)		"EOF marker:"
+set comEasyMsg(parsPort)		"Kanał:"
+set comEasyMsg(parsBaud)		"Prędkość:"
+set comEasyMsg(parsParity)		"Parzystość:"
+set comEasyMsg(parsData)		"Bity danych:"
+set comEasyMsg(parsStop)		"Bity stopu:"
+set comEasyMsg(parsEofchar)		"Znacznik EOF:"
 
-set comEasyMsg(parsBlocking)	"Blocking:"
-set comEasyMsg(parsTranslation)	"EOL marker:"
-set comEasyMsg(parsBuffering)	"Buffering:"
-set comEasyMsg(parsBuffsize)	"Buffer size:"
-set comEasyMsg(parsEncoding)	"Code page:"
-set comEasyMsg(parsInit)		"Initial sequence:"
-set comEasyMsg(parsQuery)		"Query record:"
-set comEasyMsg(parsSendquery)	"Record end:"
-set comEasyMsg(parsDir)			"Directory:"
+set comEasyMsg(parsBlocking)	"Blokowanie:"
+set comEasyMsg(parsTranslation)	"Znacznik EOL:"
+set comEasyMsg(parsBuffering)	"Buforowanie:"
+set comEasyMsg(parsBuffsize)	"Rozmiar bufora:"
+set comEasyMsg(parsEncoding)	"Strona kodowa:"
+set comEasyMsg(parsInit)		"Sekwencja początkowa:"
+set comEasyMsg(parsQuery)		"Rekord zapytań:"
+set comEasyMsg(parsSendquery)	"Koniec rekordu:"
+set comEasyMsg(parsDir)			"Katalog/Folder:"
 
 # button labels
 set comEasyMsg(ok)				"OK"
-set comEasyMsg(cancel)			"Cancel"
-set comEasyMsg(save)			"Save"
-set comEasyMsg(load)			"Load"
+set comEasyMsg(cancel)			"Anuluj"
+set comEasyMsg(save)			"Zapisz"
+set comEasyMsg(load)			"Wczytaj"
 
 # error messages
-set comEasyMsg(warning)			"warning"
-set comEasyMsg(helpfile)		"Help file not found"
-set comEasyMsg(browser)			"Help cannot be displayed\nregister your word html browser to open .html files"
-set comEasyMsg(gizidll)			"Setup error code=1"
-set comEasyMsg(comOpen)			"Error opening chanel"
-set comEasyMsg(comConfigure)	"Error configuring chanel"
-set comEasyMsg(cantSave)		"Error opening file for write"
-set comEasyMsg(cantOpen)		"Error opening file for read"
-set comEasyMsg(cantSource)		"Error loading parameter file"
-set comEasyMsg(cantRead)		"Error reading chanel"
-set comEasyMsg(cantWrite)		"Error writing chanel"
-set comEasyMsg(cantFRead)		"Error reading file"
-set comEasyMsg(cantFWrite)		"Error writing file"
-set comEasyMsg(noBlocking)		"Blocking communication not available yet"
+set comEasyMsg(warning)			"ostrzeżenie"
+set comEasyMsg(helpfile)		"Nie znaleziono pliku pomocy"
+set comEasyMsg(browser)			"Nie można wyświetlić pomocy\nZarejestruj przeglądarkę www, aby otwierać pliki .html"
+set comEasyMsg(gizidll)			"Kod błędu konfiguracji=1"
+set comEasyMsg(comOpen)			"Błąd otwarcia kanału"
+set comEasyMsg(comConfigure)	"Błąd konfiguracji kanału"
+set comEasyMsg(cantSave)		"Błąd otwarcia pliku do zapisu"
+set comEasyMsg(cantOpen)		"Błąd otwarcia pliku do odczytu"
+set comEasyMsg(cantSource)		"Błąd wczytywania pliku parametrów"
+set comEasyMsg(cantRead)		"Błąd odczytu kanału"
+set comEasyMsg(cantWrite)		"Błąd zapisu kanału"
+set comEasyMsg(cantFRead)		"Błąd odczytu pliku"
+set comEasyMsg(cantFWrite)		"Błąd zapisu pliku"
+set comEasyMsg(noBlocking)		"Blokada komunikacji nie jest jeszcze dostępna"
 
 # info messages
-set comEasyMsg(waiting)			"Waiting for data ... (press Ctrl-Z to stop)"
-set comEasyMsg(comClose)		"Communication chanel closed"
-set comEasyMsg(comFClose)		"File closed"
-set comEasyMsg(eof)				"End of file"
-set comEasyMsg(loadgizi)		"Load data to GeoEasy?"
+set comEasyMsg(waiting)			"Oczekiwanie na dane ... (naciśnij Ctrl-Z, aby zatrzymać)"
+set comEasyMsg(comClose)		"Kanał komunikacyjny zamknięty"
+set comEasyMsg(comFClose)		"Plik zamknięty"
+set comEasyMsg(eof)				"Koniec pliku"
+set comEasyMsg(loadgizi)		"Wczytać dane do GeoEasy?"
 set comEasyMsg(separator)		"---------------------"
