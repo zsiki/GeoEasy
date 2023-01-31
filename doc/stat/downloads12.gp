@@ -24,7 +24,7 @@ set boxwidth 0.75
 
 set terminal png enhanced
 set output 'downloads12.png'
-plot for [i=2:10] 'last_12_months.txt' using i:xtic(1)
+plot for [i=2:11] 'last_12_months.txt' using i:xtic(1)
 
 # set terminal xterm
 # replot
