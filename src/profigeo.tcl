@@ -213,7 +213,7 @@ proc TxtCoo {fn fa {ff ""}} {
 	if {[catch {set f1 [open $fn r]}] != 0} {
 			return -1		;# cannot open input file
 	}
-	set codes [TxtCols {5 38 37 39 4} {5 38 37 39 4 111 138 137 139} $fn $ff]	;# order of values
+	set codes [TxtCols {5 38 37 39 4} {-1 5 38 37 39 4 111 138 137 139} $fn $ff]	;# order of values
 	if {[llength $codes] == 0} {
 		return -999
 	}
@@ -458,7 +458,8 @@ proc TxtCols {codes allCodes fn {ff ""}} {
 	}
 	button $this.1.2.add -text $geoEasyMsg(add) -command {
 		global tmpAllCodes
-		set al $geoCodes(-1)	;# skip
+		#set al $geoCodes(-1)	;# skip
+        set al {}
 		set ll [.txtcols.1.1.l get 0 end]
 		foreach c $tmpAllCodes {
 			if {[lsearch -exact $ll $geoCodes($c)] == -1} {
@@ -631,7 +632,7 @@ proc TxtGeo {fn fa {ff ""}} {
 	if {[catch {set f1 [open $fn r]}] != 0} {
 			return -1		;# cannot open input file
 	}
-	set codes [TxtCols {2 5 7 8 9 6 3} {2 5 7 8 9 6 3 11 4 10 120} $fn $ff]	;# order of values
+	set codes [TxtCols {2 5 7 8 9 6 3} {-1 2 5 7 8 9 6 3 11 4 10 120} $fn $ff]	;# order of values
 	if {[llength $codes] == 0} {
 		return -999
 	}
