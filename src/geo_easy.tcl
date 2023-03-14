@@ -297,11 +297,11 @@ proc GeoEasy {top} {
 					continue
 				}
 				regsub -all {\\} $name "/" name
-				regsub "^\{" $name "" name
-				regsub "\}$" $name "" name
+				#regsub "^\{" $name "" name
+				#regsub "\}$" $name "" name
 				switch -glob -- $name {
 					*.geo {
-						MenuLoad $top [file normalize $name]
+						MenuLoad $top "\{[file normalize $name]\}"  ;# hide spaces in name
 					}
                     *.dxf {
                         global bname battr bcode belev pnlay p3d pcodelayer block ptext dxfpnt skipdbl
