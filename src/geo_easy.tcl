@@ -257,7 +257,7 @@ proc GeoEasy {top} {
 		}
 		# overwrite log name if given
 		set logName [getopt "--log" $logName]  
-        set export [getopt "--exp" "csv"]
+        set export [getopt "--exp"]
         if {[getopt "--nogui" "--nopar"] == 1} { set nogui 1 }	;# turn of gui
 	}
 
