@@ -200,35 +200,20 @@ proc GeoEasy {top} {
 	if {$help == 1} {
 		puts $geoEasyMsg(mainTitle)
 		puts ""
-		if {$help == "authors"} {
-			puts "Authors:"
-			puts "zvezdochiot <zvezdochiot@github.com>"
-			puts "Bence Takacs <takacsbence@github.com>"
-			puts "Andres Herrera <AndresHerrera@github.com>"
-			puts "Copyright (c) 2017-[clock format [clock seconds] -format "%Y"], Zoltan Siki <zsiki@github.com>."
-		} elseif {$help == "modules"} {
-			global ge_sources
-			if {! [info exists ge_sources]} { source $home/sources.tcl }
-			puts "Modules: [lsort $ge_sources]"
-		} elseif {$help == "version"} {
-			puts "Changes:"
-			puts "See on GitHub"
-		} else {
-			puts "Usage: geoeasy \[options\] \[files\]"
-			puts " options:"
-			puts "  --help \[string\] - print help info and exit {authors, modules, version}"
-			puts "  --lang \[string\] - switch to a different language {[lsort [array names geoLangs]]}, default=auto"
-			puts "  --log \[string\] - select log {path/to/file.log | stdout | stderr}, default=$logName"
-            puts "  --exp extension - export files from command line with the given extension"
-			puts "  --nogui - process command line files and exit"
-			puts " files:"
-			puts "  optional list of files of four types"
-			puts "    geo_easy data files (.geo, .gsi, etc.) to load"
-			puts "    geo_easy project file (.gpr) to load"
-			puts "    tcl script files (.tcl) to execute/load"
-			puts "    mask definition files (.msk) to load"
-			puts " the order of the files in the command line is the order of processing"
-		}
+        puts "Usage: geoeasy \[options\] \[files\]"
+        puts " options:"
+        puts "  --help \[string\] - print help info and exit {authors, modules, version}"
+        puts "  --lang \[string\] - switch to a different language {[lsort [array names geoLangs]]}, default=auto"
+        puts "  --log \[string\] - select log {path/to/file.log | stdout | stderr}, default=$logName"
+        puts "  --exp extension - export files from command line with the given extension"
+        puts "  --nogui - process command line files and exit"
+        puts " files:"
+        puts "  optional list of files of four types"
+        puts "    geo_easy data files (.geo, .gsi, etc.) to load"
+        puts "    geo_easy project file (.gpr) to load"
+        puts "    tcl script files (.tcl) to execute/load"
+        puts "    mask definition files (.msk) to load"
+        puts " the order of the files in the command line is the order of processing"
 		exit 0
 	}  
 	# process command line switches
@@ -287,6 +272,7 @@ proc GeoEasy {top} {
 	set geoModules [GeoModules 0xFFFF]	;# enable all modules
 
 	# process command line file arguments
+    set defered_log ""  ;# log messages for command line loaded data files
 	if {[llength $argv] > 0} {
 		foreach arg $argv {
 			set name [string trim $arg]
@@ -331,6 +317,8 @@ proc GeoEasy {top} {
 						MenuLoad $top $name
 					}
 				}
+
+                lappend defered_log "$name $geoEasyMsg(load)"
 			}
 		}
 	}
@@ -366,6 +354,8 @@ proc GeoEasy {top} {
 		exit 0
 	}
 
+    # change directory to the script directory
+    catch {cd "$home"}
 #	toolbar images for graph window
 	image create bitmap zoom_in -file [file join $home bitmaps bar zoom_in.xbm]
 	image create bitmap zoom_out -file [file join $home bitmaps bar zoom_out.xbm]
@@ -620,7 +610,9 @@ proc GeoEasy {top} {
 
 	$top configure -menu $topw.menu
 	GeoLog $geoEasyMsg(start)
-
+    foreach log1 $defered_log {
+        GeoLog $log1
+    }
 #	catch {raise $top .log}
 #	catch {raise $top}
 }
