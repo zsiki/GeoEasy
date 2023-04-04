@@ -2008,7 +2008,7 @@ proc GeoVolumeDif {} {
 			[file join $oldTinPath "${oldTinLoaded}-${tinLoaded}.asc"]]
 		UnloadTin
 		LoadTin [file join $oldTinPath $oldTinLoaded]	;# restore oroginal TIN
-		catch {file delete $gridname1 $gridname2}
+#		catch {file delete $gridname1 $gridname2}
 		GeoLog1
 		GeoLog "$geoEasyMsg(menuDtmVolumeDif) [file join $oldTinPath $oldTinLoaded] - $tp"
 		GeoLog1 [format $geoEasyMsg(griddx1) $gridDX]
@@ -2442,7 +2442,6 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 		}
 	}
 	# calculate grid values
-    set area_limit [expr {$dx * $dx / 100.0}]
 	foreach i [array names ${tin}_ele] {
 		set triang [set ${tin}_ele($i)]
 		set p1 [set ${tin}_node([lindex $triang 0])]
@@ -2458,10 +2457,6 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 		set y3 [lindex $p3 1]
 		set z3 [lindex $p3 2]
 		set area0 [Area $x1 $y1 0 $x2 $y2 0 $x3 $y3 0]
-        if {$area0 < $area_limit} {
-            # GeoLog1 "Area below limit $area0" 
-            continue
-        }
 		set xmin [min $x1 $x2 $x3]
 		set ymin [min $y1 $y2 $y3]
 		set zmin [min $z1 $z2 $z3]
@@ -2477,7 +2472,7 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
 				set area2 [Area $x1 $y1 0 $x3 $y3 0 $xgrid $ygrid 0]
 				set area3 [Area $x3 $y3 0 $x2 $y2 0 $xgrid $ygrid 0]
 				set area123 [expr {$area1 + $area2 + $area3}]
-				if {[expr {abs($area0 - $area123)}] < 0.01} {
+				if {[expr {abs(($area0 - $area123) / $area0)}] < 0.01} {
 					# normal vector (dy1 dx1 dz1) x (dy2 dx2 dz2)
 					set dx1 [expr {double($x1 - $x2)}]
 					set dy1 [expr {double($y1 - $y2)}]
@@ -2496,16 +2491,14 @@ proc tin2grid {gridname dx {xmi ""} {ymi ""} {xma ""} {yma ""} {vrml 0}} {
                     set c [expr {$c / $w}]
                     set d [expr { -($a * $x1 + $b * $y1 + $c * $z1)}]
                     set zz [expr {(-$d - $a * $xgrid - $b * $ygrid) / $c}]
-# TBD miert esik kivul az interpolalt ertek????
 					if {$zmin > $zz} {
 						set zz $zmin
-#						GeoLog1 "min $zz - $zmin"
 					}
 					if {$zz > $zmax} {
 						set zz $zmax
-#						GeoLog1 "max $zz - $zmax"
 					}
 					set grd($j,$k) $zz
+                    continue
 				}
 			}
 		}
