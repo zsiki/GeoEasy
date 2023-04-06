@@ -2008,7 +2008,7 @@ proc GeoVolumeDif {} {
 			[file join $oldTinPath "${oldTinLoaded}-${tinLoaded}.asc"]]
 		UnloadTin
 		LoadTin [file join $oldTinPath $oldTinLoaded]	;# restore oroginal TIN
-#		catch {file delete $gridname1 $gridname2}
+		catch {file delete $gridname1 $gridname2}
 		GeoLog1
 		GeoLog "$geoEasyMsg(menuDtmVolumeDif) [file join $oldTinPath $oldTinLoaded] - $tp"
 		GeoLog1 [format $geoEasyMsg(griddx1) $gridDX]
