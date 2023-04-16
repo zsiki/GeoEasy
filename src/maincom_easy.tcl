@@ -41,15 +41,17 @@ proc CenterWnd {this} {
 		set auto_path [linsert $auto_path 0 $home]
 	}
 
-	if {[file isfile [file join $home com_easy.hun]] == 0 || \
-			[file readable [file join $home com_easy.hun]] == 0} {
-		geo_dialog .msg "Hiba" "Az uzenet fajlt (com_easy.hun) nem talalom" \
+    set msg_file [file join $home i18n com_easy.eng]
+puts $msg_file
+	if {[file isfile $msg_file] == 0 || \
+			[file readable $msg_file] == 0} {
+		geo_dialog .msg "ERROR" "Message file not found (com_easy.eng)" \
 			error 0 OK
 		exit
 	}
 
-	if {[catch {source [file join $home com_easy.hun]} msg] == 1} {
-		geo_dialog .msg "Hiba" "Hiba az uzenet fajlban:\n$msg" error 0 OK
+	if {[catch {source $msg_file} msg] == 1} {
+		geo_dialog .msg "ERROR" "Error in message file:\n$msg" error 0 OK
 		exit
 	}
 	
