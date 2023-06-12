@@ -693,7 +693,7 @@ proc CooPageMask {fn w step} {
 	global maskName
 	global geoNum entryRow
 
-GeoValid [focus]
+    GeoValid [focus]
 	set maskn $maskName($w)
 	set coo ${fn}_coo
 	global $coo
@@ -1111,7 +1111,7 @@ proc ANG1 {val} {
     }
     return $w
 }
-    
+ 
 #
 #   Convert distance/coordinate to string
 #   @param val distance/coordinate
@@ -1207,7 +1207,7 @@ proc GON {val {unit "rad"}} {
 }
 
 #
-#	Convert anle in rad or sec to decimal degrees
+#	Convert angle in rad or sec to decimal degrees
 #	@param angle angle to convert
 #	@param unit angle unit rad/sec
 #	@return agnle in decimal degree
@@ -1348,7 +1348,6 @@ proc GeoValid {w} {
 			[$w cget -state] == "disabled"} {
 		return 0
 	}
-	# avoid store using up and down arrow
 	if {[info exists lastW] && $w != $lastW} { return 0 }
 	set val [$w get]
 	set origVal $val
@@ -1597,6 +1596,7 @@ proc GeoFmtCode {fmt} {
 		"^FEET" -
 		"^OL" -
 		"^FLOAT$" -
+        "^DST$" -
 		"^DEC \[0-9\]+\.?\[0-9\]+$" {return 2}
 		"^DMS1?$" {return 3}
 	}
