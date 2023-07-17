@@ -1730,7 +1730,29 @@ Sample par file:
 poly file
 ~~~~~~~~~
 
-To be done.
+Poly file is the ASCII input file for TIN creation. It has 3 parts, all
+parts have a header line with the number of items.
+
+Nodes:
+
+	* *number_of_nodes* 2 1 0	# header row for nodes
+	* *node_id* *easting* *northing* *elevation*	# coordinates of nodes
+
+Break/boundary lines:
+
+	* *number_of_edges* 0	# header for break lines
+	* *edge_id* *point1_id* *point2_id* 1	# edge data
+
+Holes:
+
+	* *number_of_holes*
+	* *hole_id* *easting* *northing*	* hole data
+
+Sample poly file:
+
+.. code:: ascii
+
+	TODO
 
 gpr file
 ~~~~~~~~
