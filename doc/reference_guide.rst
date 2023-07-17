@@ -1426,10 +1426,14 @@ must be draw before by the *Break line* tool. If no break lines given the
 Hole markers can be added by the *Hole marker* tool to supress triangle
 generation in a closed area.
 
-TIN can be created from a DXF file where 3D points and 3D lines/polylines are
-given. Select one of the *Layer list* buttons first to select the input file
+TIN can be created from a DXF file where 3D points and 2d/3D lines/polylines are
+given. 2D lines/polylines are accepted if there are 3D point at each vertices/endpoints
+of the 2D line/polyline.
+Select one of the *Layer list* buttons first to select the input file
 and select one or more layers for mass point, break lines and hole markers.
 
+A text file may also be used where the points, break/boundary lines, and hole markers are 
+given. See the appendix for the poly file format.
 
 .. figure:: rg_images/tin.png
 	:align: center
@@ -1722,6 +1726,11 @@ Sample par file:
 .. code:: ascii
 
 	{51 2019-01-24} {55 "Leica TPS 1201"} {114 1} {115 1.5} {116 1}
+
+poly file
+~~~~~~~~~
+
+To be done.
 
 gpr file
 ~~~~~~~~
