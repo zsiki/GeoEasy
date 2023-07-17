@@ -1748,11 +1748,26 @@ Holes:
 	* *number_of_holes*
 	* *hole_id* *easting* *northing*	* hole data
 
-Sample poly file:
+Sample poly file (all lines are not listed):
 
 .. code:: ascii
 
-	TODO
+	28 2 1 0
+	0 655483.387 259981.825 104.214
+	1 655488.880 259980.579 105.682
+	2 655487.053 260001.982 104.236
+	3 655491.984 259979.980 106.946
+	4 655490.166 260001.209 104.768
+	...
+	28 0
+	0 0 1 1
+	1 1 3 1
+	2 3 6 1
+	3 6 9 1
+	...
+	1
+	0 655500.09 260009.52
+
 
 gpr file
 ~~~~~~~~
