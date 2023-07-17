@@ -19,7 +19,7 @@ output formats, so it can easily be inserted into user's work-flow.
 Starting the program
 --------------------
 
-The Windows setup place az icon on the desktop and add an item to the programs menu. On Linux the program should be started from the command line.
+The Windows setup places az icon on the desktop and adds an item to the programs menu. On Linux the program should be started from the command line.
 GeoEasy accepts command line parameters. The language of the user interface
 can be selected and input data set can be given.
 
@@ -29,11 +29,33 @@ can be selected and input data set can be given.
 	Open a cmd window, change 
 	directory to the GeoEasy installation folder (c:\GeoEasy is the default),
 	finally enter *GeoEasy* to start the program.
+Using the --help parameter you can see the available command line
+options, all are optional
+
+.. code:: bash
+
+	./geo_easy.tcl --help
+	GeoEasy 3.2.1
+
+	Usage: geoeasy [options] [files]
+ 	options:
+  	--help [string] - print help info and exit {authors, modules, version}
+  	--lang [string] - switch to a different language {cze eng es ger hun pl rus}, default=auto
+  	--log [string] - select log {path/to/file.log | stdout | stderr}, default=/home/siki/geo_easy.log
+  	--exp extension - export files from command line with the given extension
+  	--nogui - process command line files and exit
+ 	files:
+  		optional list of files of four types
+    		geo_easy data files (.geo, .gsi, etc.) to load
+    		geo_easy project file (.gpr) to load
+    		tcl script files (.tcl) to execute/load
+    		mask definition files (.msk) to load
+ 	the order of the files in the command line is the order of processing
 
 GeoEasy by default uses the language of the operating system if it is
 available (GeoEasy has been localized to that language).
-Five languages are supported when writing this documentation:
-English, German, Russian, Czeh and Hungarian.
+Seevn languages are supported when writing this documentation:
+Czeh, English, German,  Hungarian, Polish, Russian and Spanish.
 
 You can switch to a different language from the default by the *--lang* 
 command line switch. The ISO 639-1 two or ISO 639-2/B three letters codes 
@@ -48,7 +70,7 @@ calculation results window. The default location of the log file is the
 user's home directory and the name is *geo_easy.log*. Using the *--log*
 command line parameter the name and the location of the log file can be
 given in the command line. The actual user must have write access to the given 
-lg file. For example:
+log file. For example:
 
 .. code:: bash
 
@@ -59,7 +81,7 @@ lg file. For example:
 	If no log file needed for you, you can specify *--log /dev/null* to 
 	supress logging. There are two more special log file specifications,
 	the *stdout* and the *stderr*. Giving one of these as log file, the
-	log messages are sent to the teminal window.
+	log messages are sent to the terminal window.
 
 After the optional language and log switches you can give a serie of
 GeoEasy data sets and/or Tcl scripts. For example:
@@ -68,10 +90,19 @@ GeoEasy data sets and/or Tcl scripts. For example:
 
 	geoeasy --lang hun ~/demodata/test1.geo ./startup.tcl
 
+Using the --exp and --nogui options you can use GeoEasy as a batch data
+converter
+
+.. code:: bask
+
+	geoeasy --nogui --exp csv demodata/test1.geo
+
+You will get the test1.csv file in the folder ofthe input file.
+
 GeoEasy main window
 -------------------
 
-Starting the program the main window appears at the upper left corner of the 
+Starting the program (without the nogui parameter) the main window appears at the upper left corner of the 
 display. This window has only menus and decorations. If the globe is not
 rotating the program is busy, the user have to wait.
 
@@ -114,9 +145,7 @@ Averages are calculated if the collimation and index errors are below the
 
 .. note::
 	The name of the loaded data sets must be unique even if they were
-	loaded from different folders. For technical reasosns an underline 
-	character is inserted at the beginning of the name, if the filename starts
-	with a number.
+	loaded from different folders.
 
 Loading flexible format files
 .............................
@@ -170,8 +199,8 @@ also be used. It works as the Linux *grep* command.
 
 At the bottom part of the dialog the first five rows of the input file are shown.
 
-The **Save** and **Load** button can be used to save or load setting to/from
-a Txt/csv file definition (\*.txp). Be careful, the saved file definitions for 
+The **Save** and **Load** buttons can be used to save or load setting to/from
+a txt/csv file definition (\*.txp). Be careful, the saved file definitions for 
 .dmp and .csv files are not compatible (available column sets are different).
 
 Close
@@ -1866,7 +1895,7 @@ order.
 
 .. note::
 
-    Do not uses multi lines to set a single parameter is you edit the file manualy
+    Do not uses multi lines to set a single parameter if you edit the file manualy.
 
 .. note::
 
