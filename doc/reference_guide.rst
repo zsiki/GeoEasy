@@ -1,4 +1,4 @@
-GeoEasy 3.1
+GeoEasy 3.2
 ===========
 Reference Guide
 ===============
@@ -392,7 +392,8 @@ Other parameters
 Language:
 	Language of the user interface. You have to save parameters and restart
 	the program to take affect. Setting this disables the automatic language 
-	selection 
+	selection. You can also change language for the actual session using --lang 
+	command line option.
 
 Separator in exported lists:
 	Separator character used in CSV export.
@@ -410,14 +411,14 @@ Use detail points in orientation and adjustment:
 	GeoEasy consider a point as detail point if its ID is number, it was not
 	a station and only a polar observation is in the field-book for that
 	point. These points are not selectable in orientation and network 
-	adjustment.
+	adjustment if this option is off.
 
 Default fieldbook mask:
 	The name of the default fieldbook mask. You can select from the loaded
 	masks.
 
 Default coordinate mask:
-	The name of the default fieldbook mask. You can select from the loaded
+	The name of the default coordinate list mask. You can select from the loaded
 	masks.
 
 Number of rows in masks:
@@ -428,7 +429,7 @@ Browser:
 	It is a Linux only parameter.
 
 RTF viewer:
-	The path to the dociment viewer program for RTF files.
+	The path to the document viewer program for RTF files.
 	It is a Linux only parameter.
 
 Save parameters
@@ -505,7 +506,7 @@ Load mask definitions
 .....................
 
 Starting GeoEasy the mask definitions are loaded from the geo_easy.msk file.
-Using this menu option mask definitions can be loaded from user created
+Using this menu option additional mask definitions can be loaded from user created
 file.
 
 Calculate menu
@@ -520,7 +521,7 @@ Orientations
 
 This menu option calculates orientations for all unoriented known stations.
 The results are listed in the **Calculation results** window and the orientation
-angles are stored in the field-books.
+angles are stored in the field-books. You can view otientation angles if you change the mask to *orientation*
 
 .. code:: text
 
@@ -567,7 +568,7 @@ The calculation results are sent to **Calculation results** window.
 
 .. note::
 
-	Travesing points can be selected in the graphic window, too.
+	Travesing points can be selected by the mouse in the graphic window, too.
 
 Traversing node
 ...............
@@ -582,7 +583,7 @@ Trigonomerical line
 
 This menu option calculates the elevations in a traverse line using
 triginometric height calculation. Zenith angles have to be measured
-between tranversing points. The points in thetrigonometric line are
+between tranversing points. The points in the trigonometric line are
 selected from the list of possible points.
 
 The calculation results are sent to **Calculation results** window.
@@ -590,7 +591,7 @@ The calculation results are sent to **Calculation results** window.
 Trigonometrical node
 ....................
 
-Similiar to the traversing node, three or more free traversing lines
+Similiar to the traversing node, three or more free trigonometric lines
 having the same endpoint are calculated.
 
 
@@ -617,7 +618,7 @@ Length
 ......
 
 The lengths between a serie of points can be calculated. 
-Both the total length and the individual distences are shown in the
+Both the total length and the individual distances are shown in the
 *Calculation results* window. There is a tool in the graphic window,
 where you can mark points by the mouse.
 
@@ -636,7 +637,7 @@ Area
 ....
 
 The area of a polygon can be calculated. Beside the area the perimeter and
-side length are displayed in *Calulation results* window. 
+side lengths are displayed in *Calulation results* window. 
 There is a tool in the graphic window,
 where you can mark points by the mouse.
 
@@ -658,7 +659,7 @@ Arc setting out
 The coordinates of arc points can be calculated here. Pure arc and 
 arc with transition curves are both allowed. Three points have to be
 specified, first the intersection of tangents, an arbitrary point on the
-incoming and outgoing tangent. Finally the otherr parameters of the arc
+incoming and outgoing tangent. Finally the other parameters of the arc
 have to be given in a dialog box.
 
 .. figure:: rg_images/arc.png
@@ -690,7 +691,7 @@ belongs to network adjustment. Preliminary coordinates have different colour
 (red is the default) in the coordinate list and in the graphic window.
 
 Preliminay coordinates and orientations are calculated in an iteration. You 
-may get a message about points which horizontal coordinates or elevation
+may get a message about points which horizontal coordinates or elevations
 cannot be calculated for.
 
 Recalculate preliminary coordinates
@@ -721,7 +722,7 @@ First you have to select unknown points from a list, the coordinates of these
 points are changed during the calculations. The list contains all points 
 having preliminary or final coordinates considering the dimension of the
 adjusted network (e.g. incase of 3D adjustment points having 3D coordinates
-are listed). At least one point have to be selected.
+are listed only). At least one point have to be selected.
 
 .. figure:: rg_images/adj1_3d.png
 	:align: center
@@ -737,13 +738,17 @@ free network adjusment is calculated.
 
 	Fixed points selection
 
-GeoEasy will prepare an xml file for GNU Gama with the coordinats of the 
+Observations between the points selected in the two lists are considered in the
+adjustment calculation.
+
+GeoEasy will prepare an xml file for GNU Gama with the coordinates of the 
 selected points and observations among the selected unknown and fixes points.
 The calculation is made by GNU Gama and the results of the calculation is
-shown in thecalculation results window. Please use GNU Gama documentation
-for the details of the result list.
+shown in the calculation results window. Please use GNU Gama documentation
+for the details of the result list. You can set a short output list in
+the **Adjustment parameters** dialog.
 The coordinates of the unknown points are updated in the coordinate lists 
-after adjustent.
+after adjusment.
 
 Coordinate transformation
 .........................
@@ -753,16 +758,17 @@ target data set. The transformation parameters are calculated from the
 common points. Do not open the target data set before the calculation.
 
 Selecting the coordinate transformation from the menu, you are asked for the
-target data set. It must be in GeoEasy .geo format. The program pop up a list
-of the common points, select as many point as you would like, but please
+target data set. It must be in GeoEasy .geo format. The program pops up a list
+of the common points among the loaded data sets and the target one, 
+select as many points as you would like, but please
 consider that, the available transformation types depends on the number of
-points you selected. The available transformation are:
+points selected. The available transformation are:
 
 #. 4 parameters orthogonal transformation (minimum 2 common points)
 #. 3 parameters orthogonal transformation (minimum 2 common points, no scale change)
 #. Affine transformation (minimum 3 common points)
-#. 2nd order polynom transformation (minimum 6 common points)
-#. 3rd order polynom transformation (minimum 10 common points)
+#. 2nd order polynomial transformation (minimum 6 common points)
+#. 3rd order polynomial transformation (minimum 10 common points)
 
 The parameters are estimated using the least squares method (LSM).
 
@@ -771,8 +777,8 @@ The parameters are estimated using the least squares method (LSM).
 
 	Transformation type selection
 
-The transformation parameters and the transformed coordinates are list in the 
-*Calculation resutls* window and optionally the coordinates are written to the 
+The transformation parameters and the transformed coordinates are listed in the 
+*Calculation results* window and optionally the coordinates are written to the 
 target data set if the *Savetransformed coordinates to file* option is
 selected. The transformation parameters are also written to a text file, if
 *Save transformation parameters to file*  option is selected (check the *prm*
@@ -817,12 +823,12 @@ set. It is very similar to the coordinate transformation, but a single vertical
 offset is calculated between the two vertical system. The offset parameter
 can be saved to a *vhs* text file (see appendix for file format).
 
-
 New detail points
 .................
 
 Calculate horizontal coordinates and elevations for all detail ponts which
-have no final coordinates yet.
+have no final coordinates yet. Missing orientations are calculated on
+stations.
 
 All detail point
 ................
@@ -835,11 +841,13 @@ already calculated.
 
 This calculation calculates 3D positions from directions and
 zenith angles measured from the end points of one or more base lines.
+Horizontal coordinates are calculated from intesections, elevations are 
+calculated from triginometric heightings.
 
 Windows menu
 ~~~~~~~~~~~~
 
-From the windows menu new windows can be opened and the user can switch 
+From the **Windows** menu new windows can be opened and the user can switch 
 among opened windows.
 
 New graphic window
@@ -852,7 +860,7 @@ display options in graphic windows.
 Log window
 ..........
 
-Only one log window can be opened. It shows the resuts of calculations.
+Only one log window can be opened. It shows the resuts of calculations also.
 The content of the log vindow is mirrored in the log file (even if the log 
 window is closed).
 
@@ -879,14 +887,14 @@ Help menu
 The Help menu contains two options, Help and About. Both of them display a
 small dialog box. The Help box contains only a link to documentation folder 
 on the Github page of the program. The About box shows version,
-modules and copyright info. The date in the About box is importan for 
+modules and copyright info. The date in the About box is important for 
 development (nightly build) versions. The version number is not changed for
 development versions but the date.
 
 GeoEasy field-book window
 -------------------------
 
-You can open a field-book window from the main window Edit/Observations menu.
+You can open a field-book window from the main window **Edit/Observations** menu.
 In the field-book window you can view and edit field-books. Each loaded 
 field-book is opened in a separate window.
 The actually displayed values from the field-book depend on the actual 
@@ -911,12 +919,8 @@ field-book formats in the default configuration file (*geo_easy.msk*):
 - *levelling* (Station number, Point number, Heigh diff, Distance)
 - *orientation* (Station number, Point number, Horizontal angle, Orientation angle)
 - *tahimeter* (Station number, Point number, Signal height, Horizontal angle, Vertical angle, Distance)
-- *tahimeter1* (same as tahimeter but angles precision is 0.1 seconds)
 - *tahimeter_code* (Station number, Point number, Point code, Signal height, Horizontal angle, Vertical angle, Distance)
-- *tahimeter_deg* (sme as tahimeter but angles are in degrees with four decimals)
 - *tahimeter_dm* (Station number, Point number, Signal height, Horizontal angle, Height diff, Distance)
-- *tahimeter_feet* (same as tahimeter_code but distances are in feet)
-- *tahimeter_gon* (same as tahimeter but angles are in gradians/gons)
 
 The default mask is *tahimeter*. The user can customise existing masks and can
 add new masks editing *geo_easy.msk* file or can create new files for mask 
