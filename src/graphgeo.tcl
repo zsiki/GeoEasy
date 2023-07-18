@@ -1376,12 +1376,14 @@ proc PolyPoint {this x y} {
 	if {$toolbarMode($this) == 7} {		;# traverse point
 		set stlist [GetStation $pn]		;# check multiply occupied stations
 		if {[llength $stlist] > 1} {
-			set ref [lindex [GeoListbox $stlist {0 1} \
-				$geoEasyMsg(lbTitle3) 1] 0]
-			if {$ref == ""} {
+            set vlist [InternalToShort $stlist]
+            set vlist [lindex [GeoListbox $vlist {0 1} \
+                    $geoEasyMsg(lbTitle3) 1] 0]
+			if {$vlist == ""} {
 				Beep
 				return
 			}
+            set ref [ShortToInternal $vlist]
 		} elseif {[llength $stlist] == 1} {
 			set ref [lindex $stlist 0]
 		} else {
