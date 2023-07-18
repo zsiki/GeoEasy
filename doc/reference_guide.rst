@@ -316,6 +316,14 @@ Calculation parameters
 
 	Calculation parameters
 
+Angle units
+	angle units used in field-book and calculation results windows
+	(DMS, GON, DMS1, DEG)
+
+Distance units
+	distance and coordinate units used in the mask and calculation results windows
+	(m, feet)
+
 Reduction for projection [mm/km]:
 	the change of the distances caused by the projection
 
