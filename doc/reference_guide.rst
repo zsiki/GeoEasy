@@ -474,7 +474,7 @@ stations.
 
 	Observations
 
-The field-book contains two type of rows, station and obeservation records.
+The field-book contains two type of rows, station and observation records.
 In the station records the station number is editable but the target point 
 number not. The column headers may contain more labels, for example *target
 height* and *instrument height*. The colour of the value defines the type of 
@@ -515,7 +515,9 @@ Load mask definitions
 
 Starting GeoEasy the mask definitions are loaded from the geo_easy.msk file.
 Using this menu option additional mask definitions can be loaded from user created
-file.
+file. You can create your own mask definitions in a file. It can be loaded by 
+this menu option. You can also extend the mask definitions in the geo_easy.msk file
+but if you upgrade GeoEasy to a new version you will lost your own mask definitions
 
 Calculate menu
 ~~~~~~~~~~~~~~
@@ -529,7 +531,7 @@ Orientations
 
 This menu option calculates orientations for all unoriented known stations.
 The results are listed in the **Calculation results** window and the orientation
-angles are stored in the field-books. You can view otientation angles if you change the mask to *orientation*
+angles are stored in the field-books. You can view otientation angles if you change the mask to *orientation*.
 
 .. code:: text
 
@@ -577,6 +579,7 @@ The calculation results are sent to **Calculation results** window.
 .. note::
 
 	Travesing points can be selected by the mouse in the graphic window, too.
+	See traversing tool.
 
 Traversing node
 ...............
@@ -954,13 +957,13 @@ Refresh the content of actual window.
 New station
 ...........
 
-This adds a new station to the end of the field-book. Enter the station ID in 
+This adds a new station record to the end of the field-book. Enter the station ID in 
 the small dialog box.
 
 Coordinate list
 ...............
 
-This opens a new coordinate list windows belonging to this field-book.
+This opens a new coordinate list window belonging to this field-book.
 
 Check field-book
 ................
@@ -977,17 +980,20 @@ GeoEasy format.
 Save as CSV
 ...........
 
-Save field-book data into a given file in coma separated values format.
+Save field-book data into a given file in coma separated values format. 
+The fields displayed in the actual mask are exportted only.
 
 Save as RTF
 ...........
 
 Save field-book data into a given file in rich text format.
+The fields displayed in the actual mask are exportted only.
 
 Save as HTML
 ............
 
 Save field-book data into a given file in hyper text markup language format.
+The fields displayed in the actual mask are exportted only.
 
 Close
 .....
@@ -1003,6 +1009,9 @@ for the convenience of the user.
 
 Help menu
 ~~~~~~~~~
+
+**Hép** option shows a links to GitHub doc pages. **About** shows version number, date and 
+active modules.
 
 Popup menu
 ~~~~~~~~~~
@@ -1114,7 +1123,7 @@ these values in the orientation mask).
 Appr. orientation
 +++++++++++++++++
 
-Calculate approximate orientation, not only the fixed coordinates are used but 
+Calculate approximate orientation for the clicked station, not only the fixed coordinates are used but 
 the preliminary coordinates, too.
 
 Polar point
