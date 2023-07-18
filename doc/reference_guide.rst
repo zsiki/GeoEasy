@@ -91,13 +91,13 @@ GeoEasy data sets and/or Tcl scripts. For example:
 	geoeasy --lang hun ~/demodata/test1.geo ./startup.tcl
 
 Using the --exp and --nogui options you can use GeoEasy as a batch data
-converter
+converter. You can specify several input files.
 
 .. code:: bask
 
-	geoeasy --nogui --exp csv demodata/test1.geo
+	geoeasy --nogui --exp csv demodata/test1.geo demodata/test_trafo.geo
 
-You will get the test1.csv file in the folder ofthe input file.
+You will get the test1.csv and demodata/test_trafo.csv files in the folder of the input files.
 
 GeoEasy main window
 -------------------
@@ -117,7 +117,8 @@ New
 
 A new geo data set is created, in the **Save As** dialog of the operating system
 the user can set the location and the name of the new file.
-The type of the new file will be the nativ GeoEasy *geo* format.
+The type of the new file will be the nativ GeoEasy *geo* format. 
+The geo/coo/par files will be created on the disk when you save data set.
 
 .. figure:: rg_images/new.png
 	:align: center
@@ -144,16 +145,16 @@ Averages are calculated if the collimation and index errors are below the
 **maxColl** and **maxIndex** values set in the geo_easy.msk file.
 
 .. note::
-	The name of the loaded data sets must be unique even if they were
-	loaded from different folders.
+	The name of the loaded data sets should be unique. You will see the
+	same data set name twice in the cascading menus.
 
 Loading flexible format files
 .............................
 
 There are two file types which internal structure is flexible. These are the 
 .dmp (for observations) and .csv (for coordinates) types. 
-In case of these input files the data structure is not 
-defined, the user can set contents of the columns in the file while loading.
+In case of these input files the data structure can be user 
+defined, the user can set order and contents of the columns in the file while loading.
 When you select .dmp or .csv file another dialog is opened.
 
 .. figure:: rg_images/csv_load.png
@@ -165,9 +166,9 @@ In the upper part of the dialog you can set the meaning and order of columns.
 In case of csv the available columns are: *Point number, Easting, Northing,
 Elevation, Point code, Point order, Easting prelim., Northin prelim.,
 Height prelim* and the special *Skip*. In the dmp (dump) file the following 
-columns are allowed: *Station number, Point number, Horizontal angle, 
-Vertical angle, Slope distance, Signal height, Instrument height, 
-Horizontal distance, Point code, Height diff, Height diff leveling* and the 
+columns are allowed: *Station number*, *Point number*, *Horizontal angle*, 
+*Vertical angle*, *Slope distance*, *Signal height*, *Instrument height*, 
+*Horizontal distance*, *Point code*, *Height diff*, *Height diff leveling* and the 
 special *Skip*. Angles can be in radians or DMS (ddd-mm-ss format).
 A sample dmp file (station number can be empty if it is not changed).
 
@@ -183,8 +184,7 @@ When you open the dialog the default
 columns are in the list. Press **Add** button to add new column and select
 from the opened list. The new column will be added to the end of the list. 
 If you would like to change the order of columns, click on a column and the 
-**Up**,
-**Down** and **Delete** buttons became active. The special *Skip* column can
+**Up**, **Down** and **Delete** buttons became active. The special *Skip* column can
 be used to skip a column in the input file.
 
 Multiple separators can be defined, defaults are tab and semicolon.
