@@ -1095,9 +1095,9 @@ setting out data into a new GeoEasy data set.
 .. code::
 
     2021.04.25 21:08 - Setting out
-    Station number: 14
+    Station number: 14   Reference object: 15
     Point num  Bearing   Distance Angle     Angle from 1st  Local E     Local N
-    15         226-57-43  5959.74
+    15         226-57-43  5959.74   0-00-00
     12         189-42-05  2982.45 322-44-22 322-44-22       2373.70      1805.70
     16         231-22-38  1425.78  41-40-33   4-24-54       1421.55      -109.76
     231        230-35-12  3360.04 359-12-35   3-37-29       3353.32      -212.43
@@ -1107,10 +1107,10 @@ Orientation
 +++++++++++
 
 Calculate orientation angle for this point. The orientation directions can be
-selected from a point list. In the list the orientation angle and the point
-number is visible. The results are visible in the *Calculation results* 
+selected from a point list. In the list the orientation angles and the point
+numbers are visible. The results are wriiten to the *Calculation results* 
 window and the orientation angles are stored in the field-book (you can see
-these values in the orientation mask).
+these values using the orientation mask).
 
 .. code::
 
@@ -1120,6 +1120,9 @@ these values in the orientation mask).
     13                       52-48-11   293-08-21   240-20-10    4029.89    1   11     0.02
     Average orientation angle                       240-20-08
 
+*e"* column shows the difference from the mean orientation agle, *e"max* column show the 
+limit for *e"*, the last *E(m)* shows the linear offset at the target.
+
 Appr. orientation
 +++++++++++++++++
 
@@ -1128,6 +1131,8 @@ the preliminary coordinates, too.
 
 Polar point
 +++++++++++
+
+Calculate the coordinates of the detail points from this station
 
 Intersection
 ++++++++++++
