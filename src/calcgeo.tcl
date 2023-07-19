@@ -1603,7 +1603,7 @@ proc GeoAngle {pn {w ""}} {
 	}
 	GeoLog1
 	GeoLog $geoEasyMsg(menuPopupAngle)
-	GeoLog1 "$geoCodes(2): $pn"
+	GeoLog1 "$geoCodes(2): $pn   $geoCodes(62): $pn1"
 	GeoLog1 $geoEasyMsg(head1Angle)
 	set b [Bearing [GetVal {38} $pn_coo] [GetVal {37} $pn_coo] \
 		[GetVal {38} $pn1_coo] [GetVal {37} $pn1_coo]]
@@ -1614,7 +1614,7 @@ proc GeoAngle {pn {w ""}} {
 	set si_b [expr {sin($b)}]
 	set co_b [expr {cos($b)}]
 	# output reference
-	GeoLog1 [format "%-10s %11s %8.${decimals}f" \
+	GeoLog1 [format "%-10s %s %8.${decimals}f   0-00-00" \
 		$pn1 [ANG $b] $d]
 
 	# remove reference point from list
@@ -1665,7 +1665,7 @@ proc GeoAngle {pn {w ""}} {
 			set geoRes($w) [format "%s-%s: %s %.${decimals}f" \
 				$pn $pn1 [ANG $b] $d]
 		}
-		GeoLog1 [format "%-10s %s %8.${decimals}f %11s %11s \
+		GeoLog1 [format "%-10s %s %8.${decimals}f %s %s \
 			%12.${decimals}f %12.${decimals}f" \
 			$pn1 [ANG $b] $d [ANG $alfa] [ANG $alfa0] $abc $ord]
 		set _temp_geo($i) [list "5 $pn1" "7 $alfa0" "11 $d"]
