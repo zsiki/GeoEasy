@@ -1132,7 +1132,8 @@ the preliminary coordinates, too.
 Polar point
 +++++++++++
 
-Calculate the coordinates of the detail points from this station
+Calculate the coordinates of the selected point as a polar point. The orientation should be done on
+the stations to calculate from. The result is 2D or 3D depending on the available data.
 
 Intersection
 ++++++++++++
