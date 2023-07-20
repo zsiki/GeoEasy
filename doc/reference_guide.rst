@@ -1198,17 +1198,30 @@ the list contains the field-book name, the row number of the observation and the
 3D adjustment
 +++++++++++++
 
+Calculate the 3D position of the selected point using LSM. It is similar to
+free station program of the total stations but the external observations
+are also considered.
+
 Horizontal adjustment
 +++++++++++++++++++++
+
+Calculate the 2D position of the selected point using LSM.
 
 Elevation adjustment
 ++++++++++++++++++++
 
+Calculate the elevation of the selected point using LSM.
+
 Elevation
 +++++++++
 
+Calculate elevation for the selected point using weighted average.
+if more then one is available, You can select from the available observations,
+the list contains the point ID, elevation and distance.
+
 Detail points
 +++++++++++++
+
 
 GeoEasy coordinate list
 -----------------------
