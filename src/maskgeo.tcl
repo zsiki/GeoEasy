@@ -104,7 +104,7 @@ proc GeoMask {maskn f {type "_geo"}} {
 		$mnu.command add command -label $geoEasyMsg(menuCoord) \
 			-command "EditCoo $fn" -accelerator "F9"
 		$mnu.command add command -label $geoEasyMsg(menuCheckObs) \
-			-command "CheckGeo ${fn}_geo {$geoMustHave} {$geoTogether} {$geoNotTogether}"
+			-command "CheckGeo ${fn} _geo {$geoMustHave} {$geoTogether} {$geoNotTogether}"
 	} else {
 		$mnu.command add command -label $geoEasyMsg(menuGraRefresh) \
 			-command "CooFillMask $fn \$maskPos($w) $w" -accelerator "F2"
@@ -114,7 +114,7 @@ proc GeoMask {maskn f {type "_geo"}} {
 		$mnu.command add command -label $geoEasyMsg(menuObs) \
 			-command "EditGeo $fn" -accelerator "F9"
 		$mnu.command add command -label $geoEasyMsg(menuCheckCoord) \
-			-command "CheckGeo ${fn}_coo {$cooMustHave} {$cooTogether} {$cooNotTogether}"
+			-command "CheckGeo ${fn} _coo {$cooMustHave} {$cooTogether} {$cooNotTogether}"
 		$mnu.command add separator
 		$mnu.command add command -label $geoEasyMsg(menuCooTr) \
 			-command "CooTrDia ${fn}_coo"

@@ -1720,9 +1720,11 @@ proc GetPCode {pn {coo 0}} {
 
 #
 #	Consistency check of a single geo data set
-#	@param name name of geo or coo data set (with _geo or _coo)
+#	@param iname internal name of geo or coo data set
+#	@f_type _geo or _coo
 #	@return none
-proc CheckGeo {name mustHave together notTogether} {
+proc CheckGeo {iname f_type mustHave together notTogether} {
+    set name "$iname$f_type"
 	global $name
 	global geoEasyMsg
 
@@ -1730,7 +1732,7 @@ proc CheckGeo {name mustHave together notTogether} {
 	set indices [lsort -dictionary [array names ${name}]]
 	set n 0
 	GeoLog1
-	GeoLog "$geoEasyMsg(check) $name"
+	GeoLog "$geoEasyMsg(check) [GetShortName $iname]"
 	set station ""
 	set dirs ""
 	foreach i $indices {
