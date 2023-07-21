@@ -1020,8 +1020,12 @@ The popup menu is displayed when you click in the field-book with
 right mouse button.
 
 The first or first few options in the popup menu above the horizontal line show
-the possible value types in the field. For example you can change slope
-distance to horizontal distance and vica versa.
+the possible value types in the field (it comes from the mask definition). 
+For example you can change slope distance to horizontal distance and vica versa.
+There is a special "*Not used*" type for *Horizontal angle*, *Vertical angle*", and 
+"*Slope distance*". Setting this type for an observed value, it won't be used in
+any calculation. It can be useful for blunders without deleting the observation.
+
 
 Delete
 ......
@@ -1222,13 +1226,13 @@ the list contains the point ID, elevation and distance.
 Detail points
 +++++++++++++
 
-
 GeoEasy coordinate list
 -----------------------
 
 Each loaded data set contains a coordinate list. A list is opened from the
-Edit menu of the main window. Point in the coordinate list are ordered by
-*Point number*. Points may have preliminary or fix (final) coordinates in the
+Edit menu of the main window. Points in the coordinate list are ordered by
+*Point number* using *dictionary* sort (case insensitive but  numbers sorted as integers).
+Points may have preliminary or fix (final) coordinates in the
 coordinate list. Preliminary coordinates are used only for graphical display
 of points and for network adjusments.
 
