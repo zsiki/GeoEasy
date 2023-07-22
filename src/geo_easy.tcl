@@ -70,7 +70,7 @@ proc GeoEasy {top} {
 	set geoNotTogether {{2 6} {2 7} {2 8} {2 9} {2 11} {5 3}}
 	set cooMustHave {5}
 	set cooTogether {{37 38} {38 37} {137 138} {138 137}}
-	set cooNotTogether ""
+	set cooNotTogether {{37 137} {38 138} {39 139}}
 	#
 	# platform dependent fonts
 	#

@@ -526,7 +526,7 @@ set geoEasyMsg(notTogether)	"Values cannot be used together %s at line %s"
 set geoEasyMsg(stationpn)	"Station and target are the same point %s at line %s"
 set geoEasyMsg(missingstation) "Missing station before line %s"
 set geoEasyMsg(doublepn)	"Repeated point for a station %s at line %s"
-set geoEasyMsg(numError)	"Error %d"
+set geoEasyMsg(numError)	"%d error(s)"
 set geoEasyMsg(csvwarning)	"To save coordinates for import to other software use 'Save as' from the main window. Do you want to continue?"
 
 set geoEasyMsg(tinfailed)	"Failed to create DTM"
