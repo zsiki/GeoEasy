@@ -969,7 +969,11 @@ Check field-book
 ................
 
 Search for errors in the field book. The list of the found errors is written to
-the *Calculation results* window.
+the *Calculation results* window. There are three different things checked
+
+	* obligatory value missing (e.g. point ID)
+	* values should be together (e.g. slope distance and zenith angle)
+	* values shouldn't be together (e.g. station ID and target ID)
 
 Save
 ....
@@ -1284,7 +1288,11 @@ Check coordinate list
 .....................
 
 Check the coordinate list for errors. The results are sent to the 
-*Calculatin results* window.
+*Calculatin results* window. There are three different things checked
+
+	* obligatory value missing (e.g. point ID)
+	* values should be together (e.g. northing and easting)
+	* values shouldn't be together (e.g. preliminary and final coordinates)
 
 Transformation
 ..............
