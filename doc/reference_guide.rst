@@ -2032,7 +2032,7 @@ order.
 +-----------------------+-----------------------------------------------------+
 | cooMaskDefault        | Default coordinate mask GUI-O                       | 
 +-----------------------+-----------------------------------------------------+
-| cooSep                | Fields separator for exported csv files GUI-O       | 
+| cooSep                | Field separator for exported csv files GUI-O        | 
 +-----------------------+-----------------------------------------------------+
 | cs2csProg             | Path to cs2cs program (part of proj)                | 
 +-----------------------+-----------------------------------------------------+
@@ -2089,14 +2089,14 @@ order.
 | geoApprColor          | Point ID color in graphic window for point with     | 
 |                       | preliminary coordinates GUI-R                       |
 +-----------------------+-----------------------------------------------------+
-| geoDoc                | URL to the docs on GitHub                           | 
+| geoDoc                | URL to the docs and wiki on GitHub                  | 
 +-----------------------+-----------------------------------------------------+
 | geoFinalColor         | Point ID color in graphic window for point with     |
 |                       | final coordinates GUI-R                             |
 +-----------------------+-----------------------------------------------------+
 | geoLang               | Current language for the GUI GUI-O                  | 
 +-----------------------+-----------------------------------------------------+
-| geoLangs              | Available languafes for the GUI                     | 
+| geoLangs              | Available languages for the GUI                     | 
 +-----------------------+-----------------------------------------------------+
 | geoLineColor          | Color for coded lines in graphic window GUI-R       | 
 +-----------------------+-----------------------------------------------------+
@@ -2117,7 +2117,7 @@ order.
 | header                | Number of header lines to skip in txt input         | 
 |                       | GUI-T                                               |
 +-----------------------+-----------------------------------------------------+
-| langCodes             | Code pages for languages                            | 
+| langCodes             | Code pages for languages (for Windows only)         | 
 +-----------------------+-----------------------------------------------------+
 | lastDir               | Last visited folder                                 | 
 +-----------------------+-----------------------------------------------------+
@@ -2149,10 +2149,10 @@ order.
 +-----------------------+-----------------------------------------------------+
 | pon                   | Export point IDs into DXF output GUI-D              | 
 +-----------------------+-----------------------------------------------------+
-| projRed               | Projection reduction of distances GUI-C             | 
+| projRed               | Projection reduction of distances [ppm] GUI-C       | 
 +-----------------------+-----------------------------------------------------+
 | refr                  | Refraction correction for triginometric height      | 
-|                       | GUI-C                                               |
+|                       | 0/1 GUI-C                                           |
 +-----------------------+-----------------------------------------------------+
 | regLine               | Regexp for coded lines                              | 
 +-----------------------+-----------------------------------------------------+
