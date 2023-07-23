@@ -2021,7 +2021,7 @@ order.
 |                       | (0/1) GUI-D                                         |
 +-----------------------+-----------------------------------------------------+
 | angleUnits            | angle unit used for horizontal directions, angles   |
-|                       | and zenith angles, DMS/DEG/GON                      |
+|                       | and zenith angles, DMS/DEG/GON  GUI-C               |
 +-----------------------+-----------------------------------------------------+
 | autoRefresh           | Refresh windows after calculations (0/1) GUI-O      | 
 +-----------------------+-----------------------------------------------------+
@@ -2054,7 +2054,7 @@ order.
 |                       | network adjustment  GUI-A                           |
 +-----------------------+-----------------------------------------------------+
 | distUnits             | length unit used for distances, height differences, |
-|                       | coordinates and elevations, m/FEET/OL               |
+|                       | coordinates and elevations, m/FEET/OL  GUI-C        |
 +-----------------------+-----------------------------------------------------+
 | dxfview               | Path to dxf viewer program (Linux only)             | 
 +-----------------------+-----------------------------------------------------+
