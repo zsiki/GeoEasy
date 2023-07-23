@@ -531,7 +531,7 @@ Orientations
 
 This menu option calculates orientations for all unoriented known stations.
 The results are listed in the **Calculation results** window and the orientation
-angles are stored in the field-books. You can view otientation angles if you change the mask to *orientation*.
+angles are stored in the field-books. You can view orientation angles if you change the mask to *orientation*.
 
 .. code:: text
 
