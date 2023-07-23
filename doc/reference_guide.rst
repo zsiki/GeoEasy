@@ -2254,6 +2254,10 @@ format definitions
    |              | using the globally set unit in *distUnits*|
    +--------------+-------------------------------------------+
 
+.. note::
+
+	Prefer to use *ANG* and *DST* types, these will follow the globally set angle unit in *angleUnits* variable.
+
 codes used
 
 	+-----+------------------------------------+
@@ -2396,6 +2400,11 @@ format definitions
    | DST          | coordinates and heights, using            |
    |              | the globally set unit in *distUnits*      |
    +--------------+-------------------------------------------+
+
+.. note::
+
+	Prefer to use *DST* type, this will follow the globally set distance unit in *distUnits* variable.
+
 
 codes used
 
