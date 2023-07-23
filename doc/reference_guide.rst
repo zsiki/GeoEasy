@@ -1992,7 +1992,7 @@ msk file
 
 GeoEasy configuration file. It is a Tcl executable file with saved
 parameters.
-Some parameters can be modified through the GUI some can be modified in the 
+Some parameters can be modified through the GUI, all of them can be modified in the 
 geo_easy.msk file. The following long list contains all parameters in ABC
 order.
 
@@ -2017,8 +2017,11 @@ order.
 +-----------------------+-----------------------------------------------------+
 | parameter             | description                                         |
 +=======================+=====================================================+
-| addlines              | Add lines to DXF output GUI: DXF dialogue (0/1)     |
-|                       | GUI-D                                               |
+| addlines              | Add (coded) lines to DXF output GUI: DXF dialogue   |
+|                       | (0/1) GUI-D                                         |
++-----------------------+-----------------------------------------------------+
+| angleUnits            | angle unit used for horizontal directions, angles   |
+|                       | and zenith angles, DMS/DEG/GON                      |
 +-----------------------+-----------------------------------------------------+
 | autoRefresh           | Refresh windows after calculations (0/1) GUI-O      | 
 +-----------------------+-----------------------------------------------------+
@@ -2049,6 +2052,9 @@ order.
 +-----------------------+-----------------------------------------------------+
 | dirLimit              | Weight of shorter distances are decreased for       |
 |                       | network adjustment  GUI-A                           |
++-----------------------+-----------------------------------------------------+
+| distUnits             | length unit used for distances, height differences, |
+|                       | coordinates and elevations, m/FEET/OL               |
 +-----------------------+-----------------------------------------------------+
 | dxfview               | Path to dxf viewer program (Linux only)             | 
 +-----------------------+-----------------------------------------------------+
@@ -2201,8 +2207,8 @@ It also contains the field-book and coordinate list definitions (masks).
 Each mask has three lists to define data, field format and field size. 
 These lists are collected in three associative arrays, the mask name is the
 index. Separate arrays are
-maintened for field-books and coordinate lists, geoMasks, geoMaskParams and
-geoMaskWidths for field-books and cooMaks, cooMaksParams and cooMaksWidths
+maintened for field-books and coordinate lists, *geoMasks*, *geoMaskParams* and
+*geoMaskWidths* for field-books and *cooMaks*, *cooMaksParams* and *cooMaksWidths*
 for coordinate lists.
 
 geoMask definition:
@@ -2239,32 +2245,19 @@ format definitions
    | FLOAT        | float value, the number of decials are    |
    |              | defined in calculation parameters         |
    +--------------+-------------------------------------------+
-   | DEC n m      | float value with width n and m decimals   |
-   +--------------+-------------------------------------------+
-   | format %n.mf | same as DEC n m                           |
-   +--------------+-------------------------------------------+
    | INT          | integer value                             |
    +--------------+-------------------------------------------+
-   | DEC n        | integer value with width n                |
+   | ANG          | angle using the globally set unit in      |
+   |              | *angleUnits*                              |
    +--------------+-------------------------------------------+
-   | format %nd   | same as DEC n                             |
-   +--------------+-------------------------------------------+
-   | DMS          | angle in degree-minutes-seconds           |
-   +--------------+-------------------------------------------+
-   | DMS1         | angle in degree-minutes-seconds.tenth     |
-   +--------------+-------------------------------------------+
-   | GON          | angle in gons (4 decimals)                |
-   +--------------+-------------------------------------------+
-   | FEET         | float value changed from meter to feet    |
-   +--------------+-------------------------------------------+
-   | OL           | float value changed from meter to phatom  |
+   | DST          | distance, height difference, etc. using   |
+   |              | using the globally set unit in *distUnits*|
    +--------------+-------------------------------------------+
 
 codes used
 
-
 	+-----+------------------------------------+
-	| 0   | Information                        |
+	| code| Information                        |
 	+=====+====================================+
 	| 2   | Station number                     |
 	+-----+------------------------------------+
@@ -2349,3 +2342,99 @@ codes used
 	| 239 | Height stdev                       |
 	+-----+------------------------------------+
 
+Adding negative code values to field-book fields enable *not-used* option.
+
+Sample field-bbok mask definition:
+
+.. code::
+
+	set geoMasks(tahimeter) {table 20 2 {5 62} {6 3} {7 21 -7} {8 -8} {9 11 -9}}
+	set geoMaskParams(tahimeter) {"-" "" DST ANG ANG DST}
+	set geoMaskWidths(tahimeter) {10 10 10 10 10 10}
+
+.. note::
+
+	-7, -8 and -9 enable to set *not used* state for these fields.
+
+
+cooMasks definition:
+
+   +------+-------------------------------------------------+
+   | item | description                                     |
+   +======+=================================================+
+   |  1   | mask type "table" is the only available option  |
+   +------+-------------------------------------------------+
+   |  2   | number of rows in the table                     |
+   +------+-------------------------------------------------+
+   | 3..n | list of codes to be shown in fields             |
+   |      | the order is significant                        |
+   +------+-------------------------------------------------+
+
+geoMaskParams definition
+
+   +------+-------------------------------------------------+
+   | item | description                                     |
+   +======+=================================================+
+   | 1..n | Format definition for the fields                |
+   +------+-------------------------------------------------+
+
+format definitions
+
+   +--------------+-------------------------------------------+
+   | definition   | description                               |
+   +==============+===========================================+
+   | -            | show the previous value of the same code  |
+   |              | used for station ID                       |
+   +--------------+-------------------------------------------+
+   | ""           | left aligned string                       |
+   +--------------+-------------------------------------------+
+   | FLOAT        | float value, the number of decials are    |
+   |              | defined in calculation parameters         |
+   +--------------+-------------------------------------------+
+   | INT          | integer value                             |
+   +--------------+-------------------------------------------+
+   | DST          | coordinates and heights, using            |
+   |              | the globally set unit in *distUnits*      |
+   +--------------+-------------------------------------------+
+
+codes used
+
+	+-----+------------------------------------+
+	| code| Information                        |
+	+=====+====================================+
+	| 4   | Point code                         |
+	+-----+------------------------------------+
+	| 5   | Point number                       |
+	+-----+------------------------------------+
+	| 37  | Northing                           |
+	+-----+------------------------------------+
+	| 38  | Easting                            |
+	+-----+------------------------------------+
+        | 39  | Elevation                          |
+	+-----+------------------------------------+
+        | 40  | Northing difference                |
+	+-----+------------------------------------+
+        | 41  | Eastng difference                  |
+	+-----+------------------------------------+
+	| 42  | Height difference                  |
+	+-----+------------------------------------+
+	| 137 | Preliminary northing               |
+	+-----+------------------------------------+
+	| 138 | Preliminary easting                |
+	+-----+------------------------------------+
+	| 139 | Preliminary elevation              |
+	+-----+------------------------------------+
+	| 237 | Mean error for northing            |
+	+-----+------------------------------------+
+	| 238 | Mean error for easting             |
+	+-----+------------------------------------+
+	| 239 | Mean error for elevation           |
+	+-----+------------------------------------+
+
+Sample coordinate list definition:
+
+.. code::
+
+	set cooMasks(prelim_fix) {table 20 5 4 {38 138} {37 137} {39 139}}
+	set cooMaskParams(prelim_fix) {"" "" DST DST DST}
+	set cooMaskWidths(prelim_fix) {10 10 10 10 10}
