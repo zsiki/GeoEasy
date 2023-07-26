@@ -9,9 +9,9 @@ GeoEasy is a complex tool for land surveyors
 
 * to calculate coordinates from observations,
 * to convert surveyors' data set into different formats,
-* to generate TINs and DEMs and calculate volumes,
+* to generate TINs and DEMs and to calculate volumes,
 * to adjust 1D/2D/3D networks,
-* to calculate parameters of regression shape over points
+* to calculate parameters of regression shapes over points
 
 The program supports several input and
 output formats, so it can easily be inserted into user's work-flow.
@@ -20,8 +20,8 @@ Starting the program
 --------------------
 
 The Windows setup places az icon on the desktop and adds an item to the programs menu. On Linux the program should be started from the command line.
-GeoEasy accepts command line parameters. The language of the user interface
-can be selected and input data set can be given.
+GeoEasy accepts command line parameters. Among others the language of the user interface
+can be selected and input data set can be given in the command line.
 
 .. note:: for Windows users
 
@@ -29,6 +29,7 @@ can be selected and input data set can be given.
 	Open a cmd window, change 
 	directory to the GeoEasy installation folder (c:\GeoEasy is the default),
 	finally enter *GeoEasy* to start the program.
+
 Using the --help parameter you can see the available command line
 options, all are optional
 
@@ -40,10 +41,10 @@ options, all are optional
 	Usage: geoeasy [options] [files]
  	options:
   	--help [string] - print help info and exit {authors, modules, version}
-  	--lang [string] - switch to a different language {cze eng es ger hun pl rus}, default=auto
-  	--log [string] - select log {path/to/file.log | stdout | stderr}, default=/home/siki/geo_easy.log
+  	--lang [string] - switch to a different language {cze, eng, es, ger, hun, pl, rus}, default=auto
+  	--log [string] - select log {path/to/file.log | stdout | stderr}, default=/home_folder/geo_easy.log
   	--exp extension - export files from command line with the given extension
-  	--nogui - process command line files and exit
+  	--nogui - process command line parameters and exit
  	files:
   		optional list of files of four types
     		geo_easy data files (.geo, .gsi, etc.) to load
@@ -54,7 +55,7 @@ options, all are optional
 
 GeoEasy by default uses the language of the operating system if it is
 available (GeoEasy has been localized to that language).
-Seevn languages are supported when writing this documentation:
+Seven languages are supported when writing this documentation:
 Czeh, English, German,  Hungarian, Polish, Russian and Spanish.
 
 You can switch to a different language from the default by the *--lang* 
