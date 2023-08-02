@@ -1355,12 +1355,12 @@ Delete all coordinates from the coordinate list.
 Delete all points
 .................
 
-Delete all records from coordinate list.
+Delete all records from the coordinate list.
 
 Save
 ....
 
-Save the GeoEasy data set, not only the coordinate list.
+Save the GeoEasy data set, not only the coordinate list but the observations too.
 
 Save as CSV
 ...........
@@ -1380,7 +1380,7 @@ Save the coordinate list to HTML format.
 Close
 .....
 
-Close the coordinate list window, de data set remains active in the current
+Close the coordinate list window, the data set remains active (opened) in the current
 GeoEasy session.
 
 Calculate menu
@@ -1457,7 +1457,7 @@ Zoom to the extent of the loaded data sets.
 Find point
 ..........
 
-Search for a point in the graphic window. The user cn input the point name 
+Search for a point in the graphic window. The user can input the point name 
 in the displayed small window. If the point name is found the graphics
 window is centered on that point.
 
@@ -1469,14 +1469,17 @@ Turn on or off point names in the graphic window.
 Observations
 ............
 
-Turn on or off observations in the graphic window. Point pairs are connected
+Turn on or off observations 
+in the graphic window. Point pairs are connected
 by straight lines if there are observations among them.
+An arrow at the target show the direction of observation.
 
 Detail points
 .............
 
 Show or hide detail points in graphic window. 
-A point is detail point if only one polar observations were measured to it.
+A point is detail point if only one polar observations were measured to it and 
+its name is matches to the *detailreg* variable (see geo_easy.msk file).
 
 Observed points only
 ....................
@@ -1669,11 +1672,17 @@ which can be loaded into several sortware among others into QGIS.
 VRML/X3D export
 ...............
 
+Export the actual DTM to standard 3D data format for free viewers e.g. view3dscene.
+
 KML export
 ..........
 
+Export the actual DTM to standard 3D data format for free GIS programs e.g. QGIS.
+
 ASCII grid export
 .................
+
+Interpolate heights at regular grid to use data in GID programs e.g. GRASS GIS, QGIS.
 
 LandXML export
 ..............
