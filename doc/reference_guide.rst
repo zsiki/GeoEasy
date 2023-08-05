@@ -1687,14 +1687,31 @@ Interpolate heights at regular grid to use data in GID programs e.g. GRASS GIS, 
 LandXML export
 ..............
 
+It exports the DTM ro LandXML format to use in other software.
+
 Statistics
 ..........
+
+it shows some information of the loaded DTM, the bane of the loaded file,
+the number of points, triangles, break/border lines and holes and the
+extent of the TIN. The information is displayed in a popup window and 
+it is written to the *Calculation results* window.
 
 Help menu
 ~~~~~~~~~
 
+Help menu contains a single option *Help* which shows the links to the documenttion on the GitHub page
+of the project.
+
 Popup menu
 ~~~~~~~~~~
+
+If you right click on a point in the graphic window a menu pops up.
+The first option is the point id, selecting it information is displayed 
+in a window.
+The othe menu options are identical to the calculation submenu of
+the observations or coordinate list window.
+
 
 GeoEasy calculation results
 ---------------------------
@@ -2115,7 +2132,7 @@ order.
 +-----------------------+-----------------------------------------------------+
 | geoMaskDefault        | Default field-book mask GUI-O                       | 
 +-----------------------+-----------------------------------------------------+
-| geoNostationColor     | Color for non-station point in graphic window GUI-R | 
+| geoNostationColor     | Color for non-station points in graphic window GUI-R| 
 +-----------------------+-----------------------------------------------------+
 | geoObsColor           | Color for observation lines in graphic window GUI-R | 
 +-----------------------+-----------------------------------------------------+
