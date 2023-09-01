@@ -9,9 +9,9 @@ GeoEasy is a complex tool for land surveyors
 
 * to calculate coordinates from observations,
 * to convert surveyors' data set into different formats,
-* to generate TINs and DEMs and calculate volumes,
+* to generate TINs and DEMs and to calculate volumes,
 * to adjust 1D/2D/3D networks,
-* to calculate parameters of regression shape over points
+* to calculate parameters of regression shapes over points
 
 The program supports several input and
 output formats, so it can easily be inserted into user's work-flow.
@@ -20,8 +20,8 @@ Starting the program
 --------------------
 
 The Windows setup places az icon on the desktop and adds an item to the programs menu. On Linux the program should be started from the command line.
-GeoEasy accepts command line parameters. The language of the user interface
-can be selected and input data set can be given.
+GeoEasy accepts command line parameters. Among others the language of the user interface
+can be selected and input data set can be given in the command line.
 
 .. note:: for Windows users
 
@@ -29,6 +29,7 @@ can be selected and input data set can be given.
 	Open a cmd window, change 
 	directory to the GeoEasy installation folder (c:\GeoEasy is the default),
 	finally enter *GeoEasy* to start the program.
+
 Using the --help parameter you can see the available command line
 options, all are optional
 
@@ -40,10 +41,10 @@ options, all are optional
 	Usage: geoeasy [options] [files]
  	options:
   	--help [string] - print help info and exit {authors, modules, version}
-  	--lang [string] - switch to a different language {cze eng es ger hun pl rus}, default=auto
-  	--log [string] - select log {path/to/file.log | stdout | stderr}, default=/home/siki/geo_easy.log
+  	--lang [string] - switch to a different language {cze, eng, es, ger, hun, pl, rus}, default=auto
+  	--log [string] - select log {path/to/file.log | stdout | stderr}, default=/home_folder/geo_easy.log
   	--exp extension - export files from command line with the given extension
-  	--nogui - process command line files and exit
+  	--nogui - process command line parameters and exit
  	files:
   		optional list of files of four types
     		geo_easy data files (.geo, .gsi, etc.) to load
@@ -54,7 +55,7 @@ options, all are optional
 
 GeoEasy by default uses the language of the operating system if it is
 available (GeoEasy has been localized to that language).
-Seevn languages are supported when writing this documentation:
+Seven languages are supported when writing this documentation:
 Czeh, English, German,  Hungarian, Polish, Russian and Spanish.
 
 You can switch to a different language from the default by the *--lang* 
@@ -531,7 +532,7 @@ Orientations
 
 This menu option calculates orientations for all unoriented known stations.
 The results are listed in the **Calculation results** window and the orientation
-angles are stored in the field-books. You can view otientation angles if you change the mask to *orientation*.
+angles are stored in the field-books. You can view orientation angles if you change the mask to *orientation*.
 
 .. code:: text
 
@@ -1354,12 +1355,12 @@ Delete all coordinates from the coordinate list.
 Delete all points
 .................
 
-Delete all records from coordinate list.
+Delete all records from the coordinate list.
 
 Save
 ....
 
-Save the GeoEasy data set, not only the coordinate list.
+Save the GeoEasy data set, not only the coordinate list but the observations too.
 
 Save as CSV
 ...........
@@ -1379,7 +1380,7 @@ Save the coordinate list to HTML format.
 Close
 .....
 
-Close the coordinate list window, de data set remains active in the current
+Close the coordinate list window, the data set remains active (opened) in the current
 GeoEasy session.
 
 Calculate menu
@@ -1456,7 +1457,7 @@ Zoom to the extent of the loaded data sets.
 Find point
 ..........
 
-Search for a point in the graphic window. The user cn input the point name 
+Search for a point in the graphic window. The user can input the point name 
 in the displayed small window. If the point name is found the graphics
 window is centered on that point.
 
@@ -1468,14 +1469,17 @@ Turn on or off point names in the graphic window.
 Observations
 ............
 
-Turn on or off observations in the graphic window. Point pairs are connected
+Turn on or off observations 
+in the graphic window. Point pairs are connected
 by straight lines if there are observations among them.
+An arrow at the target show the direction of observation.
 
 Detail points
 .............
 
 Show or hide detail points in graphic window. 
-A point is detail point if only one polar observations were measured to it.
+A point is detail point if only one polar observations were measured to it and 
+its name is matches to the *detailreg* variable (see geo_easy.msk file).
 
 Observed points only
 ....................
@@ -1668,23 +1672,46 @@ which can be loaded into several sortware among others into QGIS.
 VRML/X3D export
 ...............
 
+Export the actual DTM to standard 3D data format for free viewers e.g. view3dscene.
+
 KML export
 ..........
+
+Export the actual DTM to standard 3D data format for free GIS programs e.g. QGIS.
 
 ASCII grid export
 .................
 
+Interpolate heights at regular grid to use data in GID programs e.g. GRASS GIS, QGIS.
+
 LandXML export
 ..............
+
+It exports the DTM ro LandXML format to use in other software.
 
 Statistics
 ..........
 
+it shows some information of the loaded DTM, the bane of the loaded file,
+the number of points, triangles, break/border lines and holes and the
+extent of the TIN. The information is displayed in a popup window and 
+it is written to the *Calculation results* window.
+
 Help menu
 ~~~~~~~~~
 
+Help menu contains a single option *Help* which shows the links to the documenttion on the GitHub page
+of the project.
+
 Popup menu
 ~~~~~~~~~~
+
+If you right click on a point in the graphic window a menu pops up.
+The first option is the point id, selecting it information is displayed 
+in a window.
+The othe menu options are identical to the calculation submenu of
+the observations or coordinate list window.
+
 
 GeoEasy calculation results
 ---------------------------
@@ -1992,7 +2019,7 @@ msk file
 
 GeoEasy configuration file. It is a Tcl executable file with saved
 parameters.
-Some parameters can be modified through the GUI some can be modified in the 
+Some parameters can be modified through the GUI, all of them can be modified in the 
 geo_easy.msk file. The following long list contains all parameters in ABC
 order.
 
@@ -2017,8 +2044,11 @@ order.
 +-----------------------+-----------------------------------------------------+
 | parameter             | description                                         |
 +=======================+=====================================================+
-| addlines              | Add lines to DXF output GUI: DXF dialogue (0/1)     |
-|                       | GUI-D                                               |
+| addlines              | Add (coded) lines to DXF output GUI: DXF dialogue   |
+|                       | (0/1) GUI-D                                         |
++-----------------------+-----------------------------------------------------+
+| angleUnits            | angle unit used for horizontal directions, angles   |
+|                       | and zenith angles, DMS/DEG/GON  GUI-C               |
 +-----------------------+-----------------------------------------------------+
 | autoRefresh           | Refresh windows after calculations (0/1) GUI-O      | 
 +-----------------------+-----------------------------------------------------+
@@ -2029,7 +2059,7 @@ order.
 +-----------------------+-----------------------------------------------------+
 | cooMaskDefault        | Default coordinate mask GUI-O                       | 
 +-----------------------+-----------------------------------------------------+
-| cooSep                | Fields separator for exported csv files GUI-O       | 
+| cooSep                | Field separator for exported csv files GUI-O        | 
 +-----------------------+-----------------------------------------------------+
 | cs2csProg             | Path to cs2cs program (part of proj)                | 
 +-----------------------+-----------------------------------------------------+
@@ -2049,6 +2079,9 @@ order.
 +-----------------------+-----------------------------------------------------+
 | dirLimit              | Weight of shorter distances are decreased for       |
 |                       | network adjustment  GUI-A                           |
++-----------------------+-----------------------------------------------------+
+| distUnits             | length unit used for distances, height differences, |
+|                       | coordinates and elevations, m/FEET/OL  GUI-C        |
 +-----------------------+-----------------------------------------------------+
 | dxfview               | Path to dxf viewer program (Linux only)             | 
 +-----------------------+-----------------------------------------------------+
@@ -2083,14 +2116,14 @@ order.
 | geoApprColor          | Point ID color in graphic window for point with     | 
 |                       | preliminary coordinates GUI-R                       |
 +-----------------------+-----------------------------------------------------+
-| geoDoc                | URL to the docs on GitHub                           | 
+| geoDoc                | URL to the docs and wiki on GitHub                  | 
 +-----------------------+-----------------------------------------------------+
 | geoFinalColor         | Point ID color in graphic window for point with     |
 |                       | final coordinates GUI-R                             |
 +-----------------------+-----------------------------------------------------+
 | geoLang               | Current language for the GUI GUI-O                  | 
 +-----------------------+-----------------------------------------------------+
-| geoLangs              | Available languafes for the GUI                     | 
+| geoLangs              | Available languages for the GUI                     | 
 +-----------------------+-----------------------------------------------------+
 | geoLineColor          | Color for coded lines in graphic window GUI-R       | 
 +-----------------------+-----------------------------------------------------+
@@ -2099,7 +2132,7 @@ order.
 +-----------------------+-----------------------------------------------------+
 | geoMaskDefault        | Default field-book mask GUI-O                       | 
 +-----------------------+-----------------------------------------------------+
-| geoNostationColor     | Color for non-station point in graphic window GUI-R | 
+| geoNostationColor     | Color for non-station points in graphic window GUI-R| 
 +-----------------------+-----------------------------------------------------+
 | geoObsColor           | Color for observation lines in graphic window GUI-R | 
 +-----------------------+-----------------------------------------------------+
@@ -2111,7 +2144,7 @@ order.
 | header                | Number of header lines to skip in txt input         | 
 |                       | GUI-T                                               |
 +-----------------------+-----------------------------------------------------+
-| langCodes             | Code pages for languages                            | 
+| langCodes             | Code pages for languages (for Windows only)         | 
 +-----------------------+-----------------------------------------------------+
 | lastDir               | Last visited folder                                 | 
 +-----------------------+-----------------------------------------------------+
@@ -2143,10 +2176,10 @@ order.
 +-----------------------+-----------------------------------------------------+
 | pon                   | Export point IDs into DXF output GUI-D              | 
 +-----------------------+-----------------------------------------------------+
-| projRed               | Projection reduction of distances GUI-C             | 
+| projRed               | Projection reduction of distances [ppm] GUI-C       | 
 +-----------------------+-----------------------------------------------------+
 | refr                  | Refraction correction for triginometric height      | 
-|                       | GUI-C                                               |
+|                       | 0/1 GUI-C                                           |
 +-----------------------+-----------------------------------------------------+
 | regLine               | Regexp for coded lines                              | 
 +-----------------------+-----------------------------------------------------+
@@ -2201,8 +2234,8 @@ It also contains the field-book and coordinate list definitions (masks).
 Each mask has three lists to define data, field format and field size. 
 These lists are collected in three associative arrays, the mask name is the
 index. Separate arrays are
-maintened for field-books and coordinate lists, geoMasks, geoMaskParams and
-geoMaskWidths for field-books and cooMaks, cooMaksParams and cooMaksWidths
+maintened for field-books and coordinate lists, *geoMasks*, *geoMaskParams* and
+*geoMaskWidths* for field-books and *cooMaks*, *cooMaksParams* and *cooMaksWidths*
 for coordinate lists.
 
 geoMask definition:
@@ -2239,32 +2272,23 @@ format definitions
    | FLOAT        | float value, the number of decials are    |
    |              | defined in calculation parameters         |
    +--------------+-------------------------------------------+
-   | DEC n m      | float value with width n and m decimals   |
-   +--------------+-------------------------------------------+
-   | format %n.mf | same as DEC n m                           |
-   +--------------+-------------------------------------------+
    | INT          | integer value                             |
    +--------------+-------------------------------------------+
-   | DEC n        | integer value with width n                |
+   | ANG          | angle using the globally set unit in      |
+   |              | *angleUnits*                              |
    +--------------+-------------------------------------------+
-   | format %nd   | same as DEC n                             |
+   | DST          | distance, height difference, etc. using   |
+   |              | using the globally set unit in *distUnits*|
    +--------------+-------------------------------------------+
-   | DMS          | angle in degree-minutes-seconds           |
-   +--------------+-------------------------------------------+
-   | DMS1         | angle in degree-minutes-seconds.tenth     |
-   +--------------+-------------------------------------------+
-   | GON          | angle in gons (4 decimals)                |
-   +--------------+-------------------------------------------+
-   | FEET         | float value changed from meter to feet    |
-   +--------------+-------------------------------------------+
-   | OL           | float value changed from meter to phatom  |
-   +--------------+-------------------------------------------+
+
+.. note::
+
+	Prefer to use *ANG* and *DST* types, these will follow the globally set angle unit in *angleUnits* variable.
 
 codes used
 
-
 	+-----+------------------------------------+
-	| 0   | Information                        |
+	| code| Information                        |
 	+=====+====================================+
 	| 2   | Station number                     |
 	+-----+------------------------------------+
@@ -2349,3 +2373,104 @@ codes used
 	| 239 | Height stdev                       |
 	+-----+------------------------------------+
 
+Adding negative code values to field-book fields enable *not-used* option.
+
+Sample field-bbok mask definition:
+
+.. code::
+
+	set geoMasks(tahimeter) {table 20 2 {5 62} {6 3} {7 21 -7} {8 -8} {9 11 -9}}
+	set geoMaskParams(tahimeter) {"-" "" DST ANG ANG DST}
+	set geoMaskWidths(tahimeter) {10 10 10 10 10 10}
+
+.. note::
+
+	-7, -8 and -9 enable to set *not used* state for these fields.
+
+
+cooMasks definition:
+
+   +------+-------------------------------------------------+
+   | item | description                                     |
+   +======+=================================================+
+   |  1   | mask type "table" is the only available option  |
+   +------+-------------------------------------------------+
+   |  2   | number of rows in the table                     |
+   +------+-------------------------------------------------+
+   | 3..n | list of codes to be shown in fields             |
+   |      | the order is significant                        |
+   +------+-------------------------------------------------+
+
+geoMaskParams definition
+
+   +------+-------------------------------------------------+
+   | item | description                                     |
+   +======+=================================================+
+   | 1..n | Format definition for the fields                |
+   +------+-------------------------------------------------+
+
+format definitions
+
+   +--------------+-------------------------------------------+
+   | definition   | description                               |
+   +==============+===========================================+
+   | -            | show the previous value of the same code  |
+   |              | used for station ID                       |
+   +--------------+-------------------------------------------+
+   | ""           | left aligned string                       |
+   +--------------+-------------------------------------------+
+   | FLOAT        | float value, the number of decials are    |
+   |              | defined in calculation parameters         |
+   +--------------+-------------------------------------------+
+   | INT          | integer value                             |
+   +--------------+-------------------------------------------+
+   | DST          | coordinates and heights, using            |
+   |              | the globally set unit in *distUnits*      |
+   +--------------+-------------------------------------------+
+
+.. note::
+
+	Prefer to use *DST* type, this will follow the globally set distance unit in *distUnits* variable.
+
+
+codes used
+
+	+-----+------------------------------------+
+	| code| Information                        |
+	+=====+====================================+
+	| 4   | Point code                         |
+	+-----+------------------------------------+
+	| 5   | Point number                       |
+	+-----+------------------------------------+
+	| 37  | Northing                           |
+	+-----+------------------------------------+
+	| 38  | Easting                            |
+	+-----+------------------------------------+
+        | 39  | Elevation                          |
+	+-----+------------------------------------+
+        | 40  | Northing difference                |
+	+-----+------------------------------------+
+        | 41  | Eastng difference                  |
+	+-----+------------------------------------+
+	| 42  | Height difference                  |
+	+-----+------------------------------------+
+	| 137 | Preliminary northing               |
+	+-----+------------------------------------+
+	| 138 | Preliminary easting                |
+	+-----+------------------------------------+
+	| 139 | Preliminary elevation              |
+	+-----+------------------------------------+
+	| 237 | Mean error for northing            |
+	+-----+------------------------------------+
+	| 238 | Mean error for easting             |
+	+-----+------------------------------------+
+	| 239 | Mean error for elevation           |
+	+-----+------------------------------------+
+
+Sample coordinate list definition:
+
+.. code::
+
+	set cooMasks(prelim_fix) {table 20 5 4 {38 138} {37 137} {39 139}}
+	set cooMaskParams(prelim_fix) {"" "" DST DST DST}
+	set cooMaskWidths(prelim_fix) {10 10 10 10 10}
