@@ -40,12 +40,12 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 | Language  | Translator(s)                                                        |
 |-----------|----------------------------------------------------------------------|
 | Czech     | Bc. Tomáš Bouček, Bc. Jana Špererová                                 |
-| Russian   | звездочёт ([zvezdochiot](https://github.com/zvezdochiot))            |
+| English   | Andras Gabriel, [Zoltán Siki](https://github.com/zsiki)              |
 | German    | Gergely Szabó, Csaba Égető                                           |
 | Hungarian | [Zoltán Siki](https://github.com/zsiki)                              |
-| English   | Andras Gabriel, [Zoltán Siki](https://github.com/zsiki)              |
-| Spanish   | [Andres Herrera](https://github.com/AndresHerrera)                   |
 | Polish    | [Darek Strojecki](https://github.com/nalfgar)                        |
+| Russian   | звездочёт ([zvezdochiot](https://github.com/zvezdochiot))            |
+| Spanish   | [Andres Herrera](https://github.com/AndresHerrera)                   |
 
 ## Open source software/packages used
 
