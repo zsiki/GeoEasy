@@ -271,10 +271,10 @@ proc SaveNikon {fn rn} {
 #           CO
 #           text, special to use:
 #               Dist Units: Metres
-#               Angle Units: DDDMMSS
+#               Angle Units: DDDMMSS/Gons
 #               Zero VA: Zenith
-#               Coord Order: NEZ
-#   NOTE: only Metres, DDDMMSS, Zenith and NEZ settings are supported
+#               Coord Order: NEZ/ENZ
+#   NOTE: only Metres, DDDMMSS/Gons, Zenith and ENZ/NEZ settings are supported
 #
 #	@param fn path to nikon RAW file
 #	@param fa internal name of dataset
@@ -292,10 +292,11 @@ proc NikonRAW {fn fa} {
 	set lines 0		;# number of lines in output
 	set src 0		;# input line number
 	set points 0	;# number of points in coord list
+    set coordOrder "ENZ"
+    set angleUnit "DMS"
 	while {! [eof $f1]} {
 		incr src
 		if {[gets $f1 buf] == 0} continue
-puts $buf
 		set bl [split [string trim $buf] ","]	;# comma separated
 		set buflist ""
 		foreach a $bl {
@@ -312,22 +313,45 @@ puts $buf
                     [regexp "Metres$" $rem] == 0} {
                         return $src
                 }
-                if {[regexp "^Angle Units:" $rem] == 1 && \
-                    [regexp "DDDMMSS$" $rem] == 0} {
+                if {[regexp "^Angle Units:" $rem] == 1} {
+                    if {[regexp "DDDMMSS$" $rem] == 1} {
+                        set angleUnit "DMS"
+                    } elseif {[regexp "Gons$" $rem] == 1} {
+                        set angleUnit "GON"
+                    } else {
                         return $src
+                    }
                 }
-                if {[regexp "^Coord Order:" $rem] == 1 && \
-                    [regexp "NEZ$" $rem] == 0} {
+                if {[regexp "^Coord Order:" $rem] == 1} {
+                    if {[regexp "NEZ$" $rem] == 1} {
+                        set coordOrder "NEZ"
+                    } elseif {[regexp "ENZ$" $rem] == 1} {
+                        set coordOrder "ENZ"
+                    } else {
                         return $src
+                    }
+                }
+                if {[regexp "^Start of Resection from Pt:" $rem] == 1} {
+                    # start of new free station
+                    set pn [string range $rem 28 end]
+                    lappend obuf [list 2 $pn]	;# station number
+                    # TODO instrument height?
+                    lappend obuf [list 3 0]	;# instrument height
                 }
             }
 			UP -
             MP -
+            MC -
             CC -
             RE {    ;# coordinates
                 set pn [lindex $buflist 1]
-                set x [lindex $buflist 3]
-                set y [lindex $buflist 4]
+                if {$coordOrder == "NEZ"} {
+                    set x [lindex $buflist 3]
+                    set y [lindex $buflist 4]
+                } else {
+                    set y [lindex $buflist 3]
+                    set x [lindex $buflist 4]
+                }
                 set z ""
                 if {[string length [lindex $buflist 5]]} {
                     set z [lindex $buflist 5]
@@ -347,8 +371,13 @@ puts $buf
                 set pn [lindex $buflist 1]
                 set th [lindex $buflist 3]
                 set sd [lindex $buflist 4]
-                set ha [Deg2Rad [lindex $buflist 5]]
-                set va [Deg2Rad [lindex $buflist 6]]
+                if {$angleUnit == "DMS" } {
+                    set ha [Deg2Rad [lindex $buflist 5]]
+                    set va [Deg2Rad [lindex $buflist 6]]
+                } elseif {$angleUnit == "GON"} {
+                    set ha [Gon2Rad [lindex $buflist 5]]
+                    set va [Gon2Rad [lindex $buflist 6]]
+                }
                 set code ""
                 if {[llength $buflist] > 8]} {
                     set code [lindex $buflist 8]
@@ -368,12 +397,17 @@ puts $buf
             }
             F1 -
             F2 -
-            SS {    ;# sidedhot
+            SS {    ;# sideshot
                 set pn [lindex $buflist 1]
                 set th [lindex $buflist 2]
                 set sd [lindex $buflist 3]
-                set ha [Deg2Rad [lindex $buflist 4]]
-                set va [Deg2Rad [lindex $buflist 5]]
+                if {$angleUnit == "DMS" } {
+                    set ha [Deg2Rad [lindex $buflist 4]]
+                    set va [Deg2Rad [lindex $buflist 5]]
+                } elseif {$angleUnit == "GON"} {
+                    set ha [Gon2Rad [lindex $buflist 4]]
+                    set va [Gon2Rad [lindex $buflist 5]]
+                }
                 set code ""
                 if {[llength $buflist] > 7} {
                     set code [lindex $buflist 7]
@@ -400,8 +434,6 @@ puts $buf
 						{3 6 7 8 9 10 11 21 24 25 26 27 28 29 37 38 39 49} \
 						[lindex $l 0]] != -1 && \
 						[regexp $reg(2) [lindex $l 1]] == 0} {
-puts $obuf
-puts $l
 					return $src
 				}
 			}
