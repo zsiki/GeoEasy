@@ -51,7 +51,7 @@ The loaded field-books can be opened in a window. Select
 the name of the loaded data sets popup, in this case only *test1* is visible,
 select it. Field-book data are displayed in the default mask type.
 
-.. note:: The mask name is used for dialog boxes containing tabular data. This comes from the display masks which were used on old Leica instruments.
+.. note:: *The mask name is used for dialog boxes containing tabular data. This comes from the display masks which were used on old Leica instruments.*
 
 .. figure:: images/fieldbook.png
 	:align: center
@@ -66,9 +66,10 @@ are black, instrument heights are red. Colors can be customized in the
 **File/Colors...** menu from the main window.
 
 You can move in the table using the right side scroll bar, up and down arrow
-keys, mouse wheel (Windows only), TAB/PgUp/PgDn/Ctrl-PgUp/Ctrl-PgDn keys.
+keys, mouse wheel (Windows only), **TAB/PgUp/PgDn/Ctrl-PgUp/Ctrl-PgDn** keys.
 You can edit the content of the active field, inside the field
-Home/End/Backspace/Delete/Insert keys can be used. If the edited value is not
+**Home/End/Backspace/Delete/Insert** and arrow keys can be used. 
+If the edited value is not
 valid (e.g. non-numeric value in the distance field) an error message
 appear and you can not leave the field until the field value is invalid.
 
@@ -162,25 +163,25 @@ the graphic window.
 .. figure:: images/sel_point.png
 	:align: center
 
-	Point selection box
+	Point selection box (window header gives hint how many rows to select)
 
 ::
 
-	2017.11.26 09:22 - Bearing/Distance
-	Point num  Point num  Bearing   Distance Slope dis Zenith angle
-	231        13         293-08-21 4029.889
+    2023.10.21 23:01 - Bearing/Distance
+    Point num  Point num    Bearing   Distance Slope dis Zenith angle
+    231        13           293-08-21 4029.889
 
 The slope distance and the zenith angle are calculated only if the elevations of
 the points are known.
 
 .. note::
 
-	You can use the right mouse button in the field-book or
+	*You can use the right mouse button in the field-book or
 	coordinate list windows, too. Right click on the point
-	ID and select **Calculate**, a cascading menu appears with the
+	ID and select* **Calculate**, *a cascading menu appears with the
 	possible calculations for the point. If you select the
 	menu item with the point ID an info box will be displayed about the
-	point.
+	point.*
 
 Orientation on a station
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -195,7 +196,7 @@ angle in the first column and point ID in the second.
 
 	Backsight selection
 
-Select both points (231, 11), use Shift or/and Ctrl keys to select more lines.
+Select both points (231, 11), use *Shift* or/and *Ctrl* keys to select more lines.
 If you would like to select all rows, click on the *All* button.
 
 A weighted average will be calculated for the mean orientation angle, the weights
@@ -204,19 +205,21 @@ window.
 
 ::
 
-	2017.11.26 09:47 - Orientation - 12
-	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	231             232-53-54   291-04-11    58-10-17   2243.319    0   16    0.010
-	11              334-20-10    32-30-25    58-10-15   1588.873   -1   19   -0.010
-	Average orientation angle                58-10-16
+    2023.10.21 23:12 - Orientation - 12
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    231                     232-53-54   291-04-11    58-10-17   2243.319    0   16    0.010
+    11                      334-20-10    32-30-25    58-10-15   1588.873   -1   19   -0.010
+    Average orientation angle                        58-10-16
 
 The *e\"* column contains the difference from the mean, *e\"(max)* is the
 allowable maximal difference (depending on distance), *E(m)* is the linear
 difference at the back-sight point.
 
 Note that the fill color of the point marker of point *12* became green,
-oriented station. The orientation angles and the mean are stored in the
-field-book, too. Select the *orientation* mask from the **Commands/Mask...**
+oriented station.
+The orientation angles and the mean are stored in the
+field-book, too.
+Select the *orientation* mask from the **Commands/Mask...**
 in the field-book window to see them.
 
 Orientation for all points
@@ -229,33 +232,32 @@ a warning is displayed. The three other unoriented stations are also oriented.
 
 ::
 
-	2017.11.26 10:05 - Orientation - 11
-	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	12              295-54-35   212-30-25   276-35-50   1588.873    1   19    0.010
-	14               71-01-11   347-36-58   276-35-47   1637.971   -1   18   -0.010
-	Average orientation angle               276-35-48
+    2023.10.22 11:22 - Orientation - 11
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    12                      295-54-35   212-30-25   276-35-50   1588.873    1   19    0.010
+    14                       71-01-11   347-36-58   276-35-47   1637.971   -1   18   -0.010
+    Average orientation angle                       276-35-48
 
-::
+    2023.10.22 11:22 - Orientation - 231
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    15                      341-58-03   222-18-10   240-20-07   2615.063   -1   14   -0.023
+    13                       52-48-11   293-08-21   240-20-10   4029.889    1   11    0.023
+    Average orientation angle                       240-20-08
 
-	2017.11.26 10:05 - Orientation - 231
-	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	15              341-58-03   222-18-10   240-20-07   2615.063   -1   14   -0.023
-	13               52-48-11   293-08-21   240-20-10   4029.889    1   11    0.023
-	Average orientation angle               240-20-08
-
-::
-
-	2017.11.26 10:05 - Orientation - 16
-	Point num  Code Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
-	14              290-57-39    51-22-38   120-24-59   1425.779   -2   20   -0.016
-	11              355-25-59   115-51-02   120-25-03   1628.118    2   18    0.016
-	Average orientation angle               120-25-01
+    2023.10.22 11:22 - Orientation - 16
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    14                      290-57-39    51-22-38   120-24-59   1425.779   -2   20   -0.016
+    11                      355-25-59   115-51-02   120-25-03   1628.118    2   18    0.016
+    Average orientation angle                       120-25-01
 
 .. note::
 
-	Orientation angles are stored in the field-book, you can see them if
-	you select *orientation* template (mask). The calculated orientation angles
-	will overwrite the previous values.
+    *Orientation angles are stored in the field-book, you can see them if
+    you select orientation template (mask).
+    Select the orientation mask from the* **Commands/Mask...** 
+    *in the field-book window to see them.
+    The calculated orientation angles will overwrite the previous values.*
+
 
 Intersection
 ~~~~~~~~~~~~
@@ -276,7 +278,7 @@ Select two directions *11* and *12* (best intersection angle).
 	Intersection point selection
 
 There are two columns in the list window. The first column refers to the
-data set name, the second column contains point numbers.
+data set names, the second column contains point numbers.
 
 .. note::
 
@@ -285,11 +287,11 @@ data set name, the second column contains point numbers.
 
 ::
 
-	2017.11.26 10:23 - Intersection
-	Point num  Code                E            N     Bearing
-	11                       91515.440     2815.220   243-57-51
-	12                       90661.580     1475.280   330-00-58
-	5004                     90246.207     2195.193
+    2023.10.22 11:30 - Intersection
+    Point num  Code              E            N       Bearing
+    11                       91515.440     2815.220   243-57-51
+    12                       90661.580     1475.280   330-00-58
+    5004                     90246.207     2195.193
 
 Note the color of point number is changed in the graphic window from red to
 black after calculation done.
@@ -325,12 +327,12 @@ point numbers are shown in the list.
 
 ::
 
-	2018.01.20 11:26 - Resection
-	Point num  Code                E            N      Direction  Angle
-	14                       91164.160     4415.080     99-10-24  88-42-37
-	12                       90661.580     1475.280    187-53-01 147-41-20
-	13                       84862.540     3865.360    335-34-21
-	5003                     89398.550     2775.210
+    2023.10.22 11:35 - Resection
+    Point num  Code              E            N        Direction  Angle
+    14                       91164.160     4415.080     99-10-24    88-42-37
+    12                       90661.580     1475.280    187-53-01   147-41-20
+    13                       84862.540     3865.360    335-34-21
+    5003                     89398.550     2775.210
 
 .. note::
 
@@ -362,11 +364,11 @@ Let's use the distance from point 11 and 12.
 
 ::
 
-	2018.01.20 12:01 - Arcsection
-	Point num  Code              E            N        Distance
-	11                       91515.440     2815.220     954.730
-	12                       90661.580     1475.280    1117.280
-	5002                     90587.628     2590.110
+    2023.10.22 11:41 - Arcsection
+    Point num  Code              E            N        Distance
+    11                       91515.440     2815.220     954.730
+    12                       90661.580     1475.280    1117.280
+    5002                     90587.628     2590.110
 
 .. note::
 
@@ -400,12 +402,12 @@ average. The weight is inverse proportional of the distance square.
 
 ::
 
-	2018.01.20 20:30 - Elevation
-	Point num  Code            Height      Distance
-	14                        118.414      2409.679
-	11                        118.433      2117.268
+    2023.10.22 11:43 - Elevation
+    Point num  Code            Height      Distance
+    14                        118.414      2409.679
+    11                        118.433      2117.268
 
-	5003                      118.425
+    5003                      118.425
 
 .. note::
 
@@ -423,8 +425,8 @@ between point *5001* and *5002*.
 
     Before you start traversing please make sure the start and end
     point of the travese line have final coordinates (in black) in
-    the coordinate list. You can use resection for 5001, and 
-    intersection for 5002 if necessary.
+    the coordinate list and are oriented (green circle).
+    You can use resection for 5001, and intersection for 5002 if necessary.
 
 Let's use the 6th toolbar icon to specify
 the traversing line. Click on the first point (*5001*) and the three
@@ -443,31 +445,31 @@ to calculate elevations.
 
 ::
 
-	2018.01.20 21:11 - Traversing Open, two orientation
-	            bearing    bw dist
-	Point        angle     distance  (dE)     (dN)       dE         dN
-	           correction  fw dist    corrections      Easting    Northing
-	              0-00-00        -
-	5001        132-34-52
-	           -  0-00-05                             89562.512   3587.544
-	            132-34-47        -
-	1_sp        134-23-17  498.890  367.351 -337.557    367.369   -337.521
-	           -  0-00-05        -    0.018    0.035  89929.881   3250.023
-	             86-57-59        -
-	2_sp        228-16-31  330.610  330.147   17.496    330.159     17.520
-	           -  0-00-05        -    0.012    0.023  90260.040   3267.542
-	            135-14-25        -
-	3_sp        225-08-37  468.460  329.859 -332.637    329.876   -332.604
-	           -  0-00-06        -    0.017    0.033  90589.916   2934.938
-	            180-22-56        -
-	5002        359-37-10  344.860   -2.301 -344.852     -2.288   -344.828
-	           -  0-00-06        -    0.012    0.024  90587.628   2590.110
+    2023.10.22 11:59 - Traversing Open, two orientation
+                bearing    bw dist
+    Point        angle     distance  (dE)     (dN)       dE         dN
+               correction  fw dist    corrections      Easting    Northing
+                   0-00-00        -
+    5001         132-34-50
+                -  0-00-05                             89562.497   3587.526
+                 132-34-45        -
+    1_sp         134-23-17  498.890  367.354 -337.553    367.374   -337.516
+                -  0-00-05        -    0.020    0.038  89929.872   3250.011
+                  86-57-57        -
+    2_sp         228-16-31  330.610  330.147   17.500    330.160     17.525
+                -  0-00-05        -    0.013    0.025  90260.032   3267.535
+                 135-14-23        -
+    3_sp         225-08-37  468.460  329.862 -332.634    329.881   -332.599
+                -  0-00-05        -    0.019    0.035  90589.913   2934.936
+                 180-22-55        -
+    5002         359-37-10  344.860   -2.299 -344.852     -2.285   -344.826
+                -  0-00-05        -    0.014    0.026  90587.628   2590.110
 
-	              0-00-00                              1025.116   -997.434
-	           1080-00-27 1642.820 1025.056 -997.550
-	            720-00-00
-	           -  0-00-27             0.060    0.116
-	                                      0.130
+                  0-00-00                              1025.131   -997.416
+               1080-00-25 1642.820 1025.064 -997.540
+                720-00-00
+               -  0-00-25             0.066    0.124
+                                          0.140
 
 	Error limits                 Angle (sec)   Distance (cm)
 	Main, precise traversing         50        30
@@ -479,24 +481,23 @@ to calculate elevations.
 
 ::
 
-	2018.01.20 21:11 - Trigonometrical line
-						   Height differences
-	Point    Distance    Forward Backward   Mean  Correction Elevation
-	
-	5001                                                     100.000
-	            498.879   23.947        -   23.947   -0.010
-	1_sp                                                     123.938
-	            330.623    0.307        -    0.307   -0.004
-	2_sp                                                     124.240
-	            468.449   12.661        -   12.661   -0.008
-	3_sp                                                     136.893
-	            344.836    1.926        -    1.926   -0.005
-	5002                                                     138.815
-	
-	           1642.787                     38.842   -0.027   38.815
-	
-	Error limit:   0.118
+    2023.10.22 11:59 - Trigonometrical line
+                           Height differences
+    Point    Distance  Forward Backward    Mean  Correction Elevation
 
+    5001                                                     100.000
+                498.879   23.947        -   23.947   -0.015
+    1_sp                                                     123.932
+                330.625    0.307        -    0.307   -0.007
+    2_sp                                                     124.233
+                468.448   12.661        -   12.661   -0.013
+    3_sp                                                     136.881
+                344.834    1.926        -    1.926   -0.007
+    5002                                                     138.800
+
+               1642.786                     38.842   -0.042   38.800
+
+    Error limit:   0.118
 
 .. note::
 
@@ -504,7 +505,7 @@ to calculate elevations.
 	Orientation have to be calculated before traversing calculation.
 
 	You can start traversing calculation from the **Calculation/Traversing**
-	menu. That case the traversing points are selected from lists.
+	menu, too. That case the traversing points are selected from lists.
 
 Detail points
 ~~~~~~~~~~~~~
@@ -516,17 +517,35 @@ It will calculate orientation angle automatically if necessary.
 
 ::
 
-	2018.01.28 13:30 - New detail points
-	                                                        Oriented   Horizontal
-	Point num  Code      E         N           H   Station  direction  distance
-	101              89817.597  3124.363   125.301 1_sp     221-46-38  168.468
-	102              89888.171  3112.673   126.819 1_sp     196-52-41  143.505
-	103              90043.330  3181.366   126.988 1_sp     121-09-42  132.631
-	201              90257.647  3134.405   124.353 2_sp     181-00-54  133.142
-	202              90112.941  3206.373   120.740 2_sp     247-25-17  159.272
-	301              90543.529  2842.469   139.235 3_sp     206-38-02  103.440
-	302              90467.005  2904.622   137.424 3_sp     256-08-41  126.578
-	303              90443.170  2958.505   139.836 3_sp     279-07-35  148.611
+    2023.10.22 12:03 - Orientation - 1_sp
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    5001                      0-00-06   312-34-28   312-34-22    498.879    1   33    0.003
+    2_sp                    134-23-23    86-57-42   312-34-19    330.625   -1   41   -0.003
+    Average orientation angle                       312-34-21
+
+    2023.10.22 12:03 - Orientation - 3_sp
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    2_sp                    278-51-33   315-14-06    36-22-33    468.448   -1   35   -0.003
+    5002                    144-00-10   180-22-47    36-22-37    344.834    2   40    0.003
+    Average orientation angle                        36-22-35
+
+    2023.10.22 12:03 - Orientation - 2_sp
+    Point num  Code         Direction    Bearing   Orient ang   Distance   e" e"max   E(m)
+    1_sp                    123-44-51   266-57-42   143-12-51    330.625    3   41    0.006
+    3_sp                    352-01-22   135-14-06   143-12-44    468.448   -2   35   -0.006
+    Average orientation angle                       143-12-47
+
+    2023.10.22 12:03 - New detail points
+                                                                             Oriented   Horizontal
+    Point num  Code              E            N              H   Station     direction  distance
+    101                      89817.629     3124.380      125.301 1_sp        221-46-44  168.468
+    102                      89888.203     3112.688      126.819 1_sp        196-52-47  143.505
+    103                      90043.364     3181.377      126.988 1_sp        121-09-48  132.631
+    201                      90257.670     3134.414      124.353 2_sp        181-00-59  133.142
+    202                      90112.966     3206.386      120.740 2_sp        247-25-22  159.272
+    301                      90543.540     2842.474      139.235 3_sp        206-38-08  103.440
+    302                      90467.017     2904.628      137.424 3_sp        256-08-47  126.578
+    303                      90443.184     2958.512      139.836 3_sp        279-07-41  148.611
 
 .. note::
 	You can recalculate all detail points after editing the observation data using
@@ -546,15 +565,15 @@ results* window.
 
 ::
 
-	2018.02.24 09:11 - Distance calculation
-	Point num          E            N         Length
-	5001          89562.447     3587.503
-	1_sp          89929.837     3249.997      498.885
-	2_sp          90260.005     3267.527      330.633
-	3_sp          90589.899     2934.934      468.453
-	5002          90587.624     2590.112      344.830
+    2023.10.22 12:07 - Distance calculation
+    Point num          E            N         Length
+    5001          89562.497     3587.526
+    1_sp          89929.872     3250.011      498.879
+    2_sp          90260.032     3267.535      330.625
+    3_sp          90589.913     2934.936      468.448
+    5002          90587.628     2590.110      344.834
 
-	Sum                                      1642.801
+    Sum                                      1642.786
 
 The sum of the distances is shown in the status line of the graphic window, too.
 
@@ -571,18 +590,22 @@ first point finally). The calculation result are reported in the
 
 ::
 
-	2018.02.24 09:18 - Area calculation
-	Point num          E            N         Length
-	5003          89398.545     2775.181
-	5001          89562.447     3587.503      828.693
-	1_sp          89929.837     3249.997      498.885
-	2_sp          90260.005     3267.527      330.633
-	3_sp          90589.899     2934.934      468.453
-	5002          90587.624     2590.112      344.830
-	5003          89398.545     2775.181     1203.396
+    2023.10.22 12:48 - Area calculation
+    Point num          E            N         Length
+    101           89817.629     3124.380
+    102           89888.203     3112.688       71.536
+    103           90043.364     3181.377      169.685
+    202           90112.966     3206.386       73.959
+    201           90257.670     3134.414      161.615
+    303           90443.184     2958.512      255.650
+    302           90467.017     2904.628       58.919
+    301           90543.540     2842.474       98.584
+    101           89817.629     3124.380      778.728
 
-	Area                                   680295.78817
-	Perimeter                                3674.889
+    Area                                    78674.14098
+    Perimeter                                1668.677
+    Mean centre                              90196.697,    3058.107
+    Centre of gravity                        90191.093,    3054.207
 
 .. note::
 
@@ -593,9 +616,10 @@ Coordinate transformation
 -------------------------
 
 During a GeoEasy session all points have to be in the same coordinate
-reference system (CRS). Coordinates can be converted between two CRSs if
+reference system (CRS) for the calculations.
+Coordinates can be converted between two CRSs if
 there are common points in the two system. Two GeoEasy data sets have to be 
-used. The source data set is opened and select **Calculation/Coordinate 
+used. The source data set should be opened and select **Calculation/Coordinate 
 transformation** from the menu. The target data set have to be selected next.
 Select *test1_trafo.geo* from the *demodata* folder.
 A list of the common points width horizontal coordinates in the two data sets is shown.
@@ -619,25 +643,40 @@ information is displayed.
 
 ::
 
-	2018.02.24 12:09 - 4 parameters orthogonal transformation test1 -> test_trafo
-	E = 561684.477 + e * 0.999997669 - n * -0.000003434
-	N = 246411.178 + e * -0.000003434 + n * 0.999997669
+    2023.10.22 12:57 - 4 parameters orthogonal transformation test1 -> test_trafo
+      E = 561684.477 + e * 0.999997669 - n * -0.000003434
+      N = 246411.178 + e * -0.000003434 + n * 0.999997669
 
-	  Scale = 0.99999767 Rotation = -  0-00-01
+      Scale = 0.99999767 Rotation = -  0-00-01
 
-	  Point num     e          n            E            N        dE      dN      dist
-	  11       91515.440   2815.220   653199.720   249226.070   -0.007   0.007   0.010
-	  12       90661.580   1475.280   652345.850   247886.150    0.001  -0.007   0.007
-	  13       84862.540   3865.360   646546.830   250276.240    0.002  -0.003   0.004
-	  14       91164.160   4415.080   652848.440   250825.940   -0.001  -0.006   0.006
-	  15       86808.180    347.660   648492.460   246758.540   -0.004  -0.001   0.005
-	  16       90050.240   3525.120   651734.510   249935.970    0.009   0.010   0.014
+    Point num          e            n            E            N          dE           dN           dist
+    11            91515.440     2815.220   653199.720   249226.070       -0.007        0.007      0.010
+    12            90661.580     1475.280   652345.850   247886.150        0.001       -0.007      0.007
+    13            84862.540     3865.360   646546.830   250276.240        0.002       -0.003      0.004
+    14            91164.160     4415.080   652848.440   250825.940       -0.001       -0.006      0.006
+    15            86808.180      347.660   648492.460   246758.540       -0.004       -0.001      0.005
+    16            90050.240     3525.120   651734.510   249935.970        0.009        0.010      0.014
 
-	  RMS= 0.008
+    RMS= 0.008
 
-	  Point num     e            n            E            N
-	  231      88568.240   2281.760   650252.518   248692.628
-	  232      88619.860   3159.880   650304.141   249570.746
+    Point num          e            n            E            N
+    1_sp          89929.872     3250.011   651614.150   249660.872
+    2_sp          90260.032     3267.535   651944.309   249678.395
+    3_sp          90589.913     2934.936   652274.189   249345.796
+    101           89817.629     3124.380   651501.907   249535.242
+    102           89888.203     3112.688   651572.481   249523.550
+    103           90043.364     3181.377   651727.642   249592.238
+    201           90257.670     3134.414   651941.947   249545.275
+    202           90112.966     3206.386   651797.244   249617.247
+    231           88568.240     2281.760   650252.518   248692.628
+    232           88619.860     3159.880   650304.141   249570.746
+    301           90543.540     2842.474   652227.815   249253.334
+    302           90467.017     2904.628   652151.293   249315.488
+    303           90443.184     2958.512   652127.460   249369.372
+    5001          89562.497     3587.526   651246.778   249998.388
+    5002          90587.628     2590.110   652271.903   249000.970
+    5003          89398.550     2775.210   651082.828   249186.074
+    5004          90246.207     2195.193   651930.481   248606.056
 
 In the first block the formula of the transformation is given. The second block
 contains the coordinates of common points and the errors. In the third block 
@@ -647,9 +686,9 @@ the source data set but not in the target data set.
 
 .. note::
 
-	If the transformation parameters are known use the **Commands/Transformation** 
-	or **Commands/Transformation, parameters from file** from the menu of
-	the coordinate list window.
+	*If the transformation parameters are known use the* **Commands/Transformation** 
+	*or* **Commands/Transformation, parameters from file** *from the menu of
+	the coordinate list window.*
 
 
 Save to DXF file
@@ -657,8 +696,8 @@ Save to DXF file
 
 The points with horizontal coordinates from all loaded data sets can be
 exported into a DXF file. Select **Commands/DXF output** from the
-menu of the graphic window. In the displayed dialog box several
-options can be set for the DXF file.
+menu of the graphic window. After specifying the output DXF file path,
+several options can be set for the DXF file in the displayed dialog box.
 
 .. figure:: images/dxf.png
 	:align: center
@@ -673,8 +712,8 @@ Horizontal network adjustment
 -----------------------------
 
 Let's calculate the coordinates of points 5001, 5002, 5003 and 5004 using all
-available observations from points. GeoEasy uses GNU Gama for the network
-adjustment.
+available observations from points. GeoEasy uses GNU Gama
+(https://www.gnu.org/software/gama/) for the network adjustment.
 
 Before adjustment calculation the a priori standard deviations should be set
 in the **Calculation parameters** dialog. 3 arc seconds for directions and
@@ -724,8 +763,9 @@ distance, height difference.
 	N H 408 0.17836
 	N J 634 0.1686
 
-	Field-book (leveling.dmp)
+Field-book (leveling.dmp file)
 
+Please close all opened data sets.
 Let's load this field-book into GeoEasy. Select **File/Load** from the menu of
 the main window. Select *Fieldbook (\*.dmp, \*.DMP)* type. The leveling.dmp 
 file is in the demodata sub-directory of GeoEasy installation folder. Select the
@@ -788,15 +828,15 @@ from the menu of the graphic window.
 
 .. note::
 
-	In the calculation results window you can see a table with collimation
+	*In the calculation results window you can see a table with collimation
 	and index errors. If the observations were made in two faces, 
 	the average of face left and face right will be stored in the
-	field-book.
+	field-book.*
 
 .. note::
 
-	The colors used in the graphics window can be changed using
-	**File/Colors...** from the menu of the main window.
+	*The colors used in the graphics window can be changed using*
+	**File/Colors...** *from the menu of the main window.*
 
 Let's start to create a TIN, select **DTM/Create...** from the menu of the 
 graphic window and press OK button in the *Create DTM* dialog and select
@@ -833,8 +873,8 @@ boundary checkbox. Triangles are created inside the closed polyline.
 
 .. note::
 
-	Break lines can be added, those can be open polylines. If convex
-	boundary is unchecked at least one closed polyline must be added
+	Break lines can be added, those can also be open polylines. If convex
+	boundary is unchecked at least one closed boundary have to be added
 	to the model.
 
 Let's add contours to our model, **DTM/Contours** from the menu. Input 1 (meter)
@@ -858,7 +898,7 @@ Regression calculation can be used to find best fitting geometrical shape to
 the coordinates of points. Least square adjustment is used to find the
 parameters of the best fitting geometry. The *reg.geo* data set in the
 demodata folder will be used in this chapter. Load the data set to try
-regression algorithms.
+regression algorithms and close other opened data sets.
 
 Regression line
 ~~~~~~~~~~~~~~~
@@ -873,21 +913,21 @@ the right side rail, **Calculate/Regression calculation/2D Line** from the menu.
 
 .. code:: text
 
-	2019.03.30 13:59 - 2D Line
-	N = +0.71863307 * E -100.619
-	Angle from east:  35-42-08
-	Correlation coefficient: 1.000
+    2023.10.22 14:07 - 2D Line
+    N = +0.71863307 * E -100.619
+    Angle from east:  35-42-08
+    Correlation coefficient: 1.000
 
-	Point num          E            N            dE          dN          dist
-	1               223.563       60.040       -0.001        0.001        0.001
-	2               231.684       65.879        0.001       -0.001        0.001
-	3               239.801       71.714        0.002       -0.002        0.003
-	4               247.926       77.543       -0.003        0.004        0.005
-	5               256.046       83.388        0.002       -0.002        0.003
-	6               264.161       89.211       -0.002        0.003        0.004
-	7               272.285       95.058        0.002       -0.002        0.003
+    Point num          E            N            dE          dN          dist
+    1               223.563       60.040       -0.001        0.001        0.001
+    2               231.684       65.879        0.001       -0.001        0.001
+    3               239.801       71.714        0.002       -0.002        0.003
+    4               247.926       77.543       -0.003        0.004        0.005
+    5               256.046       83.388        0.002       -0.002        0.003
+    6               264.161       89.211       -0.002        0.003        0.004
+    7               272.285       95.058        0.002       -0.002        0.003
 
-	RMS=0.003
+    RMS=0.003
 
 The results are printed in the *Calculation results* window. Beside the equation
 of the line the direction and correlation are also calculated. From the table
@@ -900,30 +940,30 @@ second point list select points on left side rails (8-14).
 
 .. code:: text
 
-	2019.03.30 14:05 - Parallel 2D lines
-	N = +0.71870599 * E -100.637
-	N = +0.71870599 * E -90.785
-	Angle from east:  35-42-18
-	Horizontal distance: 8.000
-	Correlation coefficient: 1.000
+    2023.10.22 14:11 - Parallel 2D lines
+    N = +0.71870599 * E -100.637
+    N = +0.71870599 * E -90.785
+    Angle from east:  35-42-18
+    Horizontal distance: 8.000
+    Correlation coefficient: 1.000
 
-	Point num          E            N            dE          dN          dist
-	1               223.563       60.040        0.000       -0.000        0.001
-	2               231.684       65.879        0.001       -0.002        0.002
-	3               239.801       71.714        0.002       -0.003        0.003
-	4               247.926       77.543       -0.003        0.004        0.005
-	5               256.046       83.388        0.001       -0.002        0.002
-	6               264.161       89.211       -0.003        0.004        0.005
-	7               272.285       95.058        0.001       -0.001        0.001
-	8               218.896       66.533       -0.002        0.003        0.003
-	9               227.017       72.376        0.001       -0.002        0.002
-	10              235.137       78.206       -0.002        0.002        0.003
-	11              243.254       84.045        0.001       -0.001        0.001
-	12              251.374       89.883        0.002       -0.002        0.003
-	13              259.496       95.715       -0.001        0.001        0.001
-	14              267.611      101.550        0.001       -0.001        0.001
+    Point num          E            N            dE          dN          dist
+    1               223.563       60.040        0.000       -0.000        0.001
+    2               231.684       65.879        0.001       -0.002        0.002
+    3               239.801       71.714        0.002       -0.003        0.003
+    4               247.926       77.543       -0.003        0.004        0.005
+    5               256.046       83.388        0.001       -0.002        0.002
+    6               264.161       89.211       -0.003        0.004        0.005
+    7               272.285       95.058        0.001       -0.001        0.001
+    8               218.896       66.533       -0.002        0.003        0.003
+    9               227.017       72.376        0.001       -0.002        0.002
+    10              235.137       78.206       -0.002        0.002        0.003
+    11              243.254       84.045        0.001       -0.001        0.001
+    12              251.374       89.883        0.002       -0.002        0.003
+    13              259.496       95.715       -0.001        0.001        0.001
+    14              267.611      101.550        0.001       -0.001        0.001
 
-	RMS=0.004
+    RMS=0.004
 
 Regression plane
 ~~~~~~~~~~~~~~~~
@@ -935,22 +975,22 @@ In the point list select all *Scan* points and press OK.
 
 .. code:: text
 
-	2019.03.30 15:25 - Vertical plane
-	N = -0.00119324 * E +0.054
-	Angle from east: -  0-04-06
-	Correlation coefficient: -0.390
+    2023.10.22 14:14 - Vertical plane
+    N = -0.00119324 * E +0.054
+    Angle from east: -  0-04-06
+    Correlation coefficient: -0.390
 
-	Point num          E            N            dE          dN          dist
-	Scan0676         68.799       -0.004       -0.000       -0.024        0.024
-	Scan0677         67.798       -0.004       -0.000       -0.022        0.022
-	Scan0678         66.789        0.002       -0.000       -0.028        0.028
-	Scan0679         65.790        0.001       -0.000       -0.026        0.026
-	Scan0680         64.789        0.001       -0.000       -0.024        0.024
-	Scan0681         63.788        0.003       -0.000       -0.025        0.025
-	Scan0682         62.786        0.003       -0.000       -0.024        0.024
-	...
+    Point num          E            N            dE          dN          dist
+    Scan0676         68.799       -0.004       -0.000       -0.024        0.024
+    Scan0677         67.798       -0.004       -0.000       -0.022        0.022
+    Scan0678         66.789        0.002       -0.000       -0.028        0.028
+    Scan0679         65.790        0.001       -0.000       -0.026        0.026
+    Scan0680         64.789        0.001       -0.000       -0.024        0.024
+    Scan0681         63.788        0.003       -0.000       -0.025        0.025
+    Scan0682         62.786        0.003       -0.000       -0.024        0.024
+    ...
 
-	RMS=0.024
+    RMS=0.024
 
 We got two points for the planned position of the diaphragm wall, these are
 points *S2* and *S3*. Let's check the distances from the planned position.
@@ -962,19 +1002,20 @@ list we get the distances of the scanned points from the planned positions.
 
 .. code:: text
 
-	2019.03.30 15:45 - Distance from the S2 - S3 line
-	Point num          E            N        Distance         dE           dN
-	Scan0676         68.799       -0.004       -0.004        0.000        0.004
-	Scan0677         67.798       -0.004       -0.004        0.000        0.004
-	Scan0678         66.789        0.002        0.002        0.000       -0.002
-	Scan0679         65.790        0.001        0.001        0.000       -0.001
-	Scan0680         64.789        0.001        0.001        0.000       -0.001
-	Scan0681         63.788        0.003        0.003        0.000       -0.003
-	Scan0682         62.786        0.003        0.003        0.000       -0.003
-	Scan0683         61.785        0.003        0.003        0.000       -0.003
-	Scan0684         60.784        0.002        0.002        0.000       -0.002
-	Scan0685         59.784        0.003        0.003        0.000       -0.003
-	...
+    2023.10.22 14:25 - Distance from the S2 - S3 line
+    Point num          E            N        Distance         dE           dN
+    Scan0676         68.799       -0.004       -0.004        0.000        0.004
+    Scan0677         67.798       -0.004       -0.004        0.000        0.004
+    Scan0678         66.789        0.002        0.002        0.000       -0.002
+    Scan0679         65.790        0.001        0.001        0.000       -0.001
+    Scan0680         64.789        0.001        0.001        0.000       -0.001
+    Scan0681         63.788        0.003        0.003        0.000       -0.003
+    Scan0682         62.786        0.003        0.003        0.000       -0.003
+    Scan0683         61.785        0.003        0.003        0.000       -0.003
+    Scan0684         60.784        0.002        0.002        0.000       -0.002
+    Scan0685         59.784        0.003        0.003        0.000       -0.003
+    ...
+                          Max distance:         0.083
 
 Regression circle
 ~~~~~~~~~~~~~~~~~
@@ -995,6 +1036,8 @@ regression.
 
 	Points for circle regression
 
+Optionally you can enter the radius of the the circle if it is known. Let
+radius field empty to calculate it from the input data.
 The result of the calculation is displayed in the *Calculation results* 
 window. *E0* and *N0* are the coordinates of the center of the circle,
 *R* is the radius. The tabular data show the coordinates of the used points
@@ -1003,20 +1046,19 @@ direction).
 
 .. code:: text
 
-	2019.03.29 23:10 - Circle
-	E0 = 635.693 N0 = 271.517 R = 2.442
+    2023.10.22 14:40 - Circle
+    E0 = 635.693 N0 = 271.517 R = 2.442
 
-	Point num          E            N            dE           dN           dR
-	111             633.661      270.152        0.005        0.003       -0.005
-	112             635.355      269.096        0.000        0.002       -0.002
-	113             637.586      269.966       -0.004        0.003       -0.005
-	121             633.975      269.779        0.001        0.001       -0.001
-	122             634.477      269.404       -0.002       -0.004        0.005
-	123             634.520      269.378       -0.001       -0.003        0.003
-	124             634.520      269.378       -0.001       -0.003        0.003
-	131             637.898      270.468        0.000       -0.000        0.000
-	132             638.132      271.428        0.001       -0.000        0.001
-	133             638.129      271.655        0.002        0.000        0.002
+    Point num          E            N            dE           dN           dR
+    111             633.661      270.152        0.005        0.003       -0.005
+    112             635.355      269.096        0.000        0.002       -0.002
+    113             637.586      269.966       -0.004        0.003       -0.005
+    121             633.975      269.779        0.001        0.001       -0.001
+    122             634.477      269.404       -0.002       -0.004        0.005
+    123             634.520      269.378       -0.001       -0.003        0.003
+    124             634.520      269.378       -0.001       -0.003        0.003
+    131             637.898      270.468        0.000       -0.000        0.000
+    132             638.132      271.428        0.001       -0.000        0.001
+    133             638.129      271.655        0.002        0.000        0.002
 
-	RMS=0.003
-
+    RMS=0.003
