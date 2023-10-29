@@ -925,7 +925,7 @@ set geoEasyMsg(lx1) "Y end: "
 set geoEasyMsg(ly1) "X end: "
 set geoEasyMsg(ldxf) "plik DXF"
 set geoEasyMsg(lcoo) "Plik współrzędnych"
-set geoEasyMsg(lstep) "Krok: "
+#set geoEasyMsg(lstep) "Krok: "
 # arc setting out
 set geoEasyMsg(cornerTitle) "Narożnik łuku"
 set geoEasyMsg(spTitle) "Pierwsza prosta"

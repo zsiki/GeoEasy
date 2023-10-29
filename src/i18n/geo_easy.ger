@@ -928,7 +928,7 @@ set geoEasyMsg(lx1) "E Ende: "
 set geoEasyMsg(ly1) "N Ende: "
 set geoEasyMsg(ldxf) "DXF Datei"
 set geoEasyMsg(lcoo) "Koordinatendatei"
-set geoEasyMsg(lstep) "Schritt: "
+#set geoEasyMsg(lstep) "Schritt: "
 # arc setting out
 set geoEasyMsg(cornerTitle) "Arc corner"
 set geoEasyMsg(spTitle) "Erste Linie"

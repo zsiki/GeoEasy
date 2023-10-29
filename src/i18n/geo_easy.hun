@@ -940,7 +940,7 @@ set geoEasyMsg(lx1) "Y1: "
 set geoEasyMsg(ly1) "X1: "
 set geoEasyMsg(ldxf) "DXF fájl"
 set geoEasyMsg(lcoo) "Koordináta fájl"
-set geoEasyMsg(lstep) "Lépésköz:"
+#set geoEasyMsg(lstep) "Lépésköz:"
 # arc setting out
 set geoEasyMsg(cornerTitle) "Ív sarokpont"
 set geoEasyMsg(spTitle) "Bejövő egyenes"

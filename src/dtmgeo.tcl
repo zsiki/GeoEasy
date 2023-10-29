@@ -2686,8 +2686,6 @@ proc DtmInterpolateDialog {} {
 	entry $this.x1 -textvariable x1Interp -width 14 -justify right
 	label $this.ly1 -text $geoEasyMsg(ly1)
 	entry $this.y1 -textvariable y1Interp -width 14 -justify right
-	label $this.lstep -text $geoEasyMsg(lstep)
-	entry $this.step -textvariable stepInterp -width 14 -justify right
 	checkbutton $this.dxf -text $geoEasyMsg(ldxf) -variable dxfProfile
 	checkbutton $this.coo -text $geoEasyMsg(lcoo) -variable cooProfile
 	button $this.exit -text $geoEasyMsg(ok) \
@@ -2701,12 +2699,10 @@ proc DtmInterpolateDialog {} {
 	grid $this.ly -row 1 -column 0 -sticky w
 	grid $this.lx1 -row 2 -column 0 -sticky w
 	grid $this.ly1 -row 3 -column 0 -sticky w
-	grid $this.lstep -row 4 -column 0 -sticky w
 	grid $this.x -row 0 -column 1 -sticky w
 	grid $this.y -row 1 -column 1 -sticky w
 	grid $this.x1 -row 2 -column 1 -sticky w
 	grid $this.y1 -row 3 -column 1 -sticky w
-	grid $this.step -row 4 -column 1 -sticky w
 	grid $this.dxf -row 5 -column 1 -sticky w
 	grid $this.coo -row 6 -column 1 -sticky w
 	grid $this.exit -row 7 -column 1
@@ -2750,7 +2746,7 @@ proc DtmProfile {this} {
 	}
 	GeoLog1
 	GeoLog $geoEasyMsg(menuDtmInterp)
-	GeoLog1 [format "%.${decimals}f, %.${decimals}f - %.${decimals}f, %.${decimals}f %s %.${decimals}f" $xInterp $yInterp $x1Interp $y1Interp $geoEasyMsg(lstep) $stepInterp]
+	GeoLog1 [format "%.${decimals}f, %.${decimals}f - %.${decimals}f, %.${decimals}f" $xInterp $yInterp $x1Interp $y1Interp]
 	if {$dxfProfile} {
 		set filen [string trim [tk_getSaveFile -filetypes $cadTypes \
 			-defaultextension ".dxf" -initialdir $lastDir]]
@@ -2786,37 +2782,31 @@ proc DtmProfile {this} {
         set fn "[file rootname $fn].coo"
         set fc [open $fn "w"]
 	} 
-	set d [Distance $xInterp $yInterp $x1Interp $y1Interp]
-	for {set i 0} {$i < $d} {set i [expr {$i + $stepInterp}]} {
-		set x [expr {$xInterp + ($x1Interp - $xInterp) / $d * $i}]
-		set y [expr {$yInterp + ($y1Interp - $yInterp) / $d * $i}]
-		set cx [GeoX $can $x]	;# calculate canvas coords
-		set cy [GeoY $can $y]
-		set z [InterpolateTin $this $cx $cy]
-# TODO mi van ha szakadas van a metszetben? (lyuk a dtm-ben)
-		GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" $x $y $z $i]
+    set zInterp [InterpolateTin $this [GeoX $can $xInterp] [GeoY $can $yInterp]]
+    set z1Interp [InterpolateTin $this [GeoX $can $x1Interp] [GeoY $can $y1Interp]]
+    set sec [InterpolateLine $xInterp $yInterp $zInterp $x1Interp $y1Interp $z1Interp]
+    set last ""
+    set i 1
+    foreach s $sec {
+        set p1 [lindex $s 0]
+        set p2 [lindex $s 1]
+puts "$p1 -- $p2"
+        GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" [lindex $p1 0] [lindex $p1 1] [lindex $p1 2] [lindex $p1 3]]
 		if {$dxfProfile} {
-			if {$i >= $stepInterp && $last_z > -9999 && $z > -9999} {
-				puts $fd "  0\nLINE\n  8\nPROFIL"
-				puts $fd " 10\n$last_i\n 20\n$last_z"
-				puts $fd " 11\n$i\n 21\n$z"
-			}
-			set last_i $i
-			set last_z $z
-		}
+            puts $fd "  0\nLINE\n  8\nPROFIL"
+            puts $fd " 10\n[lindex $p1 3]\n 20\n[lindex $p1 2]"
+            puts $fd " 11\n[lindex $p2 3]\n 21\n[lindex $p2 2]"
+        }
 		if {$cooProfile} {
-			puts $fc [list [list 5 s$i] [list 38 $x] [list 37 $y] [list 39 $z]]
-		}
-	}
-	set cx [GeoX $can $x1Interp]	;# calculate canvas coords
-	set cy [GeoY $can $y1Interp]
-	set z [InterpolateTin $this $cx $cy]
-	GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" $x1Interp $y1Interp $z $d]
-	if {$dxfProfile && $last_z > -9999 && $z > -9999} {
-		puts $fd "  0\nLINE\n  8\nPROFIL"
-		puts $fd " 10\n$last_i\n 20\n$last_z"
-		puts $fd " 11\n$d\n 21\n$z"
-	}
+			puts $fc [list [list 5 s$i] [list 38 [lindex $p1 0]] [list 37 [lindex $p1 1]] [list 39 [lindex $p1 2]]]
+        }
+        incr i
+    }
+    GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" [lindex $p2 0] [lindex $p2 1] [lindex $p2 2] [lindex $p2 3]]
+    if {$cooProfile} {      ;# add last point
+        puts $fc [list [list 5 s$i] [list 38 [lindex $p2 0]] [list 37 [lindex $p2 1]] [list 39 [lindex $p2 2]]]
+		close $fc
+    }
 	if {$dxfProfile} {
 		puts $fd "  0\nENDSEC\n  0\nEOF"
 		close $fd
@@ -2827,10 +2817,6 @@ proc DtmProfile {this} {
 					warning 0 OK
 			}
 		}
-	}
-	if {$cooProfile} {
-		puts $fc [list [list 5 s$i] [list 38 $x1Interp] [list 37 $y1Interp] [list 39 $z]]
-		close $fc
 	}
 }
 
@@ -2973,4 +2959,150 @@ proc AppendTin {tn} {
 	global dtmconvex
 	set dtmconvex 0
 	CreateTin $polyname $savePath
+}
+
+#
+#   Between to values with tolerance
+#   @param v value to test
+#   @param v1 first limit
+#   @param v2 second limit
+#   @param eps tolerance
+#   @return 0/1 outside/inside
+proc Between {v v1 v2 {eps 0.0001}} {
+    if {[expr {$v + $eps}] >= [expr {min($v1, $v2)}] && \
+        [expr {$v - $eps}] <= [expr {max($v1, $v2)}]} {
+        return 1
+    }
+    return 0
+}
+
+#
+#   Linear interpolation for elevation
+#   @param x1 start point
+#   @param y1
+#   @param z1
+#   @param x2 end point
+#   @param y2
+#   @param z2
+#   @param x interpolate at
+#   @param y
+#   @return interpolated elevation
+proc ZInterp {x1 y1 z1 x2 y2 z2 x y} {
+    set d12 [Distance $x1 $y1 $x2 $y2]
+    set d [Distance $x1 $y1 $x $y]
+    set z [expr {$z1 + ($z2 - $z1) / $d12 * $d}]
+    return $z
+}
+
+#
+#	Interpolate along line in dtm
+#	@param lx1 start point
+#	@param ly1
+#	@param lz1
+#	@param lx2 end point
+#	@param ly2
+#	@param lz2
+proc InterpolateLine {lx1 ly1 lz1 lx2 ly2 lz2} {
+	global tinLoaded
+	global ${tinLoaded}_node ${tinLoaded}_ele
+
+    set lx_min [expr {min($lx1, $lx2)}]
+    set ly_min [expr {min($ly1, $ly2)}]
+    set lx_max [expr {max($lx1, $lx2)}]
+    set ly_max [expr {max($ly1, $ly2)}]
+    set l_bearing [Bearing $lx1 $ly1 $lx2 $ly2]
+    set l_dist [Distance $lx1 $ly1 $lx2 $ly2]
+    set sec ""     ;# to collect section edges
+    foreach index [array names ${tinLoaded}_ele] {
+        # get triangle points
+        set triang [set ${tinLoaded}_ele($index)]
+        set p1 [set ${tinLoaded}_node([lindex $triang 0])]
+        set p2 [set ${tinLoaded}_node([lindex $triang 1])]
+        set p3 [set ${tinLoaded}_node([lindex $triang 2])]
+        set x1 [lindex $p1 0]
+        set y1 [lindex $p1 1]
+        set z1 [lindex $p1 2]
+        set x2 [lindex $p2 0]
+        set y2 [lindex $p2 1]
+        set z2 [lindex $p2 2]
+        set x3 [lindex $p3 0]
+        set y3 [lindex $p3 1]
+        set z3 [lindex $p3 2]
+        set tx_min [expr {min($x1, $x2, $x3)}]
+        set ty_min [expr {min($y1, $y2, $y3)}]
+        set tx_max [expr {max($x1, $x2, $x3)}]
+        set ty_max [expr {max($y1, $y2, $y3)}]
+        if {$tx_min > $lx_max || $ty_min > $ly_max || \
+            $lx_min > $tx_max || $ly_min > $ty_max} {
+                continue    ;# no intersection skip triangle
+        }
+        set pp ""
+        set mind 1e34
+        set p [Intersec $lx1 $ly1 $x1 $y1 $l_bearing [Bearing $x1 $y1 $x2 $y2]]
+        if {[llength $p] > 1} {
+            set px [lindex $p 0]
+            set py [lindex $p 1]
+            if {[Between $px $x1 $x2] && [Between $py $y1 $y2]} {
+                # real intersection
+                set pz [ZInterp $x1 $y1 $z1 $x2 $y2 $z2 $px $py]
+#                set pz [expr {($z2 - $z1) / ($x2 - $x1) * ($px - $x1) + $z1}]
+                set d [Distance $lx1 $ly1 $px $py]
+                if {$d < $mind} {
+                    set mind $d
+                    set pp [linsert $pp 0 [list $px $py $pz $d]]
+                } else {
+                    lappend pp [list $px $py $pz $d]
+                }
+            }
+        }
+        set p [Intersec $lx1 $ly1 $x2 $y2 $l_bearing [Bearing $x2 $y2 $x3 $y3]]
+        if {[llength $p] > 1} {
+            set px [lindex $p 0]
+            set py [lindex $p 1]
+            if {[Between $px $x2 $x3] && [Between $py $y2 $y3]} {
+                # real intersection
+                set pz [ZInterp $x2 $y2 $z2 $x3 $y3 $z3 $px $py]
+#                set pz [expr {($z3 - $z2) / ($x3 - $x2) * ($px - $x2) + $z2}]
+                set d [Distance $lx1 $ly1 $px $py]
+                if {$d < $mind} {
+                    set mind $d
+                    set pp [linsert $pp 0 [list $px $py $pz $d]]
+                } else {
+                    lappend pp [list $px $py $pz $d]
+                }
+            }
+        }
+        set p [Intersec $lx1 $ly1 $x3 $y3 $l_bearing [Bearing $x3 $y3 $x1 $y1]]
+        if {[llength $p] > 1} {
+            set px [lindex $p 0]
+            set py [lindex $p 1]
+            if {[Between $px $x3 $x1] && [Between $py $y3 $y1]} {
+                # real intersection
+                set pz [ZInterp $x3 $y3 $z3 $x1 $y1 $z1 $px $py]
+#                set pz [expr {($z1 - $z3) / ($x1 - $x3) * ($px - $x3) + $z3}]
+                set d [Distance $lx1 $ly1 $px $py]
+                if {$d < $mind} {
+                    set mind $d
+                    set pp [linsert $pp 0 [list $px $py $pz $d]]
+                } else {
+                    lappend pp [list $px $py $pz $d]
+                }
+            }
+        }
+        if {[llength $pp] == 2} {
+            lappend pp $mind
+            lappend sec $pp
+        }
+    }
+    # sort result edges by distance
+    set sec [lsort -real -index end $sec]
+    if {$lz1 > -9999} {     ;# add start point
+        set p1 [lindex [lindex $sec 0] 0]
+        set sec [linsert $sec 0 [list [list $lx1 $ly1 $lz1 0] $p1 0]]
+    }
+    if {$lz2 > -9999} {     ;# add end point
+        set pn [lindex [lindex $sec end] 1]
+        lappend sec [list $pn [list $lx2 $ly2 $lz2 $l_dist] $l_dist]
+    }
+    return $sec
 }

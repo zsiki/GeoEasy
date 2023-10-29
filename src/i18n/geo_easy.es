@@ -927,7 +927,7 @@ set geoEasyMsg(lx1) "E final: "
 set geoEasyMsg(ly1) "N final: "
 set geoEasyMsg(ldxf) "Archivo DXF"
 set geoEasyMsg(lcoo) "Archivo de coordenadas"
-set geoEasyMsg(lstep) "Paso: "
+#set geoEasyMsg(lstep) "Paso: "
 # arc setting out
 set geoEasyMsg(cornerTitle) "Esquina del Arco"
 set geoEasyMsg(spTitle) "Primera l\u00EDnea"
