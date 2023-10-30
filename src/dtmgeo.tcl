@@ -2660,7 +2660,7 @@ proc GridParams {} {
 proc DtmInterpolateDialog {} {
 	global geoEasyMsg
 	global buttonid
-	global xInterp yInterp x1Interp y1Interp stepInterp dxfProfile cooProfile
+	global xInterp yInterp x1Interp y1Interp dxfProfile cooProfile
 	global gwin
 
 	set w [focus]
@@ -2720,7 +2720,7 @@ proc DtmProfile {this} {
 	global tcl_platform dxfview
 	global decimals
 	global reg
-	global xInterp yInterp x1Interp y1Interp stepInterp dxfProfile cooProfile
+	global xInterp yInterp x1Interp y1Interp dxfProfile cooProfile
 	global cadTypes fileTypes
 
 	set can $this.map.c
@@ -2739,7 +2739,7 @@ proc DtmProfile {this} {
 		GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f" $xInterp $yInterp $z]
 		return
 	} elseif {[regexp $reg(2) $x1Interp] == 0 || \
-		[regexp $reg(2) $y1Interp] == 0 || [regexp $reg(2) $stepInterp] == 0} {
+		[regexp $reg(2) $y1Interp] == 0} {
 		geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(wrongval) \
 			error 0 OK
 		return
@@ -2790,7 +2790,6 @@ proc DtmProfile {this} {
     foreach s $sec {
         set p1 [lindex $s 0]
         set p2 [lindex $s 1]
-puts "$p1 -- $p2"
         GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" [lindex $p1 0] [lindex $p1 1] [lindex $p1 2] [lindex $p1 3]]
 		if {$dxfProfile} {
             puts $fd "  0\nLINE\n  8\nPROFIL"
