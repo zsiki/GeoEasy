@@ -793,7 +793,7 @@ deviation of 0.3 mm/km. Change calculation parameters (**File/Calculation parame
 
 We shall adjust this small leveling network.
 There are no elevations in the field-book, so first set the elevation of point
-*B* to 100.000.
+*B* to 100.000 (**Commands/New point** from the menu or **F7** button).
 After it let's calculate preliminary elevations 
 (**Calculations/Preliminary coordinates**)
 
