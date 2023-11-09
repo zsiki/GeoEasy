@@ -538,6 +538,7 @@ set geoEasyMsg(delhole)		"Marker törlés?"
 set geoEasyMsg(deldtmpnt)	"DTM pont törlés?"
 set geoEasyMsg(deldtmtri)	"DTM háromszög törlés?"
 set geoEasyMsg(errsavedtm)	"Hiba a DTM mentése közben"
+set geoEasyMsg(profileFewP) "Kettőnél kevesebb pont a metszeten"
 
 set geoEasyMsg(stat)		"Statisztika a betöltött %d állományról\nPontok száma: %d\nAlappontok száma: %d\nRészletpontok száma: %d\nÁlláspontok száma: %d\nMeghatározott álláspontok száma: %d\nPontraállások száma: %d\nTájékozott pontraállások száma: %d\n"
 # gama

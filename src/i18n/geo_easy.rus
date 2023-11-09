@@ -536,6 +536,7 @@ set geoEasyMsg(delhole)		"Delete marker?"
 set geoEasyMsg(deldtmpnt)	"Удалить точку DTM?"
 set geoEasyMsg(deldtmtri)	"Удалить треугольник DTM?"
 set geoEasyMsg(errsavedtm)	"Ошибка сохранения DTM"
+set geoEasyMsg(profileFewP) "Less than 2 points on the profile" ;# TODO
 
 set geoEasyMsg(stat)		"Статистика %d загруженных наборов данных\nКолчество пунктов: %d\nКоличество известных точек: %d\nКоличество detailed points: %d\nКоличество станций: %d\nКоличество известных станций: %d\nКоличество occupations: %d\nКоличество oriented occupations: %d\n"
 # gama

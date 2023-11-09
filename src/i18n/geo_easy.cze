@@ -536,6 +536,7 @@ set geoEasyMsg(delhole)		"Smazat ukazatel?"
 set geoEasyMsg(deldtmpnt)	"Smazat bod DMT?"
 set geoEasyMsg(deldtmtri)	"Smazat trojúhelník DMT?"
 set geoEasyMsg(errsavedtm)	"Chyba při ukládání DMT"
+set geoEasyMsg(profileFewP) "Less than 2 points on the profile"     ;# TODO
 
 set geoEasyMsg(stat)		"Statistika %d načteného datasetu \nPočet bodů: %d\nPočet známých bodů: %d\nPočet podrobných bodů: %d\nPočet stanovisek: %d\nPočet známých stanovisek: %d\nNumber of occupations: %d\nPočet orientovaných stanovisek: %d\n"
 # gama

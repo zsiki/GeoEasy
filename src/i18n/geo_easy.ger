@@ -534,7 +534,7 @@ set geoEasyMsg(delhole)		"Marker löschen?"
 set geoEasyMsg(deldtmpnt)	"DGM-Punkt löschen?"
 set geoEasyMsg(deldtmtri)	"DGM-Dreieck löschen?"
 set geoEasyMsg(errsavedtm)	"Fehler während der DGM-Speicherung."
-
+set geoEasyMsg(profileFewP) "Less than 2 points on the profile" ;# TODO
 
 set geoEasyMsg(stat)		"Statistik der geladenen Datei %d\Anzahl Punkte: %d\nAnzahl Detailpunkte: %d\nAnzahl Stationspunkte: %d\nAnzahl neubestimmter Stationspunkten: %d\nAnzahl der Stationierungen: %d\nAnzahl der Stationierungen mit Orientierung: %d\n"
 # gama

@@ -537,6 +537,7 @@ set geoEasyMsg(delhole)		"Delete marker?"
 set geoEasyMsg(deldtmpnt)	"Delete DTM point?"
 set geoEasyMsg(deldtmtri)	"Delete DTM triangle?"
 set geoEasyMsg(errsavedtm)	"Error saving DTM"
+set geoEasyMsg(profileFewP)	"Less than 2 points on the profile"
 
 set geoEasyMsg(stat)		"Statistics on %d loaded data sets\nNumber of points: %d\nNumber of known points: %d\nNumber of detailed points: %d\nNumber of stations: %d\nNumber of known stations: %d\nNumber of occupations: %d\nNumber of oriented occupations: %d\n"
 # gama

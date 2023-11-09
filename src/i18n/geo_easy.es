@@ -537,6 +537,7 @@ set geoEasyMsg(delhole)		"¿Eliminar marca?"
 set geoEasyMsg(deldtmpnt)	"¿Eliminar punto del DTM?"
 set geoEasyMsg(deldtmtri)	"¿Eliminar triangulo del DTM?"
 set geoEasyMsg(errsavedtm)	"Error guardando el DTM"
+set geoEasyMsg(profileFewP) "Less than 2 points on the profile"     ;# TODO
 
 set geoEasyMsg(stat)		"Estad\u00EDsticas en %d el los conjuntos de datos cargados\nN\u00FAmero de puntos: %d\nN\u00FAmero de puntos conocidos: %d\nN\u00FAmero de puntos de detalle: %d\nN\u00FAmero de estaci\u00F3nes: %d\nN\u00FAmero de estaci\u00F3nes conocidas: %d\nN\u00FAmero de ocupaciones: %d\nN\u00FAmero ocupaciones orientadas: %d\n"
 # gama

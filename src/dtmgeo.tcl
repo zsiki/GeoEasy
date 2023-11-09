@@ -1145,36 +1145,45 @@ proc InterpolateTin {this cx cy} {
 	}
 	if {$it == "N"} {
 		set p1 [set ${tinLoaded}_node($index)]
-		set z [lindex $p1 2]
-		return $z
+        # realy close?
+        if {[Distance $xact $yact [lindex $p1 0] [lindex $p1 1]] < 1} {
+            set z [lindex $p1 2]
+            return $z
+        }
 	}
 	# get triangle points
-	set triang [set ${tinLoaded}_ele($index)]
-	set p1 [set ${tinLoaded}_node([lindex $triang 0])]
-	set p2 [set ${tinLoaded}_node([lindex $triang 1])]
-	set p3 [set ${tinLoaded}_node([lindex $triang 2])]
-	set x1 [lindex $p1 0]
-	set y1 [lindex $p1 1]
-	set z1 [lindex $p1 2]
-	set x2 [lindex $p2 0]
-	set y2 [lindex $p2 1]
-	set z2 [lindex $p2 2]
-	set x3 [lindex $p3 0]
-	set y3 [lindex $p3 1]
-	set z3 [lindex $p3 2]
-	set dx1 [expr {$x1 - $x2}]
-	set dy1 [expr {$y1 - $y2}]
-	set dz1 [expr {$z1 - $z2}]
-	set dx2 [expr {$x3 - $x2}]
-	set dy2 [expr {$y3 - $y2}]
-	set dz2 [expr {$z3 - $z2}]
-	# normal vector (dy1 dx1 dz1) x (dy2 dx2 dz2)
-	set a [expr {$dy1 * $dz2 - $dy2 * $dz1}]
-	set b [expr {$dx2 * $dz1 - $dx1 * $dz2}]
-	set c [expr {double($dx1 * $dy2 - $dx2 * $dy1)}]
-	set d [expr {-$a * $x1 - $b * $y1 - $c * $z1}]
-	set z [expr {-($a * $xact + $b * $yact + $d) / $c}]
-	return $z
+    if {$it == "T"} {
+        set triang [set ${tinLoaded}_ele($index)]
+        set p1 [set ${tinLoaded}_node([lindex $triang 0])]
+        set p2 [set ${tinLoaded}_node([lindex $triang 1])]
+        set p3 [set ${tinLoaded}_node([lindex $triang 2])]
+        set x1 [lindex $p1 0]
+        set y1 [lindex $p1 1]
+        set z1 [lindex $p1 2]
+        set x2 [lindex $p2 0]
+        set y2 [lindex $p2 1]
+        set z2 [lindex $p2 2]
+        set x3 [lindex $p3 0]
+        set y3 [lindex $p3 1]
+        set z3 [lindex $p3 2]
+        set dx1 [expr {$x1 - $x2}]
+        set dy1 [expr {$y1 - $y2}]
+        set dz1 [expr {$z1 - $z2}]
+        set dx2 [expr {$x3 - $x2}]
+        set dy2 [expr {$y3 - $y2}]
+        set dz2 [expr {$z3 - $z2}]
+        # normal vector (dy1 dx1 dz1) x (dy2 dx2 dz2)
+        set a [expr {$dy1 * $dz2 - $dy2 * $dz1}]
+        set b [expr {$dx2 * $dz1 - $dx1 * $dz2}]
+        set c [expr {double($dx1 * $dy2 - $dx2 * $dy1)}]
+        set d [expr {-$a * $x1 - $b * $y1 - $c * $z1}]
+        set z [expr {-($a * $xact + $b * $yact + $d) / $c}]
+        if {[Between $z [expr {min($z1, $z2, $z3)}] [expr {max($z1, $z2, $z3)}]]} {
+            return $z
+        }
+    } else {
+        return -9999
+    }
 }
 
 #
@@ -2785,11 +2794,30 @@ proc DtmProfile {this} {
     set zInterp [InterpolateTin $this [GeoX $can $xInterp] [GeoY $can $yInterp]]
     set z1Interp [InterpolateTin $this [GeoX $can $x1Interp] [GeoY $can $y1Interp]]
     set sec [InterpolateLine $xInterp $yInterp $zInterp $x1Interp $y1Interp $z1Interp]
-    set last ""
+    set last_p2 [lindex [lindex $sec 0] 0]
     set i 1
+    if {[llength $sec] < 2} {
+		geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(profileFewP) \
+			error 0 OK
+        GeoLog1 $geoEasyMsg(profileFewP)
+        if {$dxfProfile} {
+            puts $fd "  0\nENDSEC\n  0\nEOF"
+            close $fd
+        }
+        if {$cooProfile} {
+            close $fc
+        }
+        return
+    }
     foreach s $sec {
         set p1 [lindex $s 0]
         set p2 [lindex $s 1]
+        set dd [Distance [lindex $p1 0] [lindex $p1 1] [lindex $last_p2 0] [lindex $last_p2 1]]
+        if {$dd > 1e-2} {
+            # gap
+            GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" [lindex $last_p2 0] [lindex $last_p2 1] [lindex $last_p2 2] [lindex $last_p2 3]]
+            GeoLog1 "---"
+        }
         GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" [lindex $p1 0] [lindex $p1 1] [lindex $p1 2] [lindex $p1 3]]
 		if {$dxfProfile} {
             puts $fd "  0\nLINE\n  8\nPROFIL"
@@ -2797,9 +2825,15 @@ proc DtmProfile {this} {
             puts $fd " 11\n[lindex $p2 3]\n 21\n[lindex $p2 2]"
         }
 		if {$cooProfile} {
+            if {$dd > 1e-2} {
+                # gap
+                puts $fc [list [list 5 s$i] [list 38 [lindex $last_p2 0]] [list 37 [lindex $last_p2 1]] [list 39 [lindex $last_p2 2]]]
+                incr i
+            }
 			puts $fc [list [list 5 s$i] [list 38 [lindex $p1 0]] [list 37 [lindex $p1 1]] [list 39 [lindex $p1 2]]]
         }
         incr i
+        set last_p2 $p2
     }
     GeoLog1 [format "%.${decimals}f %.${decimals}f %.${decimals}f %.${decimals}f" [lindex $p2 0] [lindex $p2 1] [lindex $p2 2] [lindex $p2 3]]
     if {$cooProfile} {      ;# add last point
@@ -3001,6 +3035,7 @@ proc ZInterp {x1 y1 z1 x2 y2 z2 x y} {
 #	@param lx2 end point
 #	@param ly2
 #	@param lz2
+#	@return section edges
 proc InterpolateLine {lx1 ly1 lz1 lx2 ly2 lz2} {
 	global tinLoaded
 	global ${tinLoaded}_node ${tinLoaded}_ele
@@ -3033,7 +3068,7 @@ proc InterpolateLine {lx1 ly1 lz1 lx2 ly2 lz2} {
         set ty_max [expr {max($y1, $y2, $y3)}]
         if {$tx_min > $lx_max || $ty_min > $ly_max || \
             $lx_min > $tx_max || $ly_min > $ty_max} {
-                continue    ;# no intersection skip triangle
+                continue    ;# no intersection between MBRs skip triangle
         }
         set pp ""
         set mind 1e34
@@ -3041,10 +3076,10 @@ proc InterpolateLine {lx1 ly1 lz1 lx2 ly2 lz2} {
         if {[llength $p] > 1} {
             set px [lindex $p 0]
             set py [lindex $p 1]
-            if {[Between $px $x1 $x2] && [Between $py $y1 $y2]} {
+            if {[Between $px $x1 $x2] && [Between $py $y1 $y2] && \
+                [Between $px $lx1 $lx2] && [Between $py $ly1 $ly2]} {
                 # real intersection
                 set pz [ZInterp $x1 $y1 $z1 $x2 $y2 $z2 $px $py]
-#                set pz [expr {($z2 - $z1) / ($x2 - $x1) * ($px - $x1) + $z1}]
                 set d [Distance $lx1 $ly1 $px $py]
                 if {$d < $mind} {
                     set mind $d
@@ -3058,10 +3093,10 @@ proc InterpolateLine {lx1 ly1 lz1 lx2 ly2 lz2} {
         if {[llength $p] > 1} {
             set px [lindex $p 0]
             set py [lindex $p 1]
-            if {[Between $px $x2 $x3] && [Between $py $y2 $y3]} {
+            if {[Between $px $x2 $x3] && [Between $py $y2 $y3] && \
+                [Between $px $lx1 $lx2] && [Between $py $ly1 $ly2]} {
                 # real intersection
                 set pz [ZInterp $x2 $y2 $z2 $x3 $y3 $z3 $px $py]
-#                set pz [expr {($z3 - $z2) / ($x3 - $x2) * ($px - $x2) + $z2}]
                 set d [Distance $lx1 $ly1 $px $py]
                 if {$d < $mind} {
                     set mind $d
@@ -3075,10 +3110,10 @@ proc InterpolateLine {lx1 ly1 lz1 lx2 ly2 lz2} {
         if {[llength $p] > 1} {
             set px [lindex $p 0]
             set py [lindex $p 1]
-            if {[Between $px $x3 $x1] && [Between $py $y3 $y1]} {
+            if {[Between $px $x3 $x1] && [Between $py $y3 $y1] && \
+                [Between $px $lx1 $lx2] && [Between $py $ly1 $ly2]} {
                 # real intersection
                 set pz [ZInterp $x3 $y3 $z3 $x1 $y1 $z1 $px $py]
-#                set pz [expr {($z1 - $z3) / ($x1 - $x3) * ($px - $x3) + $z3}]
                 set d [Distance $lx1 $ly1 $px $py]
                 if {$d < $mind} {
                     set mind $d
