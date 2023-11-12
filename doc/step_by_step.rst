@@ -789,7 +789,7 @@ Open the field-book (**Edit/Observations**) and change the mask (
 
 These observations were made by digital leveling instrument with a standard
 deviation of 0.3 mm/km. Change calculation parameters (**File/Calculation parameters...**), *Decimals in results* should be changed to 4. Check also 
-*Standard deviation for leveling [mm/km]*, it should be 0.3.
+*Standard deviation for leveling [mm/km]*, it should be 0.7.
 
 We shall adjust this small leveling network.
 There are no elevations in the field-book, so first set the elevation of point
@@ -805,6 +805,38 @@ After it let's calculate preliminary elevations
 Now we can start leveling network adjustment (**Calculate/Leveling network adjustment**). Select all point as unknown. In the calculation result window a
 long result list is displayed and the coordinates in the coordinate list are 
 updated.
+
+.. code:: text
+
+	Adjusted heights
+	****************
+
+  	i        point     approximate  correction  adjusted    std.dev conf.i.
+	======================= value ====== [m] ====== value ========== [mm] ===
+
+  	1            B *     100.00000  -0.00002      99.99998     0.1     0.4
+	2            H *     100.45000  -0.00013     100.44987     0.2     0.4
+	3            I *     100.37600   0.00001     100.37601     0.1     0.4
+	4            J *     100.44000   0.00003     100.44003     0.3     0.8
+  	5            N *     100.27100   0.00010     100.27110     0.1     0.4
+  	6            K *     100.26900   0.00000     100.26900     0.1     0.4
+
+
+	Adjusted observations
+	*********************
+
+   	i   standpoint       target           observed     adjusted std.dev conf.i.
+	=========================================== value ==== [m|d] ====== [mm|ss] ==
+
+   	1            B            H h dif      0.45000      0.44989     0.2     0.6
+   	2            H            I h dif     -0.07400     -0.07386     0.2     0.6
+   	3            I            J h dif      0.06400      0.06402     0.4     1.0
+   	4                         N h dif     -0.10500     -0.10492     0.2     0.5
+   	5            K            B h dif     -0.26900     -0.26902     0.1     0.3
+   	6                         N h dif      0.00200      0.00210     0.2     0.5
+   	7            J            K h dif     -0.17100     -0.17103     0.4     1.1
+   	8            N            H h dif      0.17800      0.17877     0.2     0.6
+   	9                         J h dif      0.16900      0.16894     0.4     1.0
 
 Digital terrain model
 ---------------------
