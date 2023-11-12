@@ -838,6 +838,11 @@ updated.
    	8            N            H h dif      0.17800      0.17877     0.2     0.6
    	9                         J h dif      0.16900      0.16894     0.4     1.0
 
+.. figure:: images/elevation_stdev.png
+	:align: center
+
+	Adjusted elevations an mean errors in *fix_stdev* mask
+
 Digital terrain model
 ---------------------
 
