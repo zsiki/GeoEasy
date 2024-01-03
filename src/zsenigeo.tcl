@@ -18,8 +18,10 @@
 #
 #       Read in GeoZseni data files into memory
 #       Processed record types
+#                       GJK - header
+#                       GJK,version
 #			AP - station record
-#			AP,point number,code,ih,date,note,?,?,?,?
+#			AP,point number,code,ih,date,fieldbook_name,surveyor name,instrument,data collecetor,note
 #			AM - orientation
 #			AM,point number,code,th,hzI,hzII,hz,zI,zII,z,dI,dII,d
 #			RM - detail point
