@@ -55,9 +55,9 @@ proc GeoEasy {top} {
 	global saveType comSaveType
 	global geoLangs langCodes
 
-	set version 322 ;# update for new release!
-    #set version_str "[join [split $version {}] .]dev"
-	set version_str "[join [split $version {}] .]"
+	set version 323 ;# update for new release!
+    set version_str "[join [split $version {}] .]dev"
+	#set version_str "[join [split $version {}] .]"
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
@@ -548,7 +548,7 @@ proc GeoEasy {top} {
 
         menu $topw.menu.regression -tearoff 0
         set i 0
-		set menuBreak {2}
+		set menuBreak {3}
         foreach r $reglist {
             $topw.menu.regression add command -label $r -command "GeoReg $i"
 			if {[lsearch $menuBreak $i] >= 0} {
