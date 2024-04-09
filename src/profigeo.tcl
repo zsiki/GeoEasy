@@ -458,7 +458,6 @@ proc TxtCols {codes allCodes fn {ff ""}} {
 	}
 	button $this.1.2.add -text $geoEasyMsg(add) -command {
 		global tmpAllCodes
-		#set al $geoCodes(-1)	;# skip
         set al {}
 		set ll [.txtcols.1.1.l get 0 end]
 		foreach c $tmpAllCodes {
@@ -682,19 +681,21 @@ proc TxtGeo {fn fa {ff ""}} {
 			foreach code $codes val $buflist {
 				if {[string length $code] > 0 && $code >= 0 && \
 						[string length $val] > 0} {
+					if {[lsearch -exact {7 8 9 10 120 11 3 6 112} $code] != -1} {
+                        # if "," is not separator and no "." in coord
+                        # replace "," width "."
+                        if {[string first "," $val] != -1 && [string first "." $val] == -1 && [string first "," $txtSep] == -1} {
+                            regsub "," $val "." val
+                        }
+                    }
 					if {[lsearch -exact {7 8} $code] != -1} {	;# Hz or V
 						if {[regexp $reg(3) $val]} {
 							# angle in DMS
 							set val [DMS2Rad $val]
-						} elseif {$val > $PI2} {	;# TODO under 6.28 will be RAD!!!
+						} else {
 							# angle in gon
 							set val [Gon2Rad $val]
 						}
-					}
-					# if "," is not separator and no "." in coord
-					# replace "," width "."
-					if {[string first "," $val] != -1 && [string first "." $val] == -1 && [string first "," $txtSep] == -1} {
-						regsub "," $val "." val
 					}
 					if {[lsearch -exact {7 8 9 10 120 11 3 6 112} $code] != -1} {
 						# check numeric value
