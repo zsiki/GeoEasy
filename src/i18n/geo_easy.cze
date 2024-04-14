@@ -12,7 +12,7 @@ global geoEasyMsg
 
 # regression types
 global reglist
-set reglist { "2D linie" "Rovnoběné 2D linie" "Krunice" \
+set reglist { "2D linie" "Rovnoběné 2D linie" "Horizontal circle" "Krunice" \
 	"Rovina" "Horizontální rovina" "Vertikální rovina" \
 	"Koule" "3D linie" "Angle of planes" } ;# "Vertikální paraboloid"	;# TODO
 

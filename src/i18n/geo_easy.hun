@@ -12,7 +12,7 @@ global geoEasyMsg
 
 # regression types
 global reglist
-set reglist {"2D egyenes" "Párhuzamos egyenesek" "Kör" \
+set reglist {"2D egyenes" "Párhuzamos egyenesek" "Vízszintes kör" "Kör (nincs kész)" \
 	"Sík" "Vízszintes sík" "Függőleges sík" \
 	"Gömb" "3D egyenes" "Síkok szöge"} ;# "Függőleges paraboloid"
 
