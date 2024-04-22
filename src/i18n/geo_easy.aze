@@ -1,0 +1,946 @@
+#-------------------------------------------------------------------------------
+#
+#	-- GeoEasy message file
+#
+#-------------------------------------------------------------------------------
+global fileTypes saveTypes projTypes trTypes trHTypes tr1Types tr2Types \
+	tr12Types tinTypes polyTypes vrmlTypes kmlTypes xmlTypes grdTypes txpTypes \
+	cadTypes svgTypes pngTypes mskTypes lstTypes docTypes csvTypes tclTypes \
+	webTypes
+global geoCodes
+global geoEasyMsg
+
+# regression types
+global reglist
+set reglist { "İki ölçülü xətt" "Paralel iki ölçülü xətlər" "Çevrə" \
+	"Müstəvi" "Üfüqi müstəvi" "Şaquli müstəvi" \
+	"Sfera" "Üç ölçülü xətt" "Müstəvi bucaqları" } ;# "Vertical paraboloid" 
+
+set fileTypes {
+	{"GeoEasy formatı" {.geo .GEO}}
+	{"Geodimeter formatı" {.job .are .JOB .ARE}}
+	{"Sokkia set 4 formatı" {.set .scr .SET .SCR}}
+	{"Sokkia sdr formatı" {.sdr .crd .SDR .CRD}}
+	{"Leica GSI formatı" {.wld .gre .gsi .WLD .GRE .GSI}}
+	{"Leica IDEX formatı" {.idx .IDX}}
+	{"TopCon GTS-700 formatı" {.700 .yxz .gts7 .YXZ .GTS7}}
+	{"TopCon GTS-210 formatı" {.210}}
+	{"Trimble M5 formatı" {.m5 .M5}}
+	{"SurvCE RAW formatı" {.rw5 .RW5}}
+	{"n4ce txt formatı" {.n4c N4C}}
+	{"Nikon DTM-300 formatı" {.nik .NIK}}
+	{"Nikon RAW formatı" {.raw .RAW}}
+	{"FOIF formatı" {.mes .MES}}
+	{"Geodat 124 formatı" {.gdt .GDT}}
+	{"GeoProfi formatı" {.mjk .MJK}}
+	{"GeoProfi koordinatları" {.eov .szt .her .hkr .hdr .EOV .SZT .HER .HKR .HDR}}
+	{"GeoCalc3 formatı" {.gmj .GMJ}}
+	{"GeoZseni formatı" {.gjk .GJK}}
+	{"Koordinat siyahısı" {.txt .csv .dat .pnt .TXT .CSV .DAT .PNT}}
+	{"Sahə jurnalı" {.dmp .DMP}}
+	{"DTM GRID faylı" {.asc .arx .ASC .ARX}}
+	{"AutoCAD DXF faylı" {.dxf .DXF}}
+	{"Bütün fayllar" {.*}}
+}
+
+set saveTypes {
+	{"GeoEasy formatı" {.geo}}
+	{"Geodimeter koordinatları" {.are}}
+	{"Geodimeter ölçüləri and koordinatları" {.job}}
+	{"Sokkia set 4 koordinatları" {.scr}}
+	{"Sokkia sdr33 koordinatları" {.sdr}}
+	{"8 baytlıq Leica koordinatları " {.wld}}
+	{"16 baytlıq Leica koordinatları " {.gsi}}
+	{"Nikon DTM-300 koordinatları" {.nik}}
+	{"Sahə jurnalı" {.dmp}}
+	{"Koordinat siyahısı" {.csv}}
+	{"ITR 2.x Koordinat siyahısı" {.itr}}
+	{"GPS Trackmaker" {.txt}}
+	{"GPS XML" {.gpx}}
+	{"Keyhole Markup Language faylı" {.kml}}
+    {"PostGIS SQL skripti" {.sql}}
+}
+
+set xmlTypes {
+	{"GNU GaMa xml iki ölçülü düzəliş üçün" {.g2d}}
+	{"GNU GaMa xml bir ölçülü düzəliş üçün" {.g1d}}
+	{"GNU GaMa xml üç ölçülü düzəliş üçün" {.g3d}}
+}
+
+set projTypes {{"GeoEasy layihəsi" {.gpr}}
+}
+
+set trTypes {{"Affin çevrilməsi" {.prm}}
+}
+
+set trHTypes {{"Şaquli sürüşmə" {.vsh}}
+}
+
+set tr1Types {{"Ortoqonal/Affin çevrilməsi" {.prm}}
+}
+
+set tr2Types {{"TRAFO çevrilməsi" {.all}}
+}
+
+set tr12Types {{"Ortoqonal/Affin çevrilməsi" {.prm}}
+	{"TRAFO çevrilməsi" {.all}}
+}
+
+set tinTypes {{"GeoEasy dtm" {.dtm}}
+}
+
+set polyTypes {{"GeoEasy dtm mənbə faylı" {.poly}}
+}
+
+set vrmlTypes {{"Virtual reallıq X3D faylı" {.x3d}}
+	{"Virtual reallıq wrl faylı" {.wrl}}
+}
+
+set kmlTypes {{"Keyhole Markup Language faylı" {.kml}}
+}
+
+set grdTypes {{"ESRI ASCII GRID" {.asc}}
+	{"GRASS ASCII GRID" {.arx}}
+}
+
+set txpTypes {{"Txt/csv fayl təsviri .txp" {.txp}}
+}
+
+set cadTypes {{"AutoCAD DXF" {.dxf}}
+}
+
+set svgTypes {{"Scalable Vector Graphics" {.svg}}
+}
+
+set pngTypes {{"PNG image" {.png}}
+}
+
+set mskTypes {{"GeoEasy mask" {.msk}}
+}
+
+set lstTypes {{"Mətn siyahısı" {.lst}}
+}
+
+set webTypes {{"Ana səhifə" {.html}}
+}
+
+set docTypes {{"Rich Text Format" {.rtf}}
+}
+
+set csvTypes {{"Comma Separated Values" {.csv}}
+}
+
+set tclTypes {{"Tcl skripti" {.tcl}}
+}
+
+#
+#	codes used in geo data set
+#
+set geoCodes(-1)	"Ötür"
+set geoCodes(0)		"İnformasiya"
+set geoCodes(1)		"INFO/DATA-da istifadə olunan məlumatlar"
+set geoCodes(2)		"Stansiya nömrəsi"
+set geoCodes(3)		"Ölçü instrumentinin hündürlüyü"
+set geoCodes(4)		"Nöqtənin kodu"
+set geoCodes(5)		"Npqtənin nömrəsi"
+set geoCodes(6)		"Siqnal hündürlüyü"
+set geoCodes(7)		"Üfüqi bucaq"
+set geoCodes(-7)	"İstifadə edilməyən"
+set geoCodes(8)		"Şaquli bucaq"
+set geoCodes(-8)	$geoCodes(-7)
+set geoCodes(9)		"Yamac məsafəsi"
+set geoCodes(-9)	$geoCodes(-7)
+set geoCodes(10)	"Hündürlük fərqi"
+set geoCodes(-10)	$geoCodes(-7)
+set geoCodes(120)	"Hündürlük fərqinin nivelirlənməsi" 
+set geoCodes(-120)	$geoCodes(-7)
+set geoCodes(11)	"Üfüqi məsafə"
+set geoCodes(-11)	$geoCodes(-7)
+set geoCodes(12)	"Səthin sahəsi"
+set geoCodes(13)	"Həcm"
+set geoCodes(14)	"Qiymətləndirmə faizi"
+set geoCodes(15)	"Sahə faylı"
+set geoCodes(16)	"C1-C2"
+set geoCodes(17)	"HAII"
+set geoCodes(18)	"VAII"
+set geoCodes(19)	"dV"
+set geoCodes(20)	"Offset constant to slope distance"
+set geoCodes(21)	"Horizontal ref. angle"
+set geoCodes(-21)   $geoCodes(-7)
+set geoCodes(22)	"Kompensator"
+set geoCodes(23)	"Vahidlər"
+set geoCodes(24)	"HAI"
+set geoCodes(25)	"VAI"
+set geoCodes(26)	"SVA"
+set geoCodes(27)	"SHA"
+set geoCodes(28)	"SHD"
+set geoCodes(29)	"SHT"
+set geoCodes(30)	"Atmosferik düzəliş PPM"
+set geoCodes(37)	"Şimal mövqeyi"
+set geoCodes(38)	"Şərq mövqeyi"
+set geoCodes(39)	"Hündürlük"
+set geoCodes(40)	"dN"
+set geoCodes(41)	"dE"
+set geoCodes(42)	"dELE"
+set geoCodes(43)	"UTMSC"
+set geoCodes(44)	"Yamacın mailliyi"
+set geoCodes(45)	"dHA"
+set geoCodes(46)	"Orta Kvadratik meyl"
+set geoCodes(47)	"Rel. north coord."
+set geoCodes(48)	"Rel. east coord."
+set geoCodes(49)	"Şaquli məsafə"
+set geoCodes(50)	"İşin nömrəsi"
+set geoCodes(51)	"Tarix"
+set geoCodes(52)	"Vaxt"
+set geoCodes(53)	"Operator №"
+set geoCodes(54)	"Layihə №"
+set geoCodes(55)	"İnstrument №"
+set geoCodes(56)	"Temperatur"
+set geoCodes(57)	"Boş sətr"
+set geoCodes(58)	"Yerin radiusu"
+set geoCodes(59)	"Refraksiya"
+set geoCodes(60)	"Shot identity"
+set geoCodes(61)	"Activity code"
+set geoCodes(62)	"İstinad obyekti"
+set geoCodes(63)	"Diametr"
+set geoCodes(64)	"Radius"
+set geoCodes(65)	"Həndəsə"
+set geoCodes(66)	"Fiqur"
+set geoCodes(67)	"SON"
+set geoCodes(68)	"SOE"
+set geoCodes(69)	"SHT"
+set geoCodes(72)	"Radoffs"
+set geoCodes(73)	"Rt.offs"
+set geoCodes(74)	"Hava təzyiqi"
+set geoCodes(75)	"dHT"
+set geoCodes(76)	"dHD"
+set geoCodes(77)	"dHA"
+set geoCodes(78)	"com"
+set geoCodes(79)	"END"
+set geoCodes(80)	"Seksiya"
+set geoCodes(81)	"A-parametr"
+set geoCodes(82)	"Bölmə intervalı"
+set geoCodes(83)	"Cl.ofs"
+set geoCodes(100)	"Orientasiya bucağı"
+set geoCodes(101)	"Orta Orientasiya bucağı"
+set geoCodes(102)	"İlkin Orientasiya"
+set geoCodes(103)	"Orta İlkin Orientasiya"
+set geoCodes(110)	"Müşahidəçi"
+set geoCodes(111)	"Nöqtə ardıcıllığı"
+set geoCodes(112)	"Təkrar sayı"
+set geoCodes(114)	"stddev istiqaməti \[\"\]"
+set geoCodes(115)	"stddev məsafəsi (additive) \[mm\]"
+set geoCodes(116)	"stddev məsafəsi (multiplyer) \[ppm\]"
+set geoCodes(117)	"Ümumi uzunluq"
+set geoCodes(118)	"stddev hamarlama \[mm/km\]"
+set geoCodes(137)	"İlkin Şimal mövqeyi"
+set geoCodes(138)	"İlkin Şərq mövqeyi"
+set geoCodes(139)	"İlkin hündürlük"
+set geoCodes(140)	"EPSG kodu"
+set geoCodes(237)	"stdev Şimal mövqeyi"
+set geoCodes(238)	"stdev Şərq mövqeyi"
+set geoCodes(239)	"stdev hündürlüyü"
+
+#
+#	general messages button names
+#
+set geoEasyMsg(warning)		"xəbərdarlıq"
+set geoEasyMsg(error)		"səhv"
+set geoEasyMsg(info)		"info"
+set geoEasyMsg(ok)			"Yaxşı"
+set geoEasyMsg(yes)			"Bəli"
+set geoEasyMsg(no)			"Xeyr"
+set geoEasyMsg(cancel)		"İmtina"
+set geoEasyMsg(loadbut)		"Yüklə"
+set geoEasyMsg(savebut)		"Yaddaşda saxla"
+set geoEasyMsg(all)			"Bütün"
+set geoEasyMsg(ende)		"Sonlandır"
+set geoEasyMsg(ignore)		"Heç bir xəbərdarlıq yoxdur"
+set geoEasyMsg(wait)		"Gözlə"
+set geoEasyMsg(help)		"Kömək"
+set geoEasyMsg(find)		"Axtar"
+set geoEasyMsg(findNext)	"Növbətini axtar"
+set geoEasyMsg(delete)		"Sil"
+set geoEasyMsg(add)			"Əlavə et"
+set geoEasyMsg(newObs)		"Yeni müşahidə"
+set geoEasyMsg(newSt)		"Yeni stansiya"
+set geoEasyMsg(newCoo)		"Yeni nöqtə"
+set geoEasyMsg(insSt)		"Stansiya məlumatını daxil et"
+set geoEasyMsg(delSt)		"Stansiya məlumatını sil"
+set geoEasyMsg(finalCoo)	"İlkin -> son koordinatlar"
+set geoEasyMsg(lastPoint)	"Sonuncu nöqtə"
+set geoEasyMsg(browse)		"Gözdən keçir ..."
+set geoEasyMsg(up)			"Yuxarı"
+set geoEasyMsg(down)		"Aşağı"
+set geoEasyMsg(opensource)	"Open source GPL 2"
+#
+#	labels
+#
+set geoEasyMsg(pattern)		"Pattern:"
+#
+#	menu and title texts
+#
+set geoEasyMsg(maskTitle)		"Maska seç"
+set geoEasyMsg(graphTitle)		"Grafiki pəncərə"
+set geoEasyMsg(lbTitle)			"%d predmet seçin"
+set geoEasyMsg(lbTitle1)		"Ən azı %d predmet seçin"
+set geoEasyMsg(lbTitle2)		"Bilinməyən nöqtələri seçin"
+set geoEasyMsg(lbTitle3)		"%d stansiya seçin"
+set geoEasyMsg(lbTitle4)		"Koordinat seçin"
+set geoEasyMsg(lbTitle5)		"Bilinən nöqtələri seçin"
+set geoEasyMsg(lbReg)			"Reqressiya növü"
+set geoEasyMsg(refTitle)		"İstinad istiqaməti"
+set geoEasyMsg(soTitle)			"Nöqtə təyinatı"
+set geoEasyMsg(l1Title)			"İlk sətr"
+set geoEasyMsg(l2Title)			"İkinci sətr"
+set geoEasyMsg(p1Title)			"İlk nöqtə"
+set geoEasyMsg(p2Title)			"İkinci nöqtə"
+set geoEasyMsg(menuFile)		"Fayl"
+set geoEasyMsg(menuFileNew)		"Yeni ..."
+set geoEasyMsg(menuFileLoad)	"Yüklə ..."
+set geoEasyMsg(menuFileLogLoad) "Log faylını yüklə"
+set geoEasyMsg(menuFileLogClear) "Log faylını təmizlə"
+set geoEasyMsg(menuFileTclLoad) "tcl faylını yüklə"
+set geoEasyMsg(menuFileUnload)	"Bağla"
+set geoEasyMsg(menuFileSave)	"Yadaşda saxla"
+set geoEasyMsg(menuFileSaveAll)	"Hamısını yaddaşda saxla"
+set geoEasyMsg(menuFileSaveAs)	"Fərqli saxla ..."
+set geoEasyMsg(menuFileJoin)	"Birləşdir ..."
+set geoEasyMsg(menuFileExport)	"GNU Gama export ..."
+set geoEasyMsg(menuProjLoad)	"Layihəni yüklə ..."
+set geoEasyMsg(menuProjSave)	"Layihəni yaddaşda saxla ..."
+set geoEasyMsg(menuProjClose)	"Layihəni bağla"
+set geoEasyMsg(menuComEasy)		"ComEasy ..."
+set geoEasyMsg(menuFileStat)	"Statistika ..."
+set geoEasyMsg(menuFileCParam)	"Hesablama parameterləri ..."
+set geoEasyMsg(menuFileGamaParam) "Tənzimləmə parameterləri ..."
+set geoEasyMsg(menuFileColor)	"Rənglər ..."
+set geoEasyMsg(menuFileOParam)	"Başqa parameterlər ..."
+set geoEasyMsg(menuFileSaveP)	"Parameterləri saxla"
+set geoEasyMsg(menuFileSaveSelection) "Seçimi yaddaşda saxla ..."
+set geoEasyMsg(menuFileFontSetup) "Font ..."
+set geoEasyMsg(menuFileFind)	"Axtar"
+set geoEasyMsg(menuFileClear)	"Məzmunu təmizlə"
+set geoEasyMsg(menuFileExit)	"Çıxış"
+set geoEasyMsg(menuEdit)		"Edit"
+set geoEasyMsg(menuEditGeo)		"Müşahidələr"
+set geoEasyMsg(menuEditCoo)		"Koordinatlar"
+set geoEasyMsg(menuEditPar)		"Müşahidə parameterləri"
+set geoEasyMsg(menuEditMask)	"Maska təsvirlərini yüklə"
+set geoEasyMsg(menuHelpAbout)	"GeoEasy Haqqında ..."
+set geoEasyMsg(menuPopupBD)		"Azimut/Məsafə"
+set geoEasyMsg(menuPopupAngle)	"Təyinat/tənzimləmə"
+set geoEasyMsg(menuPopupOri)	"İstiqamətləndirmə"
+set geoEasyMsg(menuPopupAppOri)	"Təqribi orientasiya"
+set geoEasyMsg(menuCalDelOri)	"Orientasiyaları sil ..."
+set geoEasyMsg(menuPopupPol)	"Qütb nöqtəsi"
+set geoEasyMsg(menuPopupSec)	"Kəsişmə"
+set geoEasyMsg(menuPopupRes)	"Rezeksiya"
+set geoEasyMsg(menuPopupArc)	"Arcsection"
+set geoEasyMsg(menuPopupEle)	"Hündürlük"
+set geoEasyMsg(menuPopupDetail)	"Detal nöqtələri"
+set geoEasyMsg(menuPopupAdj3D)	"Üçölçülü düzəliş"
+set geoEasyMsg(menuPopupAdj2D)	"Üfüqi düzəliş"
+set geoEasyMsg(menuPopupAdj1D)	"Hündürlük düzəlişi"
+set geoEasyMsg(menuGraph)		"Pəncərə"
+set geoEasyMsg(menuGraNew)		"Yeni grafiki pəncırə"
+set geoEasyMsg(menuLogNew)		"Log pəncərəsi"
+set geoEasyMsg(menuConsoleNew)	"Əmrlər sətri pəncərəsi"
+set geoEasyMsg(menuWin)			"Pəncərə siyahısı"
+set geoEasyMsg(menuRefreshAll)	"Bütün pəncərələri yenilə"
+set geoEasyMsg(menuResize)		"Sətr sayı ..."
+set geoEasyMsg(menuMask)		"Maska ..."
+set geoEasyMsg(menuGraCom)		"Əmrlər"
+set geoEasyMsg(menuGraRefresh)	"Yenilə"
+set geoEasyMsg(menuGraFind)		"Nöqtəni axtar ..."
+set geoEasyMsg(menuGraPn)		"Nöqtə adları"
+set geoEasyMsg(menuGraObs)		"Müşahidələr"
+set geoEasyMsg(menuGraDet)		"Detal nöqtələri"
+set geoEasyMsg(menuGraLines)	"xətlər"
+set geoEasyMsg(menuGraUsed)		"Sadəcə müşahidə olunan nöqtələr"
+set geoEasyMsg(menuGraZoomAll)	"Hamısını böyüt"
+set geoEasyMsg(menuGraDXF)		"DXF output ..."
+set geoEasyMsg(menuGraSVG)		"SVG output ..."
+set geoEasyMsg(menuGraPng)		"PNG ixrac ..."
+set geoEasyMsg(menuGraClose)	"Bağla"
+set geoEasyMsg(menuGraCal)		"Hesabla"
+set geoEasyMsg(menuCalTra)		"Geodezik gediş"
+set geoEasyMsg(menuCalTraNode)	"Geodezik gediş qovşağı"
+set geoEasyMsg(menuCalTrig)		"Triqonometrik xətt"
+set geoEasyMsg(menuCalTrigNode) "Triqonometrik düyün/qovşaq"
+set geoEasyMsg(menuCalPre)		"İlkin koordinatlar"
+set geoEasyMsg(menuRecalcPre)	"İlkin koordinatları yenidən hesabla"
+set geoEasyMsg(menuCalDet)		"Yeni detal nöqtələri"
+set geoEasyMsg(menuCalDetAll)	"Bütün detal nöqtələri"
+set geoEasyMsg(menuCalOri)		"Orientasiyalar"
+set geoEasyMsg(menuCalAppOri)	"İlkin Orientasiyalar"
+set geoEasyMsg(menuCalAdj3D)	"Üçölçülü şəbəkə tənzimləmələri"
+set geoEasyMsg(menuCalAdj2D)	"Üfüqi şəbəkə tənzimləmələri"
+set geoEasyMsg(menuCalAdj1D)	"Nivelirləmə şəbəkə tənzimləmələri"
+set geoEasyMsg(menuCalTran)		"Koordinat çevrilməsi"
+set geoEasyMsg(menuCalHTran)	"Hündürlük transformasiyaları"
+set geoEasyMsg(menuCalLine)		"İki xəttin kəsişməsi"
+set geoEasyMsg(menuCalPntLine)	"Xətt üzərində nöqtə"
+set geoEasyMsg(menuCalArea)		"Sahə"
+set geoEasyMsg(menuCalLength)	"Uzunluq"
+set geoEasyMsg(menuCalArc)		"Qövs təyinatı"
+set geoEasyMsg(menuCalFront)	"Üçölçülü kəsişmə"
+set geoEasyMsg(menuCoord)		"Koordinatlar siyahısı"
+set geoEasyMsg(menuObs)			"Sahə jurnalı"
+set geoEasyMsg(menuCheckObs)	"Sahə jurnalını yoxla"
+set geoEasyMsg(menuCheckCoord)	"Koordinat siyahısını yoxla"
+set geoEasyMsg(menuSaveCsv)		"CSV kimi saxla"
+set geoEasyMsg(menuSaveHtml)	"HTML kimi saxla"
+set geoEasyMsg(menuSaveRtf)		"RTF kimi saxla"
+set geoEasyMsg(menuCooTr)		"Transformasiya ..."
+set geoEasyMsg(menuCooTrFile)	"Transformasiya, fayldan olan parametrlər"
+set geoEasyMsg(menuCooDif)		"Koordinatlar fərqi"
+set geoEasyMsg(menuCooSwapEN)	"Şərq-Şimal dəyiş"
+set geoEasyMsg(menuCooSwapEZ)	"Şərq-hündürlüyü dəyiş"
+set geoEasyMsg(menuCooSwapNZ)	"Şimal-hündürlüyü dəyiş"
+set geoEasyMsg(menuCooDelAppr)	"İlkin koordinatları sil"
+set geoEasyMsg(menuCooDel)		"Bütün koordinatları sil"
+set geoEasyMsg(menuPntDel)		"Bütün nöqtələri sil"
+set geoEasyMsg(menuCooDelDetail) "Bütün detal koordinatlarını sil"
+# regression
+set geoEasyMsg(menuReg)			"Reqressiya hesablanması"
+set geoEasyMsg(menuRegLDist)	"Xəttdən olan məsafə"
+set geoEasyMsg(menuRegPDist)	"Müstəvidən olan məsafə"
+# dtm/tin
+set geoEasyMsg(menuDtm)			"DTM"
+set geoEasyMsg(menuDtmCreate)	"Yarat ..."
+set geoEasyMsg(menuDtmLoad)		"Yüklə ..."
+set geoEasyMsg(menuDtmAdd)		"Əlavə et ..."
+set geoEasyMsg(menuDtmUnload)	"Bağla"
+set geoEasyMsg(menuDtmSave)		"Saxla"
+set geoEasyMsg(menuDtmInterp)	"Profil ..."
+set geoEasyMsg(menuDtmContour)	"Konturlar ..."
+set geoEasyMsg(menuDtmVolume)	"Həcm ..."
+set geoEasyMsg(menuDtmVolumeDif) "Həcm fərqi ..."
+set geoEasyMsg(menuDtmVrml)		"VRML/X3D ixrac ..."
+set geoEasyMsg(menuDtmKml)		"KML ixrac ..."
+set geoEasyMsg(menuDtmGrid)		"ASCII grid ixrac ..."
+set geoEasyMsg(menuLandXML)		"LandXML ixrac ..."
+#
+#	Errors and warnings
+#
+set geoEasyMsg(-1)	"Məlumat faylının oxunmasında xəta"
+set geoEasyMsg(-2)	"Geo məlumat çoxluğu artıq əlavə edilmişdir"
+set geoEasyMsg(-3)	"Geo faylının yaradılmasında xəta"
+set geoEasyMsg(-4)	"coo faylının yaradılmasında xəta"
+set geoEasyMsg(-5)	"Məlumat faylında xəta"
+set geoEasyMsg(-6)	"geo faylının açılmasında xəta"
+set geoEasyMsg(-7)	"coo faylının açılmasında xəta"
+set geoEasyMsg(-8)	"geo məlumat çoxluğu əlavə edilməyib"
+set geoEasyMsg(-9)	"Koordinatlar faylında xəta, sətr №:"
+set geoEasyMsg(-10) "Layihə faylında xəta, sətr №:"
+set geoEasyMsg(-11) "Parametrlər faylının yaradılmasında xəta"
+set geoEasyMsg(-12) "Stansiya və yaxud hədəf № çatışmayır"
+set geoEasyMsg(1)	"Əlavə edilmiş Geo faylında müşahidə yoxdur"
+set geoEasyMsg(2)	"Əlavə edilmiş Geo faylında koordinat yoxdur"
+set geoEasyMsg(skipped) "Bilinməyən yazı, ötürülən sətr/element: "
+set geoEasyMsg(overw) "Fayl(lar) mövcuddur, üzərinə yazılsın? (overwrite?)"
+set geoEasyMsg(loaded)	"Artıq, əlavə edilmiş fayllardakı koordinatlar istifadə edilir"
+set geoEasyMsg(helpfile)	"Kömək faylı tapılmadı"
+set geoEasyMsg(browser)		"Kömək faylı göstərilə bilmir\n .html fayllarının açılması üçün brauzerdən istifadə edin"
+set geoEasyMsg(rtfview)		"RTF faylı açıla bilmir\n .rtf fayllarının açılması üçün mətn prosessorunuzdan istifadə edin"
+set geoEasyMsg(filetype)	"Bilinməyən fayl və yaxud təyin olunmamış növ"
+set geoEasyMsg(saveext)		"Xahiş edirik, fayl sonluğunu əlavə edin"
+set geoEasyMsg(noGeo)		"Heç bir məlumat yüklənməyib"
+set geoEasyMsg(noStation)	"Sahə kitabının başlanğıcında stansiya məlumatı çatışmayır"
+set geoEasyMsg(saveit)		"Məlumatı saxlamaq istəyirsinizmi?"
+set geoEasyMsg(saveso)		"geo məlumat çoxluğuna tənzimləmə məlumtlarını əlavə etmək istəyirsinizmi?"
+set geoEasyMsg(image)		"Fiqur/şəkil tapılmadı:  "
+set geoEasyMsg(geocode)		"Maska təyinatlarında bilinməyən geo kod aşkarlandı: %s"
+set geoEasyMsg(nomask)		"Heç bir maska əlavə olunmadı"
+set geoEasyMsg(wrongmask)	"Maska təyinatlarında xəta baş verdi: %s"
+set geoEasyMsg(openit)		"Nəticələri açmaq istəyirsinizmi?"
+set geoEasyMsg(wrongval)	"Yanlış qiymət"
+set geoEasyMsg(mustfill)	"Bu sahəni doldurmalısınız, sil düyməsinə basıb bütün sətri silə bilərsiniz"
+set geoEasyMsg(stndel)		"Bütün stansiyanı silmək istəyirsinizmi?"
+set geoEasyMsg(recdel)		"Məlumatı silmək istəyirsinizmi?"
+set geoEasyMsg(noOri)		"Bu nöqtə üçün heç bir istinad istiqaməti və yaxud koordinatı tapılmadı"
+set geoEasyMsg(noOri1)		"Bu nöqtə üçün heç bir orientasiya tapılmadı"
+set geoEasyMsg(noOri2)		"Bu stansiya üçün orientasiya hesablana bilmədi"
+set geoEasyMsg(cantOri)		"Heç bir stansiya üçün orientasiya hesablana bilmədi"
+set geoEasyMsg(readyOri)	"Bütün stansiyaların orientasiyası mövcuddur.Bütün orientasiyaları yenidən hesablamaq istəyirsinizmi?"
+set geoEasyMsg(samePnt)		"Stansiya və istinad nöqtəsinin koordinatları eynidir!"
+set geoEasyMsg(noStn)		"Bu stansiya deyildir"
+set geoEasyMsg(noSec)		"Kəsişmə üçün kifayət qədər xarici istiqamətlər mövcud deyildir"
+set geoEasyMsg(noRes)		"Rezeksiya üçün kifayət qədər daxili istiqamətlər mövcud deyildir"
+set geoEasyMsg(noArc)		"arcsection üçün kifayət qədər məsafə mövcud deyildir"
+set geoEasyMsg(noPol)		"Qütb hesabatı üçün kifayət qədər müşahidə mövcud deyildir"
+set geoEasyMsg(noAdj)		"Düzəliş üçün kifayət qədər müşahidə və yaxud stansiyalar üçün orientasiya mövcud deyildir"
+set geoEasyMsg(noUnknowns)	"Tənzimləmə üçün bilinməyən predmet yoxdur "
+set geoEasyMsg(pure)		"Çox böyükdür : %s-%s %s %s\n iterasiya lazım gələ bilər"
+set geoEasyMsg(noCoo)		"Koordinatları hesablaya bilmirəm"
+set geoEasyMsg(noObs)		"Tənzimləmə üçün kifayət qədər müşahidə mövcud deyildir"
+set geoEasyMsg(noAppCoo)	"Bu nöqtə üçün koordinatlar mövcud deyildir"
+set geoEasyMsg(noAppZ)		"Hündürlük mövcud deyil: "
+set geoEasyMsg(cantSave)	"Faylı saxlamaq mümkün olmadı"
+set geoEasyMsg(fewCoord)	"Hesablama üçün kifayət qədər kokordinatlar mövcud deyil"
+set geoEasyMsg(pointsDropped)	"Bu nöqtələr üçün koordinatlar mövcud deyil: "
+set geoEasyMsg(delappr)		"Bütün ilkin koordinatları silmək istəyirsinizmi?"
+set geoEasyMsg(delcoo)		"Bütün koordinatları silmək istəyirsinizmi?"
+set geoEasyMsg(delpnt)		"Bütün nöqtələri silmək istəyirsinizmi?"
+set geoEasyMsg(deldetailpnt)		"Bütün detal nöqtələrinin koordinatlarını silmək istəyirsinizmi?"
+set geoEasyMsg(delori)		"Bütün orientasiyaları silmək istəyirsinizmi?"
+set geoEasyMsg(nodetail)	"Hesablama üçün detal nöqtələri mövcud deyildir"
+
+set geoEasyMsg(double)		"Təkrar koordinatlar"
+set geoEasyMsg(noEle)		"Hündürlük hesabatı üçün kifayət qədər müşahidə mövcud deyil"
+set geoEasyMsg(wrongsel)	"Yanlış seçim"
+set geoEasyMsg(wrongsel1)	"Dəqiq olaraq %d ədəd predment seçin"
+set geoEasyMsg(wrongsel2)	"Ən azı %d ədəd predment seçin"
+set geoEasyMsg(nst)			"Number of occupations:"
+set geoEasyMsg(ndist)		"Məsafə sayı:"
+set geoEasyMsg(next)		"Xarici istiqamətlərin sayı:"
+set geoEasyMsg(usedPn)		"Point name already used in a loaded data set"
+set geoEasyMsg(dblPn)		"Təkrar olunan nöqtə sayı/koordinatı"
+set geoEasyMsg(nonNumPn)	"Ədəd olmayan nöqtə sayları ötürüldü"
+set geoEasyMsg(units)		"Yanlızca metr və yaxud DMS vahidləri istifadə oluna bilər"
+set geoEasyMsg(nomore)		"Daha çox tapılmadı"
+set geoEasyMsg(tajErr)		"Limit keçdiyinə görə istiqamət xətası baş verdi"
+set geoEasyMsg(finalize)	"İlkin koordinatların son versiyasını saxla?"
+set geoEasyMsg(logDelete)	"log faylını silmək istəyirsinizmi?"
+set geoEasyMsg(cancelled)	"Əməliyyat dayandırıldı"
+set geoEasyMsg(dist)		"Məsafə hesabatı"
+set geoEasyMsg(area)		"Sahə hesabatı"
+set geoEasyMsg(sum)			"Cəm"
+set geoEasyMsg(sum1)		"Sahə"
+set geoEasyMsg(sum2)		"Perimetr"
+set geoEasyMsg(meanp)		"Orta mərkəz"
+set geoEasyMsg(centroid)	"Qravitasiya mərkəzi"
+set geoEasyMsg(endp)		"Sonuncu nöqtə?"
+set geoEasyMsg(maxGr)		"Yanlızca 10 grafriki pəncərə açıla bilər"
+set geoEasyMsg(nopng)		"PNG eksport mövcud deyildir"
+set geoEasyMsg(orist)		"Kifayət qədər bilinən (Şm,Şr,Z) orientli stansiyalar mövcud deyildir"
+
+set geoEasyMsg(linreg)		"Reqressiya xətti hesablana bilmir"
+set geoEasyMsg(planreg)		"Reqressiya müstəvisi hesablana bilmir"
+
+set geoEasyMsg(check)		"Sahə kitabı yoxlanılır"
+set geoEasyMsg(missing)		"Lazımı dəyər olan %s, bu sətrdə %s mövcud deyildir"
+set geoEasyMsg(together)	"Bu dəyər %s bu sətrdə %s mövcud deyildir"
+set geoEasyMsg(notTogether)	"Dəyərlər eyni sətrdə ola bilməz, %s sətr № %s"
+set geoEasyMsg(stationpn)	"Stansiya və hədəf eyni nöqtədədir, %s sətr № %s"
+set geoEasyMsg(missingstation) "Stansiya nömrəsi bu sətrdən: %s əvvəl mövcud deyildir"
+set geoEasyMsg(doublepn)	"Stansiya üçün təkrar nöqtə var, %s sətr № %s"
+set geoEasyMsg(numError)	"%d xəta(lar)"
+set geoEasyMsg(csvwarning)	"Başqa tətbiqlərdə istifadə etmək üçün koordinatları saxlamaq istəyirsinizsə, əsas pəncərədən Fərqli saxla düyməsinə basın. Davam etmək istəyirsinizmi?"
+
+set geoEasyMsg(tinfailed)	"DTM yaratmaq uğursuz oldu"
+set geoEasyMsg(tinload)		"DTM yükləmək uğursuz oldu"
+set geoEasyMsg(fewmassp)	"DTM yaratmaq üçün kifayət qədər nöqtə mövcud deyildir"
+set geoEasyMsg(delbreakline) "Qırılma xəttini sil?"
+set geoEasyMsg(delhole)		"Marker/İşarə-ni sil?"
+set geoEasyMsg(deldtmpnt)	"DTM nöqtələrini sil?"
+set geoEasyMsg(deldtmtri)	"DTM üçbucağını sil?"
+set geoEasyMsg(errsavedtm)	"DTM yadda saxlanılan zaman xəta baş verdi"
+set geoEasyMsg(profileFewP)	"Profildə olan nöqtələrin sayı 2-dən azdır"
+
+set geoEasyMsg(stat)		"%d yüklənən məlumat çoxluğunun statistikası\nNöqtələrin sayı: %d\nBilinən nöqtələrin sayə: %d\nDetal nöqtələrinin sayı: %d\nStansiyaların sayı: %d\nBilinən stansiyaların sayı: %d\nFəaliyyətlərin sayı: %d\nOrientasiyalı fəaliyyətlərin sayı: %d\n"
+# gama
+set geoEasyMsg(gamapar)		"Tənzimləmə parametrləri"
+set geoEasyMsg(gamaconf)	"Əminlik səviyyəsi (0-1)"
+set geoEasyMsg(gamaangles)	"Bucaq vahidləri"
+set geoEasyMsg(gamatol)		"Tolerantlıq \[mm\]"
+set geoEasyMsg(gamadirlimit) "Məsafə limiti \[m\]"
+set geoEasyMsg(gamashortout) "Qısa çıxış siyahısı"
+set geoEasyMsg(gamasvgout)	"SVG xəta ellipsoidləri"
+set geoEasyMsg(gamaxmlout)	"GaMa XML nəticəsini qoru"
+set geoEasyMsg(gamanull)	"Heç bir mətn fayl nəticəsi yoxdur"
+set geoEasyMsg(gamanull1)	"Heç bir xml fayl nəticəsi yoxdur"
+set geoEasyMsg(gamaori)		"Orientasiya bucağını saxlayarkən xəta baş verdi"
+set geoEasyMsg(gamastdhead0) "Standard deviation of unit weight"
+set geoEasyMsg(gamastdhead1) "  m0  apriori    :"
+set geoEasyMsg(gamastdhead2) "  m0' aposteriori:"
+set geoEasyMsg(gamastdhead3) "% interval"
+set geoEasyMsg(gamastdhead4) "m0'/m0 dəyəri vardır"
+set geoEasyMsg(gamastdhead5) "m0'/m0 dəyəri yoxdur"
+set geoEasyMsg(gamacoohead0) "Düzəldilmiş koordinatlar"
+set geoEasyMsg(gamacoohead1) "Nöqtə №        Şr          Şm          Zn"
+set geoEasyMsg(gamaobshead0) "Müşahidələr"
+set geoEasyMsg(gamaobshead1) "Stansiya    Müşahidə edilmiş    Düz. müş.  Rezidual   Ort.Kvd.Myl"
+set geoEasyMsg(gamaorihead0) "Orientasiyalar"
+set geoEasyMsg(gamaorihead1) "Stansiya  İlkin  Düzəldilmiş"
+#
+# tooltips
+#
+set geoEasyMsg(toolZoomin)	"Pəncərə və yaxud nöqtəni böyüt"
+set geoEasyMsg(toolZoomout)	"Kiçilt"
+set geoEasyMsg(toolPan)		"Pan"
+set geoEasyMsg(toolRuler)	"Məsafə"
+set geoEasyMsg(toolArea)	"Sahə"
+set geoEasyMsg(toolSp)		"Geodezi gediş"
+set geoEasyMsg(toolReg)		"Reqressiya"
+set geoEasyMsg(toolZdtm)	"Hündürlük interpolyasiyası"
+set geoEasyMsg(toolBreak)	"Qırılma xətti"
+set geoEasyMsg(toolHole)	"DTM-də dərə/deşik"
+set geoEasyMsg(toolXchgtri)	"Üçbucaq mübadiləsi"
+#
+# dxf/svg output
+#
+set geoEasyMsg(dxfpar)		"DXF ixrac parameterləri"
+set geoEasyMsg(svgpar)		"SVG ixrac parameterləri"
+set geoEasyMsg(dxfinpar)	"DXF idxal parameterləri"
+set geoEasyMsg(layer1)		"Name of point layer"
+set geoEasyMsg(block)		"Bloklardan istifadə et"
+set geoEasyMsg(layerb)		"Blokun adı"
+set geoEasyMsg(attrib)		"Nöqtə nömrəsinin atributu"
+set geoEasyMsg(attrcode)	"Nöqtə kodunun atributu"
+set geoEasyMsg(attrelev)	"Nöqtə hündürlüyünün atributu"
+set geoEasyMsg(pcode)		"Nöqtə kodundan təbəqəyə keçid"
+set geoEasyMsg(xzplane)		"yz müstəvisində çək"
+set geoEasyMsg(useblock)	"Bloklar"
+set geoEasyMsg(pcode1)		"Təbəqə adından nöqtə kodunu təyin et"
+set geoEasyMsg(dxfpnt)		"Nöqtələrdən istifadə et"
+set geoEasyMsg(3d)			"Üçölçülü"
+set geoEasyMsg(skipdbl)		"Təkrarları ötür"
+set geoEasyMsg(addlines)	"Xətti iş"
+set geoEasyMsg(pd)			"Sadəcə detal nöqtələri"
+set geoEasyMsg(ptext)		"Nöqtə nömrələrini mətndən oxu"
+set geoEasyMsg(layer2)		"Təbəqə adı"
+set geoEasyMsg(layer3)		"Təbəqə adı"
+set geoEasyMsg(ssize)		"Simvolun ölçüsü"
+set geoEasyMsg(pnon)		"Nöqtə adının etiketi"
+set geoEasyMsg(dxpn)		"X sürüşməsi"
+set geoEasyMsg(dypn)		"Y sürüşməsi"
+set geoEasyMsg(pzon)		"Hündürlük etiketi"
+set geoEasyMsg(dxz)			"X sürüşməsi"
+set geoEasyMsg(dyz)			"Y sürüşməsi"
+set geoEasyMsg(zdec)		"Onluqlar"
+set geoEasyMsg(spn)			"Mətn ölçüsü"
+set geoEasyMsg(sz)			"Mətn ölçüsü"
+set geoEasyMsg(layerlist)	"Təbəqə siyasıhı ..."
+set geoEasyMsg(blocklist)	"Blok siyasıhı ..."
+set geoEasyMsg(attrlist)	"Atribut siyasıhı ..."
+#
+#	txt columns
+#
+set geoEasyMsg(txtcols)		"Fayldakı sütunlar"
+#
+# parameters
+#
+set geoEasyMsg(parTitle)	"Hesablama parameterləri"
+set geoEasyMsg(angleUnit)   "Bucaq vahidləri"
+set geoEasyMsg(distUnit)    "Məsafə vahidləri"
+set geoEasyMsg(projred)		"Proyeksiya üçün kiçiltmə \[mm/km\]:"
+set geoEasyMsg(avgh)		"MSL-dən yuxarı orta hündürlük \[m\]:"
+set geoEasyMsg(stdangle)	"İstiqamətlər üçün Orta Kvadratik Meyl \[\"\]:"
+set geoEasyMsg(stddist1)	"Məsafələr üçün Orta Kvadratik Meyl \[mm\]:"
+set geoEasyMsg(stddist2)	"Məsafələr üçün Orta Kvadratik Meyl \[mm/km\]:"
+set geoEasyMsg(stdlevel)	"Nivelirləmə üçün Orta Kvadratik Meyl \[mm/km\]:"
+set geoEasyMsg(refr)		"Refraksiyanı və Yerin əyrisini hesabla"
+set geoEasyMsg(dec)			"Nəticədəki onluqlar:"
+#
+# color dialog
+#
+set geoEasyMsg(colTitle)	"Rəng tənzimləmələri"
+set geoEasyMsg(mask)		"Maska pəncərəsi"
+set geoEasyMsg(mask1Color)	"maska pəncərəsində 1-ci rəng:"
+set geoEasyMsg(mask2Color)	"maska pəncərəsində 2-ci rəng:"
+set geoEasyMsg(mask3Color)	"maska pəncərəsində 3-cü rəng:"
+set geoEasyMsg(mask4Color)	"maska pəncərəsində 4-cü rəng:"
+set geoEasyMsg(mask5Color)	"maska pəncərəsində 5-ci rəng:"
+set geoEasyMsg(obsColor)	"Müşahidə rəngi"
+set geoEasyMsg(lineColor)	"Xətt rəngi:"
+set geoEasyMsg(finalColor)	"Sonuncu koordinatlar:"
+set geoEasyMsg(apprColor)	"İlkin koordinatlar:"
+set geoEasyMsg(nostationColor) "Nöqtə rəngi:"
+set geoEasyMsg(stationColor) "Stansiya rəngi:"
+set geoEasyMsg(orientColor)	"İstiqamətləndirilmiş stansiya rəngi:"
+#
+# other parameters
+#
+set geoEasyMsg(oparTitle)	"Başqa parametrlər"
+set geoEasyMsg(lcoosep)		"İxcar olunan siyahılardakı ayırdedici simvol(separator):"
+set geoEasyMsg(ltxtsep)		"İdxal olunan siyahılardakı ayırdedici simvol(separator):"
+set geoEasyMsg(lmultisep)	"Təkrarlanan ayırdedici simvolları(separators) ötür"
+set geoEasyMsg(lautor)		"Pəncərələri avtomatik yenilə"
+set geoEasyMsg(llang)		"Dil:"
+set geoEasyMsg(loridetail)	"Orientasiya və düzəlişlərdə detal nöqtələrindən istifadə et"
+set geoEasyMsg(lbrowser)	"Brauzer:"
+set geoEasyMsg(lrtfview)	"RTF oxucu:"
+set geoEasyMsg(defaultgeomask) "Sahə jurnalı maskası:"
+set geoEasyMsg(defaultcoomask) "Koordinat maskası:"
+set geoEasyMsg(maskrows)	"Maskadakı sətrlərin sayı:"
+set geoEasyMsg(langChange)	"Dili dəyişmək üçün parametrləri saxla və tətbiqi yenidən başlat"
+set geoEasyMsg(lheader)		"Başlıq xətlərinin sayı:"
+set geoEasyMsg(lfilter)		"Filt ifadələri (regexp):"
+#
+# tip parameters
+#
+set geoEasyMsg(tinpar)		"DTM yarat"
+set geoEasyMsg(gepoints)	"Koordinat siyahısındakı nöqtələrdən"
+set geoEasyMsg(dxffile) 	"DXF faylından"
+set geoEasyMsg(dxfpoint)	"Kütlə nöqtələri üçün təbəqə:"
+set geoEasyMsg(dxfbreak)	"Qırılma xətti üçün təbəqə:"
+set geoEasyMsg(dxfhole)		"Dərə/deşik markerləri üçün təbəqə:"
+set geoEasyMsg(asciifile)	"Mətn faylından"
+set geoEasyMsg(convex)		"Qabarıq sərhəd"
+#
+# contour parameters
+#
+set geoEasyMsg(contourpar)	"Kontur xətlər"
+set geoEasyMsg(contourInterval) "Kontur intervalı:"
+set geoEasyMsg(contourLayer)	"Hündürlükdən təbəqə adı"
+set geoEasyMsg(contour3Dface)	"Üçölçülü səthlərdən DXF-yə"
+set geoEasyMsg(contourIntErr) "Yanlış kontur intervalı və yaxud DTM"
+#
+# volume calculation
+#
+set geoEasyMsg(volumepar)	"Həcm hesabatı"
+set geoEasyMsg(volumeLevel)	"İstinad hündürlüyü:"
+set geoEasyMsg(volumeErr)	"Yanlış istinad hündürlüyü və yaxud DTM"
+
+# orthogonal transformation
+set geoEasyMsg(trpar)		"Transformasiya parametrləri"
+set geoEasyMsg(trdy)		"Dəyiş Şr:"
+set geoEasyMsg(trdx)		"Dəyiş Şm:"
+set geoEasyMsg(trrot)		"Dönmə (DMS):"
+set geoEasyMsg(trscale)		"Şr və Şm üçün miqyas:"
+set geoEasyMsg(trdz)		"Dəyiş Z:"
+set geoEasyMsg(trscalez)	"Z üçün miqyası:"
+set geoEasyMsg(allparnum)	"Fayldakı parametrlərin sayı 21-dən artıqdır"
+
+# point filter dialog
+set geoEasyMsg(filterpar)	"Nöqtə filteri"
+set geoEasyMsg(allpoints)	"Bütün nöqtələr"
+set geoEasyMsg(pointno)		"Nöqtə nömrəsi"
+set geoEasyMsg(pointrect)	"Dördbucaqlı"
+set geoEasyMsg(pointcode)	"Nöqtə kodu"
+# proj params
+set geoEasyMsg(projpar)		"Proyeksiya parametrləri"
+set geoEasyMsg(fromEpsg)	"Source EPSG code:"
+set geoEasyMsg(preservz)	"Mənbədən götürülmüş hündürlükləri saxla"
+set geoEasyMsg(zfaclabel)	"Z əmsalı:"
+set geoEasyMsg(zoffslabel)	"Z ofseti:"
+
+# observation parameters
+set geoEasyMsg(parmask)		"Parametrlər"
+
+set geoEasyMsg(horizDia)	"Yeni nöqtələr, yeni orientasiyalar:"
+set geoEasyMsg(oriDia)		"Yeni orientasiyalar:"
+set geoEasyMsg(elevDia)		"Yeni nöqtələr:"
+set geoEasyMsg(adjDia)		"Müşahidələr, bilinməyənlər: "
+set geoEasyMsg(adjModule)	"Network adjustment module needs gama-local, please install it"
+set geoEasyMsg(dtmModule)	"DTM module needs triangle, please install it"
+set geoEasyMsg(crsModule)	"Reprojection needs cs2cs (from Proj), please install it"
+set geoEasyMsg(travLine)	"xətt"
+set geoEasyMsg(trigLineToo)	"Həmçinin Triqonometrik xətt?"
+set geoEasyMsg(noTra)		"Geodezik gediş üçün çox az nöqtə daxil olunub"
+set geoEasyMsg(noTraCoo)	"Birinci nöqtənin koordinatları mövcud deyil"
+set geoEasyMsg(startTra)	"Birinci nöqtə"
+set geoEasyMsg(nextTra)		"Növbəti nöqtə"
+set geoEasyMsg(numTra)		"Düyün/qovşaq üçün nöqtənin nömrəsi:"
+set geoEasyMsg(nodeTra)		"Düyün/qovşaq"
+set geoEasyMsg(freeTra)		"Sonuncu nöqtənin koordinatları yoxdur\nazad geodezik gediş"
+set geoEasyMsg(firstTra)	"Birinci nöqtənin orientasiyası mövcud deyil"
+set geoEasyMsg(lastTra)		"Sonuncu nöqtənin orientasiyası mövcud deyil"
+set geoEasyMsg(distTra)		"Gedoezik gediş üçün lazım olan məsafə mövcud deyil"
+set geoEasyMsg(angTra)		"Gedoezik gediş üçün lazım olan bucaq mövcud deyil"
+set geoEasyMsg(error1Tra)	"Xəta limiti                 Bucaq (s)        Məsafə (cm)"
+set geoEasyMsg(error2Tra)	"Əsas, dəqiq geodezik gediş "
+set geoEasyMsg(error3Tra)	"Dəqiq geodezik gediş       "
+set geoEasyMsg(error4Tra)	"Əsas geodezik gediş          "
+set geoEasyMsg(error5Tra)	"Geodezik gediş               "
+set geoEasyMsg(error6Tra)	"Rural main traversing    "
+set geoEasyMsg(error7Tra)	"Rural traversing         "
+set geoEasyMsg(travChk)		"Geodezik gediş"
+set geoEasyMsg(trigChk)		"Triqonometrik xətt"
+set geoEasyMsg(miszTri)		"Triqonometrik xəttdə başlanğıc nöqtəsinin hündürlüyü mövcud deyildir"
+set geoEasyMsg(freeTri)		"Azad triqonometrik xətt"
+set geoEasyMsg(dzTri)		"Triqonometrik xəttdə yüksəklik fərqini hesablamaq mümkün olmadı"
+set geoEasyMsg(errorTri)	"Xəta limiti: "
+set geoEasyMsg(limTrig)		"Xəta limiti keçib\nHündürlükləri yadda saxlamaq istəyirsinizmi?"
+#
+# coordinate transformation
+#
+set geoEasyMsg(fromCS)		"Transformasiya üçün məlumat çoxluğu"
+set geoEasyMsg(toCS)		"Hədəf məlumat çoxluğu"
+set geoEasyMsg(fewPoints)	" Transformasiya üçün nöqtələrin sayı azdır"
+set geoEasyMsg(pnttitle)	"İstinad nöqtələri"
+set geoEasyMsg(typetitle)	"Transformasiyanın növü"
+set geoEasyMsg(typeHelmert4) "4 parametrli ortoqonal transformasiya"
+set geoEasyMsg(typeHelmert3) "3 parameterli ortoqonal transformasiya"
+set geoEasyMsg(typeAffin)	"Affine transformasiya"
+set geoEasyMsg(typePoly2)	"ikinci dərəcəli polinom transformasiya"
+set geoEasyMsg(typePoly3)	"üçüncü dərəcəli polinom transformasiya"
+set geoEasyMsg(trSave)		"Transformasiya olunmuş koordinatları fayla saxla"
+set geoEasyMsg(parSave)		"Transformasiya parametrlərini fayla saxla"
+set geoEasyMsg(formulaH4y)	"  Şr = %s + e * %.9f - n * %.9f"
+set geoEasyMsg(formulaH4x)	"  Şm = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaH3y)	"  Şr = %s + e * %.9f - n * %.9f"
+set geoEasyMsg(formulaH3x)	"  Şm = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaAfy)	"  Şr = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaAfx)	"  Şm = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaPrmy) "  Şr = %s + e * %.9f + n * %.9f"
+set geoEasyMsg(formulaPrmx) "  Şm = %s + e * %.9f + n * %.9f"
+
+set geoEasyMsg(formulaP2)	"  y' = y - %s    x' = x - %s"
+set geoEasyMsg(formulaP2y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y' * %.8e + x'^2 * %.8e"
+set geoEasyMsg(formulaP2x)	"  X = %s + y' * %.8e + y'^2 * %.8e + x' * %.8e + x'y' * %.8e + x'^2 * %.8e"
+set geoEasyMsg(formulaP3y)	"  Y = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
+set geoEasyMsg(formulaP3x)	"  X = %s + y' * %.8e + y'^2 * %.8e + y'^3 * %.8e + x' * %.8e + y'x' * %.8e + y'^2x' * %.8e + x'^2 * %.8e + y'x'^2 * %.8e + x'^3 * %.8e"
+set geoEasyMsg(formula1D)	"  Z = z + %s"
+set geoEasyMsg(scaleRot)	"  Miqyas = %.8f Dönmə = %s"
+#
+# find/replace dialog
+#
+set geoEasyMsg(findpar)		"Axtar/Əvəz et"
+set geoEasyMsg(findWhat)	"Axtar:"
+set geoEasyMsg(replaceWith) "Əvəz et:"
+set geoEasyMsg(findMode)	"Filter ifadəsi (regex)"
+#
+# about window messages
+#
+set y [clock format [clock seconds] -format %Y]
+set geoEasyMsg(digikom)		"Sponsor DigiKom Ltd."
+set geoEasyMsg(about1)		"Geodezistlər üçün"
+set geoEasyMsg(about2)		"geodezi hesablamar"
+set geoEasyMsg(modules)		"Modullar:"
+#
+# text window headers
+#
+set geoEasyMsg(logWin)		"Hesablama nəticələri"
+set geoEasyMsg(consoleWin)	"Tcl console"
+set geoEasyMsg(startup)		"Tcl startup script executed: "
+set geoEasyMsg(nostartup)	"Tcl startup script failed: "
+#
+# resize mask
+#
+set geoEasyMsg(rowCount)	"Sətr sayı:"
+set geoEasyMsg(resize)		"Pəncərə ölçüsü"
+#
+# log messages
+#
+set geoEasyMsg(start)		"GeoEasy başladı"
+set geoEasyMsg(stop)		"GeoEasy dayandı"
+set geoEasyMsg(load)		"məlumat çoxluğu yükləndi"
+set geoEasyMsg(save)		"məlumat çoxluğu yadda saxlandı"
+set geoEasyMsg(saveas)		"məlumat çoxluğu fərqli saxlanıldı:"
+set geoEasyMsg(unload)		"məlumat çoxluğu bağlanıldı"
+set geoEasyMsg(psave)		"layihə yaddaşda saxlanıldı"
+set geoEasyMsg(pload)		"layihə yüklənildi"
+#
+set geoEasyMsg(faces)		"İki səthli/üzlü "
+set geoEasyMsg(face2)		"Stansiya   Kollimasiya     İndeks Məsafə Trans.hündürlüyü"
+set geoEasyMsg(face3)		"Hədəf        xəta          xəta   fərq    fərq"
+set geoEasyMsg(noface2)		"Təkrar müşahidə olunan nöqtə və yaxud iki səth/üz arasında həddən artıq məsafə mövcuddur %s"
+set geoEasyMsg(msgsave)		"Parameters saved to geo_easy.msk\nprevious parameters are backed up into geo_easy.msk.bak."
+#
+#	headers for fixed forms (traversing & adjustment)
+#
+set geoEasyMsg(tra1)		"Orientasiyasız aç"
+set geoEasyMsg(tra2)		"Bir orientasiyalı aç"
+set geoEasyMsg(tra3)		"İki orientasiyalı aç"
+set geoEasyMsg(tra4)		"Azad sonluq"
+set geoEasyMsg(head1Tra)	"            bearing/direksiyon    bw məsafə"
+set geoEasyMsg(head2Tra)	"Nöqtə        bucaq     məsafə  (dŞr)     (dŞm)       dŞr         dŞm"
+set geoEasyMsg(head3Tra)	"           korreksiya  fw məsafə    korreksiyalar      Şərq mövqeyi    Şimal mövqeyi"
+
+set geoEasyMsg(head1Adj)	"Stansiya    Nöqtə      Müşahidə  Rezidual   Düzəl. müşahidələr"
+set geoEasyMsg(m0Adj)		"Vahid çəkinin Orta Kvadratik Meyli : %8.4f Əlavə müşahidələrin sayı %d"
+set geoEasyMsg(head2Adj)	"Nöqtə      Kod        Şərq mövqeyi    dŞr    Ort. Kvd. Meyl  Şimal mövqeyi  dŞm    Ort. Kvd. Meyl"
+set geoEasyMsg(head1Trig)	"                       Hündürlük fərqləri"
+set geoEasyMsg(head2Trig)	"Nöqtə    Məsafə  İləri Geri    Orta  Korreksiya Hündürlük"
+set geoEasyMsg(head1Sec)	"Nöqtə №  Kod              Şr            Şm       Azimut"
+set geoEasyMsg(head1Res)	"Nöqtə №  Kod              Şr            Şm        İstiqamət  Bucaq"
+set geoEasyMsg(head1Arc)	"Nöqtə №  Kod              Şr            Şm        Məsafə"
+set geoEasyMsg(head1Pol)	"Nöqtə №  Kod              Şr            Şm      Məsafə    Azimut"
+set geoEasyMsg(head1Pnt)	"Nöqtə №  Kod              Şr            Şm      Məsafə    Ümumi məsafə"
+set geoEasyMsg(head1Ele)	"Nöqtə №  Kod            Hündürlük      Məsafə"
+set geoEasyMsg(head1Det)	"                                                                         Orientasiyalı   Üfüqi"
+set geoEasyMsg(head2Det)	"Nöqtə №  Kod              Şr            Şm              H   Stansiya     istiqamət  məsafə"
+set geoEasyMsg(head1Ori)	"Nöqtə №  Kod         İstiqamət    Azimut   Orientasiya bucaq   Məsafə   e\" e\"max   E(m)"
+set geoEasyMsg(head1Dis)	"Nöqtə №  Nöqtə №    Azimut   Məsafə Yamac məsafə Zenit bucaq"
+set geoEasyMsg(head1Angle)	"Nöqtə №  Azimut   Məsafə Bucaq     Bucaq İlk  Lokal Şr     Lokal Şm"
+# transformation
+set geoEasyMsg(head1Tran)	"Nöqtə №          e            n            Şr            Şm          dŞr           dŞm           məsafə"
+set geoEasyMsg(head2Tran)	"Nöqtə №          e            n            Şr            Şm"
+set geoEasyMsg(head1HTran)	"Nöqtə №          z            Z           dZ"
+set geoEasyMsg(head2HTran)	"Nöqtə №          z            Z"
+set geoEasyMsg(headTraNode)	"Nöqtə №    Uzunluq         Şr            Şm"
+set geoEasyMsg(headTrigNode)	"Nöqtə №    Uzunluq         Z"
+set geoEasyMsg(headDist)	"Nöqtə №          Şr            Şm         Uzunluq"
+set geoEasyMsg(head1Front)	"Nöqtə №  Code                Şr            Şm            dE          dN           Z            dZ"
+#
+# regression
+#
+set geoEasyMsg(unknown)			"bilinməyən"
+set geoEasyMsg(fixedRadius)		"Sabit radius"
+set geoEasyMsg(cantSolve)		"Tapşırığı yerinə yetirmək mümkün olmadı"
+set geoEasyMsg(head0LinRegX)	"Şm = %+.8f * Şr %s"
+set geoEasyMsg(head0LinRegY)	"Şr = %+.8f * Şm %s"
+set geoEasyMsg(hAngleReg)		"Şərqdən olan bucaq:"
+set geoEasyMsg(vAngleReg)		"Şimaldan olan bucaq:"
+set geoEasyMsg(correlation)		"Korrelasiya əmsalı:"
+set geoEasyMsg(head1LinRegX)	"Nöqtə №          Şr            Şm            dŞm"
+set geoEasyMsg(head1LinRegY)	"Nöqtə №          Şr            Şm            dŞr"
+set geoEasyMsg(head2LinReg)		"Nöqtə №          Şr            Şm            dŞr          dŞm          məsafə"
+set geoEasyMsg(head0PlaneReg)	"z = %s %+.8f * Şr %+.8f * Şm"
+set geoEasyMsg(head00PlaneReg)	"Yamac istiqaməti: %s  Yamac bucaqı: %s"
+set geoEasyMsg(head1PlaneReg)	"Nöqtə №          Şr            Şm            Z           dZ"
+set geoEasyMsg(head0CircleReg)	"Şr0 = %s Şm0 = %s R = %s"
+set geoEasyMsg(head1CircleReg)	"Nöqtə №          Şr            Şm            dŞr           dŞm           dR"
+set geoEasyMsg(head2CircleReg)	"%d iterasiya sonrası, bilinməyənlərdə %.4f m-dən böyük dəyişiklik"
+set geoEasyMsg(head1PlaneAngle)	"Normalların bucaqları: "
+set geoEasyMsg(head2PlaneAngle)	"İki müstəvinin kəsişmə xətti\nÜfüqi istiqamət: %s   Yamac bucağı: %s "
+set geoEasyMsg(head0HPlaneReg)	"z = %s"
+set geoEasyMsg(head0LDistReg)	"%s - %s xəttindən olan məsafə"
+set geoEasyMsg(head1LDistReg)	"Nöqtə №          Şr            Şm        Məsafə         dŞr           dŞm"
+set geoEasyMsg(maxLDistReg)		"                      maks məsafə:  %s"
+set geoEasyMsg(head0PDistReg)	"%s - %s - %s müstəvisidən olan məsafə"
+set geoEasyMsg(head1PDistReg)	"Nöqtə №          Şr            Şm            Z        Məsafə         dŞr            dŞm            dZ"
+set geoEasyMsg(head0SphereReg)	"Şr0 = %s Şm0 = %s Z0 = %s R = %s"
+set geoEasyMsg(head1SphereReg)	"Nöqtə №          Şr            Şm            Z            dŞr           dŞm            dZ           dR"
+set geoEasyMsg(head0Line3DReg)	"Şr = %s %+.8f * t\nN = %s %+.8f * t\nZ = %s %+.8f * t"
+set geoEasyMsg(head1Line3DReg)	"Nöqtə №          Şr            Şm            Z            dŞr           dŞm           dZ           dt"
+#
+# dtm
+#
+set geoEasyMsg(creaDtm)		"DTM yaradılmasında xəta"
+set geoEasyMsg(loadDtm)		"DTM yüklənməsində xəta"
+set geoEasyMsg(regenDtm)	"DTM yenidən yaradılsın? Yenidən yaratmaq üçün, yüklənmiş DTM-i bağlayın."
+set geoEasyMsg(closDtm)		"Əvvəlki DTM bağlanılacaq"
+set geoEasyMsg(saveDtm)		"Əvvəlki DTM-i saxlamaq istəyirsinizmi?"
+set geoEasyMsg(ZDtm)		"Hündürlük: %.2f m"
+set geoEasyMsg(noZDtm)		"Nöqtənin hündürlüyü mövcud deyildir"
+set geoEasyMsg(gridtitle)	"ASCII CƏDVƏLİ"
+set geoEasyMsg(griddx)		"Cədvəl addımı:"
+set geoEasyMsg(griddx1)		"Cədvəl addımı: %.2f"
+set geoEasyMsg(llc)			"Aşağı sol künc: %.2f %.2f"
+set geoEasyMsg(urc)			"Yuxarı sağ künc: %.2f %.2f"
+set geoEasyMsg(gridvrml)	"VRML ixrac"
+set geoEasyMsg(cs2cs)		"Yenidən proyeksiyalaşdırma uğursuz oldu"
+set geoEasyMsg(headVolume)	"Əsas hündürlük  Həcm        Yuxarı        Aşağı       Sahə     Səth sahəsi"
+set geoEasyMsg(dtmStat)		"%s DTM\n%d nöqtələri\n%d üçbucaqları\n%d qırılma xəttləri/sərhəd xəttləri\n%d deşiklər\nŞr min: %.2f\nŞm min: %.2f\nH min: %.2f\nŞr maks: %.2f\nŞm maks: %.2f\nH maks: %.2f"
+set geoEasyMsg(voldif)		"Kəsim  Həcm: %.1f m3 Sahə: %.1f m2\nDoldurma həcmi: %.1f m3  Sahə: %.1f m2\nEyni: %.1f m2"
+set geoEasyMsg(interpolateTin) "İnterpolyasiya:"
+set geoEasyMsg(interptitle) "Profil"
+set geoEasyMsg(lx) "Şr başlanğıcı: "
+set geoEasyMsg(ly) "Şm başlanğıcı: "
+#set geoEasyMsg(lz) "Z: "
+set geoEasyMsg(lx1) "Şr sonu: "
+set geoEasyMsg(ly1) "Şm sonu: "
+set geoEasyMsg(ldxf) "DXF faylı"
+set geoEasyMsg(lcoo) "Koordinat faylı"
+#set geoEasyMsg(lstep) "Addım: "
+# arc setting out
+set geoEasyMsg(cornerTitle) "Qövs bucağı"
+set geoEasyMsg(spTitle) "Birinci xətt"
+set geoEasyMsg(epTitle) "İkinci xətt"
+set geoEasyMsg(arcPar) "Əyrinin parametrləri"
+set geoEasyMsg(arcRadius) "Radius"
+set geoEasyMsg(arcLength) "Qövs uzunluğu"
+set geoEasyMsg(arcParam) "Keçid parametri"
+set geoEasyMsg(arcTran) "Keçid əyrisi\n  parametr: %.1f\n  dR: %.2f\n  uzunluq: %.2f\n  X0: %.2f"
+set geoEasyMsg(arcStep) "Detal nöqtələri arasındakı məsafə \[m\]"
+set geoEasyMsg(arcNum) "və yaxud nöqtələrinn sayı"
+set geoEasyMsg(arcSave) "Koordinatları yadda saxla"
+set geoEasyMsg(arcPrefix) "Nöqtə № prefiksi"
+set geoEasyMsg(arcT) "Tangent uzunluğu"
+set geoEasyMsg(arcP) "Tranzitiv qövs parametrləri"
+set geoEasyMsg(arcAlpha) "Alfa: %s  Beta: %s"
+set geoEasyMsg(arcHeader) "  Nöqtə №          Şr              Şm"
