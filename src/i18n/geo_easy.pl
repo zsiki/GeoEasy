@@ -12,7 +12,7 @@ global geoEasyMsg
 
 # regression types
 global reglist
-set reglist { "Linia 2D" "Równoległe linie 2D" "Koło" \
+set reglist { "Linia 2D" "Równoległe linie 2D" "Horizontal circle" "Koło" \
 	"Płaszczyzna" "Płaszczyzna pozioma" "Płaszczyzna pionowa" \
 	"Sfera" "Linia 3D" "Kąt nachylenia płaszczyzn" } ;# "Vertical paraboloid" 
 

@@ -21,6 +21,7 @@ proc GeoReg {regindex} {
 	global geoEasyMsg geoCodes
 	global reg
 
+puts "regindex: $regindex"
 #	select points for regression
 	if {$regindex == 0} {
 		# linear regression
@@ -48,7 +49,7 @@ proc GeoReg {regindex} {
 			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
 	} elseif {$regindex == 2} {
-		# circle
+		# horizontal circle
 		set plist [lsort -dictionary [GetGiven {37 38}]]
 		if {[llength $plist] > 2} {
 			set rplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
@@ -68,18 +69,42 @@ proc GeoReg {regindex} {
 		} else {
 			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
+    } elseif {$regindex == 3} {
+        # general circle
+		set plist [lsort -dictionary [GetGiven {37 38 39}]]
+		if {[llength $plist] >= 3} {
+			set rplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
+			if {[llength $rplist] >= 3} {
+                set n1 [PlaneRegYXZ $rplist]
+                # rotate plane to horizontal
+                set a1 [expr {-[lindex $n1 0] / double([lindex $n1 2])}]
+                set a2 [expr {-[lindex $n1 1] / double([lindex $n1 2])}]
+                set dir [Bearing $a1 $a2 0 0]
+                set ang [expr {atan(sqrt($a1*$a1+$a2*$a2))}]
+puts $dir
+puts $ang
+                set n [expr {double([llength $rplist])}]
+                foreach pn $rplist {
+                    set coords [GetCoord $pn {37 38 39}]
+                    #set x($i) [GetVal 37 $coords]
+                    #set y($i) [GetVal 38 $coords]
+                    #set z($i) [GetVal 39 $coords]
+        # TODO
+                }
 
-	} elseif {$regindex >= 3 && $regindex <= 9} {
+            }
+        }
+	} elseif {$regindex >= 4 && $regindex <= 10} {
 		# regression plane
 		set plist [lsort -dictionary [GetGiven {37 38 39}]]
 		if {[llength $plist] >= 3} {
 			set rplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
 			if {[llength $rplist] >= 3} {
 				switch -exact -- $regindex {
-					3 { PlaneRegYXZ $rplist }
-					4 { PlaneHReg $rplist }
-					5 { LinRegXY $rplist [lindex $reglist 5]}
-					6 { 
+					4 { PlaneRegYXZ $rplist }
+					5 { PlaneHReg $rplist }
+					6 { LinRegXY $rplist [lindex $reglist 6]}
+					7 { 
 						set r [GeoEntry "$geoCodes(64):" $geoCodes(64) $geoEasyMsg(unknown)]
 						regsub "^\[     \]*" $r "" r    ;# remove leading spaces/tabs
 						regsub "\[  \]*$" $r "" r       ;# remove trailing spaces/tabs
@@ -92,15 +117,15 @@ proc GeoReg {regindex} {
 							SphereRegR $rplist $r	;# sphere with known radius
 						}
 					}
-					7 { Line3DReg $rplist }
-					8 { set pplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
+					8 { Line3DReg $rplist }
+					9 { set pplist [GeoListbox $plist {0} $geoEasyMsg(lbTitle1) -3]
 						if {[llength $pplist] >= 3} {
 							set n1 [PlaneRegYXZ $rplist]
 							set n2 [PlaneRegYXZ $pplist]
 							PlaneAngle $n1 $n2
 						}
 					}
-					9 { ParabReg $rplist }
+					10 { ParabReg $rplist }
 				}
 			}
 		} else {
@@ -155,7 +180,10 @@ proc GeoReg1 {plist} {
 		} else {
 			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
 		}
-	} elseif {$regindex >= 3 && $regindex <= 7} {
+    } elseif {$regindex == 3} {
+        # general circle 
+        # TODO
+	} elseif {$regindex >= 4 && $regindex <= 8} {
 		# 3D regression
 		foreach pn $plist {
 			if {[llength [GetCoord $pn {37 38 39}]] > 0} {
@@ -168,13 +196,13 @@ proc GeoReg1 {plist} {
 			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg(pointsDropped) \
 				warning 0 OK
 		}
-		if {[llength $rplist] >= 3 && $regindex == 3} {
+		if {[llength $rplist] >= 3 && $regindex == 4} {
 			PlaneRegYXZ $rplist		;# general plane
-		} elseif {[llength $rplist] >= 1 && $regindex == 4} {
+		} elseif {[llength $rplist] >= 1 && $regindex == 5} {
 			PlaneHReg $rplist		;# horizontal plane
-		} elseif {[llength $rplist] >= 2 && $regindex == 5} {
+		} elseif {[llength $rplist] >= 2 && $regindex == 6} {
 			LinRegXY $rplist [lindex $reglist 5]	;# vertical plane
-		} elseif {[llength $rplist] >= 4 && $regindex == 6} {
+		} elseif {[llength $rplist] >= 4 && $regindex == 7} {
 			set r [GeoEntry "$geoCodes(64):" $geoCodes(64) $geoEasyMsg(unknown)]
 			regsub "^\[     \]*" $r "" r    ;# remove leading spaces/tabs
 			regsub "\[  \]*$" $r "" r       ;# remove trailing spaces/tabs
@@ -186,9 +214,9 @@ proc GeoReg1 {plist} {
 			} else {
 				SphereRegR $rplist $r	;# sphere with known radius
 			}
-		} elseif {[llength $rplist] >= 4 && $regindex == 7} {
+		} elseif {[llength $rplist] >= 4 && $regindex == 8} {
 			Line3DReg $rplist		;# 3D line
-		} elseif {[llength $rplist] >= 5 && $regindex == 8} {
+		} elseif {[llength $rplist] >= 5 && $regindex == 10} {
 			ParabReg $rplist		;# TODO not tested, not enabled
 		} else {
 			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(fewCoord) error 0 OK
@@ -328,87 +356,6 @@ proc LinRegY {plist} {
 	}
 	GeoLog1
 	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdy2 / $n)}]]
-}
-
-#
-#	Calculate regression plane only z coords are changed
-#	output result to result window
-#	OBSOLATE not called
-#	@param plist list of point numbers to use
-proc PlaneReg {plist} {
-	global decimals
-	global geoEasyMsg
-	global PI PI2
-	global reglist
-	
-#	calculate weight point
-	set xs 0
-	set ys 0
-	set zs 0
-	set n [expr {double([llength $plist])}]
-	set i 0
-#	sum for weight point
-	foreach pn $plist {
-		set coords [GetCoord $pn {37 38 39}]
-		set x($i) [GetVal 37 $coords]
-		set y($i) [GetVal 38 $coords]
-		set z($i) [GetVal 39 $coords]
-		set xs [expr {$xs + $x($i)}]
-		set ys [expr {$ys + $y($i)}]
-		set zs [expr {$zs + $z($i)}]
-		incr i
-	}
-	set xs [expr {$xs / $n}]
-	set ys [expr {$ys / $n}]
-	set zs [expr {$zs / $n}]
-	set kszi_eta 0
-	set kszi_2 0
-	set eta_2 0
-	set kszi_zeta 0
-	set eta_zeta 0
-	for {set i 0} {$i < $n} {incr i} {
-		set kszi [expr {$y($i) - $ys}]
-		set eta [expr {$x($i) - $xs}]
-		set zeta [expr {$z($i) - $zs}]
-		set kszi_eta [expr {$kszi_eta + $kszi * $eta}]
-		set kszi_zeta [expr {$kszi_zeta + $kszi * $zeta}]
-		set eta_zeta [expr {$eta_zeta + $eta * $zeta}]
-		set kszi_2 [expr {$kszi_2 + $kszi * $kszi}]
-		set eta_2 [expr {$eta_2 + $eta * $eta}]
-	}
-	# solve reduced equation for a1 a2
-	set det [expr {double($kszi_2 * $eta_2 - $kszi_eta * $kszi_eta)}]
-	set deta1 [expr {-$kszi_zeta * $eta_2 + $eta_zeta * $kszi_eta}]
-	set deta2 [expr {-$kszi_2 * $eta_zeta + $kszi_eta * $kszi_zeta}]
-	if {[catch {set a1 [expr {-$deta1 / $det}]}]} {
-		geo_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
-		exit
-	}
-	if {[catch {set a2 [expr {-$deta2 / $det}]}]} {
-		geo_dialog .msg "Hiba" $geoEasyMsg(planreg) error 0 OK
-		exit
-	}
-	set a0 [expr {$zs - $a1 * $ys - $a2 * $xs}]
-	GeoLog1
-	GeoLog [lindex $reglist 5]
-	GeoLog1 [format $geoEasyMsg(head0PlaneReg) [format "%+.${decimals}f" $a0] $a1 $a2]
-#	slope angle and direction
-	set dir [Bearing $a1 $a2 0 0]
-#	while {$dir < 0} { set dir [expr {$dir + $PI2}]}
-	set ang [expr {atan(sqrt($a1*$a1+$a2*$a2))}]
-	GeoLog1 [format $geoEasyMsg(head00PlaneReg) [ANG $dir] [ANG $ang]]
-	GeoLog1
-	GeoLog1 $geoEasyMsg(head1PlaneReg)
-	set sdz2 0
-#	list residuals
-	for {set i 0} {$i < $n} {incr i} {
-		set dz [expr {($a0 + $a1 * $y($i) + $a2 * $x($i)) - $z($i)}]
-		set sdz2 [expr {$sdz2 + $dz * $dz}]
-		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
-			[lindex $plist $i] $y($i) $x($i) $z($i) $dz]
-	}
-	GeoLog1
-	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdz2 / $n)}]]
 }
 
 #		
@@ -556,95 +503,6 @@ proc CircleReg {plist} {
 		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
 			[lindex $plist $i] \
 			[expr {$y($i) + $y_offs}] [expr {$x($i) + $x_offs}] \
-			[expr {$y0e + $re * sin($delta) - $y($i)}] \
-			[expr {$x0e + $re * cos($delta) - $x($i)}] $dr]
-	}
-	GeoLog1
-	GeoLog1 [format "RMS=%.${decimals}f" [expr {sqrt($sdr2 / $n)}]]
-}
-
-#
-#	Calculatate best fit circle, iteration is used
-#		y = y0 + r * sin(delta)
-#		x = x0 + r * cos(delta)
-#	y0, x0 and r are unknowns (deltas are estimated)
-#	@param plist list of point numbers to use
-proc CircleRegOld {plist} {
-	global geoEasyMsg
-	global decimals
-	global reglist
-	global maxIteration epsReg
-
-	set n [expr {double([llength $plist])}]
-	set i 0
-#	coords of points
-	foreach pn $plist {
-		set coords [GetCoord $pn {37 38}]
-		set x($i) [GetVal 37 $coords]
-		set y($i) [GetVal 38 $coords]
-		incr i
-	}
-#	circle on three points (approximate value)
-	set circ [Circle3P $y(0) $x(0) $y(1) $x(1) $y(2) $x(2)]
-	set y0e [lindex $circ 0]
-	set x0e [lindex $circ 1]
-	set re [lindex $circ 2]
-	set iteration 0
-	while 1 {
-		incr iteration
-		set sumyo 0
-		set sumxo 0
-		set sumsin 0
-		set sumcos 0
-		set sumyx 0
-		# relative coordinates to center of circle
-		for {set i 0} {$i < $n} {incr i} {
-			set yo($i) [expr {$y($i) - $y0e}]
-			set xo($i) [expr {$x($i) - $x0e}]
-			set delta [Bearing 0 0 $yo($i) $xo($i)]
-			set sumyo [expr {$sumyo + $yo($i)}]
-			set sumxo [expr {$sumxo + $xo($i)}]
-			set sumsin [expr {$sumsin + sin($delta)}]
-			set sumcos [expr {$sumcos + cos($delta)}]
-			set sumyx [expr {$sumyx + $yo($i) * sin($delta) + $xo($i) * cos($delta)}]
-		}
-		# set up normal equation
-		set a(0,0) $n
-		set a(0,1) 0
-		set a(0,2) $sumsin
-		set a(1,0) 0
-		set a(1,1) $n
-		set a(1,2) $sumcos
-		set a(2,0) $sumsin
-		set a(2,1) $sumcos
-		set a(2,2) $n
-		set b(0) $sumyo
-		set b(1) $sumxo
-		set b(2) $sumyx
-		GaussElimination a b 3
-		set y0e [expr {$y0e + $b(0)}]
-		set x0e [expr {$x0e + $b(1)}]
-		set re $b(2)
-		if {[expr {abs($b(0))}] < $epsReg && [expr {abs($b(1))}] < $epsReg &&
-			[expr {abs($b(2) - $re)}] < $epsReg || $iteration > $maxIteration} {
-			break
-		}
-	}
-	GeoLog1
-	GeoLog [lindex $reglist 2]
-	GeoLog1 [format $geoEasyMsg(head0CircleReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $re]]
-	if {$iteration > $maxIteration} {
-		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
-	}
-	GeoLog1
-	GeoLog1 $geoEasyMsg(head1CircleReg)
-	set sdr2 0
-	for {set i 0} {$i < $n} {incr i} {
-		set delta [Bearing $y0e $x0e $y($i) $x($i)]
-		set dr [expr {$re - [Distance $y0e $x0e $y($i) $x($i)]}]
-		set sdr2 [expr {$sdr2 + $dr * $dr}]
-		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
-			[lindex $plist $i] $y($i) $x($i) \
 			[expr {$y0e + $re * sin($delta) - $y($i)}] \
 			[expr {$x0e + $re * cos($delta) - $x($i)}] $dr]
 	}
@@ -807,7 +665,7 @@ proc SphereReg {plist} {
 	set z0e_offs [expr {$z0e + $z_offs}]
 	set re [expr {sqrt(($b(0) * $b(0) + $b(1) * $b(1) + $b(2) * $b(2)) / 4.0 - $b(3))}]
 	GeoLog1
-	GeoLog [lindex $reglist 6]
+	GeoLog [lindex $reglist 7]
 	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e_offs] [format %.${decimals}f $x0e_offs] [format %.${decimals}f $z0e_offs] [format %.${decimals}f $re]]
 	GeoLog1
 	GeoLog1 $geoEasyMsg(head1SphereReg)
@@ -930,7 +788,7 @@ proc SphereRegOld {plist} {
 		set re [expr {$re + $b(3)}]
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 6]
+	GeoLog [lindex $reglist 7]
 	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $z0e] [format %.${decimals}f $re]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -1021,7 +879,7 @@ proc SphereRegR {plist r} {
 		set z0e [expr {$z0e + $dz0}]
 	}
 	GeoLog1
-	GeoLog "[lindex $reglist 6] $geoEasyMsg(fixedRadius)"
+	GeoLog "[lindex $reglist 7] $geoEasyMsg(fixedRadius)"
 	GeoLog1 [format $geoEasyMsg(head0SphereReg) [format %.${decimals}f $y0e] [format %.${decimals}f $x0e] [format %.${decimals}f $z0e] [format %.${decimals}f $r]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -1117,7 +975,7 @@ proc Line3DReg {plist} {
 		set ce $c
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 7]
+	GeoLog [lindex $reglist 8]
 	GeoLog1 [format $geoEasyMsg(head0Line3DReg) [format %.${decimals}f $y0] $a [format %.${decimals}f $x0] $b [format %.${decimals}f $z0] $c]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -1137,158 +995,6 @@ proc Line3DReg {plist} {
 	}
 	GeoLog1
 	GeoLog1 [format "RMS %.${decimals}f" [expr {sqrt($sd2 / $n)}]]
-}
-
-#
-#	3D regression line, iteration
-#	OBSOLATE
-#	@param plist list of point numbers to use
-proc Line3DRegOld {plist} {
-	global geoEasyMsg
-	global decimals
-	global reglist
-	global maxIteration epsReg
-
-	set n [expr {double([llength $plist])}]
-#	coords of points
-	set i 0
-	foreach pn $plist {
-		set coords [GetCoord $pn {37 38 39}]
-		set x($i) [GetVal 37 $coords]
-		set y($i) [GetVal 38 $coords]
-		set z($i) [GetVal 39 $coords]
-		incr i
-	}
-	# approximate values
-	set y0e $y(0)
-	set x0e $x(0)
-	set z0e $z(0)
-	set ae [expr {$y(1) - $y0e}]
-	set be [expr {$x(1) - $x0e}]
-	set ce [expr {$z(1) - $z0e}]
-	set iteration 0
-	while 1 {
-		incr iteration
-		set exitloop 1
-		set st 0
-		set st2 0
-		set sly1 0
-		set sly2 0
-		set slx1 0
-		set slx2 0
-		set slz1 0
-		set slz2 0
-		for {set i 0} {$i < $n} {incr i} {
-			set k 0
-			set tw 0
-			if {[expr {abs($ae)}] > $epsReg} {
-				set tw [expr {$tw + ($y($i) - $y0e) / $ae}]
-				incr k
-			}
-			if {[expr {abs($be)}] > $epsReg} {
-				set tw [expr {$tw + ($x($i) - $x0e) / $be}]
-				incr k
-			}
-			if {[expr {abs($ce)}] > $epsReg} {
-				set tw [expr {$tw + ($z($i) - $z0e) / $ce}]
-				incr k
-			}
-			if {$k == 0} {
-				geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
-					error 0 OK
-				return
-			}
-			set t [expr {$tw / $k}]
-			set st [expr {$st + $t}]
-			set st2 [expr {$st2 + $t * $t}]
-			set w [expr {$y($i) - $y0e - $ae * $t}]
-			set sly1 [expr {$sly1 + $w}]
-			set sly2 [expr {$sly2 + $w * $t}]
-			set w [expr {$x($i) - $x0e - $be * $t}]
-			set slx1 [expr {$slx1 + $w}]
-			set slx2 [expr {$slx2 + $w * $t}]
-			set w [expr {$z($i) - $z0e - $ce * $t}]
-			set slz1 [expr {$slz1 + $w}]
-			set slz2 [expr {$slz2 + $w * $t}]
-		}
-		set a(0,0) $n
-		set a(1,0) $st
-		set a(0,1) $st
-		set a(1,1) $st2
-		set b(0) $sly1
-		set b(1) $sly2
-		if {[catch {GaussElimination a b 2}]} {
-			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
-				error 0 OK
-			return
-		}
-		if {$b(0) > $epsReg || $b(1) > $epsReg} { set exitloop 0 }
-		set y0e [expr {$y0e + $b(0)}]
-		set ae [expr {$ae + $b(1)}]
-		set a(0,0) $n
-		set a(1,0) $st
-		set a(0,1) $st
-		set a(1,1) $st2
-		set b(0) $slx1
-		set b(1) $slx2
-		if {[catch {GaussElimination a b 2}]} {
-			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
-				error 0 OK
-			return
-		}
-		if {$b(0) > $epsReg || $b(1) > $epsReg} { set exitloop 0 }
-		set x0e [expr {$x0e + $b(0)}]
-		set be [expr {$be + $b(1)}]
-		set a(0,0) $n
-		set a(1,0) $st
-		set a(0,1) $st
-		set a(1,1) $st2
-		set b(0) $slx1
-		set b(1) $slx2
-		if {[catch {GaussElimination a b 2}]} {
-			geo_dialog .msg $geoEasyMsg(error) $geoEasyMsg(cantSolve) \
-				error 0 OK
-			return
-		}
-		if {$b(0) > $epsReg || $b(1) > $epsReg} { set exitloop 0 }
-		set z0e [expr {$z0e + $b(0)}]
-		set ce [expr {$ce + $b(1)}]
-		if {$exitloop || $iteration > $maxIteration} { break }
-	}
-	GeoLog1
-	GeoLog [lindex $reglist 10]
-	GeoLog1 [format $geoEasyMsg(head0Line3DReg) [format %12.${decimals}f $y0e] $ae [format %12.${decimals}f $x0e] $be [format %12.${decimals}f $z0e] $ce]
-	if {$iteration > $maxIteration} {
-		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
-	}
-	GeoLog1
-	GeoLog1 $geoEasyMsg(head1Line3DReg)
-	for {set i 0} {$i < $n} {incr i} {
-		set k 0
-		set tw 0
-		if {[expr {abs($ae)}] > $epsReg} {
-			set tw [expr {$tw + ($y($i) - $y0e) / $ae}]
-			incr k
-		}
-		if {[expr {abs($be)}] > $epsReg} {
-			set tw [expr {$tw + ($x($i) - $x0e) / $be}]
-			incr k
-		}
-		if {[expr {abs($ce)}] > $epsReg} {
-			set tw [expr {$tw + ($z($i) - $z0e) / $ce}]
-			incr k
-		}
-		if {$k == 0} {
-			return
-		}
-		set t [expr {$tw / $k}]
-		set dy [expr {$y0e + $ae * $t - $y($i)}]
-		set dx [expr {$x0e + $be * $t - $x($i)}]
-		set dz [expr {$z0e + $ce * $t - $z($i)}]
-		GeoLog1 [format "%-10s %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f %12.${decimals}f" \
-			[lindex $plist $i] $y($i) $x($i) $z($i) \
-			$dy $dx $dz [Distance3d 0 0 0 $dy $dx $dz]]
-	}
 }
 
 #
@@ -1369,7 +1075,7 @@ proc PlaneRegYXZ { plist } {
 		exit
 	}
 	GeoLog1
-	GeoLog [lindex $reglist 3]
+	GeoLog [lindex $reglist 4]
 	GeoLog1 [format $geoEasyMsg(head0PlaneReg) [format "%+.${decimals}f" $a0] $a1 $a2]
 #	slope angle and direction
 	set dir [Bearing $a1 $a2 0 0]
@@ -1416,7 +1122,7 @@ proc PlaneHReg {plist} {
 	}
 	set zs [expr {$zs / $n}]
 	GeoLog1
-	GeoLog [lindex $reglist 4]
+	GeoLog [lindex $reglist 5]
 	GeoLog1 [format $geoEasyMsg(head0HPlaneReg) [format %+.${decimals}f $zs]]
 	GeoLog1
 	GeoLog1 $geoEasyMsg(head1PlaneReg)
@@ -1800,7 +1506,7 @@ proc ParabReg {plist} {
 	set z0e [expr {$z0e + $b(2)}]
 	set re [expr {$re + $b(3)}]
 	GeoLog1
-	GeoLog [lindex $reglist 8]
+	GeoLog [lindex $reglist 10]
 	GeoLog1 [format $geoEasyMsg(head0ParabReg) [format %.${decimals}f $y0e] [format %.${decimals} $x0e] [format %.${decimals}f $z0e] [format %.${decimals} $ae]]
 	if {$iteration > $maxIteration} {
 		GeoLog1 [format $geoEasyMsg(head2CircleReg) $maxIteration $epsReg]
@@ -1960,13 +1666,13 @@ proc PlaneAngle {n1 n2} {
 	set b(2) $d3
 	if {[catch {GaussElimination a b 3}]} {
 		# some error parallel planes
-		# TOD
+		# TODO
 		return
 	}
 	set dir [Bearing $a3 $b3 0 0]
 	set ang [expr {atan(sqrt($a3*$a3+$b3*$b3)/sqrt($a3*$a3+$b3*$b3+$c3*$c3))}]
     GeoLog1
-    GeoLog [lindex $reglist 8]
+    GeoLog [lindex $reglist 9]
 	GeoLog1 "$geoEasyMsg(head1PlaneAngle) [ANG $gamma]"
 	GeoLog1 [format $geoEasyMsg(head2PlaneAngle) [ANG $dir] [ANG $ang]]
 }
