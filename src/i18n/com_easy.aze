@@ -1,0 +1,100 @@
+#-------------------------------------------------------------------------------
+#	-- ComEasy message file
+#-------------------------------------------------------------------------------
+global comEasyMsg
+global fileTypes
+global comTypes
+global comSetTypes
+
+# saved Communication Parameters
+set comSetTypes {{"ComEasy parametrləri" {.com}}}
+
+# accepted file types for download
+set comTypes {
+	{"Geodimeter JOB" {.job}}
+	{"Geodimeter ARE" {.are}}
+	{"Sokkia set 4" {.scr}}
+	{"Sokkia sdr" {.sdr}}
+	{"Leica GSI" {.gsi}}
+	{"TopCon GTS-700" {.700}}
+	{"TopCon GTS-210" {.210}}
+	{"Trimble M5" {.m5}}
+	{"Nikon DTM-300" {.nik}}
+	{"Geodat 124 formátum" {.dat}}
+	{"Bütün fayllar" {.*}}
+}
+
+# window titles
+set comEasyMsg(comTitle)		"ComEasy V1.0"
+set comEasyMsg(digikom)			"Sponsor DigiKom Ltd."
+set comEasyMsg(about1)			"Geodezistlər üçün"
+set comEasyMsg(about2)			"Serial Kommunikasiya"
+set comEasyMsg(parsTitle)		"Kommunikasiya Parametrləri"
+set comEasyMsg(error)			"Xəta"
+
+# menu text
+set comEasyMsg(mComFile)		"Əmrlər"
+set comEasyMsg(mComPars)		"Tənzimləmələr ..."
+set comEasyMsg(mComDir)			"Kataloq"
+set comEasyMsg(mComDownload)	"Endir ..."
+set comEasyMsg(mComUpload)		"Yüklə ..."
+set comEasyMsg(mComStop)		"Abort"
+set comEasyMsg(mComExit)		"Çıxış"
+set comEasyMsg(mComHelp)		"Kömək"
+set comEasyMsg(mComHelp1)		"Kömək ..."
+set comEasyMsg(mComAbout)		"Haqqında ..."
+set comEasyMsg(mComStored)		"Yadda saxlanılan Parametrlər"
+set comEasyMsg(mComPrint)		"Çap et"
+set comEasyMsg(mComPrintSelection)	"Seçimi Çap et"
+
+# label text
+set comEasyMsg(parsHead1)		"Xətt Parameterləri"
+set comEasyMsg(parsHead2)		"Kommunikasiya Parameterləri"
+set comEasyMsg(parsHead3)		"Başqa Parameterləri"
+
+set comEasyMsg(parsPort)		"Kanal:"
+set comEasyMsg(parsBaud)		"Sürət:"
+set comEasyMsg(parsParity)		"Paritet:"
+set comEasyMsg(parsData)		"Məlumat bitləri:"
+set comEasyMsg(parsStop)		"Stop bitləri:"
+set comEasyMsg(parsEofchar)		"EOF markeri:"
+
+set comEasyMsg(parsBlocking)	"Bloklama:"
+set comEasyMsg(parsTranslation)	"EOL markeri:"
+set comEasyMsg(parsBuffering)	"Buferləmə:"
+set comEasyMsg(parsBuffsize)	"Bufer ölçüsü:"
+set comEasyMsg(parsEncoding)	"Kod səhifəsi:"
+set comEasyMsg(parsInit)		"İlkin ardıcıllıq:"
+set comEasyMsg(parsQuery)		"Giriş sorğusu:"
+set comEasyMsg(parsSendquery)	"Girişin sonu:"
+set comEasyMsg(parsDir)			"Kataloq:"
+
+# button labels
+set comEasyMsg(ok)				"Yaxşı"
+set comEasyMsg(cancel)			"İmtina et"
+set comEasyMsg(save)			"Yaddaşda saxla"
+set comEasyMsg(load)			"Yüklə"
+
+# error messages
+set comEasyMsg(warning)			"xəbərdarlıq"
+set comEasyMsg(helpfile)		"Kömək faylı tapılmadı"
+set comEasyMsg(browser)			"Kömək göstərilə bilmir\nbrauzerinizi .html fayllarını açmaq üçün tənzimləyin"
+set comEasyMsg(gizidll)			"Setup error code=1"
+set comEasyMsg(comOpen)			"Kanal açılmasında xəta"
+set comEasyMsg(comConfigure)	"Kanal tənzimləməsində xəta"
+set comEasyMsg(cantSave)		"Fayla yazmaq üçün açılmasında xəta"
+set comEasyMsg(cantOpen)		"Faylı oxumaq üçün açılmasında xəta"
+set comEasyMsg(cantSource)		"Parametrlər faylının yüklənməsində xəta"
+set comEasyMsg(cantRead)		"Kanal oxunmasında xəta"
+set comEasyMsg(cantWrite)		"Kanala yazmaqda xəta"
+set comEasyMsg(cantFRead)		"Faylın oxunmasında xəta"
+set comEasyMsg(cantFWrite)		"Fayla yazmaqda xəta"
+set comEasyMsg(noBlocking)		"Kommunikasiya bloklanması hələ mövcud deyil"
+
+# info messages
+set comEasyMsg(waiting)			"Verilənlər üçün gözlənilir ... (Dayandırmaq üçün Ctrl-Z düymələrinə basın)"
+set comEasyMsg(comClose)		"Kommunikasiya kanalı bağlandı"
+set comEasyMsg(comFClose)		"Fayl bağlandı"
+set comEasyMsg(eof)				"Faylın sonu"
+set comEasyMsg(loadgizi)		"GeoEasy-ə faylı yüklə?"
+set comEasyMsg(separator)		"---------------------"
