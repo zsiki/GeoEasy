@@ -38,6 +38,7 @@ GeoEasy available in different languages. You can localize GeoEasy to your langu
 
 | Language  | Translator(s)                                                        |
 |-----------|----------------------------------------------------------------------|
+| Azerbaijani | [Nurlan Aliyev](https://github.com/nurlan-aliyev)                  |
 | Czech     | Bc. Tomáš Bouček, Bc. Jana Špererová                                 |
 | English   | Andras Gabriel, [Zoltán Siki](https://github.com/zsiki)              |
 | German    | Gergely Szabó, Csaba Égető                                           |
