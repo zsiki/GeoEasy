@@ -44,7 +44,7 @@
 #   RES_OBS free station obs. GPT-7000 skip
 # Remarks
 #	XYZ if present follows the STN record
-#	BKB if present follows the BKB or STN record
+#	BKB if present follows the XYZ or STN record
 #	CTL if present follows the FS or SS header record
 #	HV, SD, HD must follow a BS, FS or SS header and follows the CTL if present
 #	OFFSET may follow any SD or HD record
@@ -70,6 +70,7 @@ proc TopCon {fn fa} {
 	set last ""
 	set res_obs_buf ""		;# observations from free station
 	set pcode ""
+    set stn ""              ;# last station id
 
 	while {! [eof $f1]} {
 		incr src	;# source line number
@@ -170,6 +171,7 @@ proc TopCon {fn fa} {
 				set pn [lindex $buflist 0]
 				switch -exact $code {
 					STN {
+                        set stn $pn
 						lappend obuf [list 2 $pn]   ;# station name
 						GeoLog1 "$geoCodes(2): $pn"
 						lappend obuf [list 3 [lindex $buflist 1]]   ;# station height
@@ -194,26 +196,30 @@ proc TopCon {fn fa} {
 						}
 					}
 					BKB {
-						lappend obuf [list 5 $pn]
-						if {$angle_unit == "G"} {
-							lappend obuf [list 21 [Gon2Rad [lindex $buflist 2]]]
-						} else {
-							lappend obuf [list 21 [Deg2Rad [lindex $buflist 2]]]
-						}
-						set last $code
+                        if {[string length $pn] > 0} {  ;# skip without point id
+                            lappend obuf [list 5 $pn]
+                            if {$angle_unit == "G"} {
+                                lappend obuf [list 21 [Gon2Rad [lindex $buflist 2]]]
+                            } else {
+                                lappend obuf [list 21 [Deg2Rad [lindex $buflist 2]]]
+                            }
+                            set last $code
+                        }
 					}
 					RES_OBS -
 					BS -
 					FS -
 					SS {
-						lappend obuf [list 5 $pn]
-						if {[llength $buflist] > 1} {
-							lappend obuf [list 6 [lindex $buflist 1]]
-						}
-						if {[llength $buflist] > 2} {
-							set pcode [lindex $buflist 2]
-							lappend obuf [list 4 $pcode]	;# pcode
-						}
+                        if { ! [string equal $stn $pn]} { ;# axis 10 adds station as target
+                            lappend obuf [list 5 $pn]
+                            if {[llength $buflist] > 1} {
+                                lappend obuf [list 6 [lindex $buflist 1]]
+                            }
+                            if {[llength $buflist] > 2} {
+                                set pcode [lindex $buflist 2]
+                                lappend obuf [list 4 $pcode]	;# pcode
+                            }
+                        }
 						set last $code
 					}
 				}
