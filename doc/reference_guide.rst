@@ -170,7 +170,7 @@ Height prelim* and the special *Skip*. In the dmp (dump) file the following
 columns are allowed: *Station number*, *Point number*, *Horizontal angle*, 
 *Vertical angle*, *Slope distance*, *Signal height*, *Instrument height*, 
 *Horizontal distance*, *Point code*, *Height diff*, *Height diff leveling* and the 
-special *Skip*. Angles can be in radians or DMS (ddd-mm-ss format).
+special *Skip*. Angles can be in GONs (ggg.cccc format) or DMS (ddd-mm-ss format).
 A sample dmp file (station number can be empty if it is not changed).
 
 .. code:: text
