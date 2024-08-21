@@ -945,11 +945,11 @@ proc GeoTextWindow {w {title "?"} {typ "simple"}} {
 		-command "GeoListSave $w.w.t"
 	$w.menu.file add command -label $geoEasyMsg(menuFileSaveSelection) \
 		-command "GeoListSave $w.w.t 1"
-	if {$tcl_platform(platform) != "unix"} {	;# page setup
-		$w.menu.file add separator
-		$w.menu.file add command -label $geoEasyMsg(menuFileFontSetup) \
-			-command "GeoFontSelect"
-	}
+	#if {$tcl_platform(platform) != "unix"} {	;# page setup
+	#	$w.menu.file add separator
+	#	$w.menu.file add command -label $geoEasyMsg(menuFileFontSetup) \
+	#		-command "GeoFontSelect"
+	#}
 	$w.menu.file add separator
 	$w.menu.file add command -label $geoEasyMsg(menuGraClose) \
 		-command "GeoFormExit $w"
