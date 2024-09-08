@@ -461,7 +461,8 @@ proc TxtCols {codes allCodes fn {ff ""}} {
         set al {}
 		set ll [.txtcols.1.1.l get 0 end]
 		foreach c $tmpAllCodes {
-			if {[lsearch -exact $ll $geoCodes($c)] == -1} {
+            # add not used columns m skip always added
+			if {[lsearch -exact $ll $geoCodes($c)] == -1 || $c == -1} {
 				lappend al "$geoCodes($c)"
 			}
 		}
