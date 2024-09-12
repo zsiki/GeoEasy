@@ -333,9 +333,13 @@ proc DXFout1 {fd pn} {
 	set y [format "%.${decimals}f" $y]
 	set code [GetVal 4 $buf]
 	set layer $slay
+	set layer1 $pnlay
+	set layer2 $zlay
 	if {$pcodelayer} {
 		if {[string length $code]} {
 			append layer "_" $code
+			append layer1 "_" $code
+			append layer2 "_" $code
 		}
 	}
 	if {[string length [string trim $z]]} {
@@ -372,9 +376,9 @@ proc DXFout1 {fd pn} {
 		set wy [format "%.${decimals}f" [expr {$y + $dyz}]]
 		if {[string length $ztxt]} {
 			if {$p3d} {
-				puts $fd "  0\nTEXT\n  8\n$zlay\n 10\n$wx\n 20\n$wy\n 30\n$z\n 40\n$sz\n  1\n$ztxt"
+				puts $fd "  0\nTEXT\n  8\n$layer2\n 10\n$wx\n 20\n$wy\n 30\n$z\n 40\n$sz\n  1\n$ztxt"
 			} else {
-				puts $fd "  0\nTEXT\n  8\n$zlay\n 10\n$wx\n 20\n$wy\n 40\n$sz\n  1\n$ztxt"
+				puts $fd "  0\nTEXT\n  8\n$layer2\n 10\n$wx\n 20\n$wy\n 40\n$sz\n  1\n$ztxt"
 			}
 		}
 	}
@@ -383,9 +387,9 @@ proc DXFout1 {fd pn} {
 		set wx [format "%.${decimals}f" [expr {$x + $dxpn}]]
 		set wy [format "%.${decimals}f" [expr {$y + $dypn}]]
 		if {$p3d && [string length $z]} {
-			puts $fd "  0\nTEXT\n  8\n$pnlay\n 10\n$wx\n 20\n$wy\n 30\n$z\n 40\n$spn\n  1\n$pn"
+			puts $fd "  0\nTEXT\n  8\n$layer1\n 10\n$wx\n 20\n$wy\n 30\n$z\n 40\n$spn\n  1\n$pn"
 		} else {
-			puts $fd "  0\nTEXT\n  8\n$pnlay\n 10\n$wx\n 20\n$wy\n 40\n$spn\n  1\n$pn"
+			puts $fd "  0\nTEXT\n  8\n$layer1\n 10\n$wx\n 20\n$wy\n 40\n$spn\n  1\n$pn"
 		}
 	}
 }
