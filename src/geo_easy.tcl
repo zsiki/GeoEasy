@@ -1008,17 +1008,21 @@ proc MenuLoad {w {def ""}} {
 				}
 			}
 
-			if {$res != 0} {
+            set resCode [lindex $res 0]
+            set resExt ""
+            if {[llength $res] > 1} {
+                set resExt [lindex $res 1]
+            }
+			if {$resCode != 0} {
 				UnloadGeo $f
-				if {$res == -999} {
+				if {$resCode == -999} {
 					# cancelled, no error
-				} elseif {$res < 0} {
+				} elseif {$resCode < 0} {
 					geo_dialog .msg $geoEasyMsg(warning) \
-					"$geoEasyMsg($res) $fn" warning 0 OK
+					"$geoEasyMsg($resCode) $fn $resExt" warning 0 OK
 				} else {
 					geo_dialog .msg $geoEasyMsg(warning) \
-						"$geoEasyMsg(-5) $res $fn" warning 0 OK
-					
+						"$geoEasyMsg(-5) $res $fn $resExt" warning 0 OK
 				}
 				continue
 			}

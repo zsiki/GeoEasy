@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#   Returns the difference of two lists, elements whics are only in the first
+#   Returns the difference of two lists, elements which are only in the first
 #	list
 #
 #	@param l1 first list
@@ -229,7 +229,7 @@ proc LoadGeo {fn f} {
 #	open geo data file & coordinate file
 #
 	if {[catch {set f1 [open $ff.geo r]}] != 0} {
-		return -6
+		return "-6 GEO"
 	}
 	set f2 ""
 	catch {set f2 [open $ff.coo r]}
@@ -248,14 +248,14 @@ proc LoadGeo {fn f} {
 			catch {close $f1}
 			catch {close $f2}
 			catch {close $f3}
-			return [expr {$lineno + 1}]	
+			return "[expr {$lineno + 1}] GEO"
 		}
 
 		if {$pn == ""} {
 			catch {close $f1}
 			catch {close $f2}
 			catch {close $f3}
-			return [expr {$lineno + 1}]	
+			return "[expr {$lineno + 1}] GEO"
 		}
 #
 #	check for DMS angles (DDD-MM-SS format)
@@ -271,7 +271,7 @@ proc LoadGeo {fn f} {
 					catch {close $f1}
 					catch {close $f2}
 					catch {close $f3}
-					return [expr {$lineno + 1}]	
+					return "[expr {$lineno + 1}] GEO"
 				}
 			}
 		}
@@ -284,7 +284,7 @@ proc LoadGeo {fn f} {
 					catch {close $f1}
 					catch {close $f2}
 					catch {close $f3}
-					return [expr {$lineno + 1}]	
+					return "[expr {$lineno + 1}] GEO"
 				}
 			}
 		}
@@ -294,7 +294,7 @@ proc LoadGeo {fn f} {
 	}
 	catch {close $f1}
 #
-#	load coordinates (skip line if not 5, 2 or 62 code
+#	load coordinates (skip line if not 5, 2 or 62 code)
 #
 	set coono 0
 	set lineno 0
@@ -305,20 +305,20 @@ proc LoadGeo {fn f} {
 			if {[catch {set pn [GetVal {5 2 62} $buf]} msg]} {
 				catch {close $f3}
 				catch {close $f2}
-				return [expr {$lineno + 1}]	
+				return "[expr {$lineno + 1}] COO"
 			}
 
 			if {$pn == ""} {
 				catch {close $f3}
 				catch {close $f2}
-				return [expr {$lineno + 1}]	
+				return "[expr {$lineno + 1}] COO"
 			}
 			foreach code {37 38 39 137 138 139} {
 				if {[set w [GetVal $code $buf]] != ""} {
 					if {[regexp $reg(2) $w] == 0} {
 						catch {close $f3}
 						catch {close $f2}
-						return [expr {$lineno + 1}]	
+						return "[expr {$lineno + 1}] COO"
 					}
 				}
 			}

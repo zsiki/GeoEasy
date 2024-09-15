@@ -56,10 +56,15 @@ proc GeoTran {{sourc ""}} {
 	}
 	# load target geo data set
 	set res [LoadGeo $targetFile $target]
-	if {$res != 0} {	;# error loading
+    set resCode [lindex $res 0]
+    set resExt ""
+    if {[llength $res] > 1} {
+        set resExt [lindex $res 1]
+    }
+	if {$resCode != 0} {	;# error loading
 		UnloadGeo $target
-		if {$res < 0} {
-			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
+		if {$resCode < 0} {
+			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg($resCode) $resExt" warning 0 OK
 		} else {
 			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
 				warning 0 OK
@@ -780,10 +785,15 @@ proc GeoHTran {{sourc ""}} {
 	}
 	# load target geo data set
 	set res [LoadGeo $targetFile $target]
-	if {$res != 0} {	;# error loading
+    set resCode [lindex $res 0]
+    set resExt ""
+    if {[llength $res] > 1} {
+        set resExt [lindex $res 1]
+    }
+	if {$resCode != 0} {	;# error loading
 		UnloadGeo $target
-		if {$res < 0} {
-			geo_dialog .msg $geoEasyMsg(warning) $geoEasyMsg($res) warning 0 OK
+		if {$resCode < 0} {
+			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg($resCode) $resExt" warning 0 OK
 		} else {
 			geo_dialog .msg $geoEasyMsg(warning) "$geoEasyMsg(-5) $res" \
 				warning 0 OK
