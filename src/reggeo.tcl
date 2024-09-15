@@ -21,7 +21,6 @@ proc GeoReg {regindex} {
 	global geoEasyMsg geoCodes
 	global reg
 
-puts "regindex: $regindex"
 #	select points for regression
 	if {$regindex == 0} {
 		# linear regression
