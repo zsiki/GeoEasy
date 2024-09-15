@@ -120,7 +120,7 @@ proc GeoTran {{sourc ""}} {
 					set formX "expr [lindex $par 0] + $ca * \$x - $sa * \$y"
 					set formY "expr [lindex $par 1] + $sa * \$x + $ca * \$y"
 					# start output to log window
-					GeoLog "$geoEasyMsg(typeHelmert3) $sourc -> $target"
+					GeoLog "$geoEasyMsg(typeHelmert3) [GetShortName $sourc] -> [GeoSetName $targetFile]"
 					GeoLog1 [format $geoEasyMsg(formulaH3y) \
 						[format "%.${decimals}f" [lindex $par 0]] \
 						$ca $sa]
@@ -139,7 +139,7 @@ proc GeoTran {{sourc ""}} {
 					set formY "expr [lindex $par 1] + [lindex $par 4] * \$x + \
 						[lindex $par 5] * \$y"
 					# start output to log window
-					GeoLog "$geoEasyMsg(typeAffin) $sourc -> $target"
+					GeoLog "$geoEasyMsg(typeAffin) [GetShortName $sourc] -> [GeoSetName $targetFile]"
 					GeoLog1 [format $geoEasyMsg(formulaAfy) \
 						[format "%.${decimals}f" [lindex $par 0]] \
 						[lindex $par 2] [lindex $par 3]]
@@ -167,7 +167,7 @@ proc GeoTran {{sourc ""}} {
 						[lindex $par 9] * (\$x - $avgx) * (\$y - $avgy) + \
 						[lindex $par 11] * pow(\$y - $avgy, 2) + \
 						$avgY"
-					GeoLog "$geoEasyMsg(typePoly2) $sourc -> $target"
+					GeoLog "$geoEasyMsg(typePoly2) [GetShortName $sourc] -> [GeoSetName $targetFile]"
 					GeoLog1 [format $geoEasyMsg(formulaP2) \
 						[format "%.${decimals}f" $avgx] \
 						[format "%.${decimals}f" $avgy]]
@@ -208,7 +208,7 @@ proc GeoTran {{sourc ""}} {
 						[lindex $par 17] * (\$x-$avgx) * pow(\$y-$avgy, 2) + \
 						[lindex $par 19] * pow(\$y-$avgy, 3) + \
 						$avgY"
-					GeoLog "$geoEasyMsg(typePoly3) $sourc -> $target"
+					GeoLog "$geoEasyMsg(typePoly3) [GetShortName $sourc] -> [GeoSetName $targetFile]"
 					GeoLog1 [format $geoEasyMsg(formulaP2) \
 						[format "%.${decimals}f" $avgx] \
 						[format "%.${decimals}f" $avgy]]
