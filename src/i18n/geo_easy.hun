@@ -526,7 +526,7 @@ set geoEasyMsg(together)	"Hiányzó érték %s a(z) %s sorban"
 set geoEasyMsg(notTogether)	"Egymást kizáró értékek %s a(z) %s sorában"
 set geoEasyMsg(stationpn)	"Álláspont és irányzott pont egyezik %s a(z) %s sorában"
 set geoEasyMsg(missingstation)	"Álláspont hiányzik a(z) %s sor előtt"
-set geoEasyMsg(doublepn)	"Ismétlődő pontszám az állásponton belül %s a(z) %s sorában"
+set geoEasyMsg(doublepn)	"Ismétlődő pontszám %s az állásponton belül a(z) %s sorban"
 set geoEasyMsg(numError)	"%d hiba"
 set geoEasyMsg(csvwarning)  "Már programokba betöltendő koordinátákhoz használja inkább a 'Mentés másként'-t a fő ablakból Akarja folytatni?"
 
