@@ -759,6 +759,7 @@ proc LeicaDNA {fn fa {fo ""}} {
 					set code [string range $w 0 1]
 			}
 			set sign [lindex $buflist [expr {$i + 1}]]
+                        if {$sign == "-"} { set sign_mul -1 } else { set sign_mul 1 }
 			set v [lindex $buflist $i2]
 			regsub {^0+} [string trim $v] "" val	;# leading zeros and spaces
 			if {[string length $val] == 0} {set val 0}
@@ -854,24 +855,22 @@ proc LeicaDNA {fn fa {fo ""}} {
 					set dist [expr {$dist + $val}]
 				}
 				"331" {	;# backsight reading B1
-					set b1 [expr {$b1 + $val}]
+					set b1 [expr {$b1 + $val * $sign_mul}]
 				}
 				"332" {	;# foresight reading F1
-					set f1 [expr {$f1 + $val}]
+					set f1 [expr {$f1 + $val * $sign_mul}]
 				}
 				"335" {	;# backsight reading B2
-					set b2 [expr {$b2 + $val}]
+					set b2 [expr {$b2 + $val * $sign_mul}]
 				}
 				"336" {	;# foresight reading F2
-					set f2 [expr {$f2 + $val}]
+					set f2 [expr {$f2 + $val * $sign_mul}]
 				}
 				"83" {
 					if {$end_pn == ""} {
-						set start_z $val
-						if {$sign == "-"} {set start_z [expr {-$start_z}]}
+						set start_z [expr {$val * $sign_mul}]
 					} else {
-						set end_z $val
-						if {$sign == "-"} {set end_z [expr {-$end_z}]}
+						set end_z [expr {$val *  $sign_mul}]
 					}
 				}
 			}
