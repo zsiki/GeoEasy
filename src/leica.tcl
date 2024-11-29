@@ -105,6 +105,7 @@ proc Leica {fn fa {fo ""}} {
 			set w [lindex $buflist $i]
 			set code [string range $w 0 1]
 			set sign [lindex $buflist [expr {$i + 1}]]
+            if {$sign == "-"} { set sign_mul -1 } else { set sign_mul 1 }
 			set v [lindex $buflist $i2]
 			regsub {^0+} [string trim $v] "" val	;# leading zeros and spaces
 			if {[string length $val] == 0} {set val 0}
@@ -178,8 +179,7 @@ proc Leica {fn fa {fo ""}} {
 				}
 				"33" {	;# vertical distance
 					if {$val != 0} {	;# not measured ?
-						set dm $val
-						if {$sign == "-"} {set dm [expr {-$dm}]}
+						set dm [expr {$val * $sign_mul}]
 						lappend obuf [list 120 $dm]
 					}
 				}
@@ -229,15 +229,13 @@ proc Leica {fn fa {fo ""}} {
 				}
 				"43" {	;# instrument height
 					if {$st_code == 2} {
-						set h $val
-						if {$sign == "-"} {set h [expr {-$h}]}
+						set h [expr {$val * $sign_mul}]
 						lappend obuf [list 3 $h]
 					}
 				}
 				"44" {	;# target height
 					if {$st_code == 2} {
-						set defH $val
-						if {$sign == "-"} {set defH [expr {-$defH}]}
+						set defH [expr {$val * $sign_mul}]
 					}
 				}
 				"45" {	;# date/time
@@ -264,43 +262,34 @@ proc Leica {fn fa {fo ""}} {
                 }
 				"81" {
 					set x_set 1
-					set x $val
-					if {$sign == "-"} {set x [expr {-$x}]}
+					set x [expr {$val * $sign_mul}]
 				}
 				"82" {
 					set y_set 1
-					set y $val
-					if {$sign == "-"} {set y [expr {-$y}]}
+					set y [expr {$val * $sign_mul}]
 				}
 				"83" {
 					set z_set 1
-					set z $val
-					if {$sign == "-"} {set z [expr {-$z}]}
+					set z [expr {$val * $sign_mul}]
 				}
 				"84" {
 					set station_x_set 1
-					set station_x $val
-					if {$sign == "-"} {set station_x [expr {-$station_x}]}
+					set station_x [expr {$val * $sign_mul}]
 				}
 				"85" {
 					set station_y_set 1
-					set station_y $val
-					if {$sign == "-"} {set station_y [expr {-$station_y}]}
+					set station_y [expr {$val * $sign_mul}]
 				}
 				"86" {
 					set station_z_set 1
-					set station_z $val
-					if {$sign == "-"} {set station_z [expr {-$station_z}]}
+					set station_z [expr {$val * $sign_mul}]
 				}
 				"87" {	;# reflector height
-					set H $val
-					if {$sign == "-"} {set H [expr {-$H}]}
+					set H [expr {$val * $sign_mul}]
 					lappend obuf [list 6 $H]
 				}
 				"88" {	;# station height
-					set h $val
-					if {$sign == "-"} {set h [expr {-$h}]}
-					
+					set h [expr {$val * $sign_mul}]
 					lappend obuf [list 3 $h]
 				}
 			}
@@ -759,7 +748,7 @@ proc LeicaDNA {fn fa {fo ""}} {
 					set code [string range $w 0 1]
 			}
 			set sign [lindex $buflist [expr {$i + 1}]]
-                        if {$sign == "-"} { set sign_mul -1 } else { set sign_mul 1 }
+            if {$sign == "-"} { set sign_mul -1 } else { set sign_mul 1 }
 			set v [lindex $buflist $i2]
 			regsub {^0+} [string trim $v] "" val	;# leading zeros and spaces
 			if {[string length $val] == 0} {set val 0}
