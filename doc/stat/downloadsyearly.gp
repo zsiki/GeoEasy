@@ -24,7 +24,7 @@ set boxwidth 0.75
 
 set terminal png enhanced
 set output 'downloadsyearly.png'
-plot for [i=2:11] 'yearly.txt' using i:xtic(1)
+plot for [i=2:12] 'yearly.txt' using i:xtic(1)
 
 # set terminal xterm
 # replot
