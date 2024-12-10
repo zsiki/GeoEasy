@@ -723,14 +723,14 @@ proc StoreStdev {pn stdev} {
 		if {[info exists ${geo}_coo($pn)]} {
 			upvar #0 ${geo}_coo($pn) coo_rec
 			if {$dim == 3} {
-				set coo_rec [DelVal {238 237 239} $coo_rec]
-				lappend coo_rec [list 238 [lindex $stdev 0]]
-				lappend coo_rec [list 237 [lindex $stdev 1]]
+				set coo_rec [DelVal {237 238 239} $coo_rec]
+				lappend coo_rec [list 237 [lindex $stdev 0]]
+				lappend coo_rec [list 238 [lindex $stdev 1]]
 				lappend coo_rec [list 239 [lindex $stdev 2]]
 			} elseif {$dim == 2} {
-				set coo_rec [DelVal {238 237} $coo_rec]
-				lappend coo_rec [list 238 [lindex $stdev 0]]
-				lappend coo_rec [list 237 [lindex $stdev 1]]
+				set coo_rec [DelVal {237 238} $coo_rec]
+				lappend coo_rec [list 237 [lindex $stdev 0]]
+				lappend coo_rec [list 238 [lindex $stdev 1]]
 			} elseif {$dim == 1} {
 				set coo_rec [DelVal {239} $coo_rec]
 				lappend coo_rec [list 239 [lindex $stdev 0]]
