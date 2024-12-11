@@ -3219,7 +3219,7 @@ proc CooDel {c} {
 	regsub "_coo$" $c "" fn
 	foreach p [array names $c] {
 		upvar #0 ${c}($p) buf
-		set buf [DelVal {37 38 39 137 138 139} $buf]
+		set buf [DelVal {37 38 39 137 138 139 237 238 239} $buf]
 		set geoChanged($fn) 1
 	}
 	if {$autoRefresh} {
@@ -3263,7 +3263,7 @@ proc CooDelDetail {c} {
 	foreach p $detail {
 		if {[info exists ${c}($p)]} {
 			upvar #0 ${c}($p) buf
-			set buf [DelVal {37 38 39 137 138 139} $buf]
+			set buf [DelVal {37 38 39 137 138 139 237 238 239} $buf]
 			set geoChanged($fn) 1
 		}
 	}
