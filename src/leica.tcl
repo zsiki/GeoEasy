@@ -343,7 +343,7 @@ proc Leica {fn fa {fo ""}} {
 				}
 			}
 			set face2 0
-			set pnum [GetVal {5 62} $obuf]
+			set pnum [GetVal 5 $obuf]
 			if {$pnum == ""} {
 				#GeoLog1 [format "%-10s" [string range [GetVal 2 $obuf] 0 9]]
 			} else {
@@ -353,7 +353,7 @@ proc Leica {fn fa {fo ""}} {
 					if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 						break
 					}
-					if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pnum} {
+					if {[GetVal 5 [set ${fa}_geo($li)]] == $pnum} {
 						# really second face?
 						set obuf1 [set ${fa}_geo($li)]
 						set avgbuf ""
@@ -362,7 +362,7 @@ proc Leica {fn fa {fo ""}} {
 							set face2 1
 						} else {
 							GeoLog1 [format $geoEasyMsg(noface2) \
-								[GetVal {5 62} $obuf]]
+								[GetVal 5 $obuf]]
 						}
 						break
 					}
@@ -435,7 +435,7 @@ proc AvgFaces {f1 f2} {
 			set n [expr {$n1 + $n2}]
 			if {$z > $PI} { set z [expr {$PI2 - $z}]}
 		} else {
-			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $f1] $geoCodes(8)"
+			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal 5 $f1] $geoCodes(8)"
 			return ""
 		}
 	} elseif {[string length $z1] != 0} {
@@ -485,7 +485,7 @@ proc AvgFaces {f1 f2} {
 			}
 			if {[expr {abs($collimationError)}] > [expr {$maxColl / $RO}]} {
 				# too large error > 6'
-				GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $f1] $geoCodes(7)"
+				GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal 5 $f1] $geoCodes(7)"
 				return ""
 			}
 		}
@@ -517,7 +517,7 @@ proc AvgFaces {f1 f2} {
 			[string length $t2] != 0 && $t2 > 0.001} {
 		set dt [expr {abs($t2 - $t1)}]
 		if {$dt > 0.1} {	;# too large diff > 0.1 m
-			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $f1] $geoCodes(9)"
+			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal 5 $f1] $geoCodes(9)"
 			return ""
 		}
 		set t [expr {($t1 * $n1 + $t2 * $n2) / ($n1 + $n2)}]
@@ -543,7 +543,7 @@ proc AvgFaces {f1 f2} {
 			[string length $t2] != 0 && $t2 > 0.001} {
 		set dt1 [expr {abs($t2 - $t1)}]
 		if {$dt1 > 0.1} {	;# too large diff > 0.1 m
-			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $f1] $geoCodes(11)"
+			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal 5 $f1] $geoCodes(11)"
 			return ""
 		}
 		set t [expr {($t1 * $n1 + $t2 * $n2) / ($n1 + $n2)}]
@@ -569,7 +569,7 @@ proc AvgFaces {f1 f2} {
 			[string length $j2] != 0 && $j2 > 0.001} {
 		set dj [expr {abs($j2 - $j1)}]
 		if {$dj > 0.01} {	;# too large diff > 0.01 m
-			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal {5 62} $f1] $geoCodes(6)"
+			GeoLog1 "$geoEasyMsg(faces) $geoEasyMsg(error): [GetVal 5 $f1] $geoCodes(6)"
 			return ""
 		}
 		set j [expr {($j1 * $n1 + $j2 * $n2) / ($n1 + $n2)}]
@@ -593,7 +593,7 @@ proc AvgFaces {f1 f2} {
 		GeoLog1 $geoEasyMsg(face3)
 	}
 	GeoLog1 [format "%-10s %11s %11s %6.4f %6.3f" \
-		[string range [GetVal {5 62} $f1] 0 9] \
+		[string range [GetVal 5 $f1] 0 9] \
 		[ANG $collimationError] [ANG $indexError] $dt $dj]
 	return $f1
 }

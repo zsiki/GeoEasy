@@ -138,7 +138,7 @@ proc TopCon {fn fa} {
 								if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 									break
 								}
-								if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pn} {
+								if {[GetVal 5 [set ${fa}_geo($li)]] == $pn} {
 									# really second face?
 									set obuf1 [set ${fa}_geo($li)]
 									set avgbuf [AvgFaces $obuf1 $obuf]
@@ -184,7 +184,7 @@ proc TopCon {fn fa} {
 							set res_obs_buf [linsert $res_obs_buf 0 $obuf]
 							foreach b $res_obs_buf {
 								set ${fa}_geo($lines) $b
-								set p [GetVal {5 2 62} $b]
+								set p [GetVal {5 2} $b]
 								if {[info exists ${fa}_ref($p)] == -1} {
 									set ${fa}_ref($p) $lines
 								} else {
@@ -295,7 +295,7 @@ proc TopCon {fn fa} {
 			if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 				break
 			}
-			if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pn} {
+			if {[GetVal 5 [set ${fa}_geo($li)]] == $pn} {
 				# really second face?
 				set obuf1 [set ${fa}_geo($li)]
 				set avgbuf [AvgFaces $obuf1 $obuf]
@@ -491,7 +491,7 @@ proc TopCon210 {fn fa} {
 				}
 			}
 			set face2 0
-			set pnum [GetVal {5 62} $obuf]
+			set pnum [GetVal 5 $obuf]
 			if {$pnum == ""} {      ;# station
 				GeoLog1 [format "%-10s" [string range [GetVal 2 $obuf] 0 9]]
 			} else {
@@ -501,7 +501,7 @@ proc TopCon210 {fn fa} {
 					if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 						break
 					}
-					if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pnum} {
+					if {[GetVal 5 [set ${fa}_geo($li)]] == $pnum} {
 						# really second face?
 						set obuf1 [set ${fa}_geo($li)]
 						set avgbuf [AvgFaces $obuf1 $obuf]
@@ -509,7 +509,7 @@ proc TopCon210 {fn fa} {
 							set face2 1
 						} else {
 							GeoLog1 [format $geoEasyMsg(noface2) \
-								[GetVal {5 62} $obuf]]
+								[GetVal 5 $obuf]]
 						}
 						break
 					}
@@ -645,7 +645,7 @@ proc TopCon210 {fn fa} {
 					}
 				}
 				set face2 0
-				set pnum [GetVal {5 62} $obuf]
+				set pnum [GetVal 5 $obuf]
 				if {$pnum == ""} {      ;# station
 					GeoLog1 [format "%-10s" [string range [GetVal 2 $obuf] 0 9]]
 				} else {
@@ -655,7 +655,7 @@ proc TopCon210 {fn fa} {
 						if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 							break
 						}
-						if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pnum} {
+						if {[GetVal 5 [set ${fa}_geo($li)]] == $pnum} {
 							# really second face?
 							set obuf1 [set ${fa}_geo($li)]
 							set avgbuf ""
@@ -666,7 +666,7 @@ proc TopCon210 {fn fa} {
 								set face2 1
 							} else {
 								GeoLog1 [format $geoEasyMsg(noface2) \
-									[GetVal {5 62} $obuf]]
+									[GetVal 5 $obuf]]
 							}
 							break
 						}

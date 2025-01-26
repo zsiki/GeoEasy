@@ -50,6 +50,7 @@ proc Geodimeter {fn fa} {
 			return $src
 		}
 		set code [lindex $buflist 0]
+        if {$code == 62} {set code 5} ;# change orientation to normal direction
 		set val [lindex $buflist 1]
 		# check numeric values
 		if {[lsearch -exact {3 6 7 8 9 10 11 21 24 25 26 27 28 29 37 38 39 49} \
@@ -57,7 +58,7 @@ proc Geodimeter {fn fa} {
 			return $src  ;# error in input
 		}
 		# remove the same code if it was given before
-		if {$code != 2 && $code != 62 && $code != 5} {;# not a start of a new p
+		if {$code != 2 && $code != 5} {;# not a start of a new p
 			set obuf [DelVal $code $obuf]
 		}
 		switch -exact $code {
@@ -68,8 +69,7 @@ proc Geodimeter {fn fa} {
 			55 { lappend ${fa}_par [list $code $val]}
 			1 {}
 			2 -
-			5 -
-			62 {
+			5 {
 				# start a new station or target
 				if {[llength $obuf] > 0} {
 					if {[llength $hz]} {
@@ -387,7 +387,7 @@ proc SaveJob {fn rn} {
 			}
 		} else {
 			# observation rec
-			foreach code {5 62 4 6 9 10 11} {
+			foreach code {5 4 6 9 10 11} {
 				set val [GetVal $code $buf]
 				if {[string length $val] > 0} {
 					if {[lsearch {6 9 10 11} $code] != -1} {

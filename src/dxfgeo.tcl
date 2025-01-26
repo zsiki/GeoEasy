@@ -183,7 +183,7 @@ proc DXFout {fn} {
 						set lastp_z ""
 					}
 				} else {
-					set p [GetVal {5 62} $rec]
+					set p [GetVal 5 $rec]
 					if {[lsearch -exact $p_list $p] == -1} {
 						# point not drawn
 						continue

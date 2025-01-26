@@ -477,7 +477,7 @@ proc Gama1dXmlOut {fn pns fixed {flag 0}} {
 				set stz [GetVal {39 139} $stcoo]
 			} elseif {$stpn != ""} {	;# there is station elevation
 				# observation record
-				set p [GetVal {5 62} $pbuf]	;# point number of other end
+				set p [GetVal 5 $pbuf]	;# point number of other end
 				set pcoo ""
 				if {[lsearch -exact $pns $p] >= 0} {
 					set newp 1			;# p is unknown point
@@ -725,7 +725,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 						if {[GetVal 2 $pbuf] != ""} {
 							break		;# next station reached
 						}
-						set p [GetVal {5 62} $pbuf]	;# point number of other end
+						set p [GetVal 5 $pbuf]	;# point number of other end
 						set pcoo ""
 						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
@@ -882,7 +882,7 @@ proc Gama2dXmlOut {fn pns fixed {flag 0}} {
 						if {[GetVal 2 $pbuf] != ""} {
 							break		;# next station reached
 						}
-						set p [GetVal {5 62} $pbuf]	;# point number of other end
+						set p [GetVal 5 $pbuf]	;# point number of other end
 						set pcoo ""
 						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
@@ -1184,7 +1184,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						if {[GetVal 2 $pbuf] != ""} {
 							break		;# next station reached
 						}
-						set p [GetVal {5 62} $pbuf]	;# point number of other end
+						set p [GetVal 5 $pbuf]	;# point number of other end
 						set th [GetVal 6 $pbuf]		;# target height
 						if {$th == ""} { set th 0}
 						set pcoo ""
@@ -1323,7 +1323,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						if {[GetVal 2 $pbuf] != ""} {
 							break		;# next station reached
 						}
-						set p [GetVal {5 62} $pbuf]	;# point number of other end
+						set p [GetVal 5 $pbuf]	;# point number of other end
 						set pcoo ""
 						if {[lsearch -exact $pns $p] >= 0} {
 							set newp 1			;# p is unknown point
@@ -1417,7 +1417,7 @@ proc Gama3dXmlOut {fn pns fixed {flag 0}} {
 						if {[GetVal 2 $pbuf] != ""} {
 							break		;# next station reached
 						}
-						set p [GetVal {5 62} $pbuf]	;# point number of other end
+						set p [GetVal 5 $pbuf]	;# point number of other end
 						set th [GetVal 6 $pbuf]		;# target height
 						if {$th == ""} { set th 0}
 						set pcoo ""

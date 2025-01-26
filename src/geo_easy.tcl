@@ -61,7 +61,7 @@ proc GeoEasy {top} {
 	set geoEasyMsg(mainTitle) "GeoEasy $version_str"
 	# check conditions for geo and coo data
 	# each record must have point number
-	set geoMustHave {2 5 62}
+	set geoMustHave {2 5}
 	# each sublist has a master code and other codes
 	# beside master code one of the other codes must be present
 	set geoTogether {{9 8 10 120}}

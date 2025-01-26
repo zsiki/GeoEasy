@@ -128,7 +128,7 @@ proc GeoZseni {fn fa} {
 				# point number
 				set pn [lindex $buflist 1]
 				set obuf ""
-				lappend obuf [list 62 $pn]
+				lappend obuf [list 5 $pn]
 				# point code
 				set w [lindex $buflist 2]
 				if {[string length $w]} {

@@ -87,9 +87,8 @@ proc Orientation {geo lineno {flag 0}} {
 		if {[info exists ${geo}_geo($i)] == 0} { break }	;# end of data set
 		upvar #0 ${geo}_geo($i) buf 
 		if {[GetVal 2 $buf] != ""} { break }			;# next station reached
-		set ref_pn [GetVal {62 5} $buf]
-		if {$ref_pn != "" && ([GetVal 62 $buf] != "" || \
-				[lsearch -exact $details $ref_pn] == -1)} {
+		set ref_pn [GetVal 5 $buf]
+		if {$ref_pn != "" || [lsearch -exact $details $ref_pn] == -1} {
 			# remove orientation angles
 			set buf [DelVal {100 101 102 103} $buf]
 			set r [GetVal {21 7} $buf]

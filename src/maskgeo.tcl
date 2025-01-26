@@ -398,8 +398,7 @@ proc GeoFillMask {fn start w} {
 				}
 				$ent configure -state normal
 				$ent delete 0 end				;# delete entry
-				if {$station && ([lsearch -exact $items 5] != -1 || \
-						[lsearch -exact $items 62] != -1)} {
+				if {$station && [lsearch -exact $items 5] != -1} {
 					set stat disabled
 					set bg grey
 				}
@@ -1342,7 +1341,7 @@ proc GeoValid {w} {
 	global reg
 	global PI FOOT2M OL2M
 
-	set mustfill {2 5 62}
+	set mustfill {2 5}
 	# check only for enabled entry fields
 	if {$w == "" || [winfo class $w] != "Entry" ||  \
 			[$w cget -state] == "disabled"} {
@@ -1632,8 +1631,7 @@ proc GeoStoreEntry {w {val ""}} {
 	switch -glob $geo {
 		"*_geo" {
 			if {[lsearch $entryCode($w) 2] != -1 || \
-				[lsearch $entryCode($w) 5] != -1 || \
-				[lsearch $entryCode($w) 62] != -1} {
+				[lsearch $entryCode($w) 5] != -1} {
 				GeoRef $geo								;# refresh index
 			}
 		}
@@ -2143,7 +2141,7 @@ proc MaskGeoPNum {w} {
 	set ind $entryRow($w)
 	if {[info exists ${geo}($ind)] == 0} {return ""}
 	upvar #0 ${geo}($ind) buf
-	return [GetVal {2 5 62} $buf]
+	return [GetVal {2 5} $buf]
 }
 
 #

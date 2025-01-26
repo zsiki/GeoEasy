@@ -169,7 +169,7 @@ proc SurvCe {fn fa} {
 							lappend obuf [list 7 [Deg2Rad [string range $field 2 end]]]
 						}
         				"BP" {
-							lappend obuf [list 62 [string range $field 2 end]]
+							lappend obuf [list 5 [string range $field 2 end]]
 						}
 						"BS" {
 							lappend obuf [list 21 [Deg2Rad [string range $field 2 end]]]

@@ -735,7 +735,7 @@ proc TxtGeo {fn fa {ff ""}} {
 				if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 					break
 				}
-				if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pn} {
+				if {[GetVal 5 [set ${fa}_geo($li)]] == $pn} {
 					# really second face?
 					set obuf1 [set ${fa}_geo($li)]
 					set avgbuf [AvgFaces $obuf1 $obuf]
@@ -743,7 +743,7 @@ proc TxtGeo {fn fa {ff ""}} {
 						set face2 1
 					} else {
 						GeoLog1 [format $geoEasyMsg(noface2) \
-							[GetVal {5 62} $obuf]]
+							[GetVal 5 $obuf]]
 					}
 					break
 				}
@@ -825,7 +825,7 @@ proc n4ce {fn fa} {
 			}
 			"4" {					;# orientation
 				set pn [string trim [lindex $buflist 6]]
-				lappend obuf [list 62 $pn]
+				lappend obuf [list 5 $pn]
 				set hz [string trim [lindex $buflist 2]]
 				if {[string length $hz]} {
 					lappend obuf [list 7 [Deg2Rad [format %.4f [expr {$hz / 10000.0}]]]]
@@ -876,7 +876,7 @@ proc n4ce {fn fa} {
 				if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 					break
 				}
-				if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pn} {
+				if {[GetVal 5 [set ${fa}_geo($li)]] == $pn} {
 					# really second face?
 					set obuf1 [set ${fa}_geo($li)]
 					set avgbuf ""
@@ -885,7 +885,7 @@ proc n4ce {fn fa} {
 						set face2 1
 					} else {
 						GeoLog1 [format $geoEasyMsg(noface2) \
-							[GetVal {5 62} $obuf]]
+							[GetVal 5 $obuf]]
 					}
 					break
 				}

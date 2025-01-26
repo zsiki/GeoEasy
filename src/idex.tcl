@@ -223,14 +223,14 @@ proc Idex {fn fa} {
 							if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 								break
 							}
-							if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pno} {
+							if {[GetVal 5 [set ${fa}_geo($li)]] == $pno} {
 								set obuf1 [set ${fa}_geo($li)]
 								set avgbuf [AvgFaces $obuf1 $obuf]
 								if {[llength $avgbuf]} {
 									set face2 1
 								} else {
 									GeoLog1 [format $geoEasyMsg(noface2) \
-										[GetVal {5 62} $obuf]]
+										[GetVal 5 $obuf]]
 								}
 								break
 							}
@@ -266,7 +266,7 @@ proc Idex {fn fa} {
 	close $f1
 	# copy point codes from coord list to observations
 	foreach i [lsort -integer [array names ${fa}_geo]] {
-		set pn [GetVal {5 62} [set ${fa}_geo($i)]]
+		set pn [GetVal 5 [set ${fa}_geo($i)]]
 		if {[string length $pn]} {
 			set c [GetCoord2 $pn {4} $fa]
 			if {[llength $c]} {

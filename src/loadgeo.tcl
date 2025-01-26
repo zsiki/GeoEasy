@@ -244,7 +244,7 @@ proc LoadGeo {fn f} {
 	while {! [eof $f1]} {
 		gets $f1 buf
 		if {[string length [string trim $buf]] == 0} {continue}
-		if {[catch {set pn [GetVal {5 2 62} $buf]} msg]} {
+		if {[catch {set pn [GetVal {5 2} $buf]} msg]} {
 			catch {close $f1}
 			catch {close $f2}
 			catch {close $f3}
@@ -294,7 +294,7 @@ proc LoadGeo {fn f} {
 	}
 	catch {close $f1}
 #
-#	load coordinates (skip line if not 5, 2 or 62 code)
+#	load coordinates (skip line if not 5 or 2 code)
 #
 	set coono 0
 	set lineno 0
@@ -302,7 +302,7 @@ proc LoadGeo {fn f} {
 		while {! [eof $f2]} {
 			gets $f2 buf
 			if {[string length [string trim $buf]] == 0} {continue}
-			if {[catch {set pn [GetVal {5 2 62} $buf]} msg]} {
+			if {[catch {set pn [GetVal {5 2} $buf]} msg]} {
 				catch {close $f3}
 				catch {close $f2}
 				return "[expr {$lineno + 1}] COO"
@@ -359,7 +359,7 @@ proc GeoRef {geo} {
 	global $rn $geo
 	catch "unset $rn"							;# delete old array
 	foreach i [array names ${geo}] {			;# regenerate array
-		set pn [GetVal {2 5 62} [set ${geo}($i)]]
+		set pn [GetVal {2 5} [set ${geo}($i)]]
 		lappend ${rn}($pn)  $i
 	}
 }
@@ -1194,7 +1194,7 @@ proc GetIntDir1 {fn ref {flag 0}} {
 		if {[info exists ${fn}_geo($r)] == 0} { break }
 		upvar #0 ${fn}_geo($r) buf
 		if {[GetVal 2 $buf] != ""} { break }	;# next station reached
-		set pn [GetVal {5 62} $buf]				;# point number
+		set pn [GetVal 5 $buf]				;# point number
 		set hz [GetVal {7 21} $buf]				;# horiz angle
 		if {$hz != "" && ([GetCoord $pn {38 37} $fn] != "" || \
 			$flag && [GetCoord $pn {138 137} $fn] != "")} {
@@ -1235,7 +1235,7 @@ proc GetDist {pn {flag 0}} {
 						upvar #0 ${fn}_geo($r) buf
 						# next station reached
 						if {[GetVal 2 $buf] != ""} { break }
-						set pnr [GetVal {5 62} $buf]	;# point number
+						set pnr [GetVal 5 $buf]	;# point number
 						set di [GetVal 11 $buf]			;# horiz dist
 						set va [expr {$PI / 2.0}]
 						if {$di == ""} {
@@ -1426,7 +1426,7 @@ proc GetEle {pn {flag 0}} {
 						upvar #0 ${fn}_geo($r) buf
 						# next station reached ?
 						if {[GetVal 2 $buf] != ""} { break }
-						set pnr [GetVal {5 62} $buf]	;# point number
+						set pnr [GetVal 5 $buf]	;# point number
 						set va [GetVal 8 $buf]			;# vert. angle
 						set h [GetVal 6 $buf]			;# signal height
 						set dm [GetVal {10 120} $buf]			;# height diff.
@@ -1643,7 +1643,7 @@ proc GetShootedPoints {prev} {
 	while {[info exists ${geo}_geo($index)]} {
 		# next station reached
 		if {[GetVal 2 [set ${geo}_geo($index)]] != ""} { break }
-		set pn [GetVal {5 62} [set ${geo}_geo($index)]]
+		set pn [GetVal 5 [set ${geo}_geo($index)]]
 # complex condition removed for free traverse endpoint
 #		if {$pn != "" && ([lsearch -exact $stat $pn] != -1 || \
 #				[lsearch -exact $given $pn] != -1) && \
@@ -1742,8 +1742,8 @@ proc CheckGeo {iname f_type mustHave together notTogether} {
 			if {[GetVal 2 $buf] != ""} {
 				set station [GetVal 2 $buf]
 				set dirs ""
-			} elseif {[GetVal {5 62} $buf] != ""} {
-				set pn [GetVal {5 62} $buf]
+			} elseif {[GetVal 5 $buf] != ""} {
+				set pn [GetVal 5 $buf]
 				if {$station == $pn} {
 					GeoLog1 [format $geoEasyMsg(stationpn) $pn [expr {$i + 1}]]
 					incr n
@@ -2087,7 +2087,7 @@ proc TxtOut {fn {nn ""}} {
 			set dm [GetVal {10 120} $rec]
 			if {$dm != ""} { set dm [format "%.${decimals}f" $dm] }
 
-			puts $f1 "$stpn;[GetVal {5 62} $rec];$hz;$v;$d;$th;$ih;$dm"
+			puts $f1 "$stpn;[GetVal 5 $rec];$hz;$v;$d;$th;$ih;$dm"
 		}
 		incr lineno
 	}

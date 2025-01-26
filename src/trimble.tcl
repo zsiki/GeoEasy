@@ -326,7 +326,7 @@ proc TrimbleM5 {fn fa} {
 				if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 					break
 				}
-				if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pn} {
+				if {[GetVal 5 [set ${fa}_geo($li)]] == $pn} {
 					# really second face?
 					set obuf1 [set ${fa}_geo($li)]
 					set avgbuf [AvgFaces $obuf1 $obuf]
@@ -334,7 +334,7 @@ proc TrimbleM5 {fn fa} {
 						set face2 1
 					} else {
 						GeoLog1 [format $geoEasyMsg(noface2) \
-							[GetVal {5 62} $obuf]]
+							[GetVal 5 $obuf]]
 					}
 					break
 				}

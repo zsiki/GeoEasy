@@ -454,7 +454,7 @@ proc NikonRAW {fn fa} {
                             set face2 1
                         } else {
                             GeoLog1 [format $geoEasyMsg(noface2) \
-                                [GetVal {5 62} $obuf]]
+                                [GetVal 5 $obuf]]
                         }
                         break
                     }

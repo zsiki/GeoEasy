@@ -326,7 +326,7 @@ proc Sokia {fn fa} {
 				}
 			}
 			set face2 0
-			set pnum [GetVal {5 62} $obuf]
+			set pnum [GetVal 5 $obuf]
 			if {$pnum == ""} {
 				#GeoLog1 [format "%-10s" [string range [GetVal 2 $obuf] 0 9]]
 			} else {
@@ -336,7 +336,7 @@ proc Sokia {fn fa} {
 					if {[string length [GetVal 2 [set ${fa}_geo($li)]]] != 0} {
 						break
 					}
-					if {[GetVal {5 62} [set ${fa}_geo($li)]] == $pn} {
+					if {[GetVal 5 [set ${fa}_geo($li)]] == $pn} {
 						# really second face?
 						set obuf1 [set ${fa}_geo($li)]
 						set avgbuf [AvgFaces $obuf1 $obuf]
@@ -344,7 +344,7 @@ proc Sokia {fn fa} {
 							set face2 1
 						} else {
 							GeoLog1 [format $geoEasyMsg(noface2) \
-								[GetVal {5 62} $obuf]]
+								[GetVal 5 $obuf]]
 						}
 						break
 					}

@@ -357,7 +357,7 @@ proc CalcTraverse {stlist {node 0}} {
 					warning 0 OK
 				return 0					 ;# next station or end of data set
 			}
-			set pn [GetVal {5 62} $buf]
+			set pn [GetVal 5 $buf]
 			if {$prev == 0 && $pn == $prevpn} {
 				# get horiz dist and horiz angle
 				set prevvals [TraVals $buf]
@@ -798,7 +798,7 @@ proc CalcTrigLine {stlist {node 0}} {
 			if {[info exists buf] == 0 || [GetVal 2 $buf] != ""} {
 				break	;# next station or end of geo data set
 			}
-			set pn [GetVal {5 62} $buf]
+			set pn [GetVal 5 $buf]
 			if {$i > 0 && $pn == $prevpn} {
 				set w [GetHd $actpn $st_buf $prevpn $buf];# get height diff
 				if {$w != ""} {
