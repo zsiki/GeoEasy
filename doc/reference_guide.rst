@@ -346,7 +346,7 @@ Standard deviation of levelling [mm/km]:
 
 Calculate refraction and Earth curve:
 	turn on to consider the affect of refraction and Earth curve for
-	distances longer than 400 meters
+	distances longer than 400 meters, it is used in triginometric height calculation
 
 Decimals in results:
 	number of figures after the decimal point in the Calculation results
@@ -361,7 +361,7 @@ Adjustment parameters
 	Adjustment parameters
 
 Confidence level (0-1):
-	Confidence level for detecting blunder, usual value 0.95 or 0.99.
+	Confidence level for detecting blunder, usual values are 0.95 or 0.99.
 
 Angle units:
 	Angle units in the output of adjustment (360 for DMS, 400 for GON)
