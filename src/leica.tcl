@@ -133,12 +133,12 @@ proc Leica {fn fa {fo ""}} {
 						0 { set val [expr {$val / 1000.0}] }
 						1 { set val [expr {$val / 1000.0 *  $FOOT2M}] }
 						2 { set val [Gon2Rad [expr {$val / 100000.0}]] }
-						3 { set val [expr {$val / 10000.0 / 180.0 * $PI}] }
+						3 { set val [expr {$val / 100000.0 / 180.0 * $PI}] }
 						4 { set m [string length $v]
 							set angle "[string range $v 0 [expr {$m - 6}]].[string range $v [expr {$m - 5}] end]"
 							set val [Deg2Rad $angle]
 							}
-						5 { set val [expr {$val / 6400.0 * $PI2}] }
+						5 { set val [expr {$val / 10000.0 / 6400.0 * $PI2}] }
 						6 { set val [expr {$val / 10000.0}] }
 						7 { set val [expr {$val / 10000.0 *  $FOOT2M}] }
 						8 { set val [expr {$val / 100000.0}] }
