@@ -1311,9 +1311,9 @@ proc GetPol {pn {flag 0}} {
 				set stpn [GetVal 2 $strec]				;# station name
                 set stcoo [GetCoord $stpn {38 37}   $fn]
 				if {$stcoo == "" && $flag} {
-					set stcoo [GetCoord $stpn {138 137} $fn]
-					if {$stcoo == ""} { continue }		;# no coord for station
-				}
+                        set stcoo [GetCoord $stpn {138 137} $fn]
+                }
+				if {$stcoo == ""} { continue }		;# no coord for station
 				set z [GetVal 101 $strec]				;# mean orientation
 				if {$z == "" && $flag} {
 					set z [GetVal 103 $strec]			;# approx mean ori
